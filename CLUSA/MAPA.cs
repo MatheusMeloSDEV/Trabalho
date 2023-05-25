@@ -12,21 +12,30 @@ namespace CLUSA
     {
         [BsonId]
         public ObjectId Id { get; set; }
-        [BsonElement("Name")]
-        public string Name { get; set; }
-        [BsonElement("Age")]
-        public string Age { get; set; }
-        [BsonElement("Mail")]
-        public string Mail { get; set; }
-        [BsonElement("Cachorro")]
-        public string Cachorro { get; set; }
+        [BsonElement ""]
+        public string Importador { get; set; }
+        public string Navio { get; set; }
+        public string Previsao { get; set; }
+        public string Terminal { get; set; }
+        public string Armazem { get; set; }
+        public string Container { get; set; }
+        public string Anuete { get; set; }
+        public string CE { get; set; }
+        public string Descricao { get; set; }
+        public bool Capa { get; set; }
 
-        public MAPA(string name, string age, string mail, string cachorro)
+        public MAPA(string importador, string navio, string previsao, string terminal, string armazem, string container, string anuete, string cE, string descricao, bool capa)
         {
-            Name = name;
-            Age = age;
-            Mail = mail;
-            Cachorro = cachorro;
+            Importador = importador;
+            Navio = navio;
+            Previsao = previsao;
+            Terminal = terminal;
+            Armazem = armazem;
+            Container = container;
+            Anuete = anuete;
+            CE = cE;
+            Descricao = descricao;
+            Capa = capa;
         }
     }
 }
