@@ -39,5 +39,19 @@ namespace Trabalho
                 mapa.Activate();
             }
         }
+
+        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(WindowState != FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                maximizarToolStripMenuItem.Text = "MInimizar";
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Minimized;
+            }
+            
+        }
     }
 }

@@ -34,15 +34,15 @@ namespace CLUSA
         public void Udpate(MAPA mapa)
         {
             var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
-            var update = Builders<MAPA>.Update.Set("Nome", mapa.Nome).Set("Telefone", mapa.Telefone).Set("Endereco", mapa.Endereco);
+            var update = Builders<MAPA>.Update.Set("Importador", mapa.Importador).Set("Navio", mapa.Navio).Set("Terminal", mapa.Terminal);
             _MAPA.UpdateOne(filter, update);
         }
         
         public RepositorioMAPA()
         {
-            var mongoClient = new MongoClient("mongodb+srv://guilherme218614:coxinha123@todoapp.d1y3kvy.mongodb.net/");
-            var mongoDatabase = mongoClient.GetDatabase("CRUD");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("agendaDB");
+            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
+            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
 
         }
     }

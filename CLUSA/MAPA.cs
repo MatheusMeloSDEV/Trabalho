@@ -12,7 +12,6 @@ namespace CLUSA
     {
         [BsonId]
         public ObjectId Id { get; set; }
-        [BsonElement ""]
         public string Importador { get; set; }
         public string Navio { get; set; }
         public string Previsao { get; set; }
