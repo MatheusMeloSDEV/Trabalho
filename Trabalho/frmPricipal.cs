@@ -42,16 +42,22 @@ namespace Trabalho
 
         private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(WindowState != FormWindowState.Maximized)
+            if (WindowState != FormWindowState.Maximized)
             {
                 this.WindowState = FormWindowState.Maximized;
-                maximizarToolStripMenuItem.Text = "MInimizar";
+                maximizarToolStripMenuItem.Text = "Normal";
             }
             else
             {
-                this.WindowState = FormWindowState.Minimized;
+                this.WindowState = FormWindowState.Normal;
+                maximizarToolStripMenuItem.Text = "Maximizar";
             }
-            
+
+        }
+
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
