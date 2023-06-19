@@ -11,30 +11,20 @@ namespace CLUSA
     public class MAPA
     {
         [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
-        public string Importador { get; set; }
-        public string Navio { get; set; }
-        public string Previsao { get; set; }
-        public string Terminal { get; set; }
-        public string Armazem { get; set; }
-        public string Container { get; set; }
-        public string Anuete { get; set; }
-        public string CE { get; set; }
-        public string Descricao { get; set; }
-        public bool Capa { get; set; }
+        public string NR {get; set; } = string.Empty;
+        public string SR { get; set; } = string.Empty;
+        public string Importador { get; set; } = string.Empty;
+        public string Navio { get; set; } = string.Empty;
+        public string Previsao { get; set; } = string.Empty;
+        public string Terminal { get; set; } = string.Empty;
+        public string Armazem { get; set; } = string.Empty;
+        public string Container { get; set; } = string.Empty;
+        public string Anuete { get; set; } = string.Empty;
+        public string CE { get; set; } = string.Empty;
+        public string Descricao { get; set; } = string.Empty;
+        public bool Capa { get; set; } = false;
 
-        public MAPA(string importador, string navio, string previsao, string terminal, string armazem, string container, string anuete, string cE, string descricao, bool capa)
-        {
-            Importador = importador;
-            Navio = navio;
-            Previsao = previsao;
-            Terminal = terminal;
-            Armazem = armazem;
-            Container = container;
-            Anuete = anuete;
-            CE = cE;
-            Descricao = descricao;
-            Capa = capa;
-        }
     }
 }
