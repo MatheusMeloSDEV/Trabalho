@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using Amazon.Runtime.EventStreams.Internal;
+using Amazon.Runtime.Internal;
+using MongoDB.Driver;
+using System.Text.RegularExpressions;
 
 namespace CLUSA
 {
@@ -29,8 +32,41 @@ namespace CLUSA
         public void Udpate(MAPA mapa)
         {
             var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
-            var update = Builders<MAPA>.Update.Set("Importador", mapa.Importador).Set("Navio", mapa.Navio).Set("Terminal", mapa.Terminal);
+            var update = Builders<MAPA>.Update
+                    .Set("NR", mapa.NR)
+                    .Set("SR",mapa.SR)
+                    .Set("Importador", mapa.Importador)
+                    .Set("Navio", mapa.Navio)
+                    .Set("Previsao", mapa.Previsao)
+                    .Set("Terminal", mapa.Terminal)
+                    .Set("Armazem", mapa.Armazem)
+                    .Set("Container", mapa.Container)
+                    .Set("Anuete",mapa.Anuete)
+                    .Set("CE", mapa.CE)
+                    .Set("Descricao", mapa.Descricao)
+                    .Set("Capa", mapa.Capa);
             _MAPA.UpdateOne(filter, update);
+        }
+
+        public List<MAPA> Find(string filtro, string pesquisa)
+        {
+            var filter = Builders<MAPA>.Filter.Empty;
+            if(filtro == "Importador")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if(filtro == "Navio")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.Navio, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            
+            return _MAPA.Find(filter).ToList();
+        }
+
+        public List<MAPA> FindAll()
+        {
+            var filter = Builders<MAPA>.Filter.Empty;
+            return _MAPA.Find<MAPA>(filter).ToList<MAPA>();
         }
 
         public RepositorioMAPA()

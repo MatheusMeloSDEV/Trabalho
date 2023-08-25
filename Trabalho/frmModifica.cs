@@ -22,12 +22,30 @@ namespace Trabalho
 
         private void frmModifica_Load(object sender, EventArgs e)
         {
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
             bsModificaMAPA.DataSource = mapa;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            mapa.Previsao = dateTimePicker1.Value.ToShortDateString();
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void btnOkMAPA_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
         }
     }
 }

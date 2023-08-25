@@ -18,11 +18,6 @@ namespace Trabalho
             InitializeComponent();
         }
 
-        private void frmPricipal_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void mAPAToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (mapa == null)

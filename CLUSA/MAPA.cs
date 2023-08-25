@@ -13,7 +13,7 @@ namespace CLUSA
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
-        public string NR {get; set; } = string.Empty;
+        public string NR { get; set; } = string.Empty;
         public string SR { get; set; } = string.Empty;
         public string Importador { get; set; } = string.Empty;
         public string Navio { get; set; } = string.Empty;

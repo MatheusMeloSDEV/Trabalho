@@ -93,7 +93,6 @@
             MainMenuStrip = menuStrip1;
             Name = "frmPricipal";
             Text = "   USA";
-            Load += frmPricipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
