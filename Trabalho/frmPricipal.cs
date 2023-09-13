@@ -54,5 +54,15 @@ namespace Trabalho
         {
             this.Close();
         }
+
+        private void planilhasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmPricipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
