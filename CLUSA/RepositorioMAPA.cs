@@ -34,32 +34,34 @@ namespace CLUSA
             var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
             var update = Builders<MAPA>.Update
                     .Set("NR", mapa.NR)
-                    .Set("SR",mapa.SR)
+                    .Set("SR", mapa.SR)
                     .Set("Importador", mapa.Importador)
-                    .Set("Navio", mapa.Navio)
                     .Set("Previsao", mapa.Previsao)
                     .Set("Terminal", mapa.Terminal)
-                    .Set("Armazem", mapa.Armazem)
-                    .Set("Container", mapa.Container)
-                    .Set("Anuete",mapa.Anuete)
-                    .Set("CE", mapa.CE)
-                    .Set("Descricao", mapa.Descricao)
-                    .Set("Capa", mapa.Capa);
+                    .Set("Pendência", mapa.Pendencia)
+                    .Set("CSIOriginal", mapa.CSI_Original)
+                    .Set("LI", mapa.LI)
+                    .Set("LPCO", mapa.LPCO)
+                    .Set("DataDeEntrada", mapa.DataDeEntrada)
+                    .Set("Parametrização", mapa.Parametrizacao)
+                    .Set("SEI", mapa.SEI)
+                    .Set("DataDeInspeção", mapa.DataDeInspeção)
+                    .Set("StatusDoProcesso", mapa.StatusDoProcesso);
             _MAPA.UpdateOne(filter, update);
         }
 
         public List<MAPA> Find(string filtro, string pesquisa)
         {
             var filter = Builders<MAPA>.Filter.Empty;
-            if(filtro == "Importador")
+            if (filtro == "Importador")
             {
                 filter = Builders<MAPA>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
-            if(filtro == "Navio")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.Navio, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            
+            //if (filtro == "Navio")
+            //{
+            //    filter = Builders<MAPA>.Filter.Regex(g => g.Navio, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            //}
+
             return _MAPA.Find(filter).ToList();
         }
 

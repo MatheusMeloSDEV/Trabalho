@@ -16,15 +16,16 @@ namespace CLUSA
         public string NR { get; set; } = string.Empty;
         public string SR { get; set; } = string.Empty;
         public string Importador { get; set; } = string.Empty;
-        public string Navio { get; set; } = string.Empty;
         public string Previsao { get; set; } = string.Empty;
         public string Terminal { get; set; } = string.Empty;
-        public string Armazem { get; set; } = string.Empty;
-        public string Container { get; set; } = string.Empty;
-        public string Anuete { get; set; } = string.Empty;
-        public string CE { get; set; } = string.Empty;
-        public string Descricao { get; set; } = string.Empty;
-        public bool Capa { get; set; } = false;
-
+        public string Pendencia { get; set; } = string.Empty;
+        public string CSI_Original { get; set; } = string.Empty;
+        public string LI { get; set; } = string.Empty;
+        public string LPCO { get; set; } = string.Empty;
+        public string DataDeEntrada { get; set; } = string.Empty;
+        public string Parametrizacao { get; set; } = string.Empty;
+        public string SEI { get; set; } = string.Empty;
+        public string DataDeInspeção { get; set; } = string.Empty;
+        public string StatusDoProcesso { get; set; } = string.Empty;
     }
 }

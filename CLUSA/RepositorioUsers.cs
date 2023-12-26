@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CLUSA
 {
@@ -19,7 +18,12 @@ namespace CLUSA
                 return _Users.Find<Users>(filter).ToList<Users>();
             }
         }
+        public string Login(string username, string password)
+        {
+            var filter = Builders<Users>.Filter.Eq(g => g.Username, username);
 
+            return _Users.Find<Users>(filter).ToString();
+        }
         public void Create(Users user)
         {
             _Users.InsertOne(user);
@@ -38,9 +42,9 @@ namespace CLUSA
                     .Set("Password", user.Password);
             _Users.UpdateOne(filter, update);
         }
-        public RepositorioUsers()
+        public RepositorioUsers(Users user)
         {
-            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var mongoClient = new MongoClient(string.Concat("mongodb+srv://", user.Username, ":", user.Password, "@cluster0.cn10nzt.mongodb.net/"));
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
             _Users = mongoDatabase.GetCollection<Users>("Users");
         }

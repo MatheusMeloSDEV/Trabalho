@@ -28,18 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
             maximizarToolStripMenuItem = new ToolStripMenuItem();
             sairToolStripMenuItem = new ToolStripMenuItem();
             planilhasToolStripMenuItem = new ToolStripMenuItem();
             mAPAToolStripMenuItem = new ToolStripMenuItem();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
+            decexToolStripMenuItem = new ToolStripMenuItem();
             aDMINToolStripMenuItem = new ToolStripMenuItem();
+            bindingSource1 = new BindingSource(components);
+            bindingSource2 = new BindingSource(components);
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource2).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -74,7 +76,7 @@
             // 
             // planilhasToolStripMenuItem
             // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem });
+            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem });
             planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
             planilhasToolStripMenuItem.Size = new Size(66, 20);
             planilhasToolStripMenuItem.Text = "Planilhas";
@@ -87,43 +89,23 @@
             mAPAToolStripMenuItem.Text = "MAPA";
             mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
             // 
-            // textBox1
+            // decexToolStripMenuItem
             // 
-            textBox1.Location = new Point(323, 188);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(196, 23);
-            textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(323, 240);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(196, 23);
-            textBox2.TabIndex = 3;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(247, 191);
-            label1.Name = "label1";
-            label1.Size = new Size(60, 15);
-            label1.TabIndex = 4;
-            label1.Text = "Username";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(247, 243);
-            label2.Name = "label2";
-            label2.Size = new Size(57, 15);
-            label2.TabIndex = 5;
-            label2.Text = "Password";
+            decexToolStripMenuItem.Name = "decexToolStripMenuItem";
+            decexToolStripMenuItem.Size = new Size(107, 22);
+            decexToolStripMenuItem.Text = "Decex";
+            decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
             // 
             // aDMINToolStripMenuItem
             // 
             aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
             aDMINToolStripMenuItem.Size = new Size(58, 20);
             aDMINToolStripMenuItem.Text = "ADMIN";
+            aDMINToolStripMenuItem.Click += aDMINToolStripMenuItem_Click;
+            // 
+            // bindingSource1
+            // 
+            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
             // 
             // frmPricipal
             // 
@@ -131,10 +113,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             ControlBox = false;
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
             IsMdiContainer = true;
@@ -144,6 +122,8 @@
             Load += frmPricipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -156,10 +136,9 @@
         private ToolStripMenuItem planilhasToolStripMenuItem;
         private ToolStripMenuItem mAPAToolStripMenuItem;
         private ToolStripMenuItem maximizarToolStripMenuItem;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Label label1;
-        private Label label2;
         private ToolStripMenuItem aDMINToolStripMenuItem;
+        private ToolStripMenuItem decexToolStripMenuItem;
+        private BindingSource bindingSource1;
+        private BindingSource bindingSource2;
     }
 }
