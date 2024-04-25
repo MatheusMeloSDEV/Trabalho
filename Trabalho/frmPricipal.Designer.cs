@@ -29,83 +29,100 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            menuStrip1 = new MenuStrip();
-            menuToolStripMenuItem = new ToolStripMenuItem();
-            maximizarToolStripMenuItem = new ToolStripMenuItem();
-            sairToolStripMenuItem = new ToolStripMenuItem();
-            planilhasToolStripMenuItem = new ToolStripMenuItem();
-            mAPAToolStripMenuItem = new ToolStripMenuItem();
-            decexToolStripMenuItem = new ToolStripMenuItem();
-            aDMINToolStripMenuItem = new ToolStripMenuItem();
-            bindingSource1 = new BindingSource(components);
-            bindingSource2 = new BindingSource(components);
-            menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bindingSource2).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPricipal));
+            lblError = new Label();
+            check = new PictureBox();
+            lblLogado = new Label();
+            btnLogin = new Button();
+            lblPassword = new Label();
+            lblUsername = new Label();
+            txtPassword = new TextBox();
+            txtUsername = new TextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            ((System.ComponentModel.ISupportInitialize)check).BeginInit();
             SuspendLayout();
             // 
-            // menuStrip1
+            // lblError
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, planilhasToolStripMenuItem, aDMINToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            lblError.AutoSize = true;
+            lblError.BackColor = SystemColors.Control;
+            lblError.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblError.ForeColor = Color.IndianRed;
+            lblError.Location = new Point(263, 141);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(274, 19);
+            lblError.TabIndex = 25;
+            lblError.Text = "Usuário ou Senha digitados incorretamente";
+            lblError.Visible = false;
             // 
-            // menuToolStripMenuItem
+            // check
             // 
-            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { maximizarToolStripMenuItem, sairToolStripMenuItem });
-            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            menuToolStripMenuItem.Size = new Size(50, 20);
-            menuToolStripMenuItem.Text = "Menu";
+            check.Anchor = AnchorStyles.None;
+            check.Image = (Image)resources.GetObject("check.Image");
+            check.Location = new Point(334, 237);
+            check.Name = "check";
+            check.Size = new Size(23, 20);
+            check.SizeMode = PictureBoxSizeMode.Zoom;
+            check.TabIndex = 24;
+            check.TabStop = false;
+            check.Visible = false;
             // 
-            // maximizarToolStripMenuItem
+            // lblLogado
             // 
-            maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
-            maximizarToolStripMenuItem.Size = new Size(129, 22);
-            maximizarToolStripMenuItem.Text = "Maximizar";
-            maximizarToolStripMenuItem.Click += maximizarToolStripMenuItem_Click;
+            lblLogado.Anchor = AnchorStyles.None;
+            lblLogado.AutoSize = true;
+            lblLogado.Location = new Point(363, 240);
+            lblLogado.Name = "lblLogado";
+            lblLogado.Size = new Size(104, 15);
+            lblLogado.TabIndex = 23;
+            lblLogado.Text = "Funções Liberadas";
+            lblLogado.Visible = false;
             // 
-            // sairToolStripMenuItem
+            // btnLogin
             // 
-            sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            sairToolStripMenuItem.Size = new Size(129, 22);
-            sairToolStripMenuItem.Text = "Sair";
-            sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
+            btnLogin.Location = new Point(363, 286);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(75, 23);
+            btnLogin.TabIndex = 22;
+            btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
-            // planilhasToolStripMenuItem
+            // lblPassword
             // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem });
-            planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
-            planilhasToolStripMenuItem.Size = new Size(66, 20);
-            planilhasToolStripMenuItem.Text = "Planilhas";
-            planilhasToolStripMenuItem.Click += planilhasToolStripMenuItem_Click;
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(274, 241);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(57, 15);
+            lblPassword.TabIndex = 21;
+            lblPassword.Text = "Password";
             // 
-            // mAPAToolStripMenuItem
+            // lblUsername
             // 
-            mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
-            mAPAToolStripMenuItem.Size = new Size(107, 22);
-            mAPAToolStripMenuItem.Text = "MAPA";
-            mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(271, 189);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(60, 15);
+            lblUsername.TabIndex = 20;
+            lblUsername.Text = "Username";
             // 
-            // decexToolStripMenuItem
+            // txtPassword
             // 
-            decexToolStripMenuItem.Name = "decexToolStripMenuItem";
-            decexToolStripMenuItem.Size = new Size(107, 22);
-            decexToolStripMenuItem.Text = "Decex";
-            decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
+            txtPassword.Location = new Point(334, 237);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(196, 23);
+            txtPassword.TabIndex = 19;
             // 
-            // aDMINToolStripMenuItem
+            // txtUsername
             // 
-            aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
-            aDMINToolStripMenuItem.Size = new Size(58, 20);
-            aDMINToolStripMenuItem.Text = "ADMIN";
-            aDMINToolStripMenuItem.Click += aDMINToolStripMenuItem_Click;
+            txtUsername.Location = new Point(334, 185);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(196, 23);
+            txtUsername.TabIndex = 18;
             // 
-            // bindingSource1
+            // timer1
             // 
-            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
+            timer1.Tick += timer1_Tick;
             // 
             // frmPricipal
             // 
@@ -113,32 +130,32 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             ControlBox = false;
-            Controls.Add(menuStrip1);
+            Controls.Add(lblError);
+            Controls.Add(check);
+            Controls.Add(lblLogado);
+            Controls.Add(btnLogin);
+            Controls.Add(lblPassword);
+            Controls.Add(lblUsername);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
-            IsMdiContainer = true;
-            MainMenuStrip = menuStrip1;
             Name = "frmPricipal";
-            Text = "   USA";
+            Text = "      Login";
             Load += frmPricipal_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bindingSource2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)check).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem menuToolStripMenuItem;
-        private ToolStripMenuItem sairToolStripMenuItem;
-        private ToolStripMenuItem planilhasToolStripMenuItem;
-        private ToolStripMenuItem mAPAToolStripMenuItem;
-        private ToolStripMenuItem maximizarToolStripMenuItem;
-        private ToolStripMenuItem aDMINToolStripMenuItem;
-        private ToolStripMenuItem decexToolStripMenuItem;
-        private BindingSource bindingSource1;
-        private BindingSource bindingSource2;
+        private Label lblError;
+        private PictureBox check;
+        private Label lblLogado;
+        private Button btnLogin;
+        private Label lblPassword;
+        private Label lblUsername;
+        private TextBox txtPassword;
+        private TextBox txtUsername;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -1,6 +1,4 @@
-﻿using Amazon.Runtime.EventStreams.Internal;
-using Amazon.Runtime.Internal;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System.Text.RegularExpressions;
 
 namespace CLUSA
@@ -38,12 +36,12 @@ namespace CLUSA
                     .Set("Importador", mapa.Importador)
                     .Set("Previsao", mapa.Previsao)
                     .Set("Terminal", mapa.Terminal)
-                    .Set("Pendência", mapa.Pendencia)
-                    .Set("CSIOriginal", mapa.CSI_Original)
+                    .Set("Pendencia", mapa.Pendencia)
+                    .Set("CSIOriginal", mapa.CSIOriginal)
                     .Set("LI", mapa.LI)
                     .Set("LPCO", mapa.LPCO)
                     .Set("DataDeEntrada", mapa.DataDeEntrada)
-                    .Set("Parametrização", mapa.Parametrizacao)
+                    .Set("Parametrizacao", mapa.Parametrizacao)
                     .Set("SEI", mapa.SEI)
                     .Set("DataDeInspeção", mapa.DataDeInspeção)
                     .Set("StatusDoProcesso", mapa.StatusDoProcesso);

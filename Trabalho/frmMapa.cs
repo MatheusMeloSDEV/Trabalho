@@ -1,7 +1,4 @@
-﻿using Amazon.Util;
-using CLUSA;
-using MongoDB.Driver.Linq;
-using Trabalho;
+﻿using CLUSA;
 
 namespace Trabalho
 {
@@ -11,13 +8,14 @@ namespace Trabalho
         public frmMapa()
         {
             InitializeComponent();
-            repositorio = new RepositorioMAPA();
         }
 
-        private void frmMapa_Load(object sender, EventArgs e)
+        async private void frmMapa_Load(object sender, EventArgs e)
         {
+            repositorio = new RepositorioMAPA();
             bsMAPA.DataSource = repositorio;
         }
+
         private void btnMAPAEditar_Click(object sender, EventArgs e)
         {
             frmModifica frm = new frmModifica();
@@ -70,21 +68,6 @@ namespace Trabalho
             }
         }
 
-        private void txtPesquisa_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnPesquisar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             repositorio = new RepositorioMAPA();
@@ -94,14 +77,13 @@ namespace Trabalho
 
         private void txtPesquisar_KeyUp(object sender, KeyEventArgs e)
         {
-            repositorio = new RepositorioMAPA();
-            bsMAPA.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
+            if (e.KeyCode == Keys.Enter)
+            {
+                repositorio = new RepositorioMAPA();
+                bsMAPA.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
+            }
         }
 
-        private void CmbPesquisar_Click(object sender, EventArgs e)
-        {
-
-        }
         private void frmMapa_FormClosed(object sender, FormClosedEventArgs e)
         {
             repositorio = null;
@@ -110,10 +92,6 @@ namespace Trabalho
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-        }
-
-        private void dataGridView1_Layout(object sender, LayoutEventArgs e)
-        {
         }
     }
 }

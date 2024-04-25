@@ -63,7 +63,7 @@
             previsaoDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             terminalDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             pendenciaDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            cSIOriginalDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            CSIOriginal = new DataGridViewTextBoxColumn();
             lIDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             lPCODataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataDeEntradaDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
@@ -98,7 +98,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn1, sRDataGridViewTextBoxColumn1, importadorDataGridViewTextBoxColumn1, previsaoDataGridViewTextBoxColumn1, terminalDataGridViewTextBoxColumn1, pendenciaDataGridViewTextBoxColumn1, cSIOriginalDataGridViewTextBoxColumn1, lIDataGridViewTextBoxColumn1, lPCODataGridViewTextBoxColumn1, dataDeEntradaDataGridViewTextBoxColumn1, parametrizacaoDataGridViewTextBoxColumn1, sEIDataGridViewTextBoxColumn1, dataDeInspeçãoDataGridViewTextBoxColumn1, statusDoProcessoDataGridViewTextBoxColumn1 });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn1, sRDataGridViewTextBoxColumn1, importadorDataGridViewTextBoxColumn1, previsaoDataGridViewTextBoxColumn1, terminalDataGridViewTextBoxColumn1, pendenciaDataGridViewTextBoxColumn1, CSIOriginal, lIDataGridViewTextBoxColumn1, lPCODataGridViewTextBoxColumn1, dataDeEntradaDataGridViewTextBoxColumn1, parametrizacaoDataGridViewTextBoxColumn1, sEIDataGridViewTextBoxColumn1, dataDeInspeçãoDataGridViewTextBoxColumn1, statusDoProcessoDataGridViewTextBoxColumn1 });
             dataGridView1.DataSource = bsMAPA;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
@@ -117,7 +117,6 @@
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            dataGridView1.Layout += dataGridView1_Layout;
             // 
             // toolStrip1
             // 
@@ -195,7 +194,6 @@
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(23, 32);
             btnPesquisar.Text = "toolStripButton1";
-            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // txtPesquisar
             // 
@@ -204,7 +202,6 @@
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.Size = new Size(250, 34);
             txtPesquisar.KeyUp += txtPesquisar_KeyUp;
-            txtPesquisar.Click += toolStripTextBox1_Click;
             // 
             // CmbPesquisar
             // 
@@ -214,7 +211,6 @@
             CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
             CmbPesquisar.Name = "CmbPesquisar";
             CmbPesquisar.Size = new Size(121, 23);
-            CmbPesquisar.Click += CmbPesquisar_Click;
             // 
             // nRDataGridViewTextBoxColumn
             // 
@@ -355,12 +351,12 @@
             pendenciaDataGridViewTextBoxColumn1.Name = "pendenciaDataGridViewTextBoxColumn1";
             pendenciaDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // cSIOriginalDataGridViewTextBoxColumn1
+            // CSIOriginal
             // 
-            cSIOriginalDataGridViewTextBoxColumn1.DataPropertyName = "CSI_Original";
-            cSIOriginalDataGridViewTextBoxColumn1.HeaderText = "CSI_Original";
-            cSIOriginalDataGridViewTextBoxColumn1.Name = "cSIOriginalDataGridViewTextBoxColumn1";
-            cSIOriginalDataGridViewTextBoxColumn1.ReadOnly = true;
+            CSIOriginal.DataPropertyName = "CSIOriginal";
+            CSIOriginal.HeaderText = "CSIOriginal";
+            CSIOriginal.Name = "CSIOriginal";
+            CSIOriginal.ReadOnly = true;
             // 
             // lIDataGridViewTextBoxColumn1
             // 
@@ -478,5 +474,6 @@
         private DataGridViewTextBoxColumn sEIDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataDeInspeçãoDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn CSIOriginal;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CLUSA;
-using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,26 +14,83 @@ namespace Trabalho
 {
     public partial class frmMenu : Form
     {
-        private RepositorioUsers repositorio;
+        frmPricipal principal;
+        frmMapa mapa;
+        frmADMIN admin;
+        frmDecex decex;
+
         public frmMenu()
         {
             InitializeComponent();
         }
 
-        private void frmMenu_Load(object sender, EventArgs e)
+        private void mAPAToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (mapa == null)
+            {
+                frmMapa MapaForm = new frmMapa();
+
+                MapaForm.WindowState = FormWindowState.Maximized;
+                this.Hide();
+                MapaForm.ShowDialog();
+            }
+            else
+            {
+                mapa.Activate();
+            }
+        }
+
+        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                maximizarToolStripMenuItem.Text = "Normal";
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+                maximizarToolStripMenuItem.Text = "Maximizar";
+            }
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Users users = new Users();
-            users.Username = txtUsername.Text;
-            users.Password = txtPassword.Text;
-            //txtResultado.Text = users.Username;
-            //txtResultado.Text = string.Concat("mongodb+srv://", txtUsername.ToString(), ":", txtPassword.ToString(), "@cluster0.cn10nzt.mongodb.net/");
-            repositorio = new RepositorioUsers(users);
-            txtResultado.Text = repositorio.Login(users.Username, users.Password);
+            this.Show();
+        }
+
+        private void aDMINToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (admin == null)
+            {
+                frmADMIN ADMINForm = new frmADMIN();
+
+                ADMINForm.MdiParent = this;
+                ADMINForm.WindowState = FormWindowState.Maximized;
+                ADMINForm.Show();
+
+            }
+            else
+            {
+                admin.Activate();
+            }
+        }
+
+        private void decexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (decex == null)
+            {
+                frmDecex DecexForm = new frmDecex();
+
+                DecexForm.MdiParent = this;
+                DecexForm.WindowState = FormWindowState.Maximized;
+                DecexForm.Show();
+            }
+            else
+            {
+                decex.Activate();
+            }
         }
     }
 }

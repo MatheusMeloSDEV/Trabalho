@@ -28,88 +28,94 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtResultado = new TextBox();
-            button1 = new Button();
-            label2 = new Label();
-            label1 = new Label();
-            txtPassword = new TextBox();
-            txtUsername = new TextBox();
+            menuStrip1 = new MenuStrip();
+            menuToolStripMenuItem = new ToolStripMenuItem();
+            maximizarToolStripMenuItem = new ToolStripMenuItem();
+            sairToolStripMenuItem = new ToolStripMenuItem();
+            planilhasToolStripMenuItem = new ToolStripMenuItem();
+            mAPAToolStripMenuItem = new ToolStripMenuItem();
+            decexToolStripMenuItem = new ToolStripMenuItem();
+            aDMINToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // txtResultado
+            // menuStrip1
             // 
-            txtResultado.Location = new Point(340, 87);
-            txtResultado.Name = "txtResultado";
-            txtResultado.Size = new Size(196, 23);
-            txtResultado.TabIndex = 15;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, planilhasToolStripMenuItem, aDMINToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 1;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // button1
+            // menuToolStripMenuItem
             // 
-            button1.Location = new Point(377, 341);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 14;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { maximizarToolStripMenuItem, sairToolStripMenuItem });
+            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            menuToolStripMenuItem.Size = new Size(50, 20);
+            menuToolStripMenuItem.Text = "Menu";
             // 
-            // label2
+            // maximizarToolStripMenuItem
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(264, 276);
-            label2.Name = "label2";
-            label2.Size = new Size(57, 15);
-            label2.TabIndex = 13;
-            label2.Text = "Password";
+            maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
+            maximizarToolStripMenuItem.Size = new Size(129, 22);
+            maximizarToolStripMenuItem.Text = "Maximizar";
             // 
-            // label1
+            // sairToolStripMenuItem
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(264, 224);
-            label1.Name = "label1";
-            label1.Size = new Size(60, 15);
-            label1.TabIndex = 12;
-            label1.Text = "Username";
+            sairToolStripMenuItem.Name = "sairToolStripMenuItem";
+            sairToolStripMenuItem.Size = new Size(129, 22);
+            sairToolStripMenuItem.Text = "Sair";
             // 
-            // txtPassword
+            // planilhasToolStripMenuItem
             // 
-            txtPassword.Location = new Point(340, 273);
-            txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(196, 23);
-            txtPassword.TabIndex = 11;
+            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem });
+            planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
+            planilhasToolStripMenuItem.Size = new Size(66, 20);
+            planilhasToolStripMenuItem.Text = "Planilhas";
             // 
-            // txtUsername
+            // mAPAToolStripMenuItem
             // 
-            txtUsername.Location = new Point(340, 221);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(196, 23);
-            txtUsername.TabIndex = 10;
+            mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
+            mAPAToolStripMenuItem.Size = new Size(107, 22);
+            mAPAToolStripMenuItem.Text = "MAPA";
+            // 
+            // decexToolStripMenuItem
+            // 
+            decexToolStripMenuItem.Name = "decexToolStripMenuItem";
+            decexToolStripMenuItem.Size = new Size(107, 22);
+            decexToolStripMenuItem.Text = "Decex";
+            // 
+            // aDMINToolStripMenuItem
+            // 
+            aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
+            aDMINToolStripMenuItem.Size = new Size(58, 20);
+            aDMINToolStripMenuItem.Text = "ADMIN";
             // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(txtResultado);
-            Controls.Add(button1);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(txtPassword);
-            Controls.Add(txtUsername);
+            Controls.Add(menuStrip1);
+            IsMdiContainer = true;
             Name = "frmMenu";
             Text = "frmMenu";
-            Load += frmMenu_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox txtResultado;
-        private Button button1;
-        private Label label2;
-        private Label label1;
-        private TextBox txtPassword;
-        private TextBox txtUsername;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem menuToolStripMenuItem;
+        private ToolStripMenuItem maximizarToolStripMenuItem;
+        private ToolStripMenuItem sairToolStripMenuItem;
+        private ToolStripMenuItem planilhasToolStripMenuItem;
+        private ToolStripMenuItem mAPAToolStripMenuItem;
+        private ToolStripMenuItem decexToolStripMenuItem;
+        private ToolStripMenuItem aDMINToolStripMenuItem;
     }
 }
