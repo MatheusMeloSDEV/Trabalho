@@ -1,6 +1,4 @@
-﻿using Amazon.Runtime.EventStreams.Internal;
-using Amazon.Runtime.Internal;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System.Text.RegularExpressions;
 
 namespace CLUSA
@@ -18,36 +16,45 @@ namespace CLUSA
             }
         }
 
-        public void Create(MAPA mapa)
+        public async Task Create(MAPA mapa)
         {
-            _MAPA.InsertOne(mapa);
+            await Task.Run(() =>
+            {
+                _MAPA.InsertOne(mapa);
+            });
         }
 
-        public void Delete(MAPA mapa)
+        public async Task Delete(MAPA mapa)
         {
-            var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
-            _MAPA.DeleteOne(filter);
+            await Task.Run(() =>
+            {
+                var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
+                _MAPA.DeleteOne(filter);
+            });
         }
 
-        public void Udpate(MAPA mapa)
+        public async Task Udpate(MAPA mapa)
         {
-            var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
-            var update = Builders<MAPA>.Update
-                    .Set("NR", mapa.NR)
-                    .Set("SR", mapa.SR)
-                    .Set("Importador", mapa.Importador)
-                    .Set("Previsao", mapa.Previsao)
-                    .Set("Terminal", mapa.Terminal)
-                    .Set("Pendência", mapa.Pendencia)
-                    .Set("CSIOriginal", mapa.CSI_Original)
-                    .Set("LI", mapa.LI)
-                    .Set("LPCO", mapa.LPCO)
-                    .Set("DataDeEntrada", mapa.DataDeEntrada)
-                    .Set("Parametrização", mapa.Parametrizacao)
-                    .Set("SEI", mapa.SEI)
-                    .Set("DataDeInspeção", mapa.DataDeInspeção)
-                    .Set("StatusDoProcesso", mapa.StatusDoProcesso);
-            _MAPA.UpdateOne(filter, update);
+            await Task.Run(() =>
+            {
+                var filter = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
+                var update = Builders<MAPA>.Update
+                        .Set("NR", mapa.NR)
+                        .Set("SR", mapa.SR)
+                        .Set("Importador", mapa.Importador)
+                        .Set("Previsao", mapa.Previsao)
+                        .Set("Terminal", mapa.Terminal)
+                        .Set("Pendencia", mapa.Pendencia)
+                        .Set("CSIOriginal", mapa.CSIOriginal)
+                        .Set("LI", mapa.LI)
+                        .Set("LPCO", mapa.LPCO)
+                        .Set("DataDeEntrada", mapa.DataDeEntrada)
+                        .Set("Parametrizacao", mapa.Parametrizacao)
+                        .Set("SEI", mapa.SEI)
+                        .Set("DataDeInspeção", mapa.DataDeInspeção)
+                        .Set("StatusDoProcesso", mapa.StatusDoProcesso);
+                _MAPA.UpdateOne(filter, update);
+            });
         }
 
         public List<MAPA> Find(string filtro, string pesquisa)
@@ -57,11 +64,6 @@ namespace CLUSA
             {
                 filter = Builders<MAPA>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
-            //if (filtro == "Navio")
-            //{
-            //    filter = Builders<MAPA>.Filter.Regex(g => g.Navio, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            //}
-
             return _MAPA.Find(filter).ToList();
         }
 
