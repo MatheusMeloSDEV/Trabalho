@@ -1,10 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CLUSA
 {
@@ -19,7 +14,7 @@ namespace CLUSA
         public string Previsao { get; set; } = string.Empty;
         public string Terminal { get; set; } = string.Empty;
         public string Pendencia { get; set; } = string.Empty;
-        public string CSI_Original { get; set; } = string.Empty;
+        public string CSIOriginal { get; set; } = string.Empty;
         public string LI { get; set; } = string.Empty;
         public string LPCO { get; set; } = string.Empty;
         public string DataDeEntrada { get; set; } = string.Empty;
