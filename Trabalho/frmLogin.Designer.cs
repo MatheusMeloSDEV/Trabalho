@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmPricipal
+    partial class frmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPricipal));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             lblError = new Label();
             check = new PictureBox();
             lblLogado = new Label();
@@ -38,12 +38,15 @@
             lblUsername = new Label();
             txtPassword = new TextBox();
             txtUsername = new TextBox();
-            timer1 = new System.Windows.Forms.Timer(components);
+            tLogado = new System.Windows.Forms.Timer(components);
+            tErro = new System.Windows.Forms.Timer(components);
+            btnFechar = new Button();
             ((System.ComponentModel.ISupportInitialize)check).BeginInit();
             SuspendLayout();
             // 
             // lblError
             // 
+            lblError.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblError.AutoSize = true;
             lblError.BackColor = SystemColors.Control;
             lblError.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -57,7 +60,7 @@
             // 
             // check
             // 
-            check.Anchor = AnchorStyles.None;
+            check.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             check.Image = (Image)resources.GetObject("check.Image");
             check.Location = new Point(334, 237);
             check.Name = "check";
@@ -69,7 +72,7 @@
             // 
             // lblLogado
             // 
-            lblLogado.Anchor = AnchorStyles.None;
+            lblLogado.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblLogado.AutoSize = true;
             lblLogado.Location = new Point(363, 240);
             lblLogado.Name = "lblLogado";
@@ -80,7 +83,8 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(363, 286);
+            btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnLogin.Location = new Point(370, 292);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(75, 23);
             btnLogin.TabIndex = 22;
@@ -90,6 +94,7 @@
             // 
             // lblPassword
             // 
+            lblPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPassword.AutoSize = true;
             lblPassword.Location = new Point(274, 241);
             lblPassword.Name = "lblPassword";
@@ -99,6 +104,7 @@
             // 
             // lblUsername
             // 
+            lblUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblUsername.AutoSize = true;
             lblUsername.Location = new Point(271, 189);
             lblUsername.Name = "lblUsername";
@@ -108,28 +114,49 @@
             // 
             // txtPassword
             // 
+            txtPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtPassword.Location = new Point(334, 237);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(196, 23);
             txtPassword.TabIndex = 19;
             // 
             // txtUsername
             // 
+            txtUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtUsername.Location = new Point(334, 185);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(196, 23);
             txtUsername.TabIndex = 18;
             // 
-            // timer1
+            // tLogado
             // 
-            timer1.Tick += timer1_Tick;
+            tLogado.Tick += timer1_Tick;
             // 
-            // frmPricipal
+            // tErro
             // 
+            tErro.Tick += tErro_Tick;
+            // 
+            // btnFechar
+            // 
+            btnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnFechar.ForeColor = Color.IndianRed;
+            btnFechar.Location = new Point(713, 12);
+            btnFechar.Name = "btnFechar";
+            btnFechar.Size = new Size(75, 23);
+            btnFechar.TabIndex = 26;
+            btnFechar.Text = "Fechar";
+            btnFechar.UseVisualStyleBackColor = true;
+            btnFechar.Click += this.btnFechar_Click;
+            // 
+            // frmLogin
+            // 
+            AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             ControlBox = false;
+            Controls.Add(btnFechar);
             Controls.Add(lblError);
             Controls.Add(check);
             Controls.Add(lblLogado);
@@ -138,9 +165,11 @@
             Controls.Add(lblUsername);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
-            Name = "frmPricipal";
-            Text = "      Login";
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
+            Name = "frmLogin";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "   Login";
             Load += frmPricipal_Load;
             ((System.ComponentModel.ISupportInitialize)check).EndInit();
             ResumeLayout(false);
@@ -156,6 +185,8 @@
         private Label lblUsername;
         private TextBox txtPassword;
         private TextBox txtUsername;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer tLogado;
+        private System.Windows.Forms.Timer tErro;
+        private Button btnFechar;
     }
 }

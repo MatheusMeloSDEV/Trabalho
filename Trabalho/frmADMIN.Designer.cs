@@ -28,54 +28,155 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            txtUsername = new TextBox();
-            txtPassword = new TextBox();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            dataGridView1 = new DataGridView();
+            iDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            usernameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            passwordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            adminDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            BSAdmin = new BindingSource(components);
+            btnAdcionar = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)BSAdmin).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // dataGridView1
             // 
-            button1.Location = new Point(358, 318);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { iDDataGridViewTextBoxColumn, usernameDataGridViewTextBoxColumn, passwordDataGridViewTextBoxColumn, adminDataGridViewCheckBoxColumn });
+            dataGridView1.DataSource = BSAdmin;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(656, 426);
+            dataGridView1.TabIndex = 3;
             // 
-            // txtUsername
+            // iDDataGridViewTextBoxColumn
             // 
-            txtUsername.Location = new Point(294, 174);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(156, 23);
-            txtUsername.TabIndex = 1;
+            iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            iDDataGridViewTextBoxColumn.ReadOnly = true;
+            iDDataGridViewTextBoxColumn.Visible = false;
             // 
-            // txtPassword
+            // usernameDataGridViewTextBoxColumn
             // 
-            txtPassword.Location = new Point(294, 214);
-            txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(156, 23);
-            txtPassword.TabIndex = 2;
+            usernameDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            usernameDataGridViewTextBoxColumn.DataPropertyName = "Username";
+            usernameDataGridViewTextBoxColumn.HeaderText = "Username";
+            usernameDataGridViewTextBoxColumn.Name = "usernameDataGridViewTextBoxColumn";
+            usernameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // passwordDataGridViewTextBoxColumn
+            // 
+            passwordDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            passwordDataGridViewTextBoxColumn.DataPropertyName = "Password";
+            passwordDataGridViewTextBoxColumn.HeaderText = "Password";
+            passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
+            passwordDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // adminDataGridViewCheckBoxColumn
+            // 
+            adminDataGridViewCheckBoxColumn.DataPropertyName = "Admin";
+            adminDataGridViewCheckBoxColumn.HeaderText = "Admin";
+            adminDataGridViewCheckBoxColumn.Name = "adminDataGridViewCheckBoxColumn";
+            adminDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // BSAdmin
+            // 
+            BSAdmin.DataMember = "ListaUsers";
+            BSAdmin.DataSource = typeof(CLUSA.RepositorioUsers);
+            // 
+            // btnAdcionar
+            // 
+            btnAdcionar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdcionar.Location = new Point(687, 33);
+            btnAdcionar.Name = "btnAdcionar";
+            btnAdcionar.Size = new Size(75, 23);
+            btnAdcionar.TabIndex = 4;
+            btnAdcionar.Text = "Adicionar";
+            btnAdcionar.UseVisualStyleBackColor = true;
+            btnAdcionar.Click += btnAdcionar_Click;
+            // 
+            // btnExcluir
+            // 
+            btnExcluir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnExcluir.Location = new Point(687, 96);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(75, 23);
+            btnExcluir.TabIndex = 5;
+            btnExcluir.Text = "Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
+            // 
+            // btnEditar
+            // 
+            btnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditar.Location = new Point(687, 158);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(75, 23);
+            btnEditar.TabIndex = 6;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // frmADMIN
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(txtPassword);
-            Controls.Add(txtUsername);
-            Controls.Add(button1);
+            ControlBox = false;
+            Controls.Add(btnEditar);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnAdcionar);
+            Controls.Add(dataGridView1);
             Name = "frmADMIN";
-            Text = "frmADMIN";
+            Text = "ADMIN";
+            FormClosed += frmADMIN_FormClosed;
             Load += frmADMIN_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)BSAdmin).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Button button1;
-        private TextBox txtUsername;
-        private TextBox txtPassword;
+        private DataGridView dataGridView1;
+        private Button btnAdcionar;
+        private Button btnExcluir;
+        private Button btnEditar;
+        private BindingSource BSAdmin;
+        private DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn passwordDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn adminDataGridViewCheckBoxColumn;
     }
 }

@@ -14,25 +14,34 @@ namespace Trabalho
 {
     public partial class frmMenu : Form
     {
-        frmPricipal principal;
         frmMapa mapa;
         frmADMIN admin;
         frmDecex decex;
+        frmMenu instance;
 
         public frmMenu()
         {
             InitializeComponent();
+            instance = this;
+            if(frmLogin.instance.logado.admin == false)
+            {
+                aDMINToolStripMenuItem.Visible = false;
+            }
+            tLiberaSaida.Interval = 3000;
+            tLiberaSaida.Tick += new System.EventHandler(this.tLiberaSaida_Tick);
+            sairToolStripMenuItem.Enabled = false;
+            tLiberaSaida.Start();
         }
 
         private void mAPAToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             if (mapa == null)
             {
                 frmMapa MapaForm = new frmMapa();
 
-                MapaForm.WindowState = FormWindowState.Maximized;
-                this.Hide();
-                MapaForm.ShowDialog();
+                MapaForm.MdiParent = this;
+                MapaForm.Show();
             }
             else
             {
@@ -40,24 +49,9 @@ namespace Trabalho
             }
         }
 
-        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (WindowState != FormWindowState.Maximized)
-            {
-                this.WindowState = FormWindowState.Maximized;
-                maximizarToolStripMenuItem.Text = "Normal";
-            }
-            else
-            {
-                this.WindowState = FormWindowState.Normal;
-                maximizarToolStripMenuItem.Text = "Maximizar";
-            }
-
-        }
-
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Show();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void aDMINToolStripMenuItem_Click(object sender, EventArgs e)
@@ -67,7 +61,6 @@ namespace Trabalho
                 frmADMIN ADMINForm = new frmADMIN();
 
                 ADMINForm.MdiParent = this;
-                ADMINForm.WindowState = FormWindowState.Maximized;
                 ADMINForm.Show();
 
             }
@@ -84,13 +77,23 @@ namespace Trabalho
                 frmDecex DecexForm = new frmDecex();
 
                 DecexForm.MdiParent = this;
-                DecexForm.WindowState = FormWindowState.Maximized;
                 DecexForm.Show();
             }
             else
             {
                 decex.Activate();
             }
+        }
+
+        private void frmMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tLiberaSaida_Tick(object sender, EventArgs e)
+        {
+            tLiberaSaida.Stop();
+            sairToolStripMenuItem.Enabled = true;
         }
     }
 }

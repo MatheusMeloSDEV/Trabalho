@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
+using System.ComponentModel;
 
 namespace CLUSA
 {
@@ -15,44 +17,79 @@ namespace CLUSA
                 return _Users.Find<Users>(filter).ToList<Users>();
             }
         }
-        public bool Login(string username, string password)
+        public Logado Login(Users user)
         {
-            var filter = Builders<Users>.Filter.Eq(g => g.Username, username);
-            try
+            Logado Log = new Logado();
+            bool? resultAdmin = null;
+            string? result = null;
+
+            var filter = Builders<Users>.Filter.Eq(g => g.Username, user.Username);
+            result = _Users.Find(filter)
+                             .FirstOrDefaultAsync<Users>()?
+                             .Result?.Password;
+
+            var filterAdmin = Builders<Users>.Filter.Eq(g => g.Username, user.Username);
+            resultAdmin = _Users.Find(filter)
+                             .FirstOrDefaultAsync<Users>()
+                             .Result?.Admin;
+
+            if (result == null)
             {
-                var result = _Users.Find(filter).FirstOrDefault().Password;
-                if(password == result)
+                return Log;
+            }
+            else
+            {
+                if (user.Password == result)
                 {
-                    return true;
+                    Log.log = true;
+                    if(resultAdmin == true)
+                    {
+                        Log.admin = true;
+                        return Log;
+                    }
+                    else
+                    {
+                        return Log;
+                    }
                 }
             }
-            catch(Exception e)
+            return Log;
+        }
+        public async Task Create(Users user, string USER)
+        {
+            await Task.Run(() =>
             {
-                Console.WriteLine(e);
-                return false;
-            }
-
-            return false;
-        }
-        public void Create(Users user)
-        {
-            _Users.InsertOne(user);
+                _Users.InsertOne(user);
+            });
         }
 
-        public void Delete(Users user)
+        public async Task Delete(Users user, string USER)
         {
-            var filter = Builders<Users>.Filter.Eq("Id", user.ID);
-            _Users.DeleteOne(filter);
+            await Task.Run(() => 
+            {
+                var filter = Builders<Users>.Filter.Eq("ID", user.ID);
+                _Users.DeleteOne(filter);
+            });
         }
-        public void Udpate(Users user)
+        public async Task Udpate(Users user, string USER)
         {
-            var filter = Builders<Users>.Filter.Eq("Id", user.ID);
-            var update = Builders<Users>.Update
-                    .Set("Username", user.Username)
-                    .Set("Password", user.Password);
-            _Users.UpdateOne(filter, update);
+            await Task.Run(() =>
+            {
+                var filter = Builders<Users>.Filter.Eq("ID", user.ID);
+                var update = Builders<Users>.Update
+                        .Set("Username", user.Username)
+                        .Set("Password", user.Password)
+                        .Set("Admin", user.Admin);
+                _Users.UpdateOne(filter, update);
+            });
         }
-        public RepositorioUsers(Users user)
+        public List<Users> FindAll()
+        {
+            var filter = Builders<Users>.Filter.Empty;
+            return _Users.Find<Users>(filter).ToList<Users>();
+        }
+
+        public RepositorioUsers()
         {
             var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");

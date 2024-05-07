@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
             maximizarToolStripMenuItem = new ToolStripMenuItem();
@@ -36,6 +37,7 @@
             mAPAToolStripMenuItem = new ToolStripMenuItem();
             decexToolStripMenuItem = new ToolStripMenuItem();
             aDMINToolStripMenuItem = new ToolStripMenuItem();
+            tLiberaSaida = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,6 +68,7 @@
             sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             sairToolStripMenuItem.Size = new Size(129, 22);
             sairToolStripMenuItem.Text = "Sair";
+            sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
             // 
             // planilhasToolStripMenuItem
             // 
@@ -79,28 +82,39 @@
             mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
             mAPAToolStripMenuItem.Size = new Size(107, 22);
             mAPAToolStripMenuItem.Text = "MAPA";
+            mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
             // 
             // decexToolStripMenuItem
             // 
             decexToolStripMenuItem.Name = "decexToolStripMenuItem";
             decexToolStripMenuItem.Size = new Size(107, 22);
             decexToolStripMenuItem.Text = "Decex";
+            decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
             // 
             // aDMINToolStripMenuItem
             // 
             aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
             aDMINToolStripMenuItem.Size = new Size(58, 20);
             aDMINToolStripMenuItem.Text = "ADMIN";
+            aDMINToolStripMenuItem.Click += aDMINToolStripMenuItem_Click;
+            // 
+            // tLiberaSaida
+            // 
+            tLiberaSaida.Tick += tLiberaSaida_Tick;
             // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            ControlBox = false;
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
+            MainMenuStrip = menuStrip1;
+            MinimizeBox = false;
             Name = "frmMenu";
-            Text = "frmMenu";
+            Text = "Área de trabalho";
+            Load += frmMenu_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -117,5 +131,6 @@
         private ToolStripMenuItem mAPAToolStripMenuItem;
         private ToolStripMenuItem decexToolStripMenuItem;
         private ToolStripMenuItem aDMINToolStripMenuItem;
+        private System.Windows.Forms.Timer tLiberaSaida;
     }
 }
