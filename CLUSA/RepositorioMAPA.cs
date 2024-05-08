@@ -56,6 +56,11 @@ namespace CLUSA
                 _MAPA.UpdateOne(filter, update);
             });
         }
+        public List<MAPA> FindAll()
+        {
+            var filter = Builders<MAPA>.Filter.Empty;
+            return _MAPA.Find<MAPA>(filter).ToList<MAPA>();
+        }
 
         public List<MAPA> Find(string filtro, string pesquisa)
         {
@@ -67,11 +72,6 @@ namespace CLUSA
             return _MAPA.Find(filter).ToList();
         }
 
-        public List<MAPA> FindAll()
-        {
-            var filter = Builders<MAPA>.Filter.Empty;
-            return _MAPA.Find<MAPA>(filter).ToList<MAPA>();
-        }
 
         public RepositorioMAPA()
         {
