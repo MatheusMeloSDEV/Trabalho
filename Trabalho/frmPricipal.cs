@@ -8,9 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Syncfusion.SfDataGrid.XForms.Renderers;
-using Xamarin.Forms;
-
 namespace Trabalho
 {
     public partial class frmPricipal : Form
