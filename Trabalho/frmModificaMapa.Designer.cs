@@ -105,7 +105,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(118, 170);
+            label3.Location = new Point(119, 170);
             label3.Name = "label3";
             label3.Size = new Size(69, 21);
             label3.TabIndex = 7;
@@ -114,7 +114,7 @@
             // insTerminal
             // 
             insTerminal.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Terminal", true));
-            insTerminal.Location = new Point(193, 168);
+            insTerminal.Location = new Point(194, 168);
             insTerminal.Name = "insTerminal";
             insTerminal.Size = new Size(157, 23);
             insTerminal.TabIndex = 6;

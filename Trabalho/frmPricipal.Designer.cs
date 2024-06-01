@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
             maximizarToolStripMenuItem = new ToolStripMenuItem();
@@ -36,12 +35,9 @@
             planilhasToolStripMenuItem = new ToolStripMenuItem();
             mAPAToolStripMenuItem = new ToolStripMenuItem();
             decexToolStripMenuItem = new ToolStripMenuItem();
+            processoToolStripMenuItem = new ToolStripMenuItem();
             aDMINToolStripMenuItem = new ToolStripMenuItem();
-            bindingSource1 = new BindingSource(components);
-            bindingSource2 = new BindingSource(components);
             menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bindingSource2).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -76,7 +72,7 @@
             // 
             // planilhasToolStripMenuItem
             // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem });
+            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem, processoToolStripMenuItem });
             planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
             planilhasToolStripMenuItem.Size = new Size(66, 20);
             planilhasToolStripMenuItem.Text = "Planilhas";
@@ -85,16 +81,23 @@
             // mAPAToolStripMenuItem
             // 
             mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
-            mAPAToolStripMenuItem.Size = new Size(107, 22);
+            mAPAToolStripMenuItem.Size = new Size(180, 22);
             mAPAToolStripMenuItem.Text = "MAPA";
             mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
             // 
             // decexToolStripMenuItem
             // 
             decexToolStripMenuItem.Name = "decexToolStripMenuItem";
-            decexToolStripMenuItem.Size = new Size(107, 22);
+            decexToolStripMenuItem.Size = new Size(180, 22);
             decexToolStripMenuItem.Text = "Decex";
             decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
+            // 
+            // processoToolStripMenuItem
+            // 
+            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
+            processoToolStripMenuItem.Size = new Size(180, 22);
+            processoToolStripMenuItem.Text = "Processo";
+            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
             // 
             // aDMINToolStripMenuItem
             // 
@@ -102,10 +105,6 @@
             aDMINToolStripMenuItem.Size = new Size(58, 20);
             aDMINToolStripMenuItem.Text = "ADMIN";
             aDMINToolStripMenuItem.Click += aDMINToolStripMenuItem_Click;
-            // 
-            // bindingSource1
-            // 
-            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
             // 
             // frmPricipal
             // 
@@ -122,8 +121,6 @@
             Load += frmPricipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bindingSource2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -138,7 +135,6 @@
         private ToolStripMenuItem maximizarToolStripMenuItem;
         private ToolStripMenuItem aDMINToolStripMenuItem;
         private ToolStripMenuItem decexToolStripMenuItem;
-        private BindingSource bindingSource1;
-        private BindingSource bindingSource2;
+        private ToolStripMenuItem processoToolStripMenuItem;
     }
 }

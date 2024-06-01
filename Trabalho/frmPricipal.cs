@@ -14,6 +14,7 @@ namespace Trabalho
     {
         private RepositorioUsers repositorio;
         frmMenu menu;
+        frmProcesso processo;
         frmMapa mapa;
         frmADMIN admin;
         frmDecex decex;
@@ -105,6 +106,7 @@ namespace Trabalho
         }
         private void planilhasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
 
         }
 
@@ -125,6 +127,23 @@ namespace Trabalho
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void processoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (processo == null)
+            {
+                frmProcesso ProcessoForm = new frmProcesso();
+
+                ProcessoForm.MdiParent = this;
+                ProcessoForm.WindowState = FormWindowState.Maximized;
+                ProcessoForm.Show();
+            }
+            else
+            {
+                processo.Activate();
+            }
 
         }
     }
