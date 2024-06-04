@@ -38,6 +38,7 @@
             decexToolStripMenuItem = new ToolStripMenuItem();
             aDMINToolStripMenuItem = new ToolStripMenuItem();
             tLiberaSaida = new System.Windows.Forms.Timer(components);
+            processoToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -72,7 +73,7 @@
             // 
             // planilhasToolStripMenuItem
             // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem });
+            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem, processoToolStripMenuItem });
             planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
             planilhasToolStripMenuItem.Size = new Size(66, 20);
             planilhasToolStripMenuItem.Text = "Planilhas";
@@ -80,14 +81,14 @@
             // mAPAToolStripMenuItem
             // 
             mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
-            mAPAToolStripMenuItem.Size = new Size(107, 22);
+            mAPAToolStripMenuItem.Size = new Size(180, 22);
             mAPAToolStripMenuItem.Text = "MAPA";
             mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
             // 
             // decexToolStripMenuItem
             // 
             decexToolStripMenuItem.Name = "decexToolStripMenuItem";
-            decexToolStripMenuItem.Size = new Size(107, 22);
+            decexToolStripMenuItem.Size = new Size(180, 22);
             decexToolStripMenuItem.Text = "Decex";
             decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
             // 
@@ -101,6 +102,13 @@
             // tLiberaSaida
             // 
             tLiberaSaida.Tick += tLiberaSaida_Tick;
+            // 
+            // processoToolStripMenuItem
+            // 
+            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
+            processoToolStripMenuItem.Size = new Size(180, 22);
+            processoToolStripMenuItem.Text = "Processo";
+            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
             // 
             // frmMenu
             // 
@@ -132,5 +140,6 @@
         private ToolStripMenuItem decexToolStripMenuItem;
         private ToolStripMenuItem aDMINToolStripMenuItem;
         private System.Windows.Forms.Timer tLiberaSaida;
+        private ToolStripMenuItem processoToolStripMenuItem;
     }
 }

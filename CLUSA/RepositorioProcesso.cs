@@ -10,6 +10,15 @@ namespace CLUSA
     public class RepositorioProcesso
     {
         private IMongoCollection<Processo> _Processo;
+        private IMongoCollection<Anvisa> _Anvisa;
+
+        public RepositorioProcesso()
+        {
+            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
+            _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
+            _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
+        }
 
         public List<Processo> ListaProcesso
         {
@@ -24,6 +33,9 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
+                Anvisa anvisa = new Anvisa();
+                anvisa.Importador = processo.Importador;
+                _Anvisa.InsertOne(anvisa);
                 _Processo.InsertOne(processo);
             });
         }

@@ -28,20 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
             dataGridView1 = new DataGridView();
             toolStrip1 = new ToolStrip();
+            btnAdicionar = new ToolStripButton();
+            btnExcluir = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnCancelar = new ToolStripButton();
             btnPesquisar = new ToolStripButton();
             txtPesquisar = new ToolStripTextBox();
             CmbPesquisar = new ToolStripComboBox();
-            btnAdicionar = new ToolStripButton();
-            btnExcluir = new ToolStripButton();
+            bsProcesso = new BindingSource(components);
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            sRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            importadorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            previsaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            terminalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bsProcesso).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
@@ -51,24 +61,27 @@
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.NullValue = null;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn, sRDataGridViewTextBoxColumn, importadorDataGridViewTextBoxColumn, previsaoDataGridViewTextBoxColumn, terminalDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
+            dataGridView1.DataSource = bsProcesso;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Location = new Point(12, 41);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
@@ -88,6 +101,30 @@
             toolStrip1.Size = new Size(800, 38);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
+            // 
+            // btnAdicionar
+            // 
+            btnAdicionar.BackColor = Color.GreenYellow;
+            btnAdicionar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnAdicionar.Image = (Image)resources.GetObject("btnAdicionar.Image");
+            btnAdicionar.ImageTransparentColor = Color.Magenta;
+            btnAdicionar.Margin = new Padding(5, 4, 0, 2);
+            btnAdicionar.Name = "btnAdicionar";
+            btnAdicionar.Size = new Size(62, 32);
+            btnAdicionar.Text = "Adicionar";
+            btnAdicionar.Click += btnAdicionar_Click;
+            // 
+            // btnExcluir
+            // 
+            btnExcluir.AutoSize = false;
+            btnExcluir.BackColor = Color.IndianRed;
+            btnExcluir.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnExcluir.Image = (Image)resources.GetObject("btnExcluir.Image");
+            btnExcluir.ImageTransparentColor = Color.Magenta;
+            btnExcluir.Margin = new Padding(5, 4, 0, 2);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(62, 32);
+            btnExcluir.Text = "Excluir";
             // 
             // btnEditar
             // 
@@ -143,28 +180,59 @@
             CmbPesquisar.Name = "CmbPesquisar";
             CmbPesquisar.Size = new Size(121, 23);
             // 
-            // btnAdicionar
+            // bsProcesso
             // 
-            btnAdicionar.BackColor = Color.GreenYellow;
-            btnAdicionar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnAdicionar.Image = (Image)resources.GetObject("btnAdicionar.Image");
-            btnAdicionar.ImageTransparentColor = Color.Magenta;
-            btnAdicionar.Margin = new Padding(5, 4, 0, 2);
-            btnAdicionar.Name = "btnAdicionar";
-            btnAdicionar.Size = new Size(62, 32);
-            btnAdicionar.Text = "Adicionar";
+            bsProcesso.DataMember = "ListaProcesso";
+            bsProcesso.DataSource = typeof(CLUSA.RepositorioProcesso);
             // 
-            // btnExcluir
+            // idDataGridViewTextBoxColumn
             // 
-            btnExcluir.AutoSize = false;
-            btnExcluir.BackColor = Color.IndianRed;
-            btnExcluir.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnExcluir.Image = (Image)resources.GetObject("btnExcluir.Image");
-            btnExcluir.ImageTransparentColor = Color.Magenta;
-            btnExcluir.Margin = new Padding(5, 4, 0, 2);
-            btnExcluir.Name = "btnExcluir";
-            btnExcluir.Size = new Size(62, 32);
-            btnExcluir.Text = "Excluir";
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nRDataGridViewTextBoxColumn
+            // 
+            nRDataGridViewTextBoxColumn.DataPropertyName = "NR";
+            nRDataGridViewTextBoxColumn.HeaderText = "NR";
+            nRDataGridViewTextBoxColumn.Name = "nRDataGridViewTextBoxColumn";
+            nRDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // sRDataGridViewTextBoxColumn
+            // 
+            sRDataGridViewTextBoxColumn.DataPropertyName = "SR";
+            sRDataGridViewTextBoxColumn.HeaderText = "SR";
+            sRDataGridViewTextBoxColumn.Name = "sRDataGridViewTextBoxColumn";
+            sRDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // importadorDataGridViewTextBoxColumn
+            // 
+            importadorDataGridViewTextBoxColumn.DataPropertyName = "Importador";
+            importadorDataGridViewTextBoxColumn.HeaderText = "Importador";
+            importadorDataGridViewTextBoxColumn.Name = "importadorDataGridViewTextBoxColumn";
+            importadorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // previsaoDataGridViewTextBoxColumn
+            // 
+            previsaoDataGridViewTextBoxColumn.DataPropertyName = "Previsao";
+            previsaoDataGridViewTextBoxColumn.HeaderText = "Previsao";
+            previsaoDataGridViewTextBoxColumn.Name = "previsaoDataGridViewTextBoxColumn";
+            previsaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // terminalDataGridViewTextBoxColumn
+            // 
+            terminalDataGridViewTextBoxColumn.DataPropertyName = "Terminal";
+            terminalDataGridViewTextBoxColumn.HeaderText = "Terminal";
+            terminalDataGridViewTextBoxColumn.Name = "terminalDataGridViewTextBoxColumn";
+            terminalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDoProcessoDataGridViewTextBoxColumn
+            // 
+            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
+            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // frmProcesso
             // 
@@ -175,9 +243,11 @@
             Controls.Add(dataGridView1);
             Name = "frmProcesso";
             Text = "frmProcesso";
+            Load += frmProcesso_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)bsProcesso).EndInit();
             ResumeLayout(false);
         }
 
@@ -192,5 +262,13 @@
         private ToolStripComboBox CmbPesquisar;
         private ToolStripButton btnAdicionar;
         private ToolStripButton btnExcluir;
+        private BindingSource bsProcesso;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn sRDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn terminalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn;
     }
 }

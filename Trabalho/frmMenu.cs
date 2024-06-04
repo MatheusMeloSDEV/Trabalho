@@ -18,12 +18,13 @@ namespace Trabalho
         frmADMIN admin;
         frmDecex decex;
         frmMenu instance;
+        frmProcesso processo;
 
         public frmMenu()
         {
             InitializeComponent();
             instance = this;
-            if(frmLogin.instance.logado.admin == false)
+            if (frmLogin.instance.logado.admin == false)
             {
                 aDMINToolStripMenuItem.Visible = false;
             }
@@ -35,7 +36,7 @@ namespace Trabalho
 
         private void mAPAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             if (mapa == null)
             {
                 frmMapa MapaForm = new frmMapa();
@@ -94,6 +95,22 @@ namespace Trabalho
         {
             tLiberaSaida.Stop();
             sairToolStripMenuItem.Enabled = true;
+        }
+
+        private void processoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (processo == null)
+            {
+                frmProcesso ProcessoForm = new frmProcesso();
+
+                ProcessoForm.MdiParent = this;
+                ProcessoForm.Show();
+
+            }
+            else
+            {
+                processo.Activate();
+            }
         }
     }
 }
