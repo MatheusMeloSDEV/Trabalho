@@ -11,6 +11,8 @@ namespace CLUSA
     {
         private IMongoCollection<Processo> _Processo;
         private IMongoCollection<Anvisa> _Anvisa;
+        private IMongoCollection<Decex> _Decex;
+        private IMongoCollection<MAPA> _MAPA;
 
         public RepositorioProcesso()
         {
@@ -18,6 +20,8 @@ namespace CLUSA
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
+            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
+            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
 
         public List<Processo> ListaProcesso
@@ -34,9 +38,33 @@ namespace CLUSA
             await Task.Run(() =>
             {
                 Anvisa anvisa = new Anvisa();
+                anvisa.NR = processo.NR;
+                anvisa.SR = processo.SR;
                 anvisa.Importador = processo.Importador;
-                _Anvisa.InsertOne(anvisa);
+                anvisa.Previsao = processo.Previsao;
+                anvisa.Terminal = processo.Terminal;
+                anvisa.StatusDoProcesso = processo.StatusDoProcesso;
+
+                Decex decex = new Decex();
+                decex.NR = processo.NR;
+                decex.SR = processo.SR;
+                decex.Importador = processo.Importador;
+                decex.Previsao = processo.Previsao;
+                decex.Terminal = processo.Terminal;
+                decex.StatusDoProcesso = processo.StatusDoProcesso;
+
+                MAPA mapa = new MAPA();
+                mapa.NR = processo.NR;
+                mapa.SR = processo.SR;
+                mapa.Importador = processo.Importador;
+                mapa.Previsao = processo.Previsao;
+                mapa.Terminal = processo.Terminal;
+                mapa.StatusDoProcesso = processo.StatusDoProcesso;
+
                 _Processo.InsertOne(processo);
+                _Anvisa.InsertOne(anvisa);
+                _Decex.InsertOne(decex);
+                _MAPA.InsertOne(mapa);
             });
         }
 

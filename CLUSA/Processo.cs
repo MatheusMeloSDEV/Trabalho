@@ -18,8 +18,6 @@ namespace CLUSA
         public string Importador { get; set; } = string.Empty;
         public string Previsao { get; set; } = string.Empty;
         public string Terminal { get; set; } = string.Empty;
-        
-
         public string StatusDoProcesso { get; set; } = string.Empty;
     }
 }

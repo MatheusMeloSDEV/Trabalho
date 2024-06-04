@@ -8,8 +8,8 @@ namespace CLUSA
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
-        public string NR { get; set; } = string.Empty;
-        public string SR { get; set; } = string.Empty;
+        public int NR { get; set; } = 0;
+        public int SR { get; set; } = 0;
         public string Importador { get; set; } = string.Empty;
         public string Previsao { get; set; } = string.Empty;
         public string Terminal { get; set; } = string.Empty;

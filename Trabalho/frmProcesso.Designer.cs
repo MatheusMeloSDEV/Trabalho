@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
             dataGridView1 = new DataGridView();
+            bsProcesso = new BindingSource(components);
             toolStrip1 = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
@@ -41,7 +42,6 @@
             btnPesquisar = new ToolStripButton();
             txtPesquisar = new ToolStripTextBox();
             CmbPesquisar = new ToolStripComboBox();
-            bsProcesso = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             sRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -50,8 +50,8 @@
             terminalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bsProcesso).BeginInit();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -89,6 +89,11 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 2;
+            // 
+            // bsProcesso
+            // 
+            bsProcesso.DataMember = "ListaProcesso";
+            bsProcesso.DataSource = typeof(CLUSA.RepositorioProcesso);
             // 
             // toolStrip1
             // 
@@ -180,17 +185,13 @@
             CmbPesquisar.Name = "CmbPesquisar";
             CmbPesquisar.Size = new Size(121, 23);
             // 
-            // bsProcesso
-            // 
-            bsProcesso.DataMember = "ListaProcesso";
-            bsProcesso.DataSource = typeof(CLUSA.RepositorioProcesso);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Visible = false;
             // 
             // nRDataGridViewTextBoxColumn
             // 
@@ -229,6 +230,7 @@
             // 
             // statusDoProcessoDataGridViewTextBoxColumn
             // 
+            statusDoProcessoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
             statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
             statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
@@ -245,9 +247,9 @@
             Text = "frmProcesso";
             Load += frmProcesso_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsProcesso).EndInit();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)bsProcesso).EndInit();
             ResumeLayout(false);
         }
 
