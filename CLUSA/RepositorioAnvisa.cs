@@ -1,15 +1,17 @@
 ﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CLUSA
 {
     public class RepositorioAnvisa
     {
         private IMongoCollection<Anvisa> _Anvisa;
+        public RepositorioAnvisa()
+        {
+            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
+            _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
+        }
 
         public List<Anvisa> ListaAnvisa
         {

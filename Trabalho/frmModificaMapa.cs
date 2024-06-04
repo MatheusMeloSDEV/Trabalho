@@ -30,8 +30,8 @@ namespace Trabalho
 
             if (!check())
             {
-                mapa.NR = insNR.Text;
-                mapa.SR = insSR.Text;
+                mapa.NR = int.Parse(insNR.Text);
+                mapa.SR = int.Parse(insSR.Text);
                 mapa.Importador = insImportador.Text;
                 mapa.Terminal = insTerminal.Text;
                 mapa.Pendencia = insPendencia.Text;

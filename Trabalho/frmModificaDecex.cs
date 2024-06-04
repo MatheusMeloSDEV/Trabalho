@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CLUSA;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,15 @@ namespace Trabalho
 {
     public partial class frmModificaDecex : Form
     {
+        public Decex decex;
         public frmModificaDecex()
         {
             InitializeComponent();
+        }
+
+        private void frmModificaDecex_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

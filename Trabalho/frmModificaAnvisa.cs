@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CLUSA;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,31 @@ namespace Trabalho
 {
     public partial class frmModificaAnvisa : Form
     {
+        public Anvisa anvisa;
         public frmModificaAnvisa()
         {
             InitializeComponent();
+        }
+
+        private void frmModificaAnvisa_Load(object sender, EventArgs e)
+        {
+            bsModificaAnvisa.DataSource = anvisa;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            anvisa.NR = int.Parse(insNR.Text);
+            anvisa.SR = int.Parse(insSR.Text);
+            anvisa.Importador = insImportador.Text;
+            anvisa.Terminal = insTerminal.Text;
+            anvisa.Pendencia = insPendencia.Text;
+            anvisa.LI = insLI.Text;
+            anvisa.LPCO = insLPCO.Text;
+            anvisa.StatusDoProcesso = insStatusdoProcesso.Text;
+            anvisa.Previsao = dtpPrevisao.Value.ToShortDateString();
+            anvisa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
+            anvisa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

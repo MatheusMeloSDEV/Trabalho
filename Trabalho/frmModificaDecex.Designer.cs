@@ -28,12 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmModificaDecex";
+            components = new System.ComponentModel.Container();
+            button2 = new Button();
+            bsModificaDecex = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)bsModificaDecex).BeginInit();
+            SuspendLayout();
+            // 
+            // button2
+            // 
+            button2.Location = new Point(713, 415);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 2;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // bsModificaDecex
+            // 
+            bsModificaDecex.DataSource = typeof(CLUSA.Decex);
+            // 
+            // frmModificaDecex
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(button2);
+            Name = "frmModificaDecex";
+            Text = "frmModificaDecex";
+            Load += frmModificaDecex_Load;
+            ((System.ComponentModel.ISupportInitialize)bsModificaDecex).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button button2;
+        private BindingSource bsModificaDecex;
     }
 }

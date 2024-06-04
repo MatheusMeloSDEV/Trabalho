@@ -9,14 +9,20 @@ namespace CLUSA
 {
     public class RepositorioDecex
     {
-        private IMongoCollection<Decex> _DECEX;
+        private IMongoCollection<Decex> _Decex;
+        public RepositorioDecex()
+        {
+            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
+            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
+        }
 
         public List<Decex> ListaDecex
         {
             get
             {
                 var filter = Builders<Decex>.Filter.Empty;
-                return _DECEX.Find<Decex>(filter).ToList<Decex>();
+                return _Decex.Find<Decex>(filter).ToList<Decex>();
             }
         }
 
@@ -24,7 +30,7 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
-                _DECEX.InsertOne(decex);
+                _Decex.InsertOne(decex);
             });
         }
 
@@ -33,7 +39,7 @@ namespace CLUSA
             await Task.Run(() =>
             {
                 var filter = Builders<Decex>.Filter.Eq("Id", decex.Id);
-                _DECEX.DeleteOne(filter);
+                _Decex.DeleteOne(filter);
             });
         }
 
@@ -52,7 +58,7 @@ namespace CLUSA
                         .Set("LI", decex.LI)
                         .Set("DataDeEntrada", decex.DataDeEntrada)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
-                _DECEX.UpdateOne(filter, update);
+                _Decex.UpdateOne(filter, update);
             });
         }
     }

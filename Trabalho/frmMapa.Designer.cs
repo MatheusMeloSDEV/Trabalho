@@ -234,6 +234,7 @@
             toolStrip1.Size = new Size(800, 38);
             toolStrip1.TabIndex = 8;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.ItemClicked += toolStrip1_ItemClicked;
             // 
             // btnAdicionar
             // 
