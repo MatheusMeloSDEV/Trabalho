@@ -61,9 +61,9 @@ namespace CLUSA
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisa, updateAnvisa);
 
-                MAPA mapa = new();
                 Processo processo = new();
                 Decex decex = new();
+                MAPA mapa = new();
 
                 var filterProcesso = Builders<Processo>.Filter.Eq(g => g.NR, anvisa.NR);
                 var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
@@ -76,6 +76,38 @@ namespace CLUSA
                         .Set("Terminal", processo.Terminal)
                         .Set("StatusDoProcesso", processo.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
+
+                var filterDecex = Builders<Decex>.Filter.Eq(g => g.NR, anvisa.NR);
+                var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
+                var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
+                var updateDecex = Builders<Decex>.Update
+                        .Set("NR", decex.NR)
+                        .Set("SR", decex.SR)
+                        .Set("Importador", decex.Importador)
+                        .Set("Previsao", decex.Previsao)
+                        .Set("Terminal", decex.Terminal)
+                        .Set("Pendencia", decex.Pendencia)
+                        .Set("LI", decex.LI)
+                        .Set("DataDeEntrada", decex.DataDeEntrada)
+                        .Set("StatusDoProcesso", decex.StatusDoProcesso);
+                _Decex.UpdateOne(filterDecex, updateDecex);
+
+                var filterMapa = Builders<MAPA>.Filter.Eq(g => g.NR, anvisa.NR);
+                var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
+                var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
+                var updateMapa = Builders<MAPA>.Update
+                        .Set("NR", mapa.NR)
+                        .Set("SR", mapa.SR)
+                        .Set("Importador", mapa.Importador)
+                        .Set("Previsao", mapa.Previsao)
+                        .Set("Terminal", mapa.Terminal)
+                        .Set("Pendencia", mapa.Pendencia)
+                        .Set("LI", mapa.LI)
+                        .Set("LPCO", mapa.LPCO)
+                        .Set("DataDeEntrada", mapa.DataDeEntrada)
+                        .Set("DataDeInspeção", mapa.DataDeInspeção)
+                        .Set("StatusDoProcesso", mapa.StatusDoProcesso);
+                _MAPA.UpdateOne(filterMapa, updateMapa);
             });
         }
     }
