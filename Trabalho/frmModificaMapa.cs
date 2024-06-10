@@ -36,8 +36,8 @@ namespace Trabalho
                 mapa.Terminal = insTerminal.Text;
                 mapa.Pendencia = insPendencia.Text;
                 mapa.CSIOriginal = insCSIOriginal.Text;
-                mapa.LI = insLI.Text;
-                mapa.LPCO = insLPCO.Text;
+                mapa.LI = int.Parse(insLI.Text);
+                mapa.LPCO = int.Parse(insLPCO.Text);
                 mapa.Parametrizacao = insParametrizacao.Text;
                 mapa.StatusDoProcesso = insStatusdoProcesso.Text;
                 mapa.Previsao = dtpPrevisao.Value.ToShortDateString();

@@ -9,7 +9,7 @@ namespace Trabalho
         {
             InitializeComponent();
             repositorio = new RepositorioAnvisa();
-            //bsAnvisa.DataSource = repositorio;
+            bsAnvisa.DataSource = repositorio;
         }
 
         private async void btnAdicionar_Click(object sender, EventArgs e)
@@ -22,7 +22,7 @@ namespace Trabalho
             if (frm.DialogResult == DialogResult.OK)
             {
                 await repositorio.Create(anvisa);
-                //bsAnvisa.Add(anvisa);
+                bsAnvisa.Add(anvisa);
             }
         }
 

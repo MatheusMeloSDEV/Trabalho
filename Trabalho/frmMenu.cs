@@ -19,6 +19,7 @@ namespace Trabalho
         frmDecex decex;
         frmMenu instance;
         frmProcesso processo;
+        frmAnvisa anvisa;
 
         public frmMenu()
         {
@@ -110,6 +111,22 @@ namespace Trabalho
             else
             {
                 processo.Activate();
+            }
+        }
+
+        private void anvisaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (anvisa == null)
+            {
+                frmAnvisa AnvisaForm = new frmAnvisa();
+
+                AnvisaForm.MdiParent = this;
+                AnvisaForm.Show();
+
+            }
+            else
+            {
+                anvisa.Activate();
             }
         }
     }

@@ -36,9 +36,10 @@
             planilhasToolStripMenuItem = new ToolStripMenuItem();
             mAPAToolStripMenuItem = new ToolStripMenuItem();
             decexToolStripMenuItem = new ToolStripMenuItem();
+            processoToolStripMenuItem = new ToolStripMenuItem();
             aDMINToolStripMenuItem = new ToolStripMenuItem();
             tLiberaSaida = new System.Windows.Forms.Timer(components);
-            processoToolStripMenuItem = new ToolStripMenuItem();
+            anvisaToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -73,7 +74,7 @@
             // 
             // planilhasToolStripMenuItem
             // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem, processoToolStripMenuItem });
+            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { processoToolStripMenuItem, mAPAToolStripMenuItem, anvisaToolStripMenuItem, decexToolStripMenuItem });
             planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
             planilhasToolStripMenuItem.Size = new Size(66, 20);
             planilhasToolStripMenuItem.Text = "Planilhas";
@@ -92,6 +93,13 @@
             decexToolStripMenuItem.Text = "Decex";
             decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
             // 
+            // processoToolStripMenuItem
+            // 
+            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
+            processoToolStripMenuItem.Size = new Size(180, 22);
+            processoToolStripMenuItem.Text = "Processo";
+            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
+            // 
             // aDMINToolStripMenuItem
             // 
             aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
@@ -103,12 +111,12 @@
             // 
             tLiberaSaida.Tick += tLiberaSaida_Tick;
             // 
-            // processoToolStripMenuItem
+            // anvisaToolStripMenuItem
             // 
-            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
-            processoToolStripMenuItem.Size = new Size(180, 22);
-            processoToolStripMenuItem.Text = "Processo";
-            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
+            anvisaToolStripMenuItem.Name = "anvisaToolStripMenuItem";
+            anvisaToolStripMenuItem.Size = new Size(180, 22);
+            anvisaToolStripMenuItem.Text = "Anvisa";
+            anvisaToolStripMenuItem.Click += anvisaToolStripMenuItem_Click;
             // 
             // frmMenu
             // 
@@ -141,5 +149,6 @@
         private ToolStripMenuItem aDMINToolStripMenuItem;
         private System.Windows.Forms.Timer tLiberaSaida;
         private ToolStripMenuItem processoToolStripMenuItem;
+        private ToolStripMenuItem anvisaToolStripMenuItem;
     }
 }

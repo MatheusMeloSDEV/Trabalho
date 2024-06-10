@@ -15,8 +15,8 @@ namespace CLUSA
         public string Terminal { get; set; } = string.Empty;
         public string Pendencia { get; set; } = string.Empty;
         public string CSIOriginal { get; set; } = string.Empty;
-        public string LI { get; set; } = string.Empty;
-        public string LPCO { get; set; } = string.Empty;
+        public int LI { get; set; } = 0;
+        public int LPCO { get; set; } = 0;
         public string DataDeEntrada { get; set; } = string.Empty;
         public string Parametrizacao { get; set; } = string.Empty;
         public string SEI { get; set; } = string.Empty;
