@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System.Text.RegularExpressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,6 @@ namespace CLUSA
     public class RepositorioDecex
     {
         private IMongoCollection<Decex> _Decex;
-        public RepositorioDecex()
-        {
-            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
-            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
-            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
-        }
 
         public List<Decex> ListaDecex
         {
@@ -60,6 +55,12 @@ namespace CLUSA
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Decex.UpdateOne(filter, update);
             });
+        }
+        public RepositorioDecex()
+        {
+            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
+            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
         }
     }
 }

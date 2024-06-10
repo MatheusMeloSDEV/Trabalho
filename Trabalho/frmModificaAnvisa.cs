@@ -31,8 +31,8 @@ namespace Trabalho
             anvisa.Importador = insImportador.Text;
             anvisa.Terminal = insTerminal.Text;
             anvisa.Pendencia = insPendencia.Text;
-            anvisa.LI = insLI.Text;
-            anvisa.LPCO = insLPCO.Text;
+            anvisa.LI = int.Parse(insLI.Text);
+            anvisa.LPCO = int.Parse(insLPCO.Text);
             anvisa.StatusDoProcesso = insStatusdoProcesso.Text;
             anvisa.Previsao = dtpPrevisao.Value.ToShortDateString();
             anvisa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();

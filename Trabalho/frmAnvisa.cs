@@ -4,22 +4,25 @@ namespace Trabalho
 {
     public partial class frmAnvisa : Form
     {
+        private RepositorioAnvisa repositorio;
         public frmAnvisa()
         {
             InitializeComponent();
+            repositorio = new RepositorioAnvisa();
+            //bsAnvisa.DataSource = repositorio;
         }
 
-        private void btnAdicionar_Click(object sender, EventArgs e)
+        private async void btnAdicionar_Click(object sender, EventArgs e)
         {
-            Anvisa processo = new Anvisa();
+            Anvisa anvisa = new Anvisa();
             frmModificaAnvisa frm = new frmModificaAnvisa();
-            frm.processo = processo;
+            frm.anvisa = anvisa;
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
             {
-                await repositorio.Create(processo);
-                bsAnvisa.Add(processo);
+                await repositorio.Create(anvisa);
+                //bsAnvisa.Add(anvisa);
             }
         }
 

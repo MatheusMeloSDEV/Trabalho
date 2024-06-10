@@ -63,7 +63,7 @@
             // dtpDatadeInspecao
             // 
             dtpDatadeInspecao.DataBindings.Add(new Binding("Value", bsModificaAnvisa, "DataDeInspeção", true));
-            dtpDatadeInspecao.Location = new Point(353, 272);
+            dtpDatadeInspecao.Location = new Point(348, 266);
             dtpDatadeInspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeInspecao.Name = "dtpDatadeInspecao";
             dtpDatadeInspecao.Size = new Size(135, 23);
@@ -74,7 +74,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label13.Location = new Point(360, 248);
+            label13.Location = new Point(355, 242);
             label13.Name = "label13";
             label13.Size = new Size(128, 21);
             label13.TabIndex = 54;
@@ -83,7 +83,7 @@
             // dtpDatadeEntrada
             // 
             dtpDatadeEntrada.DataBindings.Add(new Binding("Value", bsModificaAnvisa, "DataDeEntrada", true));
-            dtpDatadeEntrada.Location = new Point(178, 272);
+            dtpDatadeEntrada.Location = new Point(173, 266);
             dtpDatadeEntrada.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeEntrada.Name = "dtpDatadeEntrada";
             dtpDatadeEntrada.Size = new Size(135, 23);
@@ -93,7 +93,7 @@
             // dtpPrevisao
             // 
             dtpPrevisao.DataBindings.Add(new Binding("Value", bsModificaAnvisa, "Previsao", true));
-            dtpPrevisao.Location = new Point(516, 272);
+            dtpPrevisao.Location = new Point(511, 266);
             dtpPrevisao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpPrevisao.Name = "dtpPrevisao";
             dtpPrevisao.Size = new Size(135, 23);
@@ -104,7 +104,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(416, 53);
+            label11.Location = new Point(419, 53);
             label11.Name = "label11";
             label11.Size = new Size(35, 21);
             label11.TabIndex = 50;
@@ -114,7 +114,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(264, 53);
+            label9.Location = new Point(267, 53);
             label9.Name = "label9";
             label9.Size = new Size(38, 21);
             label9.TabIndex = 49;
@@ -123,7 +123,7 @@
             // insSR
             // 
             insSR.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "SR", true));
-            insSR.Location = new Point(457, 51);
+            insSR.Location = new Point(460, 51);
             insSR.Name = "insSR";
             insSR.Size = new Size(100, 23);
             insSR.TabIndex = 48;
@@ -131,7 +131,7 @@
             // insNR
             // 
             insNR.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "NR", true));
-            insNR.Location = new Point(306, 51);
+            insNR.Location = new Point(309, 51);
             insNR.Name = "insNR";
             insNR.Size = new Size(100, 23);
             insNR.TabIndex = 47;
@@ -167,7 +167,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(470, 188);
+            label5.Location = new Point(446, 168);
             label5.Name = "label5";
             label5.Size = new Size(22, 21);
             label5.TabIndex = 43;
@@ -176,16 +176,16 @@
             // insLI
             // 
             insLI.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "LI", true));
-            insLI.Location = new Point(498, 186);
+            insLI.Location = new Point(474, 166);
             insLI.Name = "insLI";
-            insLI.Size = new Size(204, 23);
+            insLI.Size = new Size(222, 23);
             insLI.TabIndex = 42;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(193, 248);
+            label6.Location = new Point(188, 242);
             label6.Name = "label6";
             label6.Size = new Size(120, 21);
             label6.TabIndex = 41;
@@ -213,7 +213,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(118, 159);
+            label3.Location = new Point(118, 168);
             label3.Name = "label3";
             label3.Size = new Size(69, 21);
             label3.TabIndex = 35;
@@ -222,7 +222,7 @@
             // insTerminal
             // 
             insTerminal.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "Terminal", true));
-            insTerminal.Location = new Point(193, 157);
+            insTerminal.Location = new Point(193, 166);
             insTerminal.Name = "insTerminal";
             insTerminal.Size = new Size(157, 23);
             insTerminal.TabIndex = 34;
@@ -231,7 +231,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(546, 248);
+            label4.Location = new Point(541, 242);
             label4.Name = "label4";
             label4.Size = new Size(69, 21);
             label4.TabIndex = 33;
@@ -241,7 +241,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(452, 159);
+            label2.Location = new Point(446, 130);
             label2.Name = "label2";
             label2.Size = new Size(49, 21);
             label2.TabIndex = 32;
@@ -250,7 +250,7 @@
             // insLPCO
             // 
             insLPCO.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "LPCO", true));
-            insLPCO.Location = new Point(507, 157);
+            insLPCO.Location = new Point(501, 128);
             insLPCO.Name = "insLPCO";
             insLPCO.Size = new Size(195, 23);
             insLPCO.TabIndex = 31;
@@ -259,7 +259,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(118, 121);
+            label1.Location = new Point(118, 130);
             label1.Name = "label1";
             label1.Size = new Size(89, 21);
             label1.TabIndex = 30;
@@ -268,7 +268,7 @@
             // insImportador
             // 
             insImportador.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "Importador", true));
-            insImportador.Location = new Point(213, 119);
+            insImportador.Location = new Point(213, 128);
             insImportador.Name = "insImportador";
             insImportador.Size = new Size(137, 23);
             insImportador.TabIndex = 29;
