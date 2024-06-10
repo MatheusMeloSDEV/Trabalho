@@ -30,5 +30,19 @@ namespace Trabalho
         {
 
         }
+
+        private async void btnEditar_Click(object sender, EventArgs e)
+        {
+            frmModificaAnvisa frm = new frmModificaAnvisa();
+            frm.anvisa = bsAnvisa.Current as Anvisa;
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                await repositorio.Udpate(frm.anvisa);
+                bsAnvisa.ResetBindings(false);
+            }
+            bsAnvisa.DataSource = repositorio.FindAll();
+        }
     }
 }

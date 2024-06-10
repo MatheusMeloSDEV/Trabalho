@@ -23,5 +23,19 @@ namespace Trabalho
         {
 
         }
+
+        private void btnOkMAPA_Click(object sender, EventArgs e)
+        {
+            decex.NR = int.Parse(insNR.Text);
+            decex.SR = int.Parse(insSR.Text);
+            decex.Importador = insImportador.Text;
+            decex.Terminal = insTerminal.Text;
+            decex.Pendencia = insPendencia.Text;
+            decex.LI = int.Parse(insLI.Text);
+            decex.StatusDoProcesso = insStatusdoProcesso.Text;
+            decex.Previsao = dtpPrevisao.Value.ToShortDateString();
+            decex.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
+            this.DialogResult = DialogResult.OK;
+        }
     }
 }

@@ -111,6 +111,12 @@ namespace CLUSA
 
             });
         }
+        public List<Decex> FindAll()
+        {
+            var filter = Builders<Decex>.Filter.Empty;
+            return _Decex.Find<Decex>(filter).ToList<Decex>();
+        }
+
         public RepositorioDecex()
         {
             var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");

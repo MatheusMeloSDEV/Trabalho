@@ -231,6 +231,7 @@
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(62, 32);
             btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnCancelar
             // 

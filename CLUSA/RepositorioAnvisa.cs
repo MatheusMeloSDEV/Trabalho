@@ -110,5 +110,10 @@ namespace CLUSA
                 _MAPA.UpdateOne(filterMapa, updateMapa);
             });
         }
+        public List<Anvisa> FindAll()
+        {
+            var filter = Builders<Anvisa>.Filter.Empty;
+            return _Anvisa.Find<Anvisa>(filter).ToList<Anvisa>();
+        }
     }
 }

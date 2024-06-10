@@ -30,5 +30,19 @@ namespace Trabalho
                 bsDecex.Add(decex);
             }
         }
+
+        private async void btnEditar_Click(object sender, EventArgs e)
+        {
+            frmModificaDecex frm = new frmModificaDecex();
+            frm.decex = bsDecex.Current as Decex;
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                await repositorio.Udpate(frm.decex);
+                bsDecex.ResetBindings(false);
+            }
+            bsDecex.DataSource = repositorio.FindAll();
+        }
     }
 }
