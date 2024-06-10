@@ -5,7 +5,10 @@ namespace CLUSA
 {
     public class RepositorioAnvisa
     {
+        private IMongoCollection<Processo> _Processo;
         private IMongoCollection<Anvisa> _Anvisa;
+        private IMongoCollection<Decex> _Decex;
+        private IMongoCollection<MAPA> _MAPA;
         public RepositorioAnvisa()
         {
             var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
@@ -43,8 +46,8 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
-                var filter = Builders<Anvisa>.Filter.Eq("Id", anvisa.Id);
-                var update = Builders<Anvisa>.Update
+                var filterAnvisa = Builders<Anvisa>.Filter.Eq("Id", anvisa.Id);
+                var updateAnvisa = Builders<Anvisa>.Update
                         .Set("NR", anvisa.NR)
                         .Set("SR", anvisa.SR)
                         .Set("Importador", anvisa.Importador)
@@ -56,7 +59,23 @@ namespace CLUSA
                         .Set("DataDeEntrada", anvisa.DataDeEntrada)
                         .Set("DataDeInspeção", anvisa.DataDeInspeção)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
-                _Anvisa.UpdateOne(filter, update);
+                _Anvisa.UpdateOne(filterAnvisa, updateAnvisa);
+
+                MAPA mapa = new();
+                Processo processo = new();
+                Decex decex = new();
+
+                var filterProcesso = Builders<Processo>.Filter.Eq(g => g.NR, anvisa.NR);
+                var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
+                var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
+                var updateProcesso = Builders<Processo>.Update
+                        .Set("NR", processo.NR)
+                        .Set("SR", processo.SR)
+                        .Set("Importador", processo.Importador)
+                        .Set("Previsao", processo.Previsao)
+                        .Set("Terminal", processo.Terminal)
+                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
+                _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
             });
         }
     }

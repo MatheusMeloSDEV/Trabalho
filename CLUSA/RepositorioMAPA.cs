@@ -5,6 +5,9 @@ namespace CLUSA
 {
     public class RepositorioMAPA
     {
+        private IMongoCollection<Processo> _Processo;
+        private IMongoCollection<Anvisa> _Anvisa;
+        private IMongoCollection<Decex> _Decex;
         private IMongoCollection<MAPA> _MAPA;
 
         public List<MAPA> ListaMapa
