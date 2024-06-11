@@ -21,7 +21,9 @@ namespace Trabalho
 
         private void frmModificaDecex_Load(object sender, EventArgs e)
         {
-
+            dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
+            dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
+            bsModificaDecex.DataSource = decex;
         }
 
         private void btnOkMAPA_Click(object sender, EventArgs e)

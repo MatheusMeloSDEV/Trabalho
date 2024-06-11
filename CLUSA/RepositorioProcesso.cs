@@ -96,12 +96,12 @@ namespace CLUSA
                 var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
                 var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
                 var updateMapa = Builders<MAPA>.Update
-                        .Set("NR", mapa.NR)
-                        .Set("SR", mapa.SR)
-                        .Set("Importador", mapa.Importador)
-                        .Set("Previsao", mapa.Previsao)
-                        .Set("Terminal", mapa.Terminal)
-                        .Set("StatusDoProcesso", mapa.StatusDoProcesso);
+                        .Set("NR", processo.NR)
+                        .Set("SR", processo.SR)
+                        .Set("Importador", processo.Importador)
+                        .Set("Previsao", processo.Previsao)
+                        .Set("Terminal", processo.Terminal)
+                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapaUpdate, updateMapa);
 
                 Anvisa anvisa = new();
@@ -109,11 +109,11 @@ namespace CLUSA
                 var resultIDAnvisa = _Anvisa.Find(filterAnvisa).FirstOrDefaultAsync<Anvisa>().Result?.Id;
                 var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
                 var updateAnvisa = Builders<Anvisa>.Update
-                        .Set("NR", mapa.NR)
-                        .Set("SR", mapa.SR)
-                        .Set("Importador", mapa.Importador)
-                        .Set("Previsao", mapa.Previsao)
-                        .Set("Terminal", mapa.Terminal)
+                        .Set("NR", processo.NR)
+                        .Set("SR", processo.SR)
+                        .Set("Importador", processo.Importador)
+                        .Set("Previsao", processo.Previsao)
+                        .Set("Terminal", processo.Terminal)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisaUpdate, updateAnvisa);
 
@@ -122,12 +122,12 @@ namespace CLUSA
                 var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
                 var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
                 var updateDecex = Builders<Decex>.Update
-                        .Set("NR", decex.NR)
-                        .Set("SR", decex.SR)
-                        .Set("Importador", decex.Importador)
-                        .Set("Previsao", decex.Previsao)
-                        .Set("Terminal", decex.Terminal)
-                        .Set("StatusDoProcesso", decex.StatusDoProcesso);
+                        .Set("NR", processo.NR)
+                        .Set("SR", processo.SR)
+                        .Set("Importador", processo.Importador)
+                        .Set("Previsao", processo.Previsao)
+                        .Set("Terminal", processo.Terminal)
+                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecexUpdate, updateDecex);
             });
         }
