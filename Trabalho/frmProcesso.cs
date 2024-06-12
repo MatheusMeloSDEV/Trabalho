@@ -26,9 +26,26 @@ namespace Trabalho
             }
         }
 
-        private void frmProcesso_Load(object sender, EventArgs e)
+        private async void btnExcluir_Click(object sender, EventArgs e)
         {
+            await repositorio.Delete(bsProcesso.Current as Processo);
+            bsProcesso.Remove(bsProcesso.Current as Processo);
+            bsProcesso.ResetBindings(false);
+            bsProcesso.DataSource = repositorio.FindAll();
+        }
 
+        private async void btnEditar_Click(object sender, EventArgs e)
+        {
+            frmModificaProcesso frm = new();
+            frm.processo = bsProcesso.Current as Processo;
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                await repositorio.Update(frm.processo);
+                bsProcesso.ResetBindings(false);
+            }
+            bsProcesso.DataSource = repositorio.FindAll();
         }
     }
 }

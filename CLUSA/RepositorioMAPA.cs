@@ -37,7 +37,7 @@ namespace CLUSA
             });
         }
 
-        public async Task Udpate(MAPA mapa)
+        public async Task Update(MAPA mapa)
         {
             await Task.Run(() =>
             {

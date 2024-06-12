@@ -12,20 +12,6 @@ namespace Trabalho
             bsAnvisa.DataSource = repositorio;
         }
 
-        private async void btnAdicionar_Click(object sender, EventArgs e)
-        {
-            Anvisa anvisa = new Anvisa();
-            frmModificaAnvisa frm = new frmModificaAnvisa();
-            frm.anvisa = anvisa;
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                await repositorio.Create(anvisa);
-                bsAnvisa.Add(anvisa);
-            }
-        }
-
         private void frmAnvisa_Load(object sender, EventArgs e)
         {
 
@@ -51,14 +37,6 @@ namespace Trabalho
             bsAnvisa.Remove(bsAnvisa.Current as Anvisa);
             bsAnvisa.ResetBindings(false);
             bsAnvisa.DataSource = repositorio.FindAll();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            repositorio = new RepositorioAnvisa();
-            bsAnvisa.DataSource = repositorio.FindAll();
-            CmbPesquisar.Text = "";
-            txtPesquisar.Text = "";
         }
     }
 }
