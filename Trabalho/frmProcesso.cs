@@ -47,5 +47,21 @@ namespace Trabalho
             }
             bsProcesso.DataSource = repositorio.FindAll();
         }
+
+        private void CmbPesquisar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPesquisar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            repositorio = new RepositorioProcesso();
+            bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CLUSA
@@ -135,6 +136,35 @@ namespace CLUSA
         {
             var filter = Builders<Processo>.Filter.Empty;
             return _Processo.Find<Processo>(filter).ToList<Processo>();
+        }
+        public List<Processo> Find(string filtro, string pesquisa)
+        {
+            var filter = Builders<Processo>.Filter.Empty;
+            if (filtro == "NR")
+            {
+                filter = Builders<Processo>.Filter.Eq(g => g.NR, int.Parse(pesquisa));
+            }
+            if (filtro == "SR")
+            {
+                filter = Builders<Processo>.Filter.Eq(g => g.SR, int.Parse(pesquisa));
+            }
+            if (filtro == "Importador")
+            {
+                filter = Builders<Processo>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Previsao")
+            {
+                filter = Builders<Processo>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Terminal")
+            {
+                filter = Builders<Processo>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "StatusDoProcesso")
+            {
+                filter = Builders<Processo>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            return _Processo.Find(filter).ToList();
         }
     }
 }

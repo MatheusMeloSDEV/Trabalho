@@ -109,6 +109,47 @@ namespace CLUSA
             var filter = Builders<Decex>.Filter.Empty;
             return _Decex.Find<Decex>(filter).ToList<Decex>();
         }
+        public List<Decex> Find(string filtro, string pesquisa)
+        {
+            var filter = Builders<Decex>.Filter.Empty;
+            if (filtro == "NR")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.NR, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "SR")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.SR, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Importador")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Previsao")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Terminal")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Pendencia")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "LI")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.LI, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "DataDeEntrada")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.DataDeEntrada, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "StatusDoProcesso")
+            {
+                filter = Builders<Decex>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            return _Decex.Find(filter).ToList();
+        }
 
         public RepositorioDecex()
         {

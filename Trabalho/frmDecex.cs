@@ -52,5 +52,10 @@ namespace Trabalho
             bsDecex.ResetBindings(false);
             bsDecex.DataSource = repositorio.FindAll();
         }
+
+        private void CmbPesquisar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

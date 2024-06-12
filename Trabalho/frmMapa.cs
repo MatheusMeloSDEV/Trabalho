@@ -87,5 +87,10 @@ namespace Trabalho
             repositorio = new RepositorioMAPA();
             bsMAPA.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
         }
+
+        private void CmbPesquisar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

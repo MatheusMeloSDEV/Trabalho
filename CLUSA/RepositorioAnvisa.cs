@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System.Text.RegularExpressions;
 
 
 namespace CLUSA
@@ -117,6 +118,55 @@ namespace CLUSA
         {
             var filter = Builders<Anvisa>.Filter.Empty;
             return _Anvisa.Find<Anvisa>(filter).ToList<Anvisa>();
+        }
+        public List<Anvisa> Find(string filtro, string pesquisa)
+        {
+            var filter = Builders<Anvisa>.Filter.Empty;
+            if (filtro == "NR")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.NR, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "SR")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.SR, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Importador")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Previsao")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Terminal")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Pendencia")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "LI")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.LI, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "LPCO")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.LPCO, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "DataDeEntrada")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.DataDeEntrada, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "DataDeInspeção")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.DataDeInspeção, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "StatusDoProcesso")
+            {
+                filter = Builders<Anvisa>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            return _Anvisa.Find(filter).ToList();
         }
     }
 }

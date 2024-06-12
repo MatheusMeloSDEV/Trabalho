@@ -111,9 +111,61 @@ namespace CLUSA
         public List<MAPA> Find(string filtro, string pesquisa)
         {
             var filter = Builders<MAPA>.Filter.Empty;
+            if (filtro == "NR")
+            {
+                filter = Builders<MAPA>.Filter.Eq(g => g.NR, int.Parse(pesquisa));
+            }
+            if (filtro == "SR")
+            {
+                filter = Builders<MAPA>.Filter.Eq(g => g.SR, int.Parse(pesquisa));
+            }
             if (filtro == "Importador")
             {
                 filter = Builders<MAPA>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Previsao")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Terminal")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Pendencia")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "CSIOriginal")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.CSIOriginal, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "LI")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.LI, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "LPCO")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.LPCO, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "DataDeEntrada")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.DataDeEntrada, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "Parametrizacao")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.Parametrizacao, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "SEI")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.SEI, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "DataDeInspeção")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.DataDeInspeção, new Regex(pesquisa, RegexOptions.IgnoreCase));
+            }
+            if (filtro == "StatusDoProcesso")
+            {
+                filter = Builders<MAPA>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
             return _MAPA.Find(filter).ToList();
         }

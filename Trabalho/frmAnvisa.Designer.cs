@@ -258,7 +258,7 @@
             // 
             CmbPesquisar.Alignment = ToolStripItemAlignment.Right;
             CmbPesquisar.AutoSize = false;
-            CmbPesquisar.Items.AddRange(new object[] { "Importador", "Navio", "Terminal", "Armazem", "Anuete" });
+            CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "Pendencia", "LI", "LPCO", "DataDeEntrada", "DataDeInspeção", "StatusDoProcesso" });
             CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
             CmbPesquisar.Name = "CmbPesquisar";
             CmbPesquisar.Size = new Size(121, 23);
