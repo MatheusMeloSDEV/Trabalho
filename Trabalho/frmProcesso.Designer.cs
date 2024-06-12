@@ -164,7 +164,7 @@
             btnAdicionar.DisplayStyle = ToolStripItemDisplayStyle.Text;
             btnAdicionar.Image = (Image)resources.GetObject("btnAdicionar.Image");
             btnAdicionar.ImageTransparentColor = Color.Magenta;
-            btnAdicionar.Margin = new Padding(5, 4, 0, 2);
+            btnAdicionar.Margin = new Padding(11, 4, 0, 2);
             btnAdicionar.Name = "btnAdicionar";
             btnAdicionar.Size = new Size(62, 32);
             btnAdicionar.Text = "Adicionar";
@@ -181,6 +181,7 @@
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(62, 32);
             btnExcluir.Text = "Excluir";
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
@@ -193,6 +194,7 @@
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(62, 32);
             btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnCancelar
             // 
@@ -247,7 +249,6 @@
             Name = "frmProcesso";
             Text = "frmProcesso";
             WindowState = FormWindowState.Maximized;
-            Load += frmProcesso_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsProcesso).EndInit();
             toolStrip1.ResumeLayout(false);

@@ -131,5 +131,10 @@ namespace CLUSA
                 _Decex.UpdateOne(filterDecexUpdate, updateDecex);
             });
         }
+        public List<Processo> FindAll()
+        {
+            var filter = Builders<Processo>.Filter.Empty;
+            return _Processo.Find<Processo>(filter).ToList<Processo>();
+        }
     }
 }

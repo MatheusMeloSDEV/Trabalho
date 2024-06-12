@@ -26,18 +26,52 @@ namespace Trabalho
 
         private void button2_Click(object sender, EventArgs e)
         {
-            anvisa.NR = int.Parse(insNR.Text);
-            anvisa.SR = int.Parse(insSR.Text);
-            anvisa.Importador = insImportador.Text;
-            anvisa.Terminal = insTerminal.Text;
-            anvisa.Pendencia = insPendencia.Text;
-            anvisa.LI = int.Parse(insLI.Text);
-            anvisa.LPCO = int.Parse(insLPCO.Text);
-            anvisa.StatusDoProcesso = insStatusdoProcesso.Text;
-            anvisa.Previsao = dtpPrevisao.Value.ToShortDateString();
-            anvisa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
-            anvisa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
-            this.DialogResult = DialogResult.OK;
+            tError.Interval = 1500;
+            tError.Tick += new System.EventHandler(this.tError_Tick);
+            btnOkMAPA.Enabled = false;
+            tError.Start();
+
+            if (!check()) 
+            {
+                anvisa.NR = int.Parse(insNR.Text);
+                anvisa.SR = int.Parse(insSR.Text);
+                anvisa.Importador = insImportador.Text;
+                anvisa.Terminal = insTerminal.Text;
+                anvisa.Pendencia = insPendencia.Text;
+                anvisa.LI = int.Parse(insLI.Text);
+                anvisa.LPCO = int.Parse(insLPCO.Text);
+                anvisa.StatusDoProcesso = insStatusdoProcesso.Text;
+                anvisa.Previsao = dtpPrevisao.Value.ToShortDateString();
+                anvisa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
+                anvisa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
+                this.DialogResult = DialogResult.OK;
+            }
+        }
+
+        private bool check()
+        {
+            bool block = false;
+            tError.Interval = 1500;
+            tError.Tick += new System.EventHandler(this.tError_Tick);
+
+            if (insImportador.Text == "") { insImportador.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insLI.Text == "") { insLI.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insLPCO.Text == "") { insLPCO.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insNR.Text == "") { insNR.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insPendencia.Text == "") { insPendencia.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insStatusdoProcesso.Text == "") { insStatusdoProcesso.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insTerminal.Text == "") { insTerminal.BackColor = Color.MistyRose; block = true; tError.Start(); }
+            if (insSR.Text == "") { insSR.BackColor = Color.MistyRose; block = true; tError.Start(); }
+
+            return block;
+        }
+
+        private void tError_Tick(object sender, EventArgs e)
+        {
+            insPendencia.BackColor = Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White;
+            insLI.BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
+            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOkMAPA.Enabled = true;
+            tError.Stop();
         }
     }
 }

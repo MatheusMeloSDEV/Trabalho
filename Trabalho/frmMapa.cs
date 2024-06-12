@@ -45,7 +45,7 @@ namespace Trabalho
 
             if (frm.DialogResult == DialogResult.OK)
             {
-                await repositorio.Udpate(frm.mapa);
+                await repositorio.Update(frm.mapa);
                 bsMAPA.ResetBindings(false);
             }
             bsMAPA.DataSource = repositorio.FindAll();

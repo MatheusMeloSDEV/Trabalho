@@ -53,6 +53,7 @@
             insLPCO = new TextBox();
             label1 = new Label();
             insImportador = new TextBox();
+            tError = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)bsModificaAnvisa).BeginInit();
             SuspendLayout();
             // 
@@ -273,6 +274,10 @@
             insImportador.Size = new Size(137, 23);
             insImportador.TabIndex = 29;
             // 
+            // tError
+            // 
+            tError.Tick += tError_Tick;
+            // 
             // frmModificaAnvisa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -334,5 +339,6 @@
         private TextBox insLPCO;
         private Label label1;
         private TextBox insImportador;
+        private System.Windows.Forms.Timer tError;
     }
 }
