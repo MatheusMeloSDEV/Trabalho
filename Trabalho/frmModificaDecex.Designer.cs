@@ -49,6 +49,7 @@
             label4 = new Label();
             label1 = new Label();
             insImportador = new TextBox();
+            tError = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)bsModificaDecex).BeginInit();
             SuspendLayout();
             // 
@@ -58,9 +59,9 @@
             // 
             // dtpDatadeEntrada
             // 
-            dtpDatadeEntrada.DataBindings.Add(new Binding("Text", bsModificaDecex, "DataDeEntrada", true));
             dtpDatadeEntrada.DataBindings.Add(new Binding("Value", bsModificaDecex, "DataDeEntrada", true));
             dtpDatadeEntrada.DataBindings.Add(new Binding("Tag", bsModificaDecex, "DataDeEntrada", true));
+            dtpDatadeEntrada.DataBindings.Add(new Binding("Text", bsModificaDecex, "DataDeEntrada", true));
             dtpDatadeEntrada.Location = new Point(92, 169);
             dtpDatadeEntrada.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeEntrada.Name = "dtpDatadeEntrada";
@@ -243,6 +244,10 @@
             insImportador.Size = new Size(137, 23);
             insImportador.TabIndex = 26;
             // 
+            // tError
+            // 
+            tError.Tick += tError_Tick;
+            // 
             // frmModificaDecex
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -296,5 +301,6 @@
         private Label label4;
         private Label label1;
         private TextBox insImportador;
+        private System.Windows.Forms.Timer tError;
     }
 }

@@ -44,5 +44,13 @@ namespace Trabalho
             }
             bsDecex.DataSource = repositorio.FindAll();
         }
+
+        private async void btnExcluir_Click(object sender, EventArgs e)
+        {
+            await repositorio.Delete(bsDecex.Current as Decex);
+            bsDecex.Remove(bsDecex.Current as Decex);
+            bsDecex.ResetBindings(false);
+            bsDecex.DataSource = repositorio.FindAll();
+        }
     }
 }

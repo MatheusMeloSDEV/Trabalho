@@ -21,6 +21,9 @@ namespace Trabalho
 
         private void frmModificaAnvisa_Load(object sender, EventArgs e)
         {
+            dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
+            dtpDatadeInspecao.Format = DateTimePickerFormat.Custom; dtpDatadeInspecao.CustomFormat = "dd/MM/yyyy";
+            dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
             bsModificaAnvisa.DataSource = anvisa;
         }
 

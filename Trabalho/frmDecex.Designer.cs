@@ -33,6 +33,14 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDecex));
             dataGridView1 = new DataGridView();
+            bsDecex = new BindingSource(components);
+            toolStrip1 = new ToolStrip();
+            btnExcluir = new ToolStripButton();
+            btnEditar = new ToolStripButton();
+            btnCancelar = new ToolStripButton();
+            btnPesquisar = new ToolStripButton();
+            txtPesquisar = new ToolStripTextBox();
+            CmbPesquisar = new ToolStripComboBox();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             sRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -43,15 +51,6 @@
             lIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataDeEntradaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            bsDecex = new BindingSource(components);
-            toolStrip1 = new ToolStrip();
-            btnAdicionar = new ToolStripButton();
-            btnExcluir = new ToolStripButton();
-            btnEditar = new ToolStripButton();
-            btnCancelar = new ToolStripButton();
-            btnPesquisar = new ToolStripButton();
-            txtPesquisar = new ToolStripTextBox();
-            CmbPesquisar = new ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsDecex).BeginInit();
             toolStrip1.SuspendLayout();
@@ -93,76 +92,6 @@
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 1;
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nRDataGridViewTextBoxColumn
-            // 
-            nRDataGridViewTextBoxColumn.DataPropertyName = "NR";
-            nRDataGridViewTextBoxColumn.HeaderText = "NR";
-            nRDataGridViewTextBoxColumn.Name = "nRDataGridViewTextBoxColumn";
-            nRDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // sRDataGridViewTextBoxColumn
-            // 
-            sRDataGridViewTextBoxColumn.DataPropertyName = "SR";
-            sRDataGridViewTextBoxColumn.HeaderText = "SR";
-            sRDataGridViewTextBoxColumn.Name = "sRDataGridViewTextBoxColumn";
-            sRDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // importadorDataGridViewTextBoxColumn
-            // 
-            importadorDataGridViewTextBoxColumn.DataPropertyName = "Importador";
-            importadorDataGridViewTextBoxColumn.HeaderText = "Importador";
-            importadorDataGridViewTextBoxColumn.Name = "importadorDataGridViewTextBoxColumn";
-            importadorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // previsaoDataGridViewTextBoxColumn
-            // 
-            previsaoDataGridViewTextBoxColumn.DataPropertyName = "Previsao";
-            previsaoDataGridViewTextBoxColumn.HeaderText = "Previsao";
-            previsaoDataGridViewTextBoxColumn.Name = "previsaoDataGridViewTextBoxColumn";
-            previsaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // terminalDataGridViewTextBoxColumn
-            // 
-            terminalDataGridViewTextBoxColumn.DataPropertyName = "Terminal";
-            terminalDataGridViewTextBoxColumn.HeaderText = "Terminal";
-            terminalDataGridViewTextBoxColumn.Name = "terminalDataGridViewTextBoxColumn";
-            terminalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pendenciaDataGridViewTextBoxColumn
-            // 
-            pendenciaDataGridViewTextBoxColumn.DataPropertyName = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.Name = "pendenciaDataGridViewTextBoxColumn";
-            pendenciaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lIDataGridViewTextBoxColumn
-            // 
-            lIDataGridViewTextBoxColumn.DataPropertyName = "LI";
-            lIDataGridViewTextBoxColumn.HeaderText = "LI";
-            lIDataGridViewTextBoxColumn.Name = "lIDataGridViewTextBoxColumn";
-            lIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataDeEntradaDataGridViewTextBoxColumn
-            // 
-            dataDeEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataDeEntrada";
-            dataDeEntradaDataGridViewTextBoxColumn.HeaderText = "DataDeEntrada";
-            dataDeEntradaDataGridViewTextBoxColumn.Name = "dataDeEntradaDataGridViewTextBoxColumn";
-            dataDeEntradaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // statusDoProcessoDataGridViewTextBoxColumn
-            // 
-            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
-            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // bsDecex
             // 
             bsDecex.DataMember = "ListaDecex";
@@ -172,25 +101,13 @@
             // 
             toolStrip1.AutoSize = false;
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnExcluir, btnEditar, btnCancelar, btnPesquisar, txtPesquisar, CmbPesquisar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnExcluir, btnEditar, btnCancelar, btnPesquisar, txtPesquisar, CmbPesquisar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.System;
             toolStrip1.Size = new Size(800, 38);
             toolStrip1.TabIndex = 9;
             toolStrip1.Text = "toolStrip1";
-            // 
-            // btnAdicionar
-            // 
-            btnAdicionar.BackColor = Color.GreenYellow;
-            btnAdicionar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnAdicionar.Image = (Image)resources.GetObject("btnAdicionar.Image");
-            btnAdicionar.ImageTransparentColor = Color.Magenta;
-            btnAdicionar.Margin = new Padding(11, 4, 0, 2);
-            btnAdicionar.Name = "btnAdicionar";
-            btnAdicionar.Size = new Size(62, 32);
-            btnAdicionar.Text = "Adicionar";
-            btnAdicionar.Click += btnAdicionar_Click;
             // 
             // btnExcluir
             // 
@@ -199,10 +116,11 @@
             btnExcluir.DisplayStyle = ToolStripItemDisplayStyle.Text;
             btnExcluir.Image = (Image)resources.GetObject("btnExcluir.Image");
             btnExcluir.ImageTransparentColor = Color.Magenta;
-            btnExcluir.Margin = new Padding(5, 4, 0, 2);
+            btnExcluir.Margin = new Padding(11, 4, 0, 2);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(62, 32);
             btnExcluir.Text = "Excluir";
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
@@ -259,6 +177,81 @@
             CmbPesquisar.Name = "CmbPesquisar";
             CmbPesquisar.Size = new Size(121, 23);
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Visible = false;
+            idDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // nRDataGridViewTextBoxColumn
+            // 
+            nRDataGridViewTextBoxColumn.DataPropertyName = "NR";
+            nRDataGridViewTextBoxColumn.HeaderText = "NR";
+            nRDataGridViewTextBoxColumn.Name = "nRDataGridViewTextBoxColumn";
+            nRDataGridViewTextBoxColumn.ReadOnly = true;
+            nRDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // sRDataGridViewTextBoxColumn
+            // 
+            sRDataGridViewTextBoxColumn.DataPropertyName = "SR";
+            sRDataGridViewTextBoxColumn.HeaderText = "SR";
+            sRDataGridViewTextBoxColumn.Name = "sRDataGridViewTextBoxColumn";
+            sRDataGridViewTextBoxColumn.ReadOnly = true;
+            sRDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // importadorDataGridViewTextBoxColumn
+            // 
+            importadorDataGridViewTextBoxColumn.DataPropertyName = "Importador";
+            importadorDataGridViewTextBoxColumn.HeaderText = "Importador";
+            importadorDataGridViewTextBoxColumn.Name = "importadorDataGridViewTextBoxColumn";
+            importadorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // previsaoDataGridViewTextBoxColumn
+            // 
+            previsaoDataGridViewTextBoxColumn.DataPropertyName = "Previsao";
+            previsaoDataGridViewTextBoxColumn.HeaderText = "Previsao";
+            previsaoDataGridViewTextBoxColumn.Name = "previsaoDataGridViewTextBoxColumn";
+            previsaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // terminalDataGridViewTextBoxColumn
+            // 
+            terminalDataGridViewTextBoxColumn.DataPropertyName = "Terminal";
+            terminalDataGridViewTextBoxColumn.HeaderText = "Terminal";
+            terminalDataGridViewTextBoxColumn.Name = "terminalDataGridViewTextBoxColumn";
+            terminalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pendenciaDataGridViewTextBoxColumn
+            // 
+            pendenciaDataGridViewTextBoxColumn.DataPropertyName = "Pendencia";
+            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendencia";
+            pendenciaDataGridViewTextBoxColumn.Name = "pendenciaDataGridViewTextBoxColumn";
+            pendenciaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lIDataGridViewTextBoxColumn
+            // 
+            lIDataGridViewTextBoxColumn.DataPropertyName = "LI";
+            lIDataGridViewTextBoxColumn.HeaderText = "LI";
+            lIDataGridViewTextBoxColumn.Name = "lIDataGridViewTextBoxColumn";
+            lIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataDeEntradaDataGridViewTextBoxColumn
+            // 
+            dataDeEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataDeEntrada";
+            dataDeEntradaDataGridViewTextBoxColumn.HeaderText = "DataDeEntrada";
+            dataDeEntradaDataGridViewTextBoxColumn.Name = "dataDeEntradaDataGridViewTextBoxColumn";
+            dataDeEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDoProcessoDataGridViewTextBoxColumn
+            // 
+            statusDoProcessoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
+            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // frmDecex
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -287,7 +280,6 @@
         private ToolStripButton btnPesquisar;
         private ToolStripTextBox txtPesquisar;
         private ToolStripComboBox CmbPesquisar;
-        private ToolStripButton btnAdicionar;
         private ToolStripButton btnExcluir;
         private BindingSource bsDecex;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
