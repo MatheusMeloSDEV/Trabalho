@@ -1,5 +1,8 @@
 ﻿using CLUSA;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Drawing.Imaging;
+using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace Trabalho
@@ -7,13 +10,9 @@ namespace Trabalho
     public partial class frmLogin : Form
     {
         private RepositorioUsers repositorio;
-        frmLogin principal;
-        frmMapa mapa;
-        frmADMIN admin;
-        frmDecex decex;
-        frmMenu menu;
         public static frmLogin instance;
         public Logado logado;
+        public bool escuro = false;
         public frmLogin()
         {
             InitializeComponent();
@@ -40,7 +39,7 @@ namespace Trabalho
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
             if (logado.log)
             {
                 lblPassword.Visible = false;
@@ -70,7 +69,7 @@ namespace Trabalho
                     lblUsername.Visible = true;
                     txtUsername.Visible = true;
                     btnLogin.Visible = true;
-                    
+
                 }
             }
             else
@@ -100,6 +99,32 @@ namespace Trabalho
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ftLua_Click(object sender, EventArgs e)
+        {
+            ftLua.Visible = false;
+            ftSol.Visible = true;
+            instance.BackColor = SystemColors.ControlDarkDark;
+            lblError.BackColor = SystemColors.ControlDarkDark;
+            txtPassword.BackColor = SystemColors.ControlDark;
+            txtUsername.BackColor = SystemColors.ControlDark;
+            btnFechar.BackColor = SystemColors.ControlDark;
+            btnLogin.BackColor = SystemColors.ControlDark;
+            escuro = true;
+        }
+
+        private void ftSol_Click(object sender, EventArgs e)
+        {
+            ftSol.Visible = false;
+            ftLua.Visible = true;
+            instance.BackColor = SystemColors.Control;
+            lblError.BackColor = SystemColors.Control;
+            txtPassword.BackColor = SystemColors.Control;
+            txtUsername.BackColor = SystemColors.Control;
+            btnFechar.BackColor = SystemColors.Control;
+            btnLogin.BackColor = SystemColors.Control;
+            escuro = false;
         }
     }
 }

@@ -68,10 +68,15 @@ namespace Trabalho
 
         private void tErro_Tick(object sender, EventArgs e)
         {
-            insPendencia.BackColor= Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White; insCSIOriginal.BackColor = Color.White;
+            insPendencia.BackColor = Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White; insCSIOriginal.BackColor = Color.White;
             insLI.BackColor = Color.White; insParametrizacao.BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
             insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOkMAPA.Enabled = true;
             tErro.Stop();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

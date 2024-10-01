@@ -31,39 +31,49 @@
             components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
+            inícioToolStripMenuItem = new ToolStripMenuItem();
             maximizarToolStripMenuItem = new ToolStripMenuItem();
             sairToolStripMenuItem = new ToolStripMenuItem();
             planilhasToolStripMenuItem = new ToolStripMenuItem();
-            mAPAToolStripMenuItem = new ToolStripMenuItem();
-            decexToolStripMenuItem = new ToolStripMenuItem();
             processoToolStripMenuItem = new ToolStripMenuItem();
+            mAPAToolStripMenuItem = new ToolStripMenuItem();
+            anvisaToolStripMenuItem = new ToolStripMenuItem();
+            decexToolStripMenuItem = new ToolStripMenuItem();
             aDMINToolStripMenuItem = new ToolStripMenuItem();
             tLiberaSaida = new System.Windows.Forms.Timer(components);
-            anvisaToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = SystemColors.Control;
             menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, planilhasToolStripMenuItem, aDMINToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Size = new Size(878, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
             // menuToolStripMenuItem
             // 
-            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { maximizarToolStripMenuItem, sairToolStripMenuItem });
+            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { inícioToolStripMenuItem, maximizarToolStripMenuItem, sairToolStripMenuItem });
             menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             menuToolStripMenuItem.Size = new Size(50, 20);
             menuToolStripMenuItem.Text = "Menu";
+            // 
+            // inícioToolStripMenuItem
+            // 
+            inícioToolStripMenuItem.Name = "inícioToolStripMenuItem";
+            inícioToolStripMenuItem.Size = new Size(129, 22);
+            inícioToolStripMenuItem.Text = "Início";
+            inícioToolStripMenuItem.Click += inícioToolStripMenuItem_Click;
             // 
             // maximizarToolStripMenuItem
             // 
             maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
             maximizarToolStripMenuItem.Size = new Size(129, 22);
             maximizarToolStripMenuItem.Text = "Maximizar";
+            maximizarToolStripMenuItem.Click += maximizarToolStripMenuItem_Click;
             // 
             // sairToolStripMenuItem
             // 
@@ -79,26 +89,33 @@
             planilhasToolStripMenuItem.Size = new Size(66, 20);
             planilhasToolStripMenuItem.Text = "Planilhas";
             // 
+            // processoToolStripMenuItem
+            // 
+            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
+            processoToolStripMenuItem.Size = new Size(121, 22);
+            processoToolStripMenuItem.Text = "Processo";
+            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
+            // 
             // mAPAToolStripMenuItem
             // 
             mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
-            mAPAToolStripMenuItem.Size = new Size(180, 22);
+            mAPAToolStripMenuItem.Size = new Size(121, 22);
             mAPAToolStripMenuItem.Text = "MAPA";
             mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
+            // 
+            // anvisaToolStripMenuItem
+            // 
+            anvisaToolStripMenuItem.Name = "anvisaToolStripMenuItem";
+            anvisaToolStripMenuItem.Size = new Size(121, 22);
+            anvisaToolStripMenuItem.Text = "Anvisa";
+            anvisaToolStripMenuItem.Click += anvisaToolStripMenuItem_Click;
             // 
             // decexToolStripMenuItem
             // 
             decexToolStripMenuItem.Name = "decexToolStripMenuItem";
-            decexToolStripMenuItem.Size = new Size(180, 22);
+            decexToolStripMenuItem.Size = new Size(121, 22);
             decexToolStripMenuItem.Text = "Decex";
             decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
-            // 
-            // processoToolStripMenuItem
-            // 
-            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
-            processoToolStripMenuItem.Size = new Size(180, 22);
-            processoToolStripMenuItem.Text = "Processo";
-            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
             // 
             // aDMINToolStripMenuItem
             // 
@@ -111,25 +128,22 @@
             // 
             tLiberaSaida.Tick += tLiberaSaida_Tick;
             // 
-            // anvisaToolStripMenuItem
-            // 
-            anvisaToolStripMenuItem.Name = "anvisaToolStripMenuItem";
-            anvisaToolStripMenuItem.Size = new Size(180, 22);
-            anvisaToolStripMenuItem.Text = "Anvisa";
-            anvisaToolStripMenuItem.Click += anvisaToolStripMenuItem_Click;
-            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(878, 448);
             ControlBox = false;
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Área de trabalho";
+            WindowState = FormWindowState.Maximized;
             Load += frmMenu_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -150,5 +164,6 @@
         private System.Windows.Forms.Timer tLiberaSaida;
         private ToolStripMenuItem processoToolStripMenuItem;
         private ToolStripMenuItem anvisaToolStripMenuItem;
+        private ToolStripMenuItem inícioToolStripMenuItem;
     }
 }

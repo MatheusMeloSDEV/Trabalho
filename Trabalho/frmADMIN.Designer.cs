@@ -50,7 +50,7 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -161,6 +161,7 @@
             Controls.Add(dataGridView1);
             Name = "frmADMIN";
             Text = "ADMIN";
+            WindowState = FormWindowState.Maximized;
             FormClosed += frmADMIN_FormClosed;
             Load += frmADMIN_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using System.Windows.Forms;
 
 namespace Trabalho
 {
@@ -14,7 +15,16 @@ namespace Trabalho
 
         private void frmAnvisa_Load(object sender, EventArgs e)
         {
+            if (frmLogin.instance.escuro)
+            {
+                DarkMode();
+            }
+        }
 
+        private void DarkMode()
+        {
+            toolStrip1.BackColor = SystemColors.ControlDark;
+            dataGridView1.
         }
 
         private async void btnEditar_Click(object sender, EventArgs e)

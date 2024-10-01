@@ -33,6 +33,10 @@ namespace Trabalho
             tLiberaSaida.Tick += new System.EventHandler(this.tLiberaSaida_Tick);
             sairToolStripMenuItem.Enabled = false;
             tLiberaSaida.Start();
+            if (frmLogin.instance.escuro)
+            {
+                DarkMode();
+            }
         }
 
         private void mAPAToolStripMenuItem_Click(object sender, EventArgs e)
@@ -49,6 +53,11 @@ namespace Trabalho
             {
                 mapa.Activate();
             }
+        }
+
+        private void DarkMode()
+        {
+            menuStrip1.BackColor = SystemColors.ControlDark;
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
@@ -128,6 +137,20 @@ namespace Trabalho
             {
                 anvisa.Activate();
             }
+        }
+
+        private void inícioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in this.MdiChildren)
+            {
+                // Fecha cada formulário filho
+                childForm.Close();
+            }
+        }
+
+        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

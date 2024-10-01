@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Api.CommonProtos" Version="2.16.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

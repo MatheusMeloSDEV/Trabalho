@@ -45,19 +45,19 @@ namespace Trabalho
                 decex.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
                 this.DialogResult = DialogResult.OK;
             }
-                
+
         }
         private bool check()
         {
             bool block = false;
             tError.Interval = 1500;
             tError.Tick += new System.EventHandler(this.tError_Tick);
-            
+
             if (insImportador.Text == "") { insImportador.BackColor = Color.MistyRose; block = true; tError.Start(); }
             if (insLI.Text == "") { insLI.BackColor = Color.MistyRose; block = true; tError.Start(); }
-         
+
             if (insNR.Text == "") { insNR.BackColor = Color.MistyRose; block = true; tError.Start(); }
-          
+
             if (insPendencia.Text == "") { insPendencia.BackColor = Color.MistyRose; block = true; tError.Start(); }
             if (insStatusdoProcesso.Text == "") { insStatusdoProcesso.BackColor = Color.MistyRose; block = true; tError.Start(); }
             if (insTerminal.Text == "") { insTerminal.BackColor = Color.MistyRose; block = true; tError.Start(); }
@@ -74,6 +74,11 @@ namespace Trabalho
             insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOkMAPA.Enabled = true;
             tError.Stop();
 
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

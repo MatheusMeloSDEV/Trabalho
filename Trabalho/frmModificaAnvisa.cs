@@ -31,10 +31,10 @@ namespace Trabalho
         {
             tError.Interval = 1500;
             tError.Tick += new System.EventHandler(this.tError_Tick);
-            btnOkMAPA.Enabled = false;
+            btnOk.Enabled = false;
             tError.Start();
 
-            if (!check()) 
+            if (!check())
             {
                 anvisa.NR = int.Parse(insNR.Text);
                 anvisa.SR = int.Parse(insSR.Text);
@@ -73,8 +73,13 @@ namespace Trabalho
         {
             insPendencia.BackColor = Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White;
             insLI.BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
-            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOkMAPA.Enabled = true;
+            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOk.Enabled = true;
             tError.Stop();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

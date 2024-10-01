@@ -38,7 +38,6 @@
             label9 = new Label();
             insSR = new TextBox();
             insNR = new TextBox();
-            btnOkMAPA = new Button();
             label10 = new Label();
             insStatusdoProcesso = new TextBox();
             label5 = new Label();
@@ -54,6 +53,8 @@
             label1 = new Label();
             insImportador = new TextBox();
             tError = new System.Windows.Forms.Timer(components);
+            btnCancel = new Button();
+            btnOk = new Button();
             ((System.ComponentModel.ISupportInitialize)bsModificaAnvisa).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +65,7 @@
             // dtpDatadeInspecao
             // 
             dtpDatadeInspecao.DataBindings.Add(new Binding("Value", bsModificaAnvisa, "DataDeInspeção", true));
-            dtpDatadeInspecao.Location = new Point(348, 266);
+            dtpDatadeInspecao.Location = new Point(364, 287);
             dtpDatadeInspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeInspecao.Name = "dtpDatadeInspecao";
             dtpDatadeInspecao.Size = new Size(135, 23);
@@ -75,7 +76,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label13.Location = new Point(355, 242);
+            label13.Location = new Point(371, 263);
             label13.Name = "label13";
             label13.Size = new Size(128, 21);
             label13.TabIndex = 54;
@@ -84,7 +85,7 @@
             // dtpDatadeEntrada
             // 
             dtpDatadeEntrada.DataBindings.Add(new Binding("Value", bsModificaAnvisa, "DataDeEntrada", true));
-            dtpDatadeEntrada.Location = new Point(173, 266);
+            dtpDatadeEntrada.Location = new Point(189, 287);
             dtpDatadeEntrada.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeEntrada.Name = "dtpDatadeEntrada";
             dtpDatadeEntrada.Size = new Size(135, 23);
@@ -94,7 +95,7 @@
             // dtpPrevisao
             // 
             dtpPrevisao.DataBindings.Add(new Binding("Value", bsModificaAnvisa, "Previsao", true));
-            dtpPrevisao.Location = new Point(511, 266);
+            dtpPrevisao.Location = new Point(527, 287);
             dtpPrevisao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpPrevisao.Name = "dtpPrevisao";
             dtpPrevisao.Size = new Size(135, 23);
@@ -105,7 +106,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(419, 53);
+            label11.Location = new Point(435, 74);
             label11.Name = "label11";
             label11.Size = new Size(35, 21);
             label11.TabIndex = 50;
@@ -115,7 +116,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(267, 53);
+            label9.Location = new Point(283, 74);
             label9.Name = "label9";
             label9.Size = new Size(38, 21);
             label9.TabIndex = 49;
@@ -124,7 +125,7 @@
             // insSR
             // 
             insSR.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "SR", true));
-            insSR.Location = new Point(460, 51);
+            insSR.Location = new Point(476, 72);
             insSR.Name = "insSR";
             insSR.Size = new Size(100, 23);
             insSR.TabIndex = 48;
@@ -132,25 +133,16 @@
             // insNR
             // 
             insNR.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "NR", true));
-            insNR.Location = new Point(309, 51);
+            insNR.Location = new Point(325, 72);
             insNR.Name = "insNR";
             insNR.Size = new Size(100, 23);
             insNR.TabIndex = 47;
-            // 
-            // btnOkMAPA
-            // 
-            btnOkMAPA.Location = new Point(632, 372);
-            btnOkMAPA.Name = "btnOkMAPA";
-            btnOkMAPA.Size = new Size(107, 28);
-            btnOkMAPA.TabIndex = 46;
-            btnOkMAPA.Text = "Ok";
-            btnOkMAPA.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(48, 325);
+            label10.Location = new Point(64, 346);
             label10.Name = "label10";
             label10.Size = new Size(140, 21);
             label10.TabIndex = 45;
@@ -159,7 +151,7 @@
             // insStatusdoProcesso
             // 
             insStatusdoProcesso.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "StatusDoProcesso", true));
-            insStatusdoProcesso.Location = new Point(194, 325);
+            insStatusdoProcesso.Location = new Point(210, 346);
             insStatusdoProcesso.Name = "insStatusdoProcesso";
             insStatusdoProcesso.Size = new Size(558, 23);
             insStatusdoProcesso.TabIndex = 44;
@@ -168,7 +160,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(446, 168);
+            label5.Location = new Point(462, 189);
             label5.Name = "label5";
             label5.Size = new Size(22, 21);
             label5.TabIndex = 43;
@@ -177,7 +169,7 @@
             // insLI
             // 
             insLI.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "LI", true));
-            insLI.Location = new Point(474, 166);
+            insLI.Location = new Point(490, 187);
             insLI.Name = "insLI";
             insLI.Size = new Size(222, 23);
             insLI.TabIndex = 42;
@@ -186,7 +178,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(188, 242);
+            label6.Location = new Point(204, 263);
             label6.Name = "label6";
             label6.Size = new Size(120, 21);
             label6.TabIndex = 41;
@@ -196,7 +188,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(93, 374);
+            label8.Location = new Point(109, 395);
             label8.Name = "label8";
             label8.Size = new Size(80, 21);
             label8.TabIndex = 37;
@@ -205,7 +197,7 @@
             // insPendencia
             // 
             insPendencia.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "Pendencia", true));
-            insPendencia.Location = new Point(176, 372);
+            insPendencia.Location = new Point(192, 393);
             insPendencia.Name = "insPendencia";
             insPendencia.Size = new Size(266, 23);
             insPendencia.TabIndex = 36;
@@ -214,7 +206,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(118, 168);
+            label3.Location = new Point(134, 189);
             label3.Name = "label3";
             label3.Size = new Size(69, 21);
             label3.TabIndex = 35;
@@ -223,7 +215,7 @@
             // insTerminal
             // 
             insTerminal.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "Terminal", true));
-            insTerminal.Location = new Point(193, 166);
+            insTerminal.Location = new Point(209, 187);
             insTerminal.Name = "insTerminal";
             insTerminal.Size = new Size(157, 23);
             insTerminal.TabIndex = 34;
@@ -232,7 +224,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(541, 242);
+            label4.Location = new Point(557, 263);
             label4.Name = "label4";
             label4.Size = new Size(69, 21);
             label4.TabIndex = 33;
@@ -242,7 +234,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(446, 130);
+            label2.Location = new Point(462, 151);
             label2.Name = "label2";
             label2.Size = new Size(49, 21);
             label2.TabIndex = 32;
@@ -251,7 +243,7 @@
             // insLPCO
             // 
             insLPCO.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "LPCO", true));
-            insLPCO.Location = new Point(501, 128);
+            insLPCO.Location = new Point(517, 149);
             insLPCO.Name = "insLPCO";
             insLPCO.Size = new Size(195, 23);
             insLPCO.TabIndex = 31;
@@ -260,7 +252,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(118, 130);
+            label1.Location = new Point(134, 151);
             label1.Name = "label1";
             label1.Size = new Size(89, 21);
             label1.TabIndex = 30;
@@ -269,7 +261,7 @@
             // insImportador
             // 
             insImportador.DataBindings.Add(new Binding("Text", bsModificaAnvisa, "Importador", true));
-            insImportador.Location = new Point(213, 128);
+            insImportador.Location = new Point(229, 149);
             insImportador.Name = "insImportador";
             insImportador.Size = new Size(137, 23);
             insImportador.TabIndex = 29;
@@ -278,11 +270,36 @@
             // 
             tError.Tick += tError_Tick;
             // 
+            // btnCancel
+            // 
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCancel.Location = new Point(660, 395);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(107, 28);
+            btnCancel.TabIndex = 57;
+            btnCancel.Text = "Cancelar";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnOk
+            // 
+            btnOk.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnOk.Location = new Point(785, 395);
+            btnOk.Name = "btnOk";
+            btnOk.Size = new Size(107, 28);
+            btnOk.TabIndex = 56;
+            btnOk.Text = "Editar";
+            btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += button2_Click;
+            // 
             // frmModificaAnvisa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(941, 498);
+            ControlBox = false;
+            Controls.Add(btnCancel);
+            Controls.Add(btnOk);
             Controls.Add(dtpDatadeInspecao);
             Controls.Add(label13);
             Controls.Add(dtpDatadeEntrada);
@@ -291,7 +308,6 @@
             Controls.Add(label9);
             Controls.Add(insSR);
             Controls.Add(insNR);
-            Controls.Add(btnOkMAPA);
             Controls.Add(label10);
             Controls.Add(insStatusdoProcesso);
             Controls.Add(label5);
@@ -307,7 +323,7 @@
             Controls.Add(label1);
             Controls.Add(insImportador);
             Name = "frmModificaAnvisa";
-            Text = "frmModificaAnvisa";
+            StartPosition = FormStartPosition.CenterScreen;
             Load += frmModificaAnvisa_Load;
             ((System.ComponentModel.ISupportInitialize)bsModificaAnvisa).EndInit();
             ResumeLayout(false);
@@ -324,7 +340,6 @@
         private Label label9;
         private TextBox insSR;
         private TextBox insNR;
-        private Button btnOkMAPA;
         private Label label10;
         private TextBox insStatusdoProcesso;
         private Label label5;
@@ -340,5 +355,7 @@
         private Label label1;
         private TextBox insImportador;
         private System.Windows.Forms.Timer tError;
+        private Button btnCancel;
+        private Button btnOk;
     }
 }

@@ -58,13 +58,15 @@
             dtpDatadeInspecao = new DateTimePicker();
             label13 = new Label();
             tErro = new System.Windows.Forms.Timer(components);
+            btnCancel = new Button();
             ((System.ComponentModel.ISupportInitialize)bsModificaMAPA).BeginInit();
             SuspendLayout();
             // 
             // insImportador
             // 
+            insImportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insImportador.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Importador", true));
-            insImportador.Location = new Point(213, 130);
+            insImportador.Location = new Point(264, 141);
             insImportador.Name = "insImportador";
             insImportador.Size = new Size(137, 23);
             insImportador.TabIndex = 0;
@@ -75,9 +77,10 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(118, 132);
+            label1.Location = new Point(169, 143);
             label1.Name = "label1";
             label1.Size = new Size(89, 21);
             label1.TabIndex = 1;
@@ -85,9 +88,10 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(452, 170);
+            label2.Location = new Point(503, 181);
             label2.Name = "label2";
             label2.Size = new Size(49, 21);
             label2.TabIndex = 3;
@@ -95,17 +99,19 @@
             // 
             // insLPCO
             // 
+            insLPCO.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insLPCO.DataBindings.Add(new Binding("Text", bsModificaMAPA, "LPCO", true));
-            insLPCO.Location = new Point(507, 168);
+            insLPCO.Location = new Point(558, 179);
             insLPCO.Name = "insLPCO";
             insLPCO.Size = new Size(195, 23);
             insLPCO.TabIndex = 2;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(118, 170);
+            label3.Location = new Point(169, 181);
             label3.Name = "label3";
             label3.Size = new Size(69, 21);
             label3.TabIndex = 7;
@@ -113,17 +119,19 @@
             // 
             // insTerminal
             // 
+            insTerminal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insTerminal.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Terminal", true));
-            insTerminal.Location = new Point(193, 168);
+            insTerminal.Location = new Point(244, 179);
             insTerminal.Name = "insTerminal";
             insTerminal.Size = new Size(157, 23);
             insTerminal.TabIndex = 6;
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(546, 259);
+            label4.Location = new Point(597, 270);
             label4.Name = "label4";
             label4.Size = new Size(69, 21);
             label4.TabIndex = 5;
@@ -131,9 +139,10 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(118, 211);
+            label5.Location = new Point(169, 222);
             label5.Name = "label5";
             label5.Size = new Size(22, 21);
             label5.TabIndex = 15;
@@ -141,17 +150,19 @@
             // 
             // insLI
             // 
+            insLI.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insLI.DataBindings.Add(new Binding("Text", bsModificaMAPA, "LI", true));
-            insLI.Location = new Point(146, 209);
+            insLI.Location = new Point(197, 220);
             insLI.Name = "insLI";
             insLI.Size = new Size(204, 23);
             insLI.TabIndex = 14;
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(193, 259);
+            label6.Location = new Point(244, 270);
             label6.Name = "label6";
             label6.Size = new Size(120, 21);
             label6.TabIndex = 13;
@@ -159,17 +170,19 @@
             // 
             // insParametrizacao
             // 
+            insParametrizacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insParametrizacao.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Parametrizacao", true));
-            insParametrizacao.Location = new Point(574, 205);
+            insParametrizacao.Location = new Point(625, 216);
             insParametrizacao.Name = "insParametrizacao";
             insParametrizacao.Size = new Size(128, 23);
             insParametrizacao.TabIndex = 12;
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(452, 132);
+            label7.Location = new Point(503, 143);
             label7.Name = "label7";
             label7.Size = new Size(93, 21);
             label7.TabIndex = 11;
@@ -177,17 +190,19 @@
             // 
             // insCSIOriginal
             // 
+            insCSIOriginal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insCSIOriginal.DataBindings.Add(new Binding("Text", bsModificaMAPA, "CSIOriginal", true));
-            insCSIOriginal.Location = new Point(551, 130);
+            insCSIOriginal.Location = new Point(602, 141);
             insCSIOriginal.Name = "insCSIOriginal";
             insCSIOriginal.Size = new Size(151, 23);
             insCSIOriginal.TabIndex = 10;
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(93, 385);
+            label8.Location = new Point(144, 396);
             label8.Name = "label8";
             label8.Size = new Size(80, 21);
             label8.TabIndex = 9;
@@ -195,17 +210,19 @@
             // 
             // insPendencia
             // 
+            insPendencia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insPendencia.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Pendencia", true));
-            insPendencia.Location = new Point(176, 383);
+            insPendencia.Location = new Point(227, 394);
             insPendencia.Name = "insPendencia";
             insPendencia.Size = new Size(266, 23);
             insPendencia.TabIndex = 8;
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(48, 336);
+            label10.Location = new Point(99, 347);
             label10.Name = "label10";
             label10.Size = new Size(140, 21);
             label10.TabIndex = 17;
@@ -213,43 +230,48 @@
             // 
             // insStatusdoProcesso
             // 
+            insStatusdoProcesso.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insStatusdoProcesso.DataBindings.Add(new Binding("Text", bsModificaMAPA, "StatusDoProcesso", true));
-            insStatusdoProcesso.Location = new Point(194, 336);
+            insStatusdoProcesso.Location = new Point(245, 347);
             insStatusdoProcesso.Name = "insStatusdoProcesso";
             insStatusdoProcesso.Size = new Size(558, 23);
             insStatusdoProcesso.TabIndex = 16;
             // 
             // btnOkMAPA
             // 
-            btnOkMAPA.Location = new Point(632, 383);
+            btnOkMAPA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnOkMAPA.Location = new Point(683, 394);
             btnOkMAPA.Name = "btnOkMAPA";
             btnOkMAPA.Size = new Size(107, 28);
             btnOkMAPA.TabIndex = 19;
-            btnOkMAPA.Text = "Ok";
+            btnOkMAPA.Text = "Editar";
             btnOkMAPA.UseVisualStyleBackColor = true;
             btnOkMAPA.Click += button1_Click;
             // 
             // insNR
             // 
+            insNR.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insNR.DataBindings.Add(new Binding("Text", bsModificaMAPA, "NR", true));
-            insNR.Location = new Point(306, 62);
+            insNR.Location = new Point(357, 73);
             insNR.Name = "insNR";
             insNR.Size = new Size(100, 23);
             insNR.TabIndex = 20;
             // 
             // insSR
             // 
+            insSR.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             insSR.DataBindings.Add(new Binding("Text", bsModificaMAPA, "SR", true));
-            insSR.Location = new Point(457, 62);
+            insSR.Location = new Point(508, 73);
             insSR.Name = "insSR";
             insSR.Size = new Size(100, 23);
             insSR.TabIndex = 21;
             // 
             // label9
             // 
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(264, 64);
+            label9.Location = new Point(315, 75);
             label9.Name = "label9";
             label9.Size = new Size(38, 21);
             label9.TabIndex = 22;
@@ -257,9 +279,10 @@
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(416, 64);
+            label11.Location = new Point(467, 75);
             label11.Name = "label11";
             label11.Size = new Size(35, 21);
             label11.TabIndex = 23;
@@ -267,9 +290,10 @@
             // 
             // dtpPrevisao
             // 
+            dtpPrevisao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpPrevisao.DataBindings.Add(new Binding("Tag", bsModificaMAPA, "Previsao", true));
             dtpPrevisao.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Previsao", true));
-            dtpPrevisao.Location = new Point(516, 283);
+            dtpPrevisao.Location = new Point(567, 294);
             dtpPrevisao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpPrevisao.Name = "dtpPrevisao";
             dtpPrevisao.Size = new Size(135, 23);
@@ -278,9 +302,10 @@
             // 
             // dtpDatadeEntrada
             // 
+            dtpDatadeEntrada.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpDatadeEntrada.DataBindings.Add(new Binding("Tag", bsModificaMAPA, "DataDeEntrada", true));
             dtpDatadeEntrada.DataBindings.Add(new Binding("Text", bsModificaMAPA, "DataDeEntrada", true));
-            dtpDatadeEntrada.Location = new Point(178, 283);
+            dtpDatadeEntrada.Location = new Point(229, 294);
             dtpDatadeEntrada.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeEntrada.Name = "dtpDatadeEntrada";
             dtpDatadeEntrada.Size = new Size(135, 23);
@@ -289,9 +314,10 @@
             // 
             // label12
             // 
+            label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(452, 207);
+            label12.Location = new Point(503, 218);
             label12.Name = "label12";
             label12.Size = new Size(116, 21);
             label12.TabIndex = 26;
@@ -299,9 +325,10 @@
             // 
             // dtpDatadeInspecao
             // 
+            dtpDatadeInspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpDatadeInspecao.DataBindings.Add(new Binding("Text", bsModificaMAPA, "DataDeInspeção", true));
             dtpDatadeInspecao.DataBindings.Add(new Binding("Tag", bsModificaMAPA, "DataDeInspeção", true));
-            dtpDatadeInspecao.Location = new Point(353, 283);
+            dtpDatadeInspecao.Location = new Point(404, 294);
             dtpDatadeInspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             dtpDatadeInspecao.Name = "dtpDatadeInspecao";
             dtpDatadeInspecao.Size = new Size(135, 23);
@@ -310,9 +337,10 @@
             // 
             // label13
             // 
+            label13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label13.Location = new Point(360, 259);
+            label13.Location = new Point(411, 270);
             label13.Name = "label13";
             label13.Size = new Size(128, 21);
             label13.TabIndex = 27;
@@ -322,13 +350,24 @@
             // 
             tErro.Tick += tErro_Tick;
             // 
+            // btnCancel
+            // 
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCancel.Location = new Point(558, 394);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(107, 28);
+            btnCancel.TabIndex = 29;
+            btnCancel.Text = "Cancelar";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
             // frmModificaMapa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(824, 470);
+            ClientSize = new Size(941, 498);
+            ControlBox = false;
+            Controls.Add(btnCancel);
             Controls.Add(dtpDatadeInspecao);
             Controls.Add(label13);
             Controls.Add(label12);
@@ -357,6 +396,7 @@
             Controls.Add(label1);
             Controls.Add(insImportador);
             Name = "frmModificaMapa";
+            StartPosition = FormStartPosition.CenterScreen;
             Load += frmModifica_Load;
             ((System.ComponentModel.ISupportInitialize)bsModificaMAPA).EndInit();
             ResumeLayout(false);
@@ -394,5 +434,6 @@
         private DateTimePicker dtpDatadeInspecao;
         private Label label13;
         private System.Windows.Forms.Timer tErro;
+        private Button btnCancel;
     }
 }
