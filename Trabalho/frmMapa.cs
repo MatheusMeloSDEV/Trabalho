@@ -1,4 +1,6 @@
 ﻿using CLUSA;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace Trabalho
 {
@@ -14,6 +16,20 @@ namespace Trabalho
         {
             repositorio = new RepositorioMAPA();
             bsMAPA.DataSource = repositorio;
+            if (frmLogin.instance.escuro)
+            {
+                DarkMode();
+            }
+        }
+
+        private void DarkMode()
+        {
+            toolStrip1.BackColor = SystemColors.ControlDark;
+            this.BackColor = SystemColors.ControlDark;
+            CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
+            txtPesquisar.BackColor= SystemColors.ControlDarkDark;
+            dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
         }
 
         private async void btnAdicionar_click(object sender, EventArgs e)

@@ -19,6 +19,10 @@ namespace Trabalho
             dtpDatadeInspecao.Format = DateTimePickerFormat.Custom; dtpDatadeInspecao.CustomFormat = "dd/MM/yyyy";
             dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
             bsModificaMAPA.DataSource = mapa;
+            if (frmLogin.instance.escuro)
+            {
+                //DarkMode();
+            }
         }
 
         public void button1_Click(object sender, EventArgs e)

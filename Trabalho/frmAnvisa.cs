@@ -24,7 +24,9 @@ namespace Trabalho
         private void DarkMode()
         {
             toolStrip1.BackColor = SystemColors.ControlDark;
-            dataGridView1.
+            this.BackColor = SystemColors.ControlDark;
+            CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
+            txtPesquisar.BackColor = SystemColors.ControlDarkDark;
         }
 
         private async void btnEditar_Click(object sender, EventArgs e)
