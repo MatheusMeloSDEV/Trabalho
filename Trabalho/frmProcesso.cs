@@ -63,5 +63,10 @@ namespace Trabalho
             repositorio = new RepositorioProcesso();
             bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
         }
+
+        private void frmProcesso_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
