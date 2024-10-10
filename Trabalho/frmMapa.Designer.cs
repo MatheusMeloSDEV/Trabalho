@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMapa));
             bsMAPA = new BindingSource(components);
             dataGridView1 = new DataGridView();
@@ -52,7 +52,7 @@
             statusDoProcessoDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             toolStrip1 = new ToolStrip();
             btnExcluir = new ToolStripButton();
-            btnEditar = new ToolStripButton();
+            btnExportar = new ToolStripButton();
             btnCancelar = new ToolStripButton();
             toolStripButton1 = new ToolStripButton();
             btnReload = new ToolStripButton();
@@ -72,6 +72,7 @@
             sEIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataDeInspeçãoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            toolStripButton2 = new ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)bsMAPA).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             toolStrip1.SuspendLayout();
@@ -88,36 +89,36 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.Blue;
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.ForeColor = Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = Color.Blue;
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn1, sRDataGridViewTextBoxColumn1, importadorDataGridViewTextBoxColumn1, previsaoDataGridViewTextBoxColumn1, terminalDataGridViewTextBoxColumn1, pendenciaDataGridViewTextBoxColumn1, CSIOriginal, lIDataGridViewTextBoxColumn1, lPCODataGridViewTextBoxColumn1, dataDeEntradaDataGridViewTextBoxColumn1, parametrizacaoDataGridViewTextBoxColumn1, sEIDataGridViewTextBoxColumn1, dataDeInspeçãoDataGridViewTextBoxColumn1, statusDoProcessoDataGridViewTextBoxColumn1 });
             dataGridView1.DataSource = bsMAPA;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.NullValue = null;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.Black;
             dataGridView1.Location = new Point(12, 41);
@@ -270,7 +271,7 @@
             toolStrip1.AutoSize = false;
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnExcluir, btnEditar, btnCancelar, toolStripButton1, btnReload, txtPesquisar, CmbPesquisar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnExcluir, toolStripButton2, btnExportar, btnCancelar, toolStripButton1, btnReload, txtPesquisar, CmbPesquisar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.System;
@@ -292,18 +293,18 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.Click += btnExcluir_Click;
             // 
-            // btnEditar
+            // btnExportar
             // 
-            btnEditar.AutoSize = false;
-            btnEditar.BackColor = Color.MediumTurquoise;
-            btnEditar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnEditar.Image = (Image)resources.GetObject("btnEditar.Image");
-            btnEditar.ImageTransparentColor = Color.Magenta;
-            btnEditar.Margin = new Padding(5, 4, 0, 2);
-            btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(62, 32);
-            btnEditar.Text = "Editar";
-            btnEditar.Click += btnEditar_Click;
+            btnExportar.AutoSize = false;
+            btnExportar.BackColor = Color.Yellow;
+            btnExportar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnExportar.Image = (Image)resources.GetObject("btnExportar.Image");
+            btnExportar.ImageTransparentColor = Color.Magenta;
+            btnExportar.Margin = new Padding(5, 4, 0, 2);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(62, 32);
+            btnExportar.Text = "Exportar";
+            btnExportar.Click += btnExportar_Click;
             // 
             // btnCancelar
             // 
@@ -480,6 +481,18 @@
             statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
             statusDoProcessoDataGridViewTextBoxColumn.Width = 125;
             // 
+            // toolStripButton2
+            // 
+            toolStripButton2.AutoSize = false;
+            toolStripButton2.BackColor = Color.MediumTurquoise;
+            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Margin = new Padding(5, 4, 0, 2);
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(62, 32);
+            toolStripButton2.Text = "Editar";
+            // 
             // frmMapa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -514,7 +527,7 @@
         private DataGridViewCheckBoxColumn capaDataGridViewCheckBoxColumn;
         private ToolStrip toolStrip1;
         private ToolStripButton btnExcluir;
-        private ToolStripButton btnEditar;
+        private ToolStripButton btnExportar;
         private ToolStripTextBox txtPesquisar;
         private ToolStripButton btnReload;
         private ToolStripButton btnCancelar;
@@ -550,5 +563,6 @@
         private DataGridViewTextBoxColumn sEIDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataDeInspeçãoDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn1;
+        private ToolStripButton toolStripButton2;
     }
 }
