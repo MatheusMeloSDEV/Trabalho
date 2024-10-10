@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Api.CommonProtos" Version="2.16.0" />
+    <PackageReference Include="itext7" Version="8.0.5" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

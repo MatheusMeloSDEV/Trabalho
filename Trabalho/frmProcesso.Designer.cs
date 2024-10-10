@@ -33,13 +33,6 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
             dataGridView1 = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            sRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            importadorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            previsaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            terminalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bsProcesso = new BindingSource(components);
             toolStrip1 = new ToolStrip();
             btnAdicionar = new ToolStripButton();
@@ -49,6 +42,13 @@
             btnPesquisar = new ToolStripButton();
             txtPesquisar = new ToolStripTextBox();
             CmbPesquisar = new ToolStripComboBox();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            sRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            importadorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Previsao = new DataGridViewTextBoxColumn();
+            terminalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsProcesso).BeginInit();
             toolStrip1.SuspendLayout();
@@ -71,7 +71,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn, sRDataGridViewTextBoxColumn, importadorDataGridViewTextBoxColumn, previsaoDataGridViewTextBoxColumn, terminalDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn, sRDataGridViewTextBoxColumn, importadorDataGridViewTextBoxColumn, Previsao, terminalDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
             dataGridView1.DataSource = bsProcesso;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
@@ -89,57 +89,7 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 2;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // nRDataGridViewTextBoxColumn
-            // 
-            nRDataGridViewTextBoxColumn.DataPropertyName = "NR";
-            nRDataGridViewTextBoxColumn.HeaderText = "NR";
-            nRDataGridViewTextBoxColumn.Name = "nRDataGridViewTextBoxColumn";
-            nRDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // sRDataGridViewTextBoxColumn
-            // 
-            sRDataGridViewTextBoxColumn.DataPropertyName = "SR";
-            sRDataGridViewTextBoxColumn.HeaderText = "SR";
-            sRDataGridViewTextBoxColumn.Name = "sRDataGridViewTextBoxColumn";
-            sRDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // importadorDataGridViewTextBoxColumn
-            // 
-            importadorDataGridViewTextBoxColumn.DataPropertyName = "Importador";
-            importadorDataGridViewTextBoxColumn.HeaderText = "Importador";
-            importadorDataGridViewTextBoxColumn.Name = "importadorDataGridViewTextBoxColumn";
-            importadorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // previsaoDataGridViewTextBoxColumn
-            // 
-            previsaoDataGridViewTextBoxColumn.DataPropertyName = "Previsao";
-            previsaoDataGridViewTextBoxColumn.HeaderText = "Previsao";
-            previsaoDataGridViewTextBoxColumn.Name = "previsaoDataGridViewTextBoxColumn";
-            previsaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // terminalDataGridViewTextBoxColumn
-            // 
-            terminalDataGridViewTextBoxColumn.DataPropertyName = "Terminal";
-            terminalDataGridViewTextBoxColumn.HeaderText = "Terminal";
-            terminalDataGridViewTextBoxColumn.Name = "terminalDataGridViewTextBoxColumn";
-            terminalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // statusDoProcessoDataGridViewTextBoxColumn
-            // 
-            statusDoProcessoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
-            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // bsProcesso
             // 
@@ -241,6 +191,57 @@
             CmbPesquisar.Size = new Size(121, 23);
             CmbPesquisar.Click += CmbPesquisar_Click;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nRDataGridViewTextBoxColumn
+            // 
+            nRDataGridViewTextBoxColumn.DataPropertyName = "NR";
+            nRDataGridViewTextBoxColumn.HeaderText = "NR";
+            nRDataGridViewTextBoxColumn.Name = "nRDataGridViewTextBoxColumn";
+            nRDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // sRDataGridViewTextBoxColumn
+            // 
+            sRDataGridViewTextBoxColumn.DataPropertyName = "SR";
+            sRDataGridViewTextBoxColumn.HeaderText = "SR";
+            sRDataGridViewTextBoxColumn.Name = "sRDataGridViewTextBoxColumn";
+            sRDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // importadorDataGridViewTextBoxColumn
+            // 
+            importadorDataGridViewTextBoxColumn.DataPropertyName = "Importador";
+            importadorDataGridViewTextBoxColumn.HeaderText = "Importador";
+            importadorDataGridViewTextBoxColumn.Name = "importadorDataGridViewTextBoxColumn";
+            importadorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // Previsao
+            // 
+            Previsao.DataPropertyName = "Previsao";
+            Previsao.HeaderText = "Previsão";
+            Previsao.Name = "Previsao";
+            Previsao.ReadOnly = true;
+            // 
+            // terminalDataGridViewTextBoxColumn
+            // 
+            terminalDataGridViewTextBoxColumn.DataPropertyName = "Terminal";
+            terminalDataGridViewTextBoxColumn.HeaderText = "Terminal";
+            terminalDataGridViewTextBoxColumn.Name = "terminalDataGridViewTextBoxColumn";
+            terminalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDoProcessoDataGridViewTextBoxColumn
+            // 
+            statusDoProcessoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
+            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // frmProcesso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -276,7 +277,7 @@
         private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn sRDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn Previsao;
         private DataGridViewTextBoxColumn terminalDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn;
     }

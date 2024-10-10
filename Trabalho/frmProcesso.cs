@@ -68,5 +68,19 @@ namespace Trabalho
         {
 
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+
+                object cellValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                string cellText = cellValue != null ? cellValue.ToString() : "Célula vazia";
+
+                bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text = columnName, txtPesquisar.Text = cellText);
+            }
+        }
     }
 }

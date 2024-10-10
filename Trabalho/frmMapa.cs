@@ -1,4 +1,9 @@
 ﻿using CLUSA;
+using iText.Kernel.Exceptions;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -27,7 +32,7 @@ namespace Trabalho
             toolStrip1.BackColor = SystemColors.ControlDark;
             this.BackColor = SystemColors.ControlDark;
             CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
-            txtPesquisar.BackColor= SystemColors.ControlDarkDark;
+            txtPesquisar.BackColor = SystemColors.ControlDarkDark;
             dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
         }
@@ -107,6 +112,84 @@ namespace Trabalho
         private void CmbPesquisar_Click(object sender, EventArgs e)
         {
 
+        }
+        public class PdfExporter
+        {
+            public void ExportDataGridViewToPdf(DataGridView dataGridView, string filePath)
+            {
+                try
+                {
+                    // Verifica se o DataGridView tem um DataSource
+                    if (dataGridView.DataSource == null)
+                    {
+                        MessageBox.Show("O DataGridView não possui um DataSource válido.");
+                        return;
+                    }
+
+                    // Verifica se o arquivo já existe
+                    if (File.Exists(filePath))
+                    {
+                        // Pergunta ao usuário se deseja sobrescrever o arquivo
+                        if (MessageBox.Show("O arquivo já existe. Deseja sobrescrevê-lo?", "Sobrescrever?", MessageBoxButtons.YesNo) == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+
+                    // Cria um objeto PDFWriter para salvar o PDF no local especificado
+                    using (PdfWriter writer = new PdfWriter(filePath))
+                    {
+                        using (PdfDocument pdf = new PdfDocument(writer))
+                        {
+                            // Cria um documento PDF
+                            Document document = new Document(pdf);
+
+                            // Cria uma tabela com a mesma quantidade de colunas do DataGridView
+                            Table table = new Table(dataGridView.ColumnCount);
+                            table.SetWidth(UnitValue.CreatePercentValue(100)); // Definindo a largura da tabela
+
+                            // Adiciona o cabeçalho das colunas
+                            foreach (DataGridViewColumn column in dataGridView.Columns)
+                            {
+                                table.AddHeaderCell(new Cell().Add(new Paragraph(column.HeaderText)));
+                            }
+
+                            // Adiciona as linhas da tabela (valores das células)
+                            foreach (DataGridViewRow row in dataGridView.Rows)
+                            {
+                                if (row.IsNewRow) continue; // Ignora a última linha vazia
+                                foreach (DataGridViewCell cell in row.Cells)
+                                {
+                                    string cellValue = cell.Value?.ToString() ?? "";
+                                    table.AddCell(new Cell().Add(new Paragraph(cellValue)));
+                                }
+                            }
+
+                            // Adiciona a tabela ao documento PDF
+                            document.Add(table);
+
+                            // Fecha o documento
+                            document.Close();
+                        }
+                    }
+
+                    MessageBox.Show("PDF gerado com sucesso em: " + filePath);
+                }
+                catch (PdfException ex)
+                {
+                    MessageBox.Show("Erro ao gerar o PDF: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro geral: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            PdfExporter exporter = new PdfExporter();
+            exporter.ExportDataGridViewToPdf(dataGridView1, @"C:\FollowUp\teste.pdf");
         }
     }
 }

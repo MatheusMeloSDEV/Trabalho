@@ -1,4 +1,10 @@
 ﻿using CLUSA;
+using System.IO;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -152,5 +158,6 @@ namespace Trabalho
         {
             this.WindowState = FormWindowState.Maximized;
         }
+
     }
 }
