@@ -23,32 +23,8 @@ namespace Trabalho
         {
             dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
             dtpDatadeInspecao.Format = DateTimePickerFormat.Custom; dtpDatadeInspecao.CustomFormat = "dd/MM/yyyy";
-            dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
+            //dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
             bsModificaAnvisa.DataSource = anvisa;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            tError.Interval = 1500;
-            tError.Tick += new System.EventHandler(this.tError_Tick);
-            btnOk.Enabled = false;
-            tError.Start();
-
-            if (!check())
-            {
-                anvisa.NR = int.Parse(insNR.Text);
-                anvisa.SR = int.Parse(insSR.Text);
-                anvisa.Importador = insImportador.Text;
-                anvisa.Terminal = insTerminal.Text;
-                anvisa.Pendencia = insPendencia.Text;
-                anvisa.LI = int.Parse(insLI.Text);
-                anvisa.LPCO = int.Parse(insLPCO.Text);
-                anvisa.StatusDoProcesso = insStatusdoProcesso.Text;
-                anvisa.Previsao = dtpPrevisao.Value.ToShortDateString();
-                anvisa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
-                anvisa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
-                this.DialogResult = DialogResult.OK;
-            }
         }
 
         private bool check()
@@ -73,13 +49,37 @@ namespace Trabalho
         {
             insPendencia.BackColor = Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White;
             insLI.BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
-            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOk.Enabled = true;
+            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnEditar.Enabled = true;
             tError.Stop();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            tError.Interval = 1500;
+            tError.Tick += new System.EventHandler(this.tError_Tick);
+            btnEditar.Enabled = false;
+            tError.Start();
+
+            if (!check())
+            {
+                anvisa.Ref_USA = insNR.Text;
+                anvisa.SR = int.Parse(insSR.Text);
+                anvisa.Importador = insImportador.Text;
+                anvisa.Terminal = insTerminal.Text;
+                anvisa.Pendencia = insPendencia.Text;
+                anvisa.LI = int.Parse(insLI.Text);
+                anvisa.LPCO = int.Parse(insLPCO.Text);
+                anvisa.StatusDoProcesso = insStatusdoProcesso.Text;
+                anvisa.Previsao = dtpPrevisao.Value.ToShortDateString();
+                //anvisa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
+                anvisa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
+                this.DialogResult = DialogResult.OK;
+            }
         }
     }
 }

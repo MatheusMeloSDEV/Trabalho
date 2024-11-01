@@ -15,7 +15,7 @@ namespace Trabalho
         private async void btnAdicionar_Click(object sender, EventArgs e)
         {
             Processo processo = new Processo();
-            frmModificaProcesso frm = new frmModificaProcesso();
+            frmAdicionaProcesso frm = new frmAdicionaProcesso();
             frm.processo = processo;
             frm.ShowDialog();
 
@@ -66,9 +66,18 @@ namespace Trabalho
 
         private void frmProcesso_Load(object sender, EventArgs e)
         {
-
+            if (frmLogin.instance.escuro)
+            {
+                DarkMode();
+            }
         }
 
+        private void DarkMode()
+        {
+            this.BackColor = SystemColors.ControlDark;
+            toolStrip1.BackColor = SystemColors.ControlDark;
+            dataGridView1.BackgroundColor = SystemColors.ControlDarkDark;
+        }
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)

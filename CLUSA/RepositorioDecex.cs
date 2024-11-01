@@ -47,7 +47,7 @@ namespace CLUSA
             {
                 var filterDecex = Builders<Decex>.Filter.Eq("Id", decex.Id);
                 var updateDecex = Builders<Decex>.Update
-                        .Set("NR", decex.NR)
+                        .Set("NR", decex.Ref_USA)
                         .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
@@ -59,11 +59,11 @@ namespace CLUSA
                 _Decex.UpdateOne(filterDecex, updateDecex);
 
                 Processo processo = new();
-                var filterProcesso = Builders<Processo>.Filter.Eq(g => g.NR, decex.NR);
+                var filterProcesso = Builders<Processo>.Filter.Eq(g => g.Ref_USA, decex.Ref_USA);
                 var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
-                        .Set("NR", decex.NR)
+                        .Set("NR", decex.Ref_USA)
                         .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
@@ -72,11 +72,11 @@ namespace CLUSA
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
                 MAPA mapa = new();
-                var filterMapa = Builders<MAPA>.Filter.Eq("NR", mapa.NR);
+                var filterMapa = Builders<MAPA>.Filter.Eq("NR", mapa.Ref_USA);
                 var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
                 var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
                 var updateMapa = Builders<MAPA>.Update
-                        .Set("NR", decex.NR)
+                        .Set("NR", decex.Ref_USA)
                         .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
@@ -88,11 +88,11 @@ namespace CLUSA
                 _MAPA.UpdateOne(filterMapaUpdate, updateMapa);
 
                 Anvisa anvisa = new();
-                var filterAnvisa = Builders<Anvisa>.Filter.Eq(g => g.NR, decex.NR);
+                var filterAnvisa = Builders<Anvisa>.Filter.Eq(g => g.Ref_USA, decex.Ref_USA);
                 var resultIDAnvisa = _Anvisa.Find(filterAnvisa).FirstOrDefaultAsync<Anvisa>().Result?.Id;
                 var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
                 var updateAnvisa = Builders<Anvisa>.Update
-                        .Set("NR", decex.NR)
+                        .Set("NR", decex.Ref_USA)
                         .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
@@ -114,7 +114,7 @@ namespace CLUSA
             var filter = Builders<Decex>.Filter.Empty;
             if (filtro == "NR")
             {
-                filter = Builders<Decex>.Filter.Regex(g => g.NR, new Regex(pesquisa, RegexOptions.IgnoreCase));
+                filter = Builders<Decex>.Filter.Regex(g => g.Ref_USA, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
             if (filtro == "SR")
             {

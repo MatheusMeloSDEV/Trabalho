@@ -22,29 +22,13 @@ namespace Trabalho
         private void frmModificaDecex_Load(object sender, EventArgs e)
         {
             dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
-            dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
+            //dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
             bsModificaDecex.DataSource = decex;
         }
 
         private void btnOkMAPA_Click(object sender, EventArgs e)
         {
-            tError.Interval = 1500;
-            tError.Tick += new System.EventHandler(this.tError_Tick);
-            btnOkMAPA.Enabled = false;
-            tError.Start();
-            if (!check())
-            {
-                decex.NR = int.Parse(insNR.Text);
-                decex.SR = int.Parse(insSR.Text);
-                decex.Importador = insImportador.Text;
-                decex.Terminal = insTerminal.Text;
-                decex.Pendencia = insPendencia.Text;
-                decex.LI = int.Parse(insLI.Text);
-                decex.StatusDoProcesso = insStatusdoProcesso.Text;
-                decex.Previsao = dtpPrevisao.Value.ToShortDateString();
-                decex.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
-                this.DialogResult = DialogResult.OK;
-            }
+
 
         }
         private bool check()
@@ -71,7 +55,7 @@ namespace Trabalho
         {
             insPendencia.BackColor = Color.White; BackColor = Color.White; insImportador.BackColor = Color.White; BackColor = Color.White;
             insLI.BackColor = Color.White; BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
-            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOkMAPA.Enabled = true;
+            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnEditar.Enabled = true;
             tError.Stop();
 
         }
@@ -79,6 +63,27 @@ namespace Trabalho
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            tError.Interval = 1500;
+            tError.Tick += new System.EventHandler(this.tError_Tick);
+            btnEditar.Enabled = false;
+            tError.Start();
+            if (!check())
+            {
+                decex.Ref_USA = insNR.Text;
+                decex.SR = int.Parse(insSR.Text);
+                decex.Importador = insImportador.Text;
+                decex.Terminal = insTerminal.Text;
+                decex.Pendencia = insPendencia.Text;
+                decex.LI = int.Parse(insLI.Text);
+                decex.StatusDoProcesso = insStatusdoProcesso.Text;
+                decex.Previsao = dtpPrevisao.Value.ToShortDateString();
+                //decex.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
+                this.DialogResult = DialogResult.OK;
+            }
         }
     }
 }

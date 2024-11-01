@@ -26,12 +26,17 @@ namespace Trabalho
 
         private void button2_Click(object sender, EventArgs e)
         {
-            processo.NR = 1;
-            processo.SR = 1;
-            processo.Importador = "insImportador.Text";
-            processo.Terminal = "insTerminal.Text";
-            processo.StatusDoProcesso = "insTerminal.Text";
             DialogResult = DialogResult.OK;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

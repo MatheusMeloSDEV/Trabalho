@@ -17,7 +17,7 @@ namespace Trabalho
         {
             dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
             dtpDatadeInspecao.Format = DateTimePickerFormat.Custom; dtpDatadeInspecao.CustomFormat = "dd/MM/yyyy";
-            dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
+            //dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
             bsModificaMAPA.DataSource = mapa;
             if (frmLogin.instance.escuro)
             {
@@ -25,31 +25,6 @@ namespace Trabalho
             }
         }
 
-        public void button1_Click(object sender, EventArgs e)
-        {
-            tErro.Interval = 1500;
-            tErro.Tick += new System.EventHandler(this.tErro_Tick);
-            btnOkMAPA.Enabled = false;
-            tErro.Start();
-
-            if (!check())
-            {
-                mapa.NR = int.Parse(insNR.Text);
-                mapa.SR = int.Parse(insSR.Text);
-                mapa.Importador = insImportador.Text;
-                mapa.Terminal = insTerminal.Text;
-                mapa.Pendencia = insPendencia.Text;
-                mapa.CSIOriginal = insCSIOriginal.Text;
-                mapa.LI = int.Parse(insLI.Text);
-                mapa.LPCO = int.Parse(insLPCO.Text);
-                mapa.Parametrizacao = insParametrizacao.Text;
-                mapa.StatusDoProcesso = insStatusdoProcesso.Text;
-                mapa.Previsao = dtpPrevisao.Value.ToShortDateString();
-                mapa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
-                mapa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
-                this.DialogResult = DialogResult.OK;
-            }
-        }
         public bool check()
         {
             bool block = false;
@@ -74,13 +49,39 @@ namespace Trabalho
         {
             insPendencia.BackColor = Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White; insCSIOriginal.BackColor = Color.White;
             insLI.BackColor = Color.White; insParametrizacao.BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
-            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnOkMAPA.Enabled = true;
+            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnEditar.Enabled = true;
             tErro.Stop();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            tErro.Interval = 1500;
+            tErro.Tick += new System.EventHandler(this.tErro_Tick);
+            btnEditar.Enabled = false;
+            tErro.Start();
+
+            if (!check())
+            {
+                mapa.Ref_USA = insNR.Text;
+                mapa.SR = int.Parse(insSR.Text);
+                mapa.Importador = insImportador.Text;
+                mapa.Terminal = insTerminal.Text;
+                mapa.Pendencia = insPendencia.Text;
+                mapa.CSIOriginal = insCSIOriginal.Text;
+                mapa.LI = int.Parse(insLI.Text);
+                mapa.LPCO = int.Parse(insLPCO.Text);
+                mapa.Parametrizacao = insParametrizacao.Text;
+                mapa.StatusDoProcesso = insStatusdoProcesso.Text;
+                mapa.Previsao = dtpPrevisao.Value.ToShortDateString();
+                //mapa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
+                mapa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
+                this.DialogResult = DialogResult.OK;
+            }
         }
     }
 }
