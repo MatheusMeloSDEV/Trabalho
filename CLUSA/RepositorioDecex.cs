@@ -48,13 +48,9 @@ namespace CLUSA
                 var filterDecex = Builders<Decex>.Filter.Eq("Id", decex.Id);
                 var updateDecex = Builders<Decex>.Update
                         .Set("NR", decex.Ref_USA)
-                        .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
-                        .Set("Terminal", decex.Terminal)
                         .Set("Pendencia", decex.Pendencia)
-                        .Set("LI", decex.LI)
-                        .Set("DataDeEntrada", decex.DataDeEntrada)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecex, updateDecex);
 
@@ -64,10 +60,8 @@ namespace CLUSA
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
                         .Set("NR", decex.Ref_USA)
-                        .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
-                        .Set("Terminal", decex.Terminal)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
@@ -77,13 +71,9 @@ namespace CLUSA
                 var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
                 var updateMapa = Builders<MAPA>.Update
                         .Set("NR", decex.Ref_USA)
-                        .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
-                        .Set("Terminal", decex.Terminal)
                         .Set("Pendencia", decex.Pendencia)
-                        .Set("LI", decex.LI)
-                        .Set("DataDeEntrada", decex.DataDeEntrada)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapaUpdate, updateMapa);
 
@@ -93,13 +83,9 @@ namespace CLUSA
                 var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
                 var updateAnvisa = Builders<Anvisa>.Update
                         .Set("NR", decex.Ref_USA)
-                        .Set("SR", decex.SR)
                         .Set("Importador", decex.Importador)
                         .Set("Previsao", decex.Previsao)
-                        .Set("Terminal", decex.Terminal)
                         .Set("Pendencia", decex.Pendencia)
-                        .Set("LI", decex.LI)
-                        .Set("DataDeEntrada", decex.DataDeEntrada)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisaUpdate, updateAnvisa);
             });

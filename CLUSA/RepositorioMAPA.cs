@@ -44,18 +44,27 @@ namespace CLUSA
                 var filterMapa = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
                 var updateMapa = Builders<MAPA>.Update
                         .Set("NR", mapa.Ref_USA)
-                        .Set("SR", mapa.SR)
                         .Set("Importador", mapa.Importador)
+                        .Set("SR", mapa.SR)
+                        .Set("Exportador", mapa.Exportador)
+                        .Set("Produto", mapa.Produto)
+                        .Set("PortoDeDestino", mapa.PortoDestino)
+                        .Set("Ordem", mapa.Ordem)
+                        .Set("FLO", mapa.FLO)
+                        .Set("FreeTime", mapa.FreeTime)
+                        .Set("BL", mapa.BL)
+                        .Set("AgenteDeCarga", mapa.AgenteDeCarga)
+                        .Set("LI_LPCO", mapa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", mapa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", mapa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", mapa.ParametrizacaoLILPCO)
+                        .Set("DI", mapa.DI)
+                        .Set("DataRegistroDI", mapa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", mapa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", mapa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", mapa.ParametrizacaoDI)
                         .Set("Previsao", mapa.Previsao)
-                        .Set("Terminal", mapa.Terminal)
                         .Set("Pendencia", mapa.Pendencia)
-                        .Set("CSIOriginal", mapa.CSIOriginal)
-                        .Set("LI", mapa.LI)
-                        .Set("LPCO", mapa.LPCO)
-                        .Set("DataDeEntrada", mapa.DataDeEntrada)
-                        .Set("Parametrizacao", mapa.Parametrizacao)
-                        .Set("SEI", mapa.SEI)
-                        .Set("DataDeInspeção", mapa.DataDeInspeção)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapa, updateMapa);
 
@@ -65,10 +74,8 @@ namespace CLUSA
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
                         .Set("NR", mapa.Ref_USA)
-                        .Set("SR", mapa.SR)
                         .Set("Importador", mapa.Importador)
                         .Set("Previsao", mapa.Previsao)
-                        .Set("Terminal", mapa.Terminal)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
@@ -78,15 +85,9 @@ namespace CLUSA
                 var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
                 var updateAnvisa = Builders<Anvisa>.Update
                         .Set("NR", mapa.Ref_USA)
-                        .Set("SR", mapa.SR)
                         .Set("Importador", mapa.Importador)
                         .Set("Previsao", mapa.Previsao)
-                        .Set("Terminal", mapa.Terminal)
                         .Set("Pendencia", mapa.Pendencia)
-                        .Set("LI", mapa.LI)
-                        .Set("LPCO", mapa.LPCO)
-                        .Set("DataDeEntrada", mapa.DataDeEntrada)
-                        .Set("DataDeInspeção", mapa.DataDeInspeção)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisaUpdate, updateAnvisa);
 
@@ -96,13 +97,10 @@ namespace CLUSA
                 var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
                 var updateDecex = Builders<Decex>.Update
                         .Set("NR", mapa.Ref_USA)
-                        .Set("SR", mapa.SR)
+                        .Set("SR", mapa.S_R)
                         .Set("Importador", mapa.Importador)
                         .Set("Previsao", mapa.Previsao)
-                        .Set("Terminal", mapa.Terminal)
                         .Set("Pendencia", mapa.Pendencia)
-                        .Set("LI", mapa.LI)
-                        .Set("DataDeEntrada", mapa.DataDeEntrada)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecexUpdate, updateDecex);
             });
@@ -115,10 +113,6 @@ namespace CLUSA
             {
                 filter = Builders<MAPA>.Filter.Eq(g => g.Ref_USA, pesquisa);
             }
-            if (filtro == "SR")
-            {
-                filter = Builders<MAPA>.Filter.Eq(g => g.SR, int.Parse(pesquisa));
-            }
             if (filtro == "Importador")
             {
                 filter = Builders<MAPA>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
@@ -126,42 +120,6 @@ namespace CLUSA
             if (filtro == "Previsao")
             {
                 filter = Builders<MAPA>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "Terminal")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "Pendencia")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "CSIOriginal")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.CSIOriginal, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "LI")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.LI, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "LPCO")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.LPCO, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "DataDeEntrada")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.DataDeEntrada, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "Parametrizacao")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.Parametrizacao, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "SEI")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.SEI, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "DataDeInspeção")
-            {
-                filter = Builders<MAPA>.Filter.Regex(g => g.DataDeInspeção, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
             if (filtro == "StatusDoProcesso")
             {

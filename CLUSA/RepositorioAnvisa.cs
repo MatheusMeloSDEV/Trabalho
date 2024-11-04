@@ -54,14 +54,9 @@ namespace CLUSA
                 var updateAnvisa = Builders<Anvisa>.Update
                         .Set("NR", anvisa.Ref_USA)
                         .Set("SR", anvisa.SR)
+                        .Set("SR", anvisa.DI)
                         .Set("Importador", anvisa.Importador)
                         .Set("Previsao", anvisa.Previsao)
-                        .Set("Terminal", anvisa.Terminal)
-                        .Set("Pendencia", anvisa.Pendencia)
-                        .Set("LI", anvisa.LI)
-                        .Set("LPCO", anvisa.LPCO)
-                        .Set("DataDeEntrada", anvisa.DataDeEntrada)
-                        .Set("DataDeInspeção", anvisa.DataDeInspeção)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisa, updateAnvisa);
 
@@ -74,10 +69,8 @@ namespace CLUSA
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
                         .Set("NR", anvisa.Ref_USA)
-                        .Set("SR", anvisa.SR)
                         .Set("Importador", anvisa.Importador)
                         .Set("Previsao", anvisa.Previsao)
-                        .Set("Terminal", anvisa.Terminal)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
@@ -86,13 +79,9 @@ namespace CLUSA
                 var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
                 var updateDecex = Builders<Decex>.Update
                         .Set("NR", anvisa.Ref_USA)
-                        .Set("SR", anvisa.SR)
                         .Set("Importador", anvisa.Importador)
                         .Set("Previsao", anvisa.Previsao)
-                        .Set("Terminal", anvisa.Terminal)
                         .Set("Pendencia", anvisa.Pendencia)
-                        .Set("LI", anvisa.LI)
-                        .Set("DataDeEntrada", anvisa.DataDeEntrada)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecex, updateDecex);
 
@@ -101,15 +90,9 @@ namespace CLUSA
                 var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
                 var updateMapa = Builders<MAPA>.Update
                         .Set("NR", anvisa.Ref_USA)
-                        .Set("SR", anvisa.SR)
                         .Set("Importador", anvisa.Importador)
                         .Set("Previsao", anvisa.Previsao)
-                        .Set("Terminal", anvisa.Terminal)
                         .Set("Pendencia", anvisa.Pendencia)
-                        .Set("LI", anvisa.LI)
-                        .Set("LPCO", anvisa.LPCO)
-                        .Set("DataDeEntrada", anvisa.DataDeEntrada)
-                        .Set("DataDeInspeção", anvisa.DataDeInspeção)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapa, updateMapa);
             });
@@ -126,10 +109,6 @@ namespace CLUSA
             {
                 filter = Builders<Anvisa>.Filter.Regex(g => g.Ref_USA, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
-            if (filtro == "SR")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.SR, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
             if (filtro == "Importador")
             {
                 filter = Builders<Anvisa>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
@@ -138,29 +117,9 @@ namespace CLUSA
             {
                 filter = Builders<Anvisa>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
-            if (filtro == "Terminal")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
             if (filtro == "Pendencia")
             {
                 filter = Builders<Anvisa>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "LI")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.LI, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "LPCO")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.LPCO, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "DataDeEntrada")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.DataDeEntrada, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "DataDeInspeção")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.DataDeInspeção, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
             if (filtro == "StatusDoProcesso")
             {

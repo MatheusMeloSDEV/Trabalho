@@ -81,5 +81,10 @@ namespace Trabalho
                 this.DialogResult = DialogResult.OK;
             }
         }
+
+        private void label35_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

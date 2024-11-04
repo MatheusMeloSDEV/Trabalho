@@ -31,23 +31,10 @@
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnvisa));
             dataGridView1 = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            sRDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            importadorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            previsaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            terminalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            pendenciaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            lIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            lPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataDeEntradaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataDeInspeçãoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bsAnvisa = new BindingSource(components);
             toolStrip1 = new ToolStrip();
             btnExcluir = new ToolStripButton();
@@ -73,7 +60,6 @@
             dataGridViewCellStyle1.SelectionForeColor = Color.White;
             dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
@@ -84,151 +70,36 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nRDataGridViewTextBoxColumn, sRDataGridViewTextBoxColumn, importadorDataGridViewTextBoxColumn, previsaoDataGridViewTextBoxColumn, terminalDataGridViewTextBoxColumn, pendenciaDataGridViewTextBoxColumn, lIDataGridViewTextBoxColumn, lPCODataGridViewTextBoxColumn, dataDeEntradaDataGridViewTextBoxColumn, dataDeInspeçãoDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
-            dataGridView1.DataSource = bsAnvisa;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.ControlDark;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.NullValue = null;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.ControlDark;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.GridColor = Color.Black;
-            dataGridView1.Location = new Point(14, 55);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
+            dataGridView1.Location = new Point(12, 41);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(887, 529);
+            dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 2;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            dataGridViewCellStyle3.BackColor = SystemColors.ActiveCaption;
-            idDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            idDataGridViewTextBoxColumn.Visible = false;
-            idDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // nRDataGridViewTextBoxColumn
-            // 
-            nRDataGridViewTextBoxColumn.DataPropertyName = "NR";
-            nRDataGridViewTextBoxColumn.HeaderText = "NR";
-            nRDataGridViewTextBoxColumn.MinimumWidth = 6;
-            nRDataGridViewTextBoxColumn.Name = "nRDataGridViewTextBoxColumn";
-            nRDataGridViewTextBoxColumn.ReadOnly = true;
-            nRDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // sRDataGridViewTextBoxColumn
-            // 
-            sRDataGridViewTextBoxColumn.DataPropertyName = "SR";
-            sRDataGridViewTextBoxColumn.HeaderText = "SR";
-            sRDataGridViewTextBoxColumn.MinimumWidth = 6;
-            sRDataGridViewTextBoxColumn.Name = "sRDataGridViewTextBoxColumn";
-            sRDataGridViewTextBoxColumn.ReadOnly = true;
-            sRDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // importadorDataGridViewTextBoxColumn
-            // 
-            importadorDataGridViewTextBoxColumn.DataPropertyName = "Importador";
-            importadorDataGridViewTextBoxColumn.HeaderText = "Importador";
-            importadorDataGridViewTextBoxColumn.MinimumWidth = 6;
-            importadorDataGridViewTextBoxColumn.Name = "importadorDataGridViewTextBoxColumn";
-            importadorDataGridViewTextBoxColumn.ReadOnly = true;
-            importadorDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // previsaoDataGridViewTextBoxColumn
-            // 
-            previsaoDataGridViewTextBoxColumn.DataPropertyName = "Previsao";
-            previsaoDataGridViewTextBoxColumn.HeaderText = "Previsao";
-            previsaoDataGridViewTextBoxColumn.MinimumWidth = 6;
-            previsaoDataGridViewTextBoxColumn.Name = "previsaoDataGridViewTextBoxColumn";
-            previsaoDataGridViewTextBoxColumn.ReadOnly = true;
-            previsaoDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // terminalDataGridViewTextBoxColumn
-            // 
-            terminalDataGridViewTextBoxColumn.DataPropertyName = "Terminal";
-            terminalDataGridViewTextBoxColumn.HeaderText = "Terminal";
-            terminalDataGridViewTextBoxColumn.MinimumWidth = 6;
-            terminalDataGridViewTextBoxColumn.Name = "terminalDataGridViewTextBoxColumn";
-            terminalDataGridViewTextBoxColumn.ReadOnly = true;
-            terminalDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // pendenciaDataGridViewTextBoxColumn
-            // 
-            pendenciaDataGridViewTextBoxColumn.DataPropertyName = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.MinimumWidth = 6;
-            pendenciaDataGridViewTextBoxColumn.Name = "pendenciaDataGridViewTextBoxColumn";
-            pendenciaDataGridViewTextBoxColumn.ReadOnly = true;
-            pendenciaDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // lIDataGridViewTextBoxColumn
-            // 
-            lIDataGridViewTextBoxColumn.DataPropertyName = "LI";
-            lIDataGridViewTextBoxColumn.HeaderText = "LI";
-            lIDataGridViewTextBoxColumn.MinimumWidth = 6;
-            lIDataGridViewTextBoxColumn.Name = "lIDataGridViewTextBoxColumn";
-            lIDataGridViewTextBoxColumn.ReadOnly = true;
-            lIDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // lPCODataGridViewTextBoxColumn
-            // 
-            lPCODataGridViewTextBoxColumn.DataPropertyName = "LPCO";
-            lPCODataGridViewTextBoxColumn.HeaderText = "LPCO";
-            lPCODataGridViewTextBoxColumn.MinimumWidth = 6;
-            lPCODataGridViewTextBoxColumn.Name = "lPCODataGridViewTextBoxColumn";
-            lPCODataGridViewTextBoxColumn.ReadOnly = true;
-            lPCODataGridViewTextBoxColumn.Width = 125;
-            // 
-            // dataDeEntradaDataGridViewTextBoxColumn
-            // 
-            dataDeEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataDeEntrada";
-            dataDeEntradaDataGridViewTextBoxColumn.HeaderText = "DataDeEntrada";
-            dataDeEntradaDataGridViewTextBoxColumn.MinimumWidth = 6;
-            dataDeEntradaDataGridViewTextBoxColumn.Name = "dataDeEntradaDataGridViewTextBoxColumn";
-            dataDeEntradaDataGridViewTextBoxColumn.ReadOnly = true;
-            dataDeEntradaDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // dataDeInspeçãoDataGridViewTextBoxColumn
-            // 
-            dataDeInspeçãoDataGridViewTextBoxColumn.DataPropertyName = "DataDeInspeção";
-            dataDeInspeçãoDataGridViewTextBoxColumn.HeaderText = "DataDeInspeção";
-            dataDeInspeçãoDataGridViewTextBoxColumn.MinimumWidth = 6;
-            dataDeInspeçãoDataGridViewTextBoxColumn.Name = "dataDeInspeçãoDataGridViewTextBoxColumn";
-            dataDeInspeçãoDataGridViewTextBoxColumn.ReadOnly = true;
-            dataDeInspeçãoDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // statusDoProcessoDataGridViewTextBoxColumn
-            // 
-            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.MinimumWidth = 6;
-            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
-            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
-            statusDoProcessoDataGridViewTextBoxColumn.Width = 125;
             // 
             // bsAnvisa
             // 
-            bsAnvisa.DataMember = "ListaAnvisa";
-            bsAnvisa.DataSource = typeof(CLUSA.RepositorioAnvisa);
+            bsAnvisa.DataSource = typeof(CLUSA.Anvisa);
             // 
             // toolStrip1
             // 
@@ -239,7 +110,7 @@
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.System;
-            toolStrip1.Size = new Size(914, 51);
+            toolStrip1.Size = new Size(800, 38);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -279,7 +150,7 @@
             btnCancelar.ImageTransparentColor = Color.Magenta;
             btnCancelar.Margin = new Padding(0, 4, 0, 2);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(29, 45);
+            btnCancelar.Size = new Size(23, 32);
             btnCancelar.Text = "toolStripButton2";
             // 
             // btnPesquisar
@@ -292,7 +163,7 @@
             btnPesquisar.ImageTransparentColor = Color.Magenta;
             btnPesquisar.Margin = new Padding(0, 4, 0, 2);
             btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(29, 45);
+            btnPesquisar.Size = new Size(23, 32);
             btnPesquisar.Text = "toolStripButton1";
             // 
             // txtPesquisar
@@ -300,7 +171,7 @@
             txtPesquisar.Alignment = ToolStripItemAlignment.Right;
             txtPesquisar.Margin = new Padding(0, 4, 3, 0);
             txtPesquisar.Name = "txtPesquisar";
-            txtPesquisar.Size = new Size(285, 47);
+            txtPesquisar.Size = new Size(250, 34);
             // 
             // CmbPesquisar
             // 
@@ -309,17 +180,16 @@
             CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "Pendencia", "LI", "LPCO", "DataDeEntrada", "DataDeInspeção", "StatusDoProcesso" });
             CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
             CmbPesquisar.Name = "CmbPesquisar";
-            CmbPesquisar.Size = new Size(138, 28);
+            CmbPesquisar.Size = new Size(121, 23);
             // 
             // frmAnvisa
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             ControlBox = false;
             Controls.Add(toolStrip1);
             Controls.Add(dataGridView1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "frmAnvisa";
             Text = "frmAnvisa";
             WindowState = FormWindowState.Maximized;
@@ -342,17 +212,6 @@
         private ToolStripComboBox CmbPesquisar;
         private ToolStripButton btnExcluir;
         private BindingSource bsAnvisa;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn sRDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn terminalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn pendenciaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn lIDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn lPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeEntradaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeInspeçãoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn;
     }
 }

@@ -1,8 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace CLUSA
 {
@@ -14,7 +12,7 @@ namespace CLUSA
 
         public string Ref_USA { get; set; } = string.Empty;
         public string Importador { get; set; } = string.Empty;
-        public string S_R { get; set; } = string.Empty;
+        public string SR { get; set; } = string.Empty;
         public string Exportador { get; set; } = string.Empty;
         public string Produto { get; set; } = string.Empty;
         public string PortoDestino { get; set; } = string.Empty;

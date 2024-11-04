@@ -35,7 +35,6 @@
             label31 = new Label();
             label27 = new Label();
             label20 = new Label();
-            comboBox4 = new ComboBox();
             dateTimePicker8 = new DateTimePicker();
             dateTimePicker5 = new DateTimePicker();
             label28 = new Label();
@@ -100,27 +99,28 @@
             lblDataEmbarque = new Label();
             btnCancel = new Button();
             btnEditar = new Button();
-            dateTimePicker11 = new DateTimePicker();
-            label32 = new Label();
-            dateTimePicker12 = new DateTimePicker();
-            label33 = new Label();
-            dateTimePicker13 = new DateTimePicker();
-            label34 = new Label();
-            dateTimePicker14 = new DateTimePicker();
+            label39 = new Label();
+            dateTimePicker16 = new DateTimePicker();
+            label40 = new Label();
+            dateTimePicker17 = new DateTimePicker();
             label35 = new Label();
-            dateTimePicker15 = new DateTimePicker();
+            label32 = new Label();
+            comboBox1 = new ComboBox();
+            dateTimePicker11 = new DateTimePicker();
+            label33 = new Label();
+            dateTimePicker12 = new DateTimePicker();
+            label34 = new Label();
             label36 = new Label();
-            label37 = new Label();
-            label38 = new Label();
+            dateTimePicker13 = new DateTimePicker();
+            checkBox4 = new CheckBox();
+            checkBox3 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)bsModificaAnvisa).BeginInit();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
-            // 
-            // bsModificaAnvisa
-            // 
-            bsModificaAnvisa.DataSource = typeof(CLUSA.Anvisa);
             // 
             // tError
             // 
@@ -128,20 +128,20 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(label38);
-            groupBox3.Controls.Add(dateTimePicker13);
-            groupBox3.Controls.Add(label34);
-            groupBox3.Controls.Add(dateTimePicker11);
-            groupBox3.Controls.Add(label31);
             groupBox3.Controls.Add(label32);
+            groupBox3.Controls.Add(label31);
+            groupBox3.Controls.Add(comboBox1);
             groupBox3.Controls.Add(label27);
-            groupBox3.Controls.Add(dateTimePicker12);
+            groupBox3.Controls.Add(dateTimePicker11);
             groupBox3.Controls.Add(label20);
             groupBox3.Controls.Add(label33);
-            groupBox3.Controls.Add(comboBox4);
             groupBox3.Controls.Add(dateTimePicker8);
+            groupBox3.Controls.Add(dateTimePicker12);
             groupBox3.Controls.Add(dateTimePicker5);
+            groupBox3.Controls.Add(label34);
             groupBox3.Controls.Add(label28);
+            groupBox3.Controls.Add(label36);
+            groupBox3.Controls.Add(dateTimePicker13);
             groupBox3.Controls.Add(label23);
             groupBox3.Controls.Add(dateTimePicker9);
             groupBox3.Controls.Add(dateTimePicker6);
@@ -194,15 +194,6 @@
             label20.TabIndex = 96;
             label20.Text = "Data de Carregamento";
             label20.Visible = false;
-            // 
-            // comboBox4
-            // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "Verde", "Amarelo", "Vermelho" });
-            comboBox4.Location = new Point(684, 43);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(128, 23);
-            comboBox4.TabIndex = 101;
             // 
             // dateTimePicker8
             // 
@@ -364,14 +355,14 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(label37);
-            groupBox2.Controls.Add(dateTimePicker14);
-            groupBox2.Controls.Add(label18);
             groupBox2.Controls.Add(label35);
+            groupBox2.Controls.Add(label39);
+            groupBox2.Controls.Add(dateTimePicker16);
+            groupBox2.Controls.Add(label40);
+            groupBox2.Controls.Add(dateTimePicker17);
+            groupBox2.Controls.Add(label18);
             groupBox2.Controls.Add(comboBox2);
-            groupBox2.Controls.Add(dateTimePicker15);
             groupBox2.Controls.Add(dateTimePicker3);
-            groupBox2.Controls.Add(label36);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(dateTimePicker2);
             groupBox2.Controls.Add(label19);
@@ -403,7 +394,7 @@
             // 
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "Verde", "Amarelo", "Vermelho" });
-            comboBox2.Location = new Point(540, 43);
+            comboBox2.Location = new Point(530, 45);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(128, 23);
             comboBox2.TabIndex = 94;
@@ -887,137 +878,202 @@
             btnEditar.UseVisualStyleBackColor = true;
             btnEditar.Click += btnEditar_Click;
             // 
-            // dateTimePicker11
+            // label39
             // 
-            dateTimePicker11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dateTimePicker11.Format = DateTimePickerFormat.Short;
-            dateTimePicker11.Location = new Point(378, 43);
-            dateTimePicker11.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dateTimePicker11.Name = "dateTimePicker11";
-            dateTimePicker11.Size = new Size(135, 23);
-            dateTimePicker11.TabIndex = 183;
-            dateTimePicker11.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            label39.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label39.AutoSize = true;
+            label39.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label39.Location = new Point(378, 22);
+            label39.Name = "label39";
+            label39.Size = new Size(121, 15);
+            label39.TabIndex = 182;
+            label39.Text = "Data de Deferimento";
+            label39.Visible = false;
             // 
-            // label32
+            // dateTimePicker16
             // 
-            label32.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label32.Location = new Point(413, 19);
-            label32.Name = "label32";
-            label32.Size = new Size(68, 20);
-            label32.TabIndex = 182;
-            label32.Text = "Inspeção";
+            dateTimePicker16.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dateTimePicker16.Format = DateTimePickerFormat.Short;
+            dateTimePicker16.Location = new Point(371, 45);
+            dateTimePicker16.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker16.Name = "dateTimePicker16";
+            dateTimePicker16.Size = new Size(135, 23);
+            dateTimePicker16.TabIndex = 183;
+            dateTimePicker16.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker16.Visible = false;
             // 
-            // dateTimePicker12
+            // label40
             // 
-            dateTimePicker12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dateTimePicker12.Format = DateTimePickerFormat.Short;
-            dateTimePicker12.Location = new Point(217, 43);
-            dateTimePicker12.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dateTimePicker12.Name = "dateTimePicker12";
-            dateTimePicker12.Size = new Size(135, 23);
-            dateTimePicker12.TabIndex = 181;
-            dateTimePicker12.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            label40.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label40.AutoSize = true;
+            label40.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label40.Location = new Point(234, 22);
+            label40.Name = "label40";
+            label40.Size = new Size(99, 15);
+            label40.TabIndex = 180;
+            label40.Text = "Data de Registro";
+            label40.Visible = false;
             // 
-            // label33
+            // dateTimePicker17
             // 
-            label33.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label33.AutoSize = true;
-            label33.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label33.Location = new Point(218, 19);
-            label33.Name = "label33";
-            label33.Size = new Size(133, 20);
-            label33.TabIndex = 180;
-            label33.Text = "Data de Atracação";
-            // 
-            // dateTimePicker13
-            // 
-            dateTimePicker13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dateTimePicker13.Format = DateTimePickerFormat.Short;
-            dateTimePicker13.Location = new Point(529, 43);
-            dateTimePicker13.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dateTimePicker13.Name = "dateTimePicker13";
-            dateTimePicker13.Size = new Size(135, 23);
-            dateTimePicker13.TabIndex = 185;
-            dateTimePicker13.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            // 
-            // label34
-            // 
-            label34.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label34.AutoSize = true;
-            label34.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label34.Location = new Point(530, 19);
-            label34.Name = "label34";
-            label34.Size = new Size(133, 20);
-            label34.TabIndex = 184;
-            label34.Text = "Data de Atracação";
-            // 
-            // dateTimePicker14
-            // 
-            dateTimePicker14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dateTimePicker14.Format = DateTimePickerFormat.Short;
-            dateTimePicker14.Location = new Point(371, 43);
-            dateTimePicker14.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dateTimePicker14.Name = "dateTimePicker14";
-            dateTimePicker14.Size = new Size(135, 23);
-            dateTimePicker14.TabIndex = 189;
-            dateTimePicker14.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            dateTimePicker17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dateTimePicker17.Format = DateTimePickerFormat.Short;
+            dateTimePicker17.Location = new Point(216, 45);
+            dateTimePicker17.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker17.Name = "dateTimePicker17";
+            dateTimePicker17.Size = new Size(135, 23);
+            dateTimePicker17.TabIndex = 181;
+            dateTimePicker17.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker17.Visible = false;
             // 
             // label35
             // 
             label35.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label35.AutoSize = true;
-            label35.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label35.Location = new Point(406, 19);
+            label35.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label35.Location = new Point(547, 22);
             label35.Name = "label35";
-            label35.Size = new Size(68, 20);
-            label35.TabIndex = 188;
-            label35.Text = "Inspeção";
+            label35.Size = new Size(94, 15);
+            label35.TabIndex = 184;
+            label35.Text = "Parametrização";
+            label35.Visible = false;
+            label35.Click += label35_Click;
             // 
-            // dateTimePicker15
+            // label32
             // 
-            dateTimePicker15.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dateTimePicker15.Format = DateTimePickerFormat.Short;
-            dateTimePicker15.Location = new Point(210, 43);
-            dateTimePicker15.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dateTimePicker15.Name = "dateTimePicker15";
-            dateTimePicker15.Size = new Size(135, 23);
-            dateTimePicker15.TabIndex = 187;
-            dateTimePicker15.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            label32.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label32.AutoSize = true;
+            label32.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label32.Location = new Point(525, 19);
+            label32.Name = "label32";
+            label32.Size = new Size(132, 15);
+            label32.TabIndex = 186;
+            label32.Text = "Data de Carregamento";
+            label32.Visible = false;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Verde", "Amarelo", "Vermelho" });
+            comboBox1.Location = new Point(678, 41);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(128, 23);
+            comboBox1.TabIndex = 183;
+            // 
+            // dateTimePicker11
+            // 
+            dateTimePicker11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dateTimePicker11.Format = DateTimePickerFormat.Short;
+            dateTimePicker11.Location = new Point(524, 42);
+            dateTimePicker11.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker11.Name = "dateTimePicker11";
+            dateTimePicker11.Size = new Size(135, 23);
+            dateTimePicker11.TabIndex = 187;
+            dateTimePicker11.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker11.Visible = false;
+            // 
+            // label33
+            // 
+            label33.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label33.AutoSize = true;
+            label33.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label33.Location = new Point(369, 19);
+            label33.Name = "label33";
+            label33.Size = new Size(131, 15);
+            label33.TabIndex = 184;
+            label33.Text = "Data de Desembaraço";
+            label33.Visible = false;
+            // 
+            // dateTimePicker12
+            // 
+            dateTimePicker12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dateTimePicker12.Format = DateTimePickerFormat.Short;
+            dateTimePicker12.Location = new Point(367, 42);
+            dateTimePicker12.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker12.Name = "dateTimePicker12";
+            dateTimePicker12.Size = new Size(135, 23);
+            dateTimePicker12.TabIndex = 185;
+            dateTimePicker12.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker12.Visible = false;
+            // 
+            // label34
+            // 
+            label34.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label34.AutoSize = true;
+            label34.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label34.Location = new Point(695, 19);
+            label34.Name = "label34";
+            label34.Size = new Size(94, 15);
+            label34.TabIndex = 180;
+            label34.Text = "Parametrização";
             // 
             // label36
             // 
             label36.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label36.AutoSize = true;
-            label36.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label36.Location = new Point(211, 19);
+            label36.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label36.Location = new Point(230, 19);
             label36.Name = "label36";
-            label36.Size = new Size(133, 20);
-            label36.TabIndex = 186;
-            label36.Text = "Data de Atracação";
+            label36.Size = new Size(99, 15);
+            label36.TabIndex = 181;
+            label36.Text = "Data de Registro";
+            label36.Visible = false;
             // 
-            // label37
+            // dateTimePicker13
             // 
-            label37.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label37.AutoSize = true;
-            label37.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label37.Location = new Point(549, 19);
-            label37.Name = "label37";
-            label37.Size = new Size(111, 20);
-            label37.TabIndex = 186;
-            label37.Text = "Parametrização";
+            dateTimePicker13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dateTimePicker13.Format = DateTimePickerFormat.Short;
+            dateTimePicker13.Location = new Point(212, 42);
+            dateTimePicker13.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker13.Name = "dateTimePicker13";
+            dateTimePicker13.Size = new Size(135, 23);
+            dateTimePicker13.TabIndex = 182;
+            dateTimePicker13.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dateTimePicker13.Visible = false;
             // 
-            // label38
+            // checkBox4
             // 
-            label38.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label38.AutoSize = true;
-            label38.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label38.Location = new Point(693, 19);
-            label38.Name = "label38";
-            label38.Size = new Size(111, 20);
-            label38.TabIndex = 190;
-            label38.Text = "Parametrização";
+            checkBox4.AutoSize = true;
+            checkBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox4.Location = new Point(43, 500);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(88, 25);
+            checkBox4.TabIndex = 182;
+            checkBox4.Text = "Amostra";
+            checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox3.Location = new Point(137, 500);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(98, 25);
+            checkBox3.TabIndex = 180;
+            checkBox3.Text = "Desovado";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox2.Location = new Point(137, 507);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(88, 25);
+            checkBox2.TabIndex = 183;
+            checkBox2.Text = "Amostra";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox1.Location = new Point(137, 507);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(98, 25);
+            checkBox1.TabIndex = 181;
+            checkBox1.Text = "Desovado";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // frmModificaAnvisa
             // 
@@ -1025,6 +1081,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(941, 537);
             ControlBox = false;
+            Controls.Add(checkBox4);
+            Controls.Add(checkBox3);
+            Controls.Add(checkBox2);
+            Controls.Add(checkBox1);
             Controls.Add(btnCancel);
             Controls.Add(btnEditar);
             Controls.Add(groupBox3);
@@ -1085,7 +1145,6 @@
         private Label label31;
         private Label label27;
         private Label label20;
-        private ComboBox comboBox4;
         private DateTimePicker dateTimePicker8;
         private DateTimePicker dateTimePicker5;
         private Label label28;
@@ -1150,17 +1209,22 @@
         private Label lblDataEmbarque;
         private Button btnCancel;
         private Button btnEditar;
-        private DateTimePicker dateTimePicker13;
-        private Label label34;
-        private DateTimePicker dateTimePicker11;
-        private Label label32;
-        private DateTimePicker dateTimePicker12;
-        private Label label33;
-        private Label label38;
-        private Label label37;
-        private DateTimePicker dateTimePicker14;
         private Label label35;
-        private DateTimePicker dateTimePicker15;
+        private Label label39;
+        private DateTimePicker dateTimePicker16;
+        private Label label40;
+        private DateTimePicker dateTimePicker17;
+        private Label label32;
+        private ComboBox comboBox1;
+        private DateTimePicker dateTimePicker11;
+        private Label label33;
+        private DateTimePicker dateTimePicker12;
+        private Label label34;
         private Label label36;
+        private DateTimePicker dateTimePicker13;
+        private CheckBox checkBox4;
+        private CheckBox checkBox3;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
     }
 }
