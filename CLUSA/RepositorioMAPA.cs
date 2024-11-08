@@ -20,14 +20,6 @@ namespace CLUSA
             }
         }
 
-        public async Task Create(MAPA mapa)
-        {
-            await Task.Run(() =>
-            {
-                _MAPA.InsertOne(mapa);
-            });
-        }
-
         public async Task Delete(MAPA mapa)
         {
             await Task.Run(() =>
@@ -43,27 +35,38 @@ namespace CLUSA
             {
                 var filterMapa = Builders<MAPA>.Filter.Eq("Id", mapa.Id);
                 var updateMapa = Builders<MAPA>.Update
-                        .Set("NR", mapa.Ref_USA)
+                        .Set("Ref_USA", mapa.Ref_USA)
                         .Set("Importador", mapa.Importador)
                         .Set("SR", mapa.SR)
                         .Set("Exportador", mapa.Exportador)
                         .Set("Produto", mapa.Produto)
-                        .Set("PortoDeDestino", mapa.PortoDestino)
+                        .Set("PortoDestino", mapa.PortoDestino)
                         .Set("Ordem", mapa.Ordem)
                         .Set("FLO", mapa.FLO)
                         .Set("FreeTime", mapa.FreeTime)
                         .Set("BL", mapa.BL)
                         .Set("AgenteDeCarga", mapa.AgenteDeCarga)
+
                         .Set("LI_LPCO", mapa.LI_LPCO)
                         .Set("DataRegistroLILPCO", mapa.DataRegistroLILPCO)
                         .Set("DataDeferimentoLILPCO", mapa.DataDeferimentoLILPCO)
                         .Set("ParametrizacaoLILPCO", mapa.ParametrizacaoLILPCO)
+
                         .Set("DI", mapa.DI)
                         .Set("DataRegistroDI", mapa.DataRegistroDI)
                         .Set("DataDesembaracoDI", mapa.DataDesembaracoDI)
                         .Set("DataCarregamentoDI", mapa.DataCarregamentoDI)
                         .Set("ParametrizacaoDI", mapa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", mapa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", mapa.DataDeAtracacao)
+                        .Set("Inspecao", mapa.Inspecao)
+                        .Set("DataEmbarque", mapa.DataEmbarque)
                         .Set("Previsao", mapa.Previsao)
+                        .Set("RecebOriginais", mapa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", mapa.FormaRecebERecebidos)
+                        .Set("Amostra", mapa.Amostra)
+                        .Set("Desovado", mapa.Desovado)
                         .Set("Pendencia", mapa.Pendencia)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapa, updateMapa);
@@ -73,9 +76,39 @@ namespace CLUSA
                 var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
-                        .Set("NR", mapa.Ref_USA)
+                        .Set("Ref_USA", mapa.Ref_USA)
                         .Set("Importador", mapa.Importador)
+                        .Set("SR", mapa.SR)
+                        .Set("Exportador", mapa.Exportador)
+                        .Set("Produto", mapa.Produto)
+                        .Set("PortoDestino", mapa.PortoDestino)
+                        .Set("Ordem", mapa.Ordem)
+                        .Set("FLO", mapa.FLO)
+                        .Set("FreeTime", mapa.FreeTime)
+                        .Set("BL", mapa.BL)
+                        .Set("AgenteDeCarga", mapa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", mapa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", mapa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", mapa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", mapa.ParametrizacaoLILPCO)
+
+                        .Set("DI", mapa.DI)
+                        .Set("DataRegistroDI", mapa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", mapa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", mapa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", mapa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", mapa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", mapa.DataDeAtracacao)
+                        .Set("Inspecao", mapa.Inspecao)
+                        .Set("DataEmbarque", mapa.DataEmbarque)
                         .Set("Previsao", mapa.Previsao)
+                        .Set("RecebOriginais", mapa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", mapa.FormaRecebERecebidos)
+                        .Set("Amostra", mapa.Amostra)
+                        .Set("Desovado", mapa.Desovado)
+                        .Set("Pendencia", mapa.Pendencia)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
@@ -84,9 +117,38 @@ namespace CLUSA
                 var resultIDAnvisa = _Anvisa.Find(filterAnvisa).FirstOrDefaultAsync<Anvisa>().Result?.Id;
                 var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
                 var updateAnvisa = Builders<Anvisa>.Update
-                        .Set("NR", mapa.Ref_USA)
+                        .Set("Ref_USA", mapa.Ref_USA)
                         .Set("Importador", mapa.Importador)
+                        .Set("SR", mapa.SR)
+                        .Set("Exportador", mapa.Exportador)
+                        .Set("Produto", mapa.Produto)
+                        .Set("PortoDestino", mapa.PortoDestino)
+                        .Set("Ordem", mapa.Ordem)
+                        .Set("FLO", mapa.FLO)
+                        .Set("FreeTime", mapa.FreeTime)
+                        .Set("BL", mapa.BL)
+                        .Set("AgenteDeCarga", mapa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", mapa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", mapa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", mapa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", mapa.ParametrizacaoLILPCO)
+
+                        .Set("DI", mapa.DI)
+                        .Set("DataRegistroDI", mapa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", mapa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", mapa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", mapa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", mapa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", mapa.DataDeAtracacao)
+                        .Set("Inspecao", mapa.Inspecao)
+                        .Set("DataEmbarque", mapa.DataEmbarque)
                         .Set("Previsao", mapa.Previsao)
+                        .Set("RecebOriginais", mapa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", mapa.FormaRecebERecebidos)
+                        .Set("Amostra", mapa.Amostra)
+                        .Set("Desovado", mapa.Desovado)
                         .Set("Pendencia", mapa.Pendencia)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisaUpdate, updateAnvisa);
@@ -96,10 +158,38 @@ namespace CLUSA
                 var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
                 var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
                 var updateDecex = Builders<Decex>.Update
-                        .Set("NR", mapa.Ref_USA)
-                        .Set("SR", mapa.S_R)
+                        .Set("Ref_USA", mapa.Ref_USA)
                         .Set("Importador", mapa.Importador)
+                        .Set("SR", mapa.SR)
+                        .Set("Exportador", mapa.Exportador)
+                        .Set("Produto", mapa.Produto)
+                        .Set("PortoDestino", mapa.PortoDestino)
+                        .Set("Ordem", mapa.Ordem)
+                        .Set("FLO", mapa.FLO)
+                        .Set("FreeTime", mapa.FreeTime)
+                        .Set("BL", mapa.BL)
+                        .Set("AgenteDeCarga", mapa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", mapa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", mapa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", mapa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", mapa.ParametrizacaoLILPCO)
+
+                        .Set("DI", mapa.DI)
+                        .Set("DataRegistroDI", mapa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", mapa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", mapa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", mapa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", mapa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", mapa.DataDeAtracacao)
+                        .Set("Inspecao", mapa.Inspecao)
+                        .Set("DataEmbarque", mapa.DataEmbarque)
                         .Set("Previsao", mapa.Previsao)
+                        .Set("RecebOriginais", mapa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", mapa.FormaRecebERecebidos)
+                        .Set("Amostra", mapa.Amostra)
+                        .Set("Desovado", mapa.Desovado)
                         .Set("Pendencia", mapa.Pendencia)
                         .Set("StatusDoProcesso", mapa.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecexUpdate, updateDecex);

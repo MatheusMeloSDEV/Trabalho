@@ -24,14 +24,6 @@ namespace CLUSA
             }
         }
 
-        public async Task Create(Decex decex)
-        {
-            await Task.Run(() =>
-            {
-                _Decex.InsertOne(decex);
-            });
-        }
-
         public async Task Delete(Decex decex)
         {
             await Task.Run(() =>
@@ -47,9 +39,38 @@ namespace CLUSA
             {
                 var filterDecex = Builders<Decex>.Filter.Eq("Id", decex.Id);
                 var updateDecex = Builders<Decex>.Update
-                        .Set("NR", decex.Ref_USA)
+                        .Set("Ref_USA", decex.Ref_USA)
                         .Set("Importador", decex.Importador)
+                        .Set("SR", decex.SR)
+                        .Set("Exportador", decex.Exportador)
+                        .Set("Produto", decex.Produto)
+                        .Set("PortoDestino", decex.PortoDestino)
+                        .Set("Ordem", decex.Ordem)
+                        .Set("FLO", decex.FLO)
+                        .Set("FreeTime", decex.FreeTime)
+                        .Set("BL", decex.BL)
+                        .Set("AgenteDeCarga", decex.AgenteDeCarga)
+
+                        .Set("LI_LPCO", decex.LI_LPCO)
+                        .Set("DataRegistroLILPCO", decex.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", decex.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", decex.ParametrizacaoLILPCO)
+
+                        .Set("DI", decex.DI)
+                        .Set("DataRegistroDI", decex.DataRegistroDI)
+                        .Set("DataDesembaracoDI", decex.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", decex.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", decex.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", decex.PossuiEmbarque)
+                        .Set("DataDeAtracacao", decex.DataDeAtracacao)
+                        .Set("Inspecao", decex.Inspecao)
+                        .Set("DataEmbarque", decex.DataEmbarque)
                         .Set("Previsao", decex.Previsao)
+                        .Set("RecebOriginais", decex.RecebOriginais)
+                        .Set("FormaRecebERecebidos", decex.FormaRecebERecebidos)
+                        .Set("Amostra", decex.Amostra)
+                        .Set("Desovado", decex.Desovado)
                         .Set("Pendencia", decex.Pendencia)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecex, updateDecex);
@@ -59,9 +80,39 @@ namespace CLUSA
                 var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
-                        .Set("NR", decex.Ref_USA)
+                        .Set("Ref_USA", decex.Ref_USA)
                         .Set("Importador", decex.Importador)
+                        .Set("SR", decex.SR)
+                        .Set("Exportador", decex.Exportador)
+                        .Set("Produto", decex.Produto)
+                        .Set("PortoDestino", decex.PortoDestino)
+                        .Set("Ordem", decex.Ordem)
+                        .Set("FLO", decex.FLO)
+                        .Set("FreeTime", decex.FreeTime)
+                        .Set("BL", decex.BL)
+                        .Set("AgenteDeCarga", decex.AgenteDeCarga)
+
+                        .Set("LI_LPCO", decex.LI_LPCO)
+                        .Set("DataRegistroLILPCO", decex.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", decex.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", decex.ParametrizacaoLILPCO)
+
+                        .Set("DI", decex.DI)
+                        .Set("DataRegistroDI", decex.DataRegistroDI)
+                        .Set("DataDesembaracoDI", decex.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", decex.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", decex.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", decex.PossuiEmbarque)
+                        .Set("DataDeAtracacao", decex.DataDeAtracacao)
+                        .Set("Inspecao", decex.Inspecao)
+                        .Set("DataEmbarque", decex.DataEmbarque)
                         .Set("Previsao", decex.Previsao)
+                        .Set("RecebOriginais", decex.RecebOriginais)
+                        .Set("FormaRecebERecebidos", decex.FormaRecebERecebidos)
+                        .Set("Amostra", decex.Amostra)
+                        .Set("Desovado", decex.Desovado)
+                        .Set("Pendencia", decex.Pendencia)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
@@ -70,9 +121,38 @@ namespace CLUSA
                 var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
                 var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
                 var updateMapa = Builders<MAPA>.Update
-                        .Set("NR", decex.Ref_USA)
+                        .Set("Ref_USA", decex.Ref_USA)
                         .Set("Importador", decex.Importador)
+                        .Set("SR", decex.SR)
+                        .Set("Exportador", decex.Exportador)
+                        .Set("Produto", decex.Produto)
+                        .Set("PortoDestino", decex.PortoDestino)
+                        .Set("Ordem", decex.Ordem)
+                        .Set("FLO", decex.FLO)
+                        .Set("FreeTime", decex.FreeTime)
+                        .Set("BL", decex.BL)
+                        .Set("AgenteDeCarga", decex.AgenteDeCarga)
+
+                        .Set("LI_LPCO", decex.LI_LPCO)
+                        .Set("DataRegistroLILPCO", decex.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", decex.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", decex.ParametrizacaoLILPCO)
+
+                        .Set("DI", decex.DI)
+                        .Set("DataRegistroDI", decex.DataRegistroDI)
+                        .Set("DataDesembaracoDI", decex.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", decex.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", decex.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", decex.PossuiEmbarque)
+                        .Set("DataDeAtracacao", decex.DataDeAtracacao)
+                        .Set("Inspecao", decex.Inspecao)
+                        .Set("DataEmbarque", decex.DataEmbarque)
                         .Set("Previsao", decex.Previsao)
+                        .Set("RecebOriginais", decex.RecebOriginais)
+                        .Set("FormaRecebERecebidos", decex.FormaRecebERecebidos)
+                        .Set("Amostra", decex.Amostra)
+                        .Set("Desovado", decex.Desovado)
                         .Set("Pendencia", decex.Pendencia)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapaUpdate, updateMapa);
@@ -82,9 +162,38 @@ namespace CLUSA
                 var resultIDAnvisa = _Anvisa.Find(filterAnvisa).FirstOrDefaultAsync<Anvisa>().Result?.Id;
                 var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
                 var updateAnvisa = Builders<Anvisa>.Update
-                        .Set("NR", decex.Ref_USA)
+                        .Set("Ref_USA", decex.Ref_USA)
                         .Set("Importador", decex.Importador)
+                        .Set("SR", decex.SR)
+                        .Set("Exportador", decex.Exportador)
+                        .Set("Produto", decex.Produto)
+                        .Set("PortoDestino", decex.PortoDestino)
+                        .Set("Ordem", decex.Ordem)
+                        .Set("FLO", decex.FLO)
+                        .Set("FreeTime", decex.FreeTime)
+                        .Set("BL", decex.BL)
+                        .Set("AgenteDeCarga", decex.AgenteDeCarga)
+
+                        .Set("LI_LPCO", decex.LI_LPCO)
+                        .Set("DataRegistroLILPCO", decex.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", decex.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", decex.ParametrizacaoLILPCO)
+
+                        .Set("DI", decex.DI)
+                        .Set("DataRegistroDI", decex.DataRegistroDI)
+                        .Set("DataDesembaracoDI", decex.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", decex.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", decex.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", decex.PossuiEmbarque)
+                        .Set("DataDeAtracacao", decex.DataDeAtracacao)
+                        .Set("Inspecao", decex.Inspecao)
+                        .Set("DataEmbarque", decex.DataEmbarque)
                         .Set("Previsao", decex.Previsao)
+                        .Set("RecebOriginais", decex.RecebOriginais)
+                        .Set("FormaRecebERecebidos", decex.FormaRecebERecebidos)
+                        .Set("Amostra", decex.Amostra)
+                        .Set("Desovado", decex.Desovado)
                         .Set("Pendencia", decex.Pendencia)
                         .Set("StatusDoProcesso", decex.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisaUpdate, updateAnvisa);
@@ -102,10 +211,6 @@ namespace CLUSA
             {
                 filter = Builders<Decex>.Filter.Regex(g => g.Ref_USA, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
-            if (filtro == "SR")
-            {
-                filter = Builders<Decex>.Filter.Regex(g => g.SR, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
             if (filtro == "Importador")
             {
                 filter = Builders<Decex>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
@@ -114,21 +219,9 @@ namespace CLUSA
             {
                 filter = Builders<Decex>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
-            if (filtro == "Terminal")
-            {
-                filter = Builders<Decex>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
             if (filtro == "Pendencia")
             {
                 filter = Builders<Decex>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "LI")
-            {
-                filter = Builders<Decex>.Filter.Regex(g => g.LI, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "DataDeEntrada")
-            {
-                filter = Builders<Decex>.Filter.Regex(g => g.DataDeEntrada, new Regex(pesquisa, RegexOptions.IgnoreCase));
             }
             if (filtro == "StatusDoProcesso")
             {

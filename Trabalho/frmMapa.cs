@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using iText.Commons.Datastructures;
 using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -20,7 +21,7 @@ namespace Trabalho
         private void frmMapa_Load(object sender, EventArgs e)
         {
             repositorio = new RepositorioMAPA();
-            bsMAPA.DataSource = repositorio;
+            BSmapa.DataSource = repositorio;
             if (frmLogin.instance.escuro)
             {
                 DarkMode();
@@ -35,47 +36,31 @@ namespace Trabalho
             txtPesquisar.BackColor = SystemColors.ControlDarkDark;
             dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
+            dataGridView1.BackgroundColor = SystemColors.ControlDark;
         }
 
         private async void btnAdicionar_click(object sender, EventArgs e)
         {
-            MAPA mapa = new MAPA();
-            frmModificaMapa frm = new frmModificaMapa();
-            frm.mapa = mapa;
-            frm.ShowDialog();
 
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                await repositorio.Create(mapa);
-                bsMAPA.Add(mapa);
-            }
         }
+
+        private void bsMAPA_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private async void btnExcluir_Click(object sender, EventArgs e)
         {
-            await repositorio.Delete(bsMAPA.Current as MAPA);
-            bsMAPA.Remove(bsMAPA.Current as MAPA);
-            bsMAPA.ResetBindings(false);
-            bsMAPA.DataSource = repositorio.FindAll();
-        }
-
-        private async void btnEditar_Click(object sender, EventArgs e)
-        {
-            frmModificaMapa frm = new frmModificaMapa();
-            frm.mapa = bsMAPA.Current as MAPA;
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                await repositorio.Update(frm.mapa);
-                bsMAPA.ResetBindings(false);
-            }
-            bsMAPA.DataSource = repositorio.FindAll();
+            await repositorio.Delete(BSmapa.Current as MAPA);
+            BSmapa.Remove(BSmapa.Current as MAPA);
+            BSmapa.ResetBindings(false);
+            BSmapa.DataSource = repositorio.FindAll();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             repositorio = new RepositorioMAPA();
-            bsMAPA.DataSource = repositorio.FindAll();
+            BSmapa.DataSource = repositorio.FindAll();
             CmbPesquisar.Text = "";
         }
 
@@ -84,7 +69,7 @@ namespace Trabalho
             if (e.KeyCode == Keys.Enter)
             {
                 repositorio = new RepositorioMAPA();
-                bsMAPA.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
+                BSmapa.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
             }
         }
 
@@ -95,7 +80,7 @@ namespace Trabalho
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            bsMAPA.DataSource = repositorio.FindAll();
+            BSmapa.DataSource = repositorio.FindAll();
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -106,7 +91,7 @@ namespace Trabalho
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             repositorio = new RepositorioMAPA();
-            bsMAPA.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
+            BSmapa.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
         }
 
         private void CmbPesquisar_Click(object sender, EventArgs e)
@@ -190,6 +175,25 @@ namespace Trabalho
         {
             PdfExporter exporter = new PdfExporter();
             exporter.ExportDataGridViewToPdf(dataGridView1, @"C:\FollowUp\teste.pdf");
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void BTNeditar_Click_1(object sender, EventArgs e)
+        {
+            frmModificaMapa frm = new frmModificaMapa();
+            frm.mapa = BSmapa.Current as MAPA;
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                await repositorio.Update(frm.mapa);
+                BSmapa.ResetBindings(false);
+            }
+            BSmapa.DataSource = repositorio.FindAll();
         }
     }
 }

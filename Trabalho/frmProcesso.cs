@@ -8,14 +8,14 @@ namespace Trabalho
         public frmProcesso()
         {
             InitializeComponent();
-            repositorio = new RepositorioProcesso();
+            repositorio = new();
             bsProcesso.DataSource = repositorio;
         }
 
         private async void btnAdicionar_Click(object sender, EventArgs e)
         {
-            Processo processo = new Processo();
-            frmAdicionaProcesso frm = new frmAdicionaProcesso();
+            Processo processo = new();
+            frmModificaProcesso frm = new();
             frm.processo = processo;
             frm.ShowDialog();
 
@@ -36,8 +36,10 @@ namespace Trabalho
 
         private async void btnEditar_Click(object sender, EventArgs e)
         {
-            frmModificaProcesso frm = new();
-            frm.processo = bsProcesso.Current as Processo;
+            frmModificaProcesso frm = new()
+            {
+                processo = bsProcesso.Current as Processo
+            };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
@@ -60,7 +62,7 @@ namespace Trabalho
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            repositorio = new RepositorioProcesso();
+            repositorio = new();
             bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
         }
 

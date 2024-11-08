@@ -1,5 +1,6 @@
 ﻿using CLUSA;
 using DnsClient.Protocol;
+using System.Text.RegularExpressions;
 using ZstdSharp.Unsafe;
 
 namespace Trabalho
@@ -15,9 +16,6 @@ namespace Trabalho
 
         public void frmModifica_Load(object sender, EventArgs e)
         {
-            dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
-            dtpDatadeInspecao.Format = DateTimePickerFormat.Custom; dtpDatadeInspecao.CustomFormat = "dd/MM/yyyy";
-            //dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
             bsModificaMAPA.DataSource = mapa;
             if (frmLogin.instance.escuro)
             {
@@ -25,32 +23,9 @@ namespace Trabalho
             }
         }
 
-        public bool check()
-        {
-            bool block = false;
-            tErro.Interval = 1500;
-            tErro.Tick += new System.EventHandler(this.tErro_Tick);
-
-            if (insCSIOriginal.Text == "") { insCSIOriginal.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insImportador.Text == "") { insImportador.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insLI.Text == "") { insLI.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insLPCO.Text == "") { insLPCO.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insNR.Text == "") { insNR.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insParametrizacao.Text == "") { insParametrizacao.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insPendencia.Text == "") { insPendencia.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insStatusdoProcesso.Text == "") { insStatusdoProcesso.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insTerminal.Text == "") { insTerminal.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-            if (insSR.Text == "") { insSR.BackColor = Color.MistyRose; block = true; tErro.Start(); }
-
-            return block;
-        }
-
         private void tErro_Tick(object sender, EventArgs e)
         {
-            insPendencia.BackColor = Color.White; insLPCO.BackColor = Color.White; insImportador.BackColor = Color.White; insCSIOriginal.BackColor = Color.White;
-            insLI.BackColor = Color.White; insParametrizacao.BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
-            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnEditar.Enabled = true;
-            tErro.Stop();
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -60,27 +35,64 @@ namespace Trabalho
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            tErro.Interval = 1500;
-            tErro.Tick += new System.EventHandler(this.tErro_Tick);
-            btnEditar.Enabled = false;
-            tErro.Start();
+            mapa.Importador = TXTimportador.Text;
+            mapa.Ref_USA = TXTnr.Text;
+            mapa.SR = TXTsr.Text;
+            mapa.Exportador = TXTexportador.Text;
+            mapa.Produto = TXTProduto.Text;
+            mapa.PortoDestino = TXTportodedestino.Text;
+            mapa.Ordem = TXTordem.Text;
+            mapa.FLO = TXTflo.Text;
+            mapa.FreeTime = int.Parse(NUMfreetime.Text);
+            mapa.BL = TXTbl.Text;
+            mapa.AgenteDeCarga = TXTagentedecarga.Text;
 
-            if (!check())
+            mapa.LI_LPCO = TXTlilpco.Text;
+            mapa.DataRegistroLILPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
+            mapa.DataDeferimentoLILPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
+            mapa.ParametrizacaoLILPCO = CBparametrizacaolilpco.Text;
+
+            mapa.DI = TXTdi.Text;
+            mapa.DataRegistroDI = DTPdataderegistrodi.Value.ToShortDateString().ToString();
+            mapa.DataDesembaracoDI = DTPdatadedesembaracodi.Value.ToShortDateString().ToString();
+            mapa.DataCarregamentoDI = DTPdatadecarregamentodi.Value.ToShortDateString().ToString();
+            mapa.ParametrizacaoDI = CBparametrizacaodi.Text;
+
+            mapa.DataDeAtracacao = DTPdatadeatracacao.Value.ToShortDateString().ToString();
+            mapa.Inspecao = DTPdatadeinspecao.Value.ToShortDateString().ToString();
+            mapa.DataEmbarque = DTPdatadeembarque.Value.ToShortDateString().ToString();
+            mapa.Previsao = DTPdatadeprevisao.Value.ToShortDateString().ToString();
+            mapa.StatusDoProcesso = TXTstatusdoprocesso.Text;
+            mapa.Pendencia = TXTpendencia.Text;
+            mapa.Amostra = CBamostra.Checked;
+            mapa.Desovado = CBdesovado.Checked;
+
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void cbEmbarque_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbEmbarque.Checked)
             {
-                mapa.Ref_USA = insNR.Text;
-                mapa.SR = int.Parse(insSR.Text);
-                mapa.Importador = insImportador.Text;
-                mapa.Terminal = insTerminal.Text;
-                mapa.Pendencia = insPendencia.Text;
-                mapa.CSIOriginal = insCSIOriginal.Text;
-                mapa.LI = int.Parse(insLI.Text);
-                mapa.LPCO = int.Parse(insLPCO.Text);
-                mapa.Parametrizacao = insParametrizacao.Text;
-                mapa.StatusDoProcesso = insStatusdoProcesso.Text;
-                mapa.Previsao = dtpPrevisao.Value.ToShortDateString();
-                //mapa.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
-                mapa.DataDeInspeção = dtpDatadeInspecao.Value.ToShortDateString();
-                this.DialogResult = DialogResult.OK;
+                LBLdatadeatracacao.Visible = true;
+                DTPdatadeatracacao.Visible = true;
+                LBLdatadeembarque.Visible = true;
+                DTPdatadeembarque.Visible = true;
+                LBLinspecao.Visible = true;
+                DTPdatadeinspecao.Visible = true;
+                LBLprevisao.Visible = true;
+                DTPdatadeprevisao.Visible = true;
+            }
+            else
+            {
+                LBLdatadeatracacao.Visible = false;
+                DTPdatadeatracacao.Visible = false;
+                LBLdatadeembarque.Visible = false;
+                DTPdatadeembarque.Visible = false;
+                LBLinspecao.Visible = false;
+                DTPdatadeinspecao.Visible = false;
+                LBLprevisao.Visible = false;
+                DTPdatadeprevisao.Visible = false;
             }
         }
     }

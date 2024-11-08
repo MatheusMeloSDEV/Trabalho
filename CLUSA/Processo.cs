@@ -14,7 +14,6 @@ namespace CLUSA
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
 
-
         public bool TDecex { get; set; } = false;
         public bool TAnvisa { get; set; } = false;
         public bool TMapa { get; set; } = false;

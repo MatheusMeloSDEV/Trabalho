@@ -52,46 +52,162 @@ namespace CLUSA
             {
                 var filterAnvisa = Builders<Anvisa>.Filter.Eq("Id", anvisa.Id);
                 var updateAnvisa = Builders<Anvisa>.Update
-                        .Set("NR", anvisa.Ref_USA)
-                        .Set("SR", anvisa.SR)
-                        .Set("SR", anvisa.DI)
+                        .Set("Ref_USA", anvisa.Ref_USA)
                         .Set("Importador", anvisa.Importador)
+                        .Set("SR", anvisa.SR)
+                        .Set("Exportador", anvisa.Exportador)
+                        .Set("Produto", anvisa.Produto)
+                        .Set("PortoDestino", anvisa.PortoDestino)
+                        .Set("Ordem", anvisa.Ordem)
+                        .Set("FLO", anvisa.FLO)
+                        .Set("FreeTime", anvisa.FreeTime)
+                        .Set("BL", anvisa.BL)
+                        .Set("AgenteDeCarga", anvisa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", anvisa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", anvisa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", anvisa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", anvisa.ParametrizacaoLILPCO)
+
+                        .Set("DI", anvisa.DI)
+                        .Set("DataRegistroDI", anvisa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", anvisa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", anvisa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", anvisa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", anvisa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
+                        .Set("Inspecao", anvisa.Inspecao)
+                        .Set("DataEmbarque", anvisa.DataEmbarque)
                         .Set("Previsao", anvisa.Previsao)
+                        .Set("RecebOriginais", anvisa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", anvisa.FormaRecebERecebidos)
+                        .Set("Amostra", anvisa.Amostra)
+                        .Set("Desovado", anvisa.Desovado)
+                        .Set("Pendencia", anvisa.Pendencia)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Anvisa.UpdateOne(filterAnvisa, updateAnvisa);
 
-                Processo processo = new();
-                Decex decex = new();
-                MAPA mapa = new();
 
+                Processo processo = new();
                 var filterProcesso = Builders<Processo>.Filter.Eq(g => g.Ref_USA, anvisa.Ref_USA);
                 var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
                 var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
                 var updateProcesso = Builders<Processo>.Update
-                        .Set("NR", anvisa.Ref_USA)
+                        .Set("Ref_USA", anvisa.Ref_USA)
                         .Set("Importador", anvisa.Importador)
+                        .Set("SR", anvisa.SR)
+                        .Set("Exportador", anvisa.Exportador)
+                        .Set("Produto", anvisa.Produto)
+                        .Set("PortoDestino", anvisa.PortoDestino)
+                        .Set("Ordem", anvisa.Ordem)
+                        .Set("FLO", anvisa.FLO)
+                        .Set("FreeTime", anvisa.FreeTime)
+                        .Set("BL", anvisa.BL)
+                        .Set("AgenteDeCarga", anvisa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", anvisa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", anvisa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", anvisa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", anvisa.ParametrizacaoLILPCO)
+
+                        .Set("DI", anvisa.DI)
+                        .Set("DataRegistroDI", anvisa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", anvisa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", anvisa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", anvisa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", anvisa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
+                        .Set("Inspecao", anvisa.Inspecao)
+                        .Set("DataEmbarque", anvisa.DataEmbarque)
                         .Set("Previsao", anvisa.Previsao)
+                        .Set("RecebOriginais", anvisa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", anvisa.FormaRecebERecebidos)
+                        .Set("Amostra", anvisa.Amostra)
+                        .Set("Desovado", anvisa.Desovado)
+                        .Set("Pendencia", anvisa.Pendencia)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
 
+                Decex decex = new();
                 var filterDecex = Builders<Decex>.Filter.Eq(g => g.Ref_USA, anvisa.Ref_USA);
                 var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
                 var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
                 var updateDecex = Builders<Decex>.Update
-                        .Set("NR", anvisa.Ref_USA)
+                        .Set("Ref_USA", anvisa.Ref_USA)
                         .Set("Importador", anvisa.Importador)
+                        .Set("SR", anvisa.SR)
+                        .Set("Exportador", anvisa.Exportador)
+                        .Set("Produto", anvisa.Produto)
+                        .Set("PortoDestino", anvisa.PortoDestino)
+                        .Set("Ordem", anvisa.Ordem)
+                        .Set("FLO", anvisa.FLO)
+                        .Set("FreeTime", anvisa.FreeTime)
+                        .Set("BL", anvisa.BL)
+                        .Set("AgenteDeCarga", anvisa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", anvisa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", anvisa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", anvisa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", anvisa.ParametrizacaoLILPCO)
+
+                        .Set("DI", anvisa.DI)
+                        .Set("DataRegistroDI", anvisa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", anvisa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", anvisa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", anvisa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", anvisa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
+                        .Set("Inspecao", anvisa.Inspecao)
+                        .Set("DataEmbarque", anvisa.DataEmbarque)
                         .Set("Previsao", anvisa.Previsao)
+                        .Set("RecebOriginais", anvisa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", anvisa.FormaRecebERecebidos)
+                        .Set("Amostra", anvisa.Amostra)
+                        .Set("Desovado", anvisa.Desovado)
                         .Set("Pendencia", anvisa.Pendencia)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _Decex.UpdateOne(filterDecex, updateDecex);
 
+                MAPA mapa = new();
                 var filterMapa = Builders<MAPA>.Filter.Eq(g => g.Ref_USA, anvisa.Ref_USA);
                 var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
                 var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
                 var updateMapa = Builders<MAPA>.Update
-                        .Set("NR", anvisa.Ref_USA)
+                        .Set("Ref_USA", anvisa.Ref_USA)
                         .Set("Importador", anvisa.Importador)
+                        .Set("SR", anvisa.SR)
+                        .Set("Exportador", anvisa.Exportador)
+                        .Set("Produto", anvisa.Produto)
+                        .Set("PortoDestino", anvisa.PortoDestino)
+                        .Set("Ordem", anvisa.Ordem)
+                        .Set("FLO", anvisa.FLO)
+                        .Set("FreeTime", anvisa.FreeTime)
+                        .Set("BL", anvisa.BL)
+                        .Set("AgenteDeCarga", anvisa.AgenteDeCarga)
+
+                        .Set("LI_LPCO", anvisa.LI_LPCO)
+                        .Set("DataRegistroLILPCO", anvisa.DataRegistroLILPCO)
+                        .Set("DataDeferimentoLILPCO", anvisa.DataDeferimentoLILPCO)
+                        .Set("ParametrizacaoLILPCO", anvisa.ParametrizacaoLILPCO)
+
+                        .Set("DI", anvisa.DI)
+                        .Set("DataRegistroDI", anvisa.DataRegistroDI)
+                        .Set("DataDesembaracoDI", anvisa.DataDesembaracoDI)
+                        .Set("DataCarregamentoDI", anvisa.DataCarregamentoDI)
+                        .Set("ParametrizacaoDI", anvisa.ParametrizacaoDI)
+
+                        .Set("PossuiEmbarque", anvisa.PossuiEmbarque)
+                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
+                        .Set("Inspecao", anvisa.Inspecao)
+                        .Set("DataEmbarque", anvisa.DataEmbarque)
                         .Set("Previsao", anvisa.Previsao)
+                        .Set("RecebOriginais", anvisa.RecebOriginais)
+                        .Set("FormaRecebERecebidos", anvisa.FormaRecebERecebidos)
+                        .Set("Amostra", anvisa.Amostra)
+                        .Set("Desovado", anvisa.Desovado)
                         .Set("Pendencia", anvisa.Pendencia)
                         .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
                 _MAPA.UpdateOne(filterMapa, updateMapa);

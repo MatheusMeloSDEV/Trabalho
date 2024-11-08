@@ -19,16 +19,6 @@ namespace Trabalho
 
         private async void btnAdicionar_Click(object sender, EventArgs e)
         {
-            Decex decex = new Decex();
-            frmModificaDecex frm = new frmModificaDecex();
-            frm.decex = decex;
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                await repositorio.Create(decex);
-                bsDecex.Add(decex);
-            }
         }
 
         private async void btnEditar_Click(object sender, EventArgs e)

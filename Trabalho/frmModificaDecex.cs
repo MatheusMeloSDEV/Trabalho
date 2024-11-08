@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,42 +22,13 @@ namespace Trabalho
 
         private void frmModificaDecex_Load(object sender, EventArgs e)
         {
-            dtpPrevisao.Format = DateTimePickerFormat.Custom; dtpPrevisao.CustomFormat = "dd/MM/yyyy";
-            //dtpDatadeEntrada.Format = DateTimePickerFormat.Custom; dtpDatadeEntrada.CustomFormat = "dd/MM/yyyy";
+
             bsModificaDecex.DataSource = decex;
         }
 
         private void btnOkMAPA_Click(object sender, EventArgs e)
         {
 
-
-        }
-        private bool check()
-        {
-            bool block = false;
-            tError.Interval = 1500;
-            tError.Tick += new System.EventHandler(this.tError_Tick);
-
-            if (insImportador.Text == "") { insImportador.BackColor = Color.MistyRose; block = true; tError.Start(); }
-            if (insLI.Text == "") { insLI.BackColor = Color.MistyRose; block = true; tError.Start(); }
-
-            if (insNR.Text == "") { insNR.BackColor = Color.MistyRose; block = true; tError.Start(); }
-
-            if (insPendencia.Text == "") { insPendencia.BackColor = Color.MistyRose; block = true; tError.Start(); }
-            if (insStatusdoProcesso.Text == "") { insStatusdoProcesso.BackColor = Color.MistyRose; block = true; tError.Start(); }
-            if (insTerminal.Text == "") { insTerminal.BackColor = Color.MistyRose; block = true; tError.Start(); }
-            if (insSR.Text == "") { insSR.BackColor = Color.MistyRose; block = true; tError.Start(); }
-
-            return block;
-
-        }
-
-        private void tError_Tick(object sender, EventArgs e)
-        {
-            insPendencia.BackColor = Color.White; BackColor = Color.White; insImportador.BackColor = Color.White; BackColor = Color.White;
-            insLI.BackColor = Color.White; BackColor = Color.White; insSR.BackColor = Color.White; insStatusdoProcesso.BackColor = Color.White;
-            insTerminal.BackColor = Color.White; insNR.BackColor = Color.White; btnEditar.Enabled = true;
-            tError.Stop();
 
         }
 
@@ -67,22 +39,64 @@ namespace Trabalho
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            tError.Interval = 1500;
-            tError.Tick += new System.EventHandler(this.tError_Tick);
-            btnEditar.Enabled = false;
-            tError.Start();
-            if (!check())
+            decex.Importador = TXTimportador.Text;
+            decex.Ref_USA = TXTnr.Text;
+            decex.SR = TXTsr.Text;
+            decex.Exportador = TXTexportador.Text;
+            decex.Produto = TXTProduto.Text;
+            decex.PortoDestino = TXTportodedestino.Text;
+            decex.Ordem = TXTordem.Text;
+            decex.FLO = TXTflo.Text;
+            decex.FreeTime = int.Parse(NUMfreetime.Text);
+            decex.BL = TXTbl.Text;
+            decex.AgenteDeCarga = TXTagentedecarga.Text;
+
+            decex.LI_LPCO = TXTlilpco.Text;
+            decex.DataRegistroLILPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
+            decex.DataDeferimentoLILPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
+            decex.ParametrizacaoLILPCO = CBparametrizacaolilpco.Text;
+
+            decex.DI = TXTdi.Text;
+            decex.DataRegistroDI = DTPdataderegistrodi.Value.ToShortDateString().ToString();
+            decex.DataDesembaracoDI = DTPdatadedesembaracodi.Value.ToShortDateString().ToString();
+            decex.DataCarregamentoDI = DTPdatadecarregamentodi.Value.ToShortDateString().ToString();
+            decex.ParametrizacaoDI = CBparametrizacaodi.Text;
+
+            decex.DataDeAtracacao = DTPdatadeatracacao.Value.ToShortDateString().ToString();
+            decex.Inspecao = DTPdatadeinspecao.Value.ToShortDateString().ToString();
+            decex.DataEmbarque = DTPdatadeembarque.Value.ToShortDateString().ToString();
+            decex.Previsao = DTPdatadeprevisao.Value.ToShortDateString().ToString();
+            decex.StatusDoProcesso = TXTstatusdoprocesso.Text;
+            decex.Pendencia = TXTpendencia.Text;
+            decex.Amostra = CBamostra.Checked;
+            decex.Desovado = CBdesovado.Checked;
+
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void cbEmbarque_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbEmbarque.Checked)
             {
-                decex.Ref_USA = insNR.Text;
-                decex.SR = int.Parse(insSR.Text);
-                decex.Importador = insImportador.Text;
-                decex.Terminal = insTerminal.Text;
-                decex.Pendencia = insPendencia.Text;
-                decex.LI = int.Parse(insLI.Text);
-                decex.StatusDoProcesso = insStatusdoProcesso.Text;
-                decex.Previsao = dtpPrevisao.Value.ToShortDateString();
-                //decex.DataDeEntrada = dtpDatadeEntrada.Value.ToShortDateString();
-                this.DialogResult = DialogResult.OK;
+                LBLdatadeatracacao.Visible = true;
+                DTPdatadeatracacao.Visible = true;
+                LBLdatadeembarque.Visible = true;
+                DTPdatadeembarque.Visible = true;
+                LBLinspecao.Visible = true;
+                DTPdatadeinspecao.Visible = true;
+                LBLprevisao.Visible = true;
+                DTPdatadeprevisao.Visible = true;
+            }
+            else
+            {
+                LBLdatadeatracacao.Visible = false;
+                DTPdatadeatracacao.Visible = false;
+                LBLdatadeembarque.Visible = false;
+                DTPdatadeembarque.Visible = false;
+                LBLinspecao.Visible = false;
+                DTPdatadeinspecao.Visible = false;
+                LBLprevisao.Visible = false;
+                DTPdatadeprevisao.Visible = false;
             }
         }
     }

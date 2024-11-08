@@ -42,13 +42,5 @@ namespace Trabalho
             }
             bsAnvisa.DataSource = repositorio.FindAll();
         }
-
-        private async void btnExcluir_Click(object sender, EventArgs e)
-        {
-            await repositorio.Delete(bsAnvisa.Current as Anvisa);
-            bsAnvisa.Remove(bsAnvisa.Current as Anvisa);
-            bsAnvisa.ResetBindings(false);
-            bsAnvisa.DataSource = repositorio.FindAll();
-        }
     }
 }
