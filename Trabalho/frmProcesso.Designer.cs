@@ -35,6 +35,15 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
             dataGridView1 = new DataGridView();
+            bsProcesso = new BindingSource(components);
+            toolStrip1 = new ToolStrip();
+            btnAdicionar = new ToolStripButton();
+            btnExcluir = new ToolStripButton();
+            btnEditar = new ToolStripButton();
+            btnCancelar = new ToolStripButton();
+            btnPesquisar = new ToolStripButton();
+            txtPesquisar = new ToolStripTextBox();
+            CmbPesquisar = new ToolStripComboBox();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tDecexDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             tAnvisaDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
@@ -46,16 +55,18 @@
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             exportadorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             produtoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            navioDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             portoDestinoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ordemDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             fLODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             freeTimeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bLDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             agenteDeCargaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            lILPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataRegistroLILPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataDeferimentoLILPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            parametrizacaoLILPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            lIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            lPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataRegistroLPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataDeferimentoLPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            parametrizacaoLPCODataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataRegistroDIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataDesembaracoDIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -65,22 +76,13 @@
             dataDeAtracacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             inspecaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataEmbarqueDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            previsaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            recebOriginaisDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            formaRecebERecebidosDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataRecebOriginaisDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            formaRecOriginaisDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            docRecebidosDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             amostraDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             desovadoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             pendenciaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            bsProcesso = new BindingSource(components);
-            toolStrip1 = new ToolStrip();
-            btnAdicionar = new ToolStripButton();
-            btnExcluir = new ToolStripButton();
-            btnEditar = new ToolStripButton();
-            btnCancelar = new ToolStripButton();
-            btnPesquisar = new ToolStripButton();
-            txtPesquisar = new ToolStripTextBox();
-            CmbPesquisar = new ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsProcesso).BeginInit();
             toolStrip1.SuspendLayout();
@@ -104,7 +106,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tDecexDataGridViewCheckBoxColumn, tAnvisaDataGridViewCheckBoxColumn, tMapaDataGridViewCheckBoxColumn, tImetroDataGridViewCheckBoxColumn, tIbamaDataGridViewCheckBoxColumn, refUSADataGridViewTextBoxColumn, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, exportadorDataGridViewTextBoxColumn, produtoDataGridViewTextBoxColumn, portoDestinoDataGridViewTextBoxColumn, ordemDataGridViewTextBoxColumn, fLODataGridViewTextBoxColumn, freeTimeDataGridViewTextBoxColumn, bLDataGridViewTextBoxColumn, agenteDeCargaDataGridViewTextBoxColumn, lILPCODataGridViewTextBoxColumn, dataRegistroLILPCODataGridViewTextBoxColumn, dataDeferimentoLILPCODataGridViewTextBoxColumn, parametrizacaoLILPCODataGridViewTextBoxColumn, dIDataGridViewTextBoxColumn, dataRegistroDIDataGridViewTextBoxColumn, dataDesembaracoDIDataGridViewTextBoxColumn, dataCarregamentoDIDataGridViewTextBoxColumn, parametrizacaoDIDataGridViewTextBoxColumn, possuiEmbarqueDataGridViewCheckBoxColumn, dataDeAtracacaoDataGridViewTextBoxColumn, inspecaoDataGridViewTextBoxColumn, dataEmbarqueDataGridViewTextBoxColumn, previsaoDataGridViewTextBoxColumn, recebOriginaisDataGridViewTextBoxColumn, formaRecebERecebidosDataGridViewTextBoxColumn, amostraDataGridViewCheckBoxColumn, desovadoDataGridViewCheckBoxColumn, pendenciaDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tDecexDataGridViewCheckBoxColumn, tAnvisaDataGridViewCheckBoxColumn, tMapaDataGridViewCheckBoxColumn, tImetroDataGridViewCheckBoxColumn, tIbamaDataGridViewCheckBoxColumn, refUSADataGridViewTextBoxColumn, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, exportadorDataGridViewTextBoxColumn, produtoDataGridViewTextBoxColumn, navioDataGridViewTextBoxColumn, portoDestinoDataGridViewTextBoxColumn, ordemDataGridViewTextBoxColumn, fLODataGridViewTextBoxColumn, freeTimeDataGridViewTextBoxColumn, bLDataGridViewTextBoxColumn, agenteDeCargaDataGridViewTextBoxColumn, lIDataGridViewTextBoxColumn, lPCODataGridViewTextBoxColumn, dataRegistroLPCODataGridViewTextBoxColumn, dataDeferimentoLPCODataGridViewTextBoxColumn, parametrizacaoLPCODataGridViewTextBoxColumn, dIDataGridViewTextBoxColumn, dataRegistroDIDataGridViewTextBoxColumn, dataDesembaracoDIDataGridViewTextBoxColumn, dataCarregamentoDIDataGridViewTextBoxColumn, parametrizacaoDIDataGridViewTextBoxColumn, possuiEmbarqueDataGridViewCheckBoxColumn, dataDeAtracacaoDataGridViewTextBoxColumn, inspecaoDataGridViewTextBoxColumn, dataEmbarqueDataGridViewTextBoxColumn, dataRecebOriginaisDataGridViewTextBoxColumn, formaRecOriginaisDataGridViewTextBoxColumn, docRecebidosDataGridViewTextBoxColumn, amostraDataGridViewCheckBoxColumn, desovadoDataGridViewCheckBoxColumn, pendenciaDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
             dataGridView1.DataSource = bsProcesso;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
@@ -126,271 +128,6 @@
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 2;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // tDecexDataGridViewCheckBoxColumn
-            // 
-            tDecexDataGridViewCheckBoxColumn.DataPropertyName = "TDecex";
-            tDecexDataGridViewCheckBoxColumn.HeaderText = "TDecex";
-            tDecexDataGridViewCheckBoxColumn.Name = "tDecexDataGridViewCheckBoxColumn";
-            tDecexDataGridViewCheckBoxColumn.ReadOnly = true;
-            tDecexDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // tAnvisaDataGridViewCheckBoxColumn
-            // 
-            tAnvisaDataGridViewCheckBoxColumn.DataPropertyName = "TAnvisa";
-            tAnvisaDataGridViewCheckBoxColumn.HeaderText = "TAnvisa";
-            tAnvisaDataGridViewCheckBoxColumn.Name = "tAnvisaDataGridViewCheckBoxColumn";
-            tAnvisaDataGridViewCheckBoxColumn.ReadOnly = true;
-            tAnvisaDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // tMapaDataGridViewCheckBoxColumn
-            // 
-            tMapaDataGridViewCheckBoxColumn.DataPropertyName = "TMapa";
-            tMapaDataGridViewCheckBoxColumn.HeaderText = "TMapa";
-            tMapaDataGridViewCheckBoxColumn.Name = "tMapaDataGridViewCheckBoxColumn";
-            tMapaDataGridViewCheckBoxColumn.ReadOnly = true;
-            tMapaDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // tImetroDataGridViewCheckBoxColumn
-            // 
-            tImetroDataGridViewCheckBoxColumn.DataPropertyName = "TImetro";
-            tImetroDataGridViewCheckBoxColumn.HeaderText = "TImetro";
-            tImetroDataGridViewCheckBoxColumn.Name = "tImetroDataGridViewCheckBoxColumn";
-            tImetroDataGridViewCheckBoxColumn.ReadOnly = true;
-            tImetroDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // tIbamaDataGridViewCheckBoxColumn
-            // 
-            tIbamaDataGridViewCheckBoxColumn.DataPropertyName = "TIbama";
-            tIbamaDataGridViewCheckBoxColumn.HeaderText = "TIbama";
-            tIbamaDataGridViewCheckBoxColumn.Name = "tIbamaDataGridViewCheckBoxColumn";
-            tIbamaDataGridViewCheckBoxColumn.ReadOnly = true;
-            tIbamaDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // refUSADataGridViewTextBoxColumn
-            // 
-            refUSADataGridViewTextBoxColumn.DataPropertyName = "Ref_USA";
-            refUSADataGridViewTextBoxColumn.HeaderText = "Ref_USA";
-            refUSADataGridViewTextBoxColumn.Name = "refUSADataGridViewTextBoxColumn";
-            refUSADataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.DataPropertyName = "Importador";
-            dataGridViewTextBoxColumn1.HeaderText = "Importador";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.DataPropertyName = "SR";
-            dataGridViewTextBoxColumn2.HeaderText = "SR";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // exportadorDataGridViewTextBoxColumn
-            // 
-            exportadorDataGridViewTextBoxColumn.DataPropertyName = "Exportador";
-            exportadorDataGridViewTextBoxColumn.HeaderText = "Exportador";
-            exportadorDataGridViewTextBoxColumn.Name = "exportadorDataGridViewTextBoxColumn";
-            exportadorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // produtoDataGridViewTextBoxColumn
-            // 
-            produtoDataGridViewTextBoxColumn.DataPropertyName = "Produto";
-            produtoDataGridViewTextBoxColumn.HeaderText = "Produto";
-            produtoDataGridViewTextBoxColumn.Name = "produtoDataGridViewTextBoxColumn";
-            produtoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // portoDestinoDataGridViewTextBoxColumn
-            // 
-            portoDestinoDataGridViewTextBoxColumn.DataPropertyName = "PortoDestino";
-            portoDestinoDataGridViewTextBoxColumn.HeaderText = "PortoDestino";
-            portoDestinoDataGridViewTextBoxColumn.Name = "portoDestinoDataGridViewTextBoxColumn";
-            portoDestinoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ordemDataGridViewTextBoxColumn
-            // 
-            ordemDataGridViewTextBoxColumn.DataPropertyName = "Ordem";
-            ordemDataGridViewTextBoxColumn.HeaderText = "Ordem";
-            ordemDataGridViewTextBoxColumn.Name = "ordemDataGridViewTextBoxColumn";
-            ordemDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fLODataGridViewTextBoxColumn
-            // 
-            fLODataGridViewTextBoxColumn.DataPropertyName = "FLO";
-            fLODataGridViewTextBoxColumn.HeaderText = "FLO";
-            fLODataGridViewTextBoxColumn.Name = "fLODataGridViewTextBoxColumn";
-            fLODataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // freeTimeDataGridViewTextBoxColumn
-            // 
-            freeTimeDataGridViewTextBoxColumn.DataPropertyName = "FreeTime";
-            freeTimeDataGridViewTextBoxColumn.HeaderText = "FreeTime";
-            freeTimeDataGridViewTextBoxColumn.Name = "freeTimeDataGridViewTextBoxColumn";
-            freeTimeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // bLDataGridViewTextBoxColumn
-            // 
-            bLDataGridViewTextBoxColumn.DataPropertyName = "BL";
-            bLDataGridViewTextBoxColumn.HeaderText = "BL";
-            bLDataGridViewTextBoxColumn.Name = "bLDataGridViewTextBoxColumn";
-            bLDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // agenteDeCargaDataGridViewTextBoxColumn
-            // 
-            agenteDeCargaDataGridViewTextBoxColumn.DataPropertyName = "AgenteDeCarga";
-            agenteDeCargaDataGridViewTextBoxColumn.HeaderText = "AgenteDeCarga";
-            agenteDeCargaDataGridViewTextBoxColumn.Name = "agenteDeCargaDataGridViewTextBoxColumn";
-            agenteDeCargaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lILPCODataGridViewTextBoxColumn
-            // 
-            lILPCODataGridViewTextBoxColumn.DataPropertyName = "LI_LPCO";
-            lILPCODataGridViewTextBoxColumn.HeaderText = "LI_LPCO";
-            lILPCODataGridViewTextBoxColumn.Name = "lILPCODataGridViewTextBoxColumn";
-            lILPCODataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataRegistroLILPCODataGridViewTextBoxColumn
-            // 
-            dataRegistroLILPCODataGridViewTextBoxColumn.DataPropertyName = "DataRegistroLILPCO";
-            dataRegistroLILPCODataGridViewTextBoxColumn.HeaderText = "DataRegistroLILPCO";
-            dataRegistroLILPCODataGridViewTextBoxColumn.Name = "dataRegistroLILPCODataGridViewTextBoxColumn";
-            dataRegistroLILPCODataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataDeferimentoLILPCODataGridViewTextBoxColumn
-            // 
-            dataDeferimentoLILPCODataGridViewTextBoxColumn.DataPropertyName = "DataDeferimentoLILPCO";
-            dataDeferimentoLILPCODataGridViewTextBoxColumn.HeaderText = "DataDeferimentoLILPCO";
-            dataDeferimentoLILPCODataGridViewTextBoxColumn.Name = "dataDeferimentoLILPCODataGridViewTextBoxColumn";
-            dataDeferimentoLILPCODataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // parametrizacaoLILPCODataGridViewTextBoxColumn
-            // 
-            parametrizacaoLILPCODataGridViewTextBoxColumn.DataPropertyName = "ParametrizacaoLILPCO";
-            parametrizacaoLILPCODataGridViewTextBoxColumn.HeaderText = "ParametrizacaoLILPCO";
-            parametrizacaoLILPCODataGridViewTextBoxColumn.Name = "parametrizacaoLILPCODataGridViewTextBoxColumn";
-            parametrizacaoLILPCODataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dIDataGridViewTextBoxColumn
-            // 
-            dIDataGridViewTextBoxColumn.DataPropertyName = "DI";
-            dIDataGridViewTextBoxColumn.HeaderText = "DI";
-            dIDataGridViewTextBoxColumn.Name = "dIDataGridViewTextBoxColumn";
-            dIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataRegistroDIDataGridViewTextBoxColumn
-            // 
-            dataRegistroDIDataGridViewTextBoxColumn.DataPropertyName = "DataRegistroDI";
-            dataRegistroDIDataGridViewTextBoxColumn.HeaderText = "DataRegistroDI";
-            dataRegistroDIDataGridViewTextBoxColumn.Name = "dataRegistroDIDataGridViewTextBoxColumn";
-            dataRegistroDIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataDesembaracoDIDataGridViewTextBoxColumn
-            // 
-            dataDesembaracoDIDataGridViewTextBoxColumn.DataPropertyName = "DataDesembaracoDI";
-            dataDesembaracoDIDataGridViewTextBoxColumn.HeaderText = "DataDesembaracoDI";
-            dataDesembaracoDIDataGridViewTextBoxColumn.Name = "dataDesembaracoDIDataGridViewTextBoxColumn";
-            dataDesembaracoDIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataCarregamentoDIDataGridViewTextBoxColumn
-            // 
-            dataCarregamentoDIDataGridViewTextBoxColumn.DataPropertyName = "DataCarregamentoDI";
-            dataCarregamentoDIDataGridViewTextBoxColumn.HeaderText = "DataCarregamentoDI";
-            dataCarregamentoDIDataGridViewTextBoxColumn.Name = "dataCarregamentoDIDataGridViewTextBoxColumn";
-            dataCarregamentoDIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // parametrizacaoDIDataGridViewTextBoxColumn
-            // 
-            parametrizacaoDIDataGridViewTextBoxColumn.DataPropertyName = "ParametrizacaoDI";
-            parametrizacaoDIDataGridViewTextBoxColumn.HeaderText = "ParametrizacaoDI";
-            parametrizacaoDIDataGridViewTextBoxColumn.Name = "parametrizacaoDIDataGridViewTextBoxColumn";
-            parametrizacaoDIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // possuiEmbarqueDataGridViewCheckBoxColumn
-            // 
-            possuiEmbarqueDataGridViewCheckBoxColumn.DataPropertyName = "PossuiEmbarque";
-            possuiEmbarqueDataGridViewCheckBoxColumn.HeaderText = "PossuiEmbarque";
-            possuiEmbarqueDataGridViewCheckBoxColumn.Name = "possuiEmbarqueDataGridViewCheckBoxColumn";
-            possuiEmbarqueDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // dataDeAtracacaoDataGridViewTextBoxColumn
-            // 
-            dataDeAtracacaoDataGridViewTextBoxColumn.DataPropertyName = "DataDeAtracacao";
-            dataDeAtracacaoDataGridViewTextBoxColumn.HeaderText = "DataDeAtracacao";
-            dataDeAtracacaoDataGridViewTextBoxColumn.Name = "dataDeAtracacaoDataGridViewTextBoxColumn";
-            dataDeAtracacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // inspecaoDataGridViewTextBoxColumn
-            // 
-            inspecaoDataGridViewTextBoxColumn.DataPropertyName = "Inspecao";
-            inspecaoDataGridViewTextBoxColumn.HeaderText = "Inspecao";
-            inspecaoDataGridViewTextBoxColumn.Name = "inspecaoDataGridViewTextBoxColumn";
-            inspecaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataEmbarqueDataGridViewTextBoxColumn
-            // 
-            dataEmbarqueDataGridViewTextBoxColumn.DataPropertyName = "DataEmbarque";
-            dataEmbarqueDataGridViewTextBoxColumn.HeaderText = "DataEmbarque";
-            dataEmbarqueDataGridViewTextBoxColumn.Name = "dataEmbarqueDataGridViewTextBoxColumn";
-            dataEmbarqueDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // previsaoDataGridViewTextBoxColumn
-            // 
-            previsaoDataGridViewTextBoxColumn.DataPropertyName = "Previsao";
-            previsaoDataGridViewTextBoxColumn.HeaderText = "Previsao";
-            previsaoDataGridViewTextBoxColumn.Name = "previsaoDataGridViewTextBoxColumn";
-            previsaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // recebOriginaisDataGridViewTextBoxColumn
-            // 
-            recebOriginaisDataGridViewTextBoxColumn.DataPropertyName = "RecebOriginais";
-            recebOriginaisDataGridViewTextBoxColumn.HeaderText = "RecebOriginais";
-            recebOriginaisDataGridViewTextBoxColumn.Name = "recebOriginaisDataGridViewTextBoxColumn";
-            recebOriginaisDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // formaRecebERecebidosDataGridViewTextBoxColumn
-            // 
-            formaRecebERecebidosDataGridViewTextBoxColumn.DataPropertyName = "FormaRecebERecebidos";
-            formaRecebERecebidosDataGridViewTextBoxColumn.HeaderText = "FormaRecebERecebidos";
-            formaRecebERecebidosDataGridViewTextBoxColumn.Name = "formaRecebERecebidosDataGridViewTextBoxColumn";
-            formaRecebERecebidosDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // amostraDataGridViewCheckBoxColumn
-            // 
-            amostraDataGridViewCheckBoxColumn.DataPropertyName = "Amostra";
-            amostraDataGridViewCheckBoxColumn.HeaderText = "Amostra";
-            amostraDataGridViewCheckBoxColumn.Name = "amostraDataGridViewCheckBoxColumn";
-            amostraDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // desovadoDataGridViewCheckBoxColumn
-            // 
-            desovadoDataGridViewCheckBoxColumn.DataPropertyName = "Desovado";
-            desovadoDataGridViewCheckBoxColumn.HeaderText = "Desovado";
-            desovadoDataGridViewCheckBoxColumn.Name = "desovadoDataGridViewCheckBoxColumn";
-            desovadoDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // pendenciaDataGridViewTextBoxColumn
-            // 
-            pendenciaDataGridViewTextBoxColumn.DataPropertyName = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.Name = "pendenciaDataGridViewTextBoxColumn";
-            pendenciaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // statusDoProcessoDataGridViewTextBoxColumn
-            // 
-            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "StatusDoProcesso";
-            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
-            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // bsProcesso
             // 
@@ -492,6 +229,286 @@
             CmbPesquisar.Size = new Size(121, 23);
             CmbPesquisar.Click += CmbPesquisar_Click;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // tDecexDataGridViewCheckBoxColumn
+            // 
+            tDecexDataGridViewCheckBoxColumn.DataPropertyName = "TDecex";
+            tDecexDataGridViewCheckBoxColumn.HeaderText = "TDecex";
+            tDecexDataGridViewCheckBoxColumn.Name = "tDecexDataGridViewCheckBoxColumn";
+            tDecexDataGridViewCheckBoxColumn.ReadOnly = true;
+            tDecexDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // tAnvisaDataGridViewCheckBoxColumn
+            // 
+            tAnvisaDataGridViewCheckBoxColumn.DataPropertyName = "TAnvisa";
+            tAnvisaDataGridViewCheckBoxColumn.HeaderText = "TAnvisa";
+            tAnvisaDataGridViewCheckBoxColumn.Name = "tAnvisaDataGridViewCheckBoxColumn";
+            tAnvisaDataGridViewCheckBoxColumn.ReadOnly = true;
+            tAnvisaDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // tMapaDataGridViewCheckBoxColumn
+            // 
+            tMapaDataGridViewCheckBoxColumn.DataPropertyName = "TMapa";
+            tMapaDataGridViewCheckBoxColumn.HeaderText = "TMapa";
+            tMapaDataGridViewCheckBoxColumn.Name = "tMapaDataGridViewCheckBoxColumn";
+            tMapaDataGridViewCheckBoxColumn.ReadOnly = true;
+            tMapaDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // tImetroDataGridViewCheckBoxColumn
+            // 
+            tImetroDataGridViewCheckBoxColumn.DataPropertyName = "TImetro";
+            tImetroDataGridViewCheckBoxColumn.HeaderText = "TImetro";
+            tImetroDataGridViewCheckBoxColumn.Name = "tImetroDataGridViewCheckBoxColumn";
+            tImetroDataGridViewCheckBoxColumn.ReadOnly = true;
+            tImetroDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // tIbamaDataGridViewCheckBoxColumn
+            // 
+            tIbamaDataGridViewCheckBoxColumn.DataPropertyName = "TIbama";
+            tIbamaDataGridViewCheckBoxColumn.HeaderText = "TIbama";
+            tIbamaDataGridViewCheckBoxColumn.Name = "tIbamaDataGridViewCheckBoxColumn";
+            tIbamaDataGridViewCheckBoxColumn.ReadOnly = true;
+            tIbamaDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // refUSADataGridViewTextBoxColumn
+            // 
+            refUSADataGridViewTextBoxColumn.DataPropertyName = "Ref_USA";
+            refUSADataGridViewTextBoxColumn.HeaderText = "Ref USA";
+            refUSADataGridViewTextBoxColumn.Name = "refUSADataGridViewTextBoxColumn";
+            refUSADataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.DataPropertyName = "Importador";
+            dataGridViewTextBoxColumn1.HeaderText = "Importador";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.DataPropertyName = "SR";
+            dataGridViewTextBoxColumn2.HeaderText = "SR";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // exportadorDataGridViewTextBoxColumn
+            // 
+            exportadorDataGridViewTextBoxColumn.DataPropertyName = "Exportador";
+            exportadorDataGridViewTextBoxColumn.HeaderText = "Exportador";
+            exportadorDataGridViewTextBoxColumn.Name = "exportadorDataGridViewTextBoxColumn";
+            exportadorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // produtoDataGridViewTextBoxColumn
+            // 
+            produtoDataGridViewTextBoxColumn.DataPropertyName = "Produto";
+            produtoDataGridViewTextBoxColumn.HeaderText = "Produto";
+            produtoDataGridViewTextBoxColumn.Name = "produtoDataGridViewTextBoxColumn";
+            produtoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // navioDataGridViewTextBoxColumn
+            // 
+            navioDataGridViewTextBoxColumn.DataPropertyName = "Navio";
+            navioDataGridViewTextBoxColumn.HeaderText = "Navio";
+            navioDataGridViewTextBoxColumn.Name = "navioDataGridViewTextBoxColumn";
+            navioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // portoDestinoDataGridViewTextBoxColumn
+            // 
+            portoDestinoDataGridViewTextBoxColumn.DataPropertyName = "PortoDestino";
+            portoDestinoDataGridViewTextBoxColumn.HeaderText = "Porto de Destino";
+            portoDestinoDataGridViewTextBoxColumn.Name = "portoDestinoDataGridViewTextBoxColumn";
+            portoDestinoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ordemDataGridViewTextBoxColumn
+            // 
+            ordemDataGridViewTextBoxColumn.DataPropertyName = "Ordem";
+            ordemDataGridViewTextBoxColumn.HeaderText = "Ordem";
+            ordemDataGridViewTextBoxColumn.Name = "ordemDataGridViewTextBoxColumn";
+            ordemDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fLODataGridViewTextBoxColumn
+            // 
+            fLODataGridViewTextBoxColumn.DataPropertyName = "FLO";
+            fLODataGridViewTextBoxColumn.HeaderText = "FLO";
+            fLODataGridViewTextBoxColumn.Name = "fLODataGridViewTextBoxColumn";
+            fLODataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // freeTimeDataGridViewTextBoxColumn
+            // 
+            freeTimeDataGridViewTextBoxColumn.DataPropertyName = "FreeTime";
+            freeTimeDataGridViewTextBoxColumn.HeaderText = "Free Time";
+            freeTimeDataGridViewTextBoxColumn.Name = "freeTimeDataGridViewTextBoxColumn";
+            freeTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bLDataGridViewTextBoxColumn
+            // 
+            bLDataGridViewTextBoxColumn.DataPropertyName = "BL";
+            bLDataGridViewTextBoxColumn.HeaderText = "BL";
+            bLDataGridViewTextBoxColumn.Name = "bLDataGridViewTextBoxColumn";
+            bLDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // agenteDeCargaDataGridViewTextBoxColumn
+            // 
+            agenteDeCargaDataGridViewTextBoxColumn.DataPropertyName = "AgenteDeCarga";
+            agenteDeCargaDataGridViewTextBoxColumn.HeaderText = "Agente de Carga";
+            agenteDeCargaDataGridViewTextBoxColumn.Name = "agenteDeCargaDataGridViewTextBoxColumn";
+            agenteDeCargaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lIDataGridViewTextBoxColumn
+            // 
+            lIDataGridViewTextBoxColumn.DataPropertyName = "LI";
+            lIDataGridViewTextBoxColumn.HeaderText = "LI";
+            lIDataGridViewTextBoxColumn.Name = "lIDataGridViewTextBoxColumn";
+            lIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lPCODataGridViewTextBoxColumn
+            // 
+            lPCODataGridViewTextBoxColumn.DataPropertyName = "LPCO";
+            lPCODataGridViewTextBoxColumn.HeaderText = "LPCO";
+            lPCODataGridViewTextBoxColumn.Name = "lPCODataGridViewTextBoxColumn";
+            lPCODataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataRegistroLPCODataGridViewTextBoxColumn
+            // 
+            dataRegistroLPCODataGridViewTextBoxColumn.DataPropertyName = "DataRegistroLPCO";
+            dataRegistroLPCODataGridViewTextBoxColumn.HeaderText = "Data de Registro LPCO";
+            dataRegistroLPCODataGridViewTextBoxColumn.Name = "dataRegistroLPCODataGridViewTextBoxColumn";
+            dataRegistroLPCODataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataDeferimentoLPCODataGridViewTextBoxColumn
+            // 
+            dataDeferimentoLPCODataGridViewTextBoxColumn.DataPropertyName = "DataDeferimentoLPCO";
+            dataDeferimentoLPCODataGridViewTextBoxColumn.HeaderText = "Data de Deferimento LPCO";
+            dataDeferimentoLPCODataGridViewTextBoxColumn.Name = "dataDeferimentoLPCODataGridViewTextBoxColumn";
+            dataDeferimentoLPCODataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // parametrizacaoLPCODataGridViewTextBoxColumn
+            // 
+            parametrizacaoLPCODataGridViewTextBoxColumn.DataPropertyName = "ParametrizacaoLPCO";
+            parametrizacaoLPCODataGridViewTextBoxColumn.HeaderText = "Parametrização LPCO";
+            parametrizacaoLPCODataGridViewTextBoxColumn.Name = "parametrizacaoLPCODataGridViewTextBoxColumn";
+            parametrizacaoLPCODataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dIDataGridViewTextBoxColumn
+            // 
+            dIDataGridViewTextBoxColumn.DataPropertyName = "DI";
+            dIDataGridViewTextBoxColumn.HeaderText = "DI";
+            dIDataGridViewTextBoxColumn.Name = "dIDataGridViewTextBoxColumn";
+            dIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataRegistroDIDataGridViewTextBoxColumn
+            // 
+            dataRegistroDIDataGridViewTextBoxColumn.DataPropertyName = "DataRegistroDI";
+            dataRegistroDIDataGridViewTextBoxColumn.HeaderText = "Data de Registro DI";
+            dataRegistroDIDataGridViewTextBoxColumn.Name = "dataRegistroDIDataGridViewTextBoxColumn";
+            dataRegistroDIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataDesembaracoDIDataGridViewTextBoxColumn
+            // 
+            dataDesembaracoDIDataGridViewTextBoxColumn.DataPropertyName = "DataDesembaracoDI";
+            dataDesembaracoDIDataGridViewTextBoxColumn.HeaderText = "Data de Desembaraço DI";
+            dataDesembaracoDIDataGridViewTextBoxColumn.Name = "dataDesembaracoDIDataGridViewTextBoxColumn";
+            dataDesembaracoDIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataCarregamentoDIDataGridViewTextBoxColumn
+            // 
+            dataCarregamentoDIDataGridViewTextBoxColumn.DataPropertyName = "DataCarregamentoDI";
+            dataCarregamentoDIDataGridViewTextBoxColumn.HeaderText = "Data de Carregamento DI";
+            dataCarregamentoDIDataGridViewTextBoxColumn.Name = "dataCarregamentoDIDataGridViewTextBoxColumn";
+            dataCarregamentoDIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // parametrizacaoDIDataGridViewTextBoxColumn
+            // 
+            parametrizacaoDIDataGridViewTextBoxColumn.DataPropertyName = "ParametrizacaoDI";
+            parametrizacaoDIDataGridViewTextBoxColumn.HeaderText = "Parametrização DI";
+            parametrizacaoDIDataGridViewTextBoxColumn.Name = "parametrizacaoDIDataGridViewTextBoxColumn";
+            parametrizacaoDIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // possuiEmbarqueDataGridViewCheckBoxColumn
+            // 
+            possuiEmbarqueDataGridViewCheckBoxColumn.DataPropertyName = "PossuiEmbarque";
+            possuiEmbarqueDataGridViewCheckBoxColumn.HeaderText = "PossuiEmbarque";
+            possuiEmbarqueDataGridViewCheckBoxColumn.Name = "possuiEmbarqueDataGridViewCheckBoxColumn";
+            possuiEmbarqueDataGridViewCheckBoxColumn.ReadOnly = true;
+            possuiEmbarqueDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // dataDeAtracacaoDataGridViewTextBoxColumn
+            // 
+            dataDeAtracacaoDataGridViewTextBoxColumn.DataPropertyName = "DataDeAtracacao";
+            dataDeAtracacaoDataGridViewTextBoxColumn.HeaderText = "Data de Atracação";
+            dataDeAtracacaoDataGridViewTextBoxColumn.Name = "dataDeAtracacaoDataGridViewTextBoxColumn";
+            dataDeAtracacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // inspecaoDataGridViewTextBoxColumn
+            // 
+            inspecaoDataGridViewTextBoxColumn.DataPropertyName = "Inspecao";
+            inspecaoDataGridViewTextBoxColumn.HeaderText = "Inspeção";
+            inspecaoDataGridViewTextBoxColumn.Name = "inspecaoDataGridViewTextBoxColumn";
+            inspecaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataEmbarqueDataGridViewTextBoxColumn
+            // 
+            dataEmbarqueDataGridViewTextBoxColumn.DataPropertyName = "DataEmbarque";
+            dataEmbarqueDataGridViewTextBoxColumn.HeaderText = "Data de Embarque";
+            dataEmbarqueDataGridViewTextBoxColumn.Name = "dataEmbarqueDataGridViewTextBoxColumn";
+            dataEmbarqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataRecebOriginaisDataGridViewTextBoxColumn
+            // 
+            dataRecebOriginaisDataGridViewTextBoxColumn.DataPropertyName = "DataRecebOriginais";
+            dataRecebOriginaisDataGridViewTextBoxColumn.HeaderText = "Data de Recebimento Originais";
+            dataRecebOriginaisDataGridViewTextBoxColumn.Name = "dataRecebOriginaisDataGridViewTextBoxColumn";
+            dataRecebOriginaisDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // formaRecOriginaisDataGridViewTextBoxColumn
+            // 
+            formaRecOriginaisDataGridViewTextBoxColumn.DataPropertyName = "FormaRecOriginais";
+            formaRecOriginaisDataGridViewTextBoxColumn.HeaderText = "Forma de Recebimento Originais";
+            formaRecOriginaisDataGridViewTextBoxColumn.Name = "formaRecOriginaisDataGridViewTextBoxColumn";
+            formaRecOriginaisDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // docRecebidosDataGridViewTextBoxColumn
+            // 
+            docRecebidosDataGridViewTextBoxColumn.DataPropertyName = "DocRecebidos";
+            docRecebidosDataGridViewTextBoxColumn.HeaderText = "Documentos Recebidos";
+            docRecebidosDataGridViewTextBoxColumn.Name = "docRecebidosDataGridViewTextBoxColumn";
+            docRecebidosDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // amostraDataGridViewCheckBoxColumn
+            // 
+            amostraDataGridViewCheckBoxColumn.DataPropertyName = "Amostra";
+            amostraDataGridViewCheckBoxColumn.HeaderText = "Amostra";
+            amostraDataGridViewCheckBoxColumn.Name = "amostraDataGridViewCheckBoxColumn";
+            amostraDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // desovadoDataGridViewCheckBoxColumn
+            // 
+            desovadoDataGridViewCheckBoxColumn.DataPropertyName = "Desovado";
+            desovadoDataGridViewCheckBoxColumn.HeaderText = "Desovado";
+            desovadoDataGridViewCheckBoxColumn.Name = "desovadoDataGridViewCheckBoxColumn";
+            desovadoDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // pendenciaDataGridViewTextBoxColumn
+            // 
+            pendenciaDataGridViewTextBoxColumn.DataPropertyName = "Pendencia";
+            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendencia";
+            pendenciaDataGridViewTextBoxColumn.Name = "pendenciaDataGridViewTextBoxColumn";
+            pendenciaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDoProcessoDataGridViewTextBoxColumn
+            // 
+            statusDoProcessoDataGridViewTextBoxColumn.DataPropertyName = "StatusDoProcesso";
+            statusDoProcessoDataGridViewTextBoxColumn.HeaderText = "Status do Processo";
+            statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
+            statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // frmProcesso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -528,6 +545,13 @@
         private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Previsao;
         private DataGridViewTextBoxColumn terminalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn lILPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataRegistroLILPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataDeferimentoLILPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn parametrizacaoLILPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn recebOriginaisDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn formaRecebERecebidosDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn tDecexDataGridViewCheckBoxColumn;
         private DataGridViewCheckBoxColumn tAnvisaDataGridViewCheckBoxColumn;
@@ -539,16 +563,18 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn exportadorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn produtoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn navioDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn portoDestinoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn ordemDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fLODataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn freeTimeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn bLDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn agenteDeCargaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn lILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataRegistroLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeferimentoLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn parametrizacaoLILPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn lIDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn lPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataRegistroLPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataDeferimentoLPCODataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn parametrizacaoLPCODataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dIDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataRegistroDIDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataDesembaracoDIDataGridViewTextBoxColumn;
@@ -558,9 +584,9 @@
         private DataGridViewTextBoxColumn dataDeAtracacaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn inspecaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataEmbarqueDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn recebOriginaisDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn formaRecebERecebidosDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataRecebOriginaisDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn formaRecOriginaisDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn docRecebidosDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn amostraDataGridViewCheckBoxColumn;
         private DataGridViewCheckBoxColumn desovadoDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn pendenciaDataGridViewTextBoxColumn;

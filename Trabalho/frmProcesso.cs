@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using System.Diagnostics;
 
 namespace Trabalho
 {
@@ -40,10 +41,58 @@ namespace Trabalho
             {
                 processo = bsProcesso.Current as Processo
             };
+            Processo pr = new()
+            {
+                TMapa = frm.processo.TMapa,
+                TDecex = frm.processo.TDecex,
+                TAnvisa = frm.processo.TAnvisa,
+                TIbama = frm.processo.TIbama,
+                TImetro = frm.processo.TImetro
+            };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
             {
+                if(pr.TMapa != frm.processo.TMapa)
+                {
+                    if (frm.processo.TMapa)
+                    {
+                        await repositorio.Create(frm.processo);
+                        bsProcesso.Add(frm.processo);
+                    }
+                }
+                if (pr.TDecex != frm.processo.TDecex)
+                {
+                    if (frm.processo.TDecex)
+                    {
+                        await repositorio.Create(frm.processo);
+                        bsProcesso.Add(frm.processo);
+                    }
+                }
+                if (pr.TAnvisa != frm.processo.TAnvisa)
+                {
+                    if (frm.processo.TAnvisa)
+                    {
+                        await repositorio.Create(frm.processo);
+                        bsProcesso.Add(frm.processo);
+                    }
+                }
+                if (pr.TImetro != frm.processo.TImetro)
+                {
+                    if (frm.processo.TImetro)
+                    {
+                        await repositorio.Create(frm.processo);
+                        bsProcesso.Add(frm.processo);
+                    }
+                }
+                if (pr.TIbama != frm.processo.TIbama)
+                {
+                    if (frm.processo.TIbama)
+                    {
+                        await repositorio.Create(frm.processo);
+                        bsProcesso.Add(frm.processo);
+                    }
+                }
                 await repositorio.Update(frm.processo);
                 bsProcesso.ResetBindings(false);
             }

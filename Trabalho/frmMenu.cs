@@ -104,7 +104,7 @@ namespace Trabalho
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
-
+            //tabControl1.Visible = true; 
         }
 
         private void tLiberaSaida_Tick(object sender, EventArgs e)
@@ -159,5 +159,9 @@ namespace Trabalho
             this.WindowState = FormWindowState.Maximized;
         }
 
+        private void DisplayNotifications()
+        {
+
+        }
     }
 }

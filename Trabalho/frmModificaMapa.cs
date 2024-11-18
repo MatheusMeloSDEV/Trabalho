@@ -40,32 +40,23 @@ namespace Trabalho
             mapa.SR = TXTsr.Text;
             mapa.Exportador = TXTexportador.Text;
             mapa.Produto = TXTProduto.Text;
-            mapa.PortoDestino = TXTportodedestino.Text;
-            mapa.Ordem = TXTordem.Text;
-            mapa.FLO = TXTflo.Text;
-            mapa.FreeTime = int.Parse(NUMfreetime.Text);
-            mapa.BL = TXTbl.Text;
-            mapa.AgenteDeCarga = TXTagentedecarga.Text;
+            mapa.Origem = TXTorigem.Text;
+            mapa.LI = TXTli.Text;
+            mapa.NCM = TXTncm.Text;
 
-            mapa.LI_LPCO = TXTlilpco.Text;
-            mapa.DataRegistroLILPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
-            mapa.DataDeferimentoLILPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
-            mapa.ParametrizacaoLILPCO = CBparametrizacaolilpco.Text;
+            mapa.LPCO = TXTlilpco.Text;
+            mapa.DataRegistroLPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
+            mapa.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
+            mapa.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
 
-            mapa.DI = TXTdi.Text;
-            mapa.DataRegistroDI = DTPdataderegistrodi.Value.ToShortDateString().ToString();
-            mapa.DataDesembaracoDI = DTPdatadedesembaracodi.Value.ToShortDateString().ToString();
-            mapa.DataCarregamentoDI = DTPdatadecarregamentodi.Value.ToShortDateString().ToString();
-            mapa.ParametrizacaoDI = CBparametrizacaodi.Text;
+            mapa.TEmbarque = cbEmbarque.Checked;
 
             mapa.DataDeAtracacao = DTPdatadeatracacao.Value.ToShortDateString().ToString();
             mapa.Inspecao = DTPdatadeinspecao.Value.ToShortDateString().ToString();
             mapa.DataEmbarque = DTPdatadeembarque.Value.ToShortDateString().ToString();
-            mapa.Previsao = DTPdatadeprevisao.Value.ToShortDateString().ToString();
             mapa.StatusDoProcesso = TXTstatusdoprocesso.Text;
             mapa.Pendencia = TXTpendencia.Text;
             mapa.Amostra = CBamostra.Checked;
-            mapa.Desovado = CBdesovado.Checked;
 
             this.DialogResult = DialogResult.OK;
         }
@@ -80,8 +71,6 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = true;
                 LBLinspecao.Visible = true;
                 DTPdatadeinspecao.Visible = true;
-                LBLprevisao.Visible = true;
-                DTPdatadeprevisao.Visible = true;
             }
             else
             {
@@ -91,8 +80,6 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = false;
                 LBLinspecao.Visible = false;
                 DTPdatadeinspecao.Visible = false;
-                LBLprevisao.Visible = false;
-                DTPdatadeprevisao.Visible = false;
             }
         }
     }

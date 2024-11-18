@@ -98,6 +98,10 @@
             label8 = new Label();
             TXTpendencia = new TextBox();
             lblPEmbarque = new Label();
+            label4 = new Label();
+            TXTli = new TextBox();
+            label13 = new Label();
+            TXTnavio = new TextBox();
             ((System.ComponentModel.ISupportInitialize)bsModificaProcesso).BeginInit();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -119,12 +123,12 @@
             groupBox3.Controls.Add(DTPdataderegistrolilpco);
             groupBox3.Controls.Add(TXTlilpco);
             groupBox3.Controls.Add(label26);
-            groupBox3.Location = new Point(90, 203);
+            groupBox3.Location = new Point(96, 246);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(750, 82);
             groupBox3.TabIndex = 143;
             groupBox3.TabStop = false;
-            groupBox3.Text = "LI/LPCO";
+            groupBox3.Text = "LPCO";
             // 
             // label22
             // 
@@ -162,8 +166,8 @@
             // CBparametrizacaolilpco
             // 
             CBparametrizacaolilpco.AutoCompleteMode = AutoCompleteMode.Suggest;
-            CBparametrizacaolilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "ParametrizacaoLILPCO", true));
-            CBparametrizacaolilpco.DataBindings.Add(new Binding("SelectedItem", bsModificaProcesso, "ParametrizacaoLILPCO", true));
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "ParametrizacaoLPCO", true));
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("SelectedItem", bsModificaProcesso, "ParametrizacaoLPCO", true));
             CBparametrizacaolilpco.FormattingEnabled = true;
             CBparametrizacaolilpco.Items.AddRange(new object[] { "Verde", "Amarelo", "Vermelho" });
             CBparametrizacaolilpco.Location = new Point(576, 43);
@@ -174,8 +178,8 @@
             // DTPdatadedeferimentolilpco
             // 
             DTPdatadedeferimentolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "DataDeferimentoLILPCO", true));
-            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Value", bsModificaProcesso, "DataDeferimentoLILPCO", true));
+            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "DataDeferimentoLPCO", true));
+            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Value", bsModificaProcesso, "DataDeferimentoLPCO", true));
             DTPdatadedeferimentolilpco.Format = DateTimePickerFormat.Short;
             DTPdatadedeferimentolilpco.Location = new Point(388, 43);
             DTPdatadedeferimentolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
@@ -187,8 +191,8 @@
             // DTPdataderegistrolilpco
             // 
             DTPdataderegistrolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "DataRegistroLILPCO", true));
-            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Value", bsModificaProcesso, "DataRegistroLILPCO", true));
+            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "DataRegistroLPCO", true));
+            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Value", bsModificaProcesso, "DataRegistroLPCO", true));
             DTPdataderegistrolilpco.Format = DateTimePickerFormat.Short;
             DTPdataderegistrolilpco.Location = new Point(206, 43);
             DTPdataderegistrolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
@@ -201,7 +205,7 @@
             // 
             TXTlilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTlilpco.Cursor = Cursors.IBeam;
-            TXTlilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "LI_LPCO", true));
+            TXTlilpco.DataBindings.Add(new Binding("Text", bsModificaProcesso, "LPCO", true));
             TXTlilpco.Location = new Point(65, 32);
             TXTlilpco.Name = "TXTlilpco";
             TXTlilpco.Size = new Size(120, 23);
@@ -230,7 +234,7 @@
             groupBox2.Controls.Add(DTPdataderegistrodi);
             groupBox2.Controls.Add(TXTdi);
             groupBox2.Controls.Add(label21);
-            groupBox2.Location = new Point(21, 291);
+            groupBox2.Location = new Point(27, 334);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(891, 82);
             groupBox2.TabIndex = 142;
@@ -358,7 +362,7 @@
             CBamostra.AutoSize = true;
             CBamostra.DataBindings.Add(new Binding("Checked", bsModificaProcesso, "Amostra", true));
             CBamostra.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CBamostra.Location = new Point(434, 557);
+            CBamostra.Location = new Point(440, 600);
             CBamostra.Name = "CBamostra";
             CBamostra.Size = new Size(88, 25);
             CBamostra.TabIndex = 133;
@@ -370,7 +374,7 @@
             CBdesovado.AutoSize = true;
             CBdesovado.DataBindings.Add(new Binding("Checked", bsModificaProcesso, "Desovado", true));
             CBdesovado.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CBdesovado.Location = new Point(528, 557);
+            CBdesovado.Location = new Point(534, 600);
             CBdesovado.Name = "CBdesovado";
             CBdesovado.Size = new Size(98, 25);
             CBdesovado.TabIndex = 100;
@@ -381,7 +385,7 @@
             // 
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox2.Location = new Point(528, 564);
+            checkBox2.Location = new Point(534, 607);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(88, 25);
             checkBox2.TabIndex = 134;
@@ -392,7 +396,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox1.Location = new Point(528, 564);
+            checkBox1.Location = new Point(534, 607);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(98, 25);
             checkBox1.TabIndex = 99;
@@ -403,7 +407,7 @@
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button1.Cursor = Cursors.Hand;
-            button1.Location = new Point(666, 548);
+            button1.Location = new Point(702, 591);
             button1.Name = "button1";
             button1.Size = new Size(112, 32);
             button1.TabIndex = 132;
@@ -418,7 +422,7 @@
             groupBox1.Controls.Add(CBanvisa);
             groupBox1.Controls.Add(CBibama);
             groupBox1.Controls.Add(CBdecex);
-            groupBox1.Location = new Point(21, 531);
+            groupBox1.Location = new Point(27, 574);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(358, 75);
             groupBox1.TabIndex = 128;
@@ -435,6 +439,7 @@
             CBmapa.TabIndex = 30;
             CBmapa.Text = "Mapa";
             CBmapa.UseVisualStyleBackColor = true;
+            CBmapa.CheckedChanged += CBmapa_CheckedChanged;
             // 
             // CBimetro
             // 
@@ -484,7 +489,7 @@
             // 
             btnAdiciona.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAdiciona.Cursor = Cursors.Hand;
-            btnAdiciona.Location = new Point(784, 548);
+            btnAdiciona.Location = new Point(820, 591);
             btnAdiciona.Name = "btnAdiciona";
             btnAdiciona.Size = new Size(112, 32);
             btnAdiciona.TabIndex = 127;
@@ -495,7 +500,7 @@
             // NUMfreetime
             // 
             NUMfreetime.DataBindings.Add(new Binding("Value", bsModificaProcesso, "FreeTime", true));
-            NUMfreetime.Location = new Point(732, 121);
+            NUMfreetime.Location = new Point(768, 156);
             NUMfreetime.Name = "NUMfreetime";
             NUMfreetime.Size = new Size(166, 23);
             NUMfreetime.TabIndex = 288;
@@ -505,7 +510,7 @@
             label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label17.Location = new Point(120, 36);
+            label17.Location = new Point(221, 78);
             label17.Name = "label17";
             label17.Size = new Size(89, 21);
             label17.TabIndex = 287;
@@ -516,9 +521,9 @@
             TXTimportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTimportador.Cursor = Cursors.IBeam;
             TXTimportador.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Importador", true));
-            TXTimportador.Location = new Point(215, 34);
+            TXTimportador.Location = new Point(316, 76);
             TXTimportador.Name = "TXTimportador";
-            TXTimportador.Size = new Size(137, 23);
+            TXTimportador.Size = new Size(155, 23);
             TXTimportador.TabIndex = 286;
             // 
             // label14
@@ -526,7 +531,7 @@
             label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label14.Location = new Point(648, 85);
+            label14.Location = new Point(689, 120);
             label14.Name = "label14";
             label14.Size = new Size(125, 21);
             label14.TabIndex = 285;
@@ -537,7 +542,7 @@
             TXTportodedestino.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTportodedestino.Cursor = Cursors.IBeam;
             TXTportodedestino.DataBindings.Add(new Binding("Text", bsModificaProcesso, "PortoDestino", true));
-            TXTportodedestino.Location = new Point(779, 83);
+            TXTportodedestino.Location = new Point(820, 118);
             TXTportodedestino.Name = "TXTportodedestino";
             TXTportodedestino.Size = new Size(119, 23);
             TXTportodedestino.TabIndex = 284;
@@ -547,7 +552,7 @@
             label15.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label15.Location = new Point(648, 123);
+            label15.Location = new Point(689, 158);
             label15.Name = "label15";
             label15.Size = new Size(78, 21);
             label15.TabIndex = 283;
@@ -558,7 +563,7 @@
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(476, 161);
+            label12.Location = new Point(378, 195);
             label12.Name = "label12";
             label12.Size = new Size(125, 21);
             label12.TabIndex = 282;
@@ -569,7 +574,7 @@
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(620, 36);
+            label11.Location = new Point(226, 37);
             label11.Name = "label11";
             label11.Size = new Size(35, 21);
             label11.TabIndex = 281;
@@ -580,7 +585,7 @@
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(395, 36);
+            label9.Location = new Point(73, 37);
             label9.Name = "label9";
             label9.Size = new Size(38, 21);
             label9.TabIndex = 280;
@@ -591,9 +596,9 @@
             TXTsr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTsr.Cursor = Cursors.IBeam;
             TXTsr.DataBindings.Add(new Binding("Text", bsModificaProcesso, "SR", true));
-            TXTsr.Location = new Point(661, 34);
+            TXTsr.Location = new Point(267, 35);
             TXTsr.Name = "TXTsr";
-            TXTsr.Size = new Size(136, 23);
+            TXTsr.Size = new Size(118, 23);
             TXTsr.TabIndex = 279;
             // 
             // TXTnr
@@ -601,9 +606,9 @@
             TXTnr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTnr.Cursor = Cursors.IBeam;
             TXTnr.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Ref_USA", true));
-            TXTnr.Location = new Point(437, 34);
+            TXTnr.Location = new Point(115, 35);
             TXTnr.Name = "TXTnr";
-            TXTnr.Size = new Size(126, 23);
+            TXTnr.Size = new Size(99, 23);
             TXTnr.TabIndex = 278;
             // 
             // label5
@@ -611,7 +616,7 @@
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(171, 165);
+            label5.Location = new Point(73, 199);
             label5.Name = "label5";
             label5.Size = new Size(27, 21);
             label5.TabIndex = 277;
@@ -622,7 +627,7 @@
             TXTbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTbl.Cursor = Cursors.IBeam;
             TXTbl.DataBindings.Add(new Binding("Text", bsModificaProcesso, "BL", true));
-            TXTbl.Location = new Point(204, 163);
+            TXTbl.Location = new Point(106, 197);
             TXTbl.Name = "TXTbl";
             TXTbl.Size = new Size(199, 23);
             TXTbl.TabIndex = 276;
@@ -632,7 +637,7 @@
             TXTagentedecarga.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTagentedecarga.Cursor = Cursors.IBeam;
             TXTagentedecarga.DataBindings.Add(new Binding("Text", bsModificaProcesso, "AgenteDeCarga", true));
-            TXTagentedecarga.Location = new Point(607, 159);
+            TXTagentedecarga.Location = new Point(509, 193);
             TXTagentedecarga.Name = "TXTagentedecarga";
             TXTagentedecarga.Size = new Size(119, 23);
             TXTagentedecarga.TabIndex = 275;
@@ -642,7 +647,7 @@
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(337, 85);
+            label7.Location = new Point(378, 120);
             label7.Name = "label7";
             label7.Size = new Size(66, 21);
             label7.TabIndex = 274;
@@ -653,7 +658,7 @@
             TXTProduto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTProduto.Cursor = Cursors.IBeam;
             TXTProduto.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Produto", true));
-            TXTProduto.Location = new Point(409, 83);
+            TXTProduto.Location = new Point(450, 118);
             TXTProduto.Name = "TXTProduto";
             TXTProduto.Size = new Size(178, 23);
             TXTProduto.TabIndex = 273;
@@ -663,7 +668,7 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(32, 123);
+            label3.Location = new Point(73, 158);
             label3.Name = "label3";
             label3.Size = new Size(59, 21);
             label3.TabIndex = 272;
@@ -674,7 +679,7 @@
             TXTordem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTordem.Cursor = Cursors.IBeam;
             TXTordem.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Ordem", true));
-            TXTordem.Location = new Point(107, 121);
+            TXTordem.Location = new Point(148, 156);
             TXTordem.Name = "TXTordem";
             TXTordem.Size = new Size(157, 23);
             TXTordem.TabIndex = 271;
@@ -684,7 +689,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(337, 123);
+            label2.Location = new Point(378, 158);
             label2.Name = "label2";
             label2.Size = new Size(37, 21);
             label2.TabIndex = 270;
@@ -695,7 +700,7 @@
             TXTflo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTflo.Cursor = Cursors.IBeam;
             TXTflo.DataBindings.Add(new Binding("Text", bsModificaProcesso, "FLO", true));
-            TXTflo.Location = new Point(380, 121);
+            TXTflo.Location = new Point(421, 156);
             TXTflo.Name = "TXTflo";
             TXTflo.Size = new Size(207, 23);
             TXTflo.TabIndex = 269;
@@ -705,7 +710,7 @@
             Exportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Exportador.AutoSize = true;
             Exportador.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Exportador.Location = new Point(32, 85);
+            Exportador.Location = new Point(73, 120);
             Exportador.Name = "Exportador";
             Exportador.Size = new Size(86, 21);
             Exportador.TabIndex = 268;
@@ -716,7 +721,7 @@
             TXTexportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTexportador.Cursor = Cursors.IBeam;
             TXTexportador.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Exportador", true));
-            TXTexportador.Location = new Point(127, 83);
+            TXTexportador.Location = new Point(168, 118);
             TXTexportador.Name = "TXTexportador";
             TXTexportador.Size = new Size(137, 23);
             TXTexportador.TabIndex = 267;
@@ -726,7 +731,7 @@
             LBLinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLinspecao.AutoSize = true;
             LBLinspecao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLinspecao.Location = new Point(264, 387);
+            LBLinspecao.Location = new Point(300, 430);
             LBLinspecao.Name = "LBLinspecao";
             LBLinspecao.Size = new Size(68, 20);
             LBLinspecao.TabIndex = 302;
@@ -738,7 +743,7 @@
             LBLdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLdatadeatracacao.AutoSize = true;
             LBLdatadeatracacao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLdatadeatracacao.Location = new Point(64, 387);
+            LBLdatadeatracacao.Location = new Point(100, 430);
             LBLdatadeatracacao.Name = "LBLdatadeatracacao";
             LBLdatadeatracacao.Size = new Size(133, 20);
             LBLdatadeatracacao.TabIndex = 301;
@@ -750,7 +755,7 @@
             LBLprevisao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLprevisao.AutoSize = true;
             LBLprevisao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLprevisao.Location = new Point(790, 387);
+            LBLprevisao.Location = new Point(826, 430);
             LBLprevisao.Name = "LBLprevisao";
             LBLprevisao.Size = new Size(64, 20);
             LBLprevisao.TabIndex = 299;
@@ -762,7 +767,7 @@
             LBLdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLdatadeembarque.AutoSize = true;
             LBLdatadeembarque.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLdatadeembarque.Location = new Point(588, 387);
+            LBLdatadeembarque.Location = new Point(624, 430);
             LBLdatadeembarque.Name = "LBLdatadeembarque";
             LBLdatadeembarque.Size = new Size(134, 20);
             LBLdatadeembarque.TabIndex = 300;
@@ -773,7 +778,7 @@
             // 
             cbEmbarque.AutoSize = true;
             cbEmbarque.DataBindings.Add(new Binding("Checked", bsModificaProcesso, "PossuiEmbarque", true));
-            cbEmbarque.Location = new Point(465, 421);
+            cbEmbarque.Location = new Point(499, 464);
             cbEmbarque.Name = "cbEmbarque";
             cbEmbarque.Size = new Size(15, 14);
             cbEmbarque.TabIndex = 297;
@@ -785,7 +790,7 @@
             DTPdatadeinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DTPdatadeinspecao.DataBindings.Add(new Binding("Value", bsModificaProcesso, "Inspecao", true));
             DTPdatadeinspecao.Format = DateTimePickerFormat.Short;
-            DTPdatadeinspecao.Location = new Point(231, 411);
+            DTPdatadeinspecao.Location = new Point(267, 454);
             DTPdatadeinspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeinspecao.Name = "DTPdatadeinspecao";
             DTPdatadeinspecao.Size = new Size(135, 23);
@@ -798,7 +803,7 @@
             DTPdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DTPdatadeatracacao.DataBindings.Add(new Binding("Value", bsModificaProcesso, "DataDeAtracacao", true));
             DTPdatadeatracacao.Format = DateTimePickerFormat.Short;
-            DTPdatadeatracacao.Location = new Point(63, 411);
+            DTPdatadeatracacao.Location = new Point(99, 454);
             DTPdatadeatracacao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeatracacao.Name = "DTPdatadeatracacao";
             DTPdatadeatracacao.Size = new Size(135, 23);
@@ -811,7 +816,7 @@
             DTPdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DTPdatadeembarque.DataBindings.Add(new Binding("Value", bsModificaProcesso, "DataEmbarque", true));
             DTPdatadeembarque.Format = DateTimePickerFormat.Short;
-            DTPdatadeembarque.Location = new Point(588, 410);
+            DTPdatadeembarque.Location = new Point(624, 453);
             DTPdatadeembarque.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeembarque.Name = "DTPdatadeembarque";
             DTPdatadeembarque.Size = new Size(135, 23);
@@ -824,7 +829,7 @@
             DTPdatadeprevisao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DTPdatadeprevisao.DataBindings.Add(new Binding("Value", bsModificaProcesso, "Previsao", true));
             DTPdatadeprevisao.Format = DateTimePickerFormat.Short;
-            DTPdatadeprevisao.Location = new Point(755, 410);
+            DTPdatadeprevisao.Location = new Point(791, 453);
             DTPdatadeprevisao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeprevisao.Name = "DTPdatadeprevisao";
             DTPdatadeprevisao.Size = new Size(135, 23);
@@ -837,7 +842,7 @@
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(52, 450);
+            label10.Location = new Point(88, 493);
             label10.Name = "label10";
             label10.Size = new Size(140, 21);
             label10.TabIndex = 292;
@@ -847,7 +852,7 @@
             // 
             TXTstatusdoprocesso.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTstatusdoprocesso.DataBindings.Add(new Binding("Text", bsModificaProcesso, "StatusDoProcesso", true));
-            TXTstatusdoprocesso.Location = new Point(198, 449);
+            TXTstatusdoprocesso.Location = new Point(234, 492);
             TXTstatusdoprocesso.Name = "TXTstatusdoprocesso";
             TXTstatusdoprocesso.Size = new Size(684, 23);
             TXTstatusdoprocesso.TabIndex = 291;
@@ -857,7 +862,7 @@
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(98, 490);
+            label8.Location = new Point(134, 533);
             label8.Name = "label8";
             label8.Size = new Size(80, 21);
             label8.TabIndex = 290;
@@ -867,7 +872,7 @@
             // 
             TXTpendencia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTpendencia.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Pendencia", true));
-            TXTpendencia.Location = new Point(181, 488);
+            TXTpendencia.Location = new Point(217, 531);
             TXTpendencia.Name = "TXTpendencia";
             TXTpendencia.Size = new Size(671, 23);
             TXTpendencia.TabIndex = 289;
@@ -877,18 +882,64 @@
             lblPEmbarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblPEmbarque.AutoSize = true;
             lblPEmbarque.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            lblPEmbarque.Location = new Point(434, 398);
+            lblPEmbarque.Location = new Point(470, 441);
             lblPEmbarque.Name = "lblPEmbarque";
             lblPEmbarque.Size = new Size(77, 20);
             lblPEmbarque.TabIndex = 298;
             lblPEmbarque.Text = "Embarque";
             // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(689, 195);
+            label4.Name = "label4";
+            label4.Size = new Size(22, 21);
+            label4.TabIndex = 304;
+            label4.Text = "LI";
+            // 
+            // TXTli
+            // 
+            TXTli.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTli.Cursor = Cursors.IBeam;
+            TXTli.DataBindings.Add(new Binding("Text", bsModificaProcesso, "LI", true));
+            TXTli.Location = new Point(717, 193);
+            TXTli.Name = "TXTli";
+            TXTli.Size = new Size(217, 23);
+            TXTli.TabIndex = 303;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Location = new Point(515, 78);
+            label13.Name = "label13";
+            label13.Size = new Size(51, 21);
+            label13.TabIndex = 306;
+            label13.Text = "Navio";
+            // 
+            // TXTnavio
+            // 
+            TXTnavio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTnavio.Cursor = Cursors.IBeam;
+            TXTnavio.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Navio", true));
+            TXTnavio.Location = new Point(572, 76);
+            TXTnavio.Name = "TXTnavio";
+            TXTnavio.Size = new Size(155, 23);
+            TXTnavio.TabIndex = 305;
+            // 
             // frmModificaProcesso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(932, 622);
+            ClientSize = new Size(962, 683);
             ControlBox = false;
+            Controls.Add(label13);
+            Controls.Add(TXTnavio);
+            Controls.Add(label4);
+            Controls.Add(TXTli);
             Controls.Add(LBLinspecao);
             Controls.Add(LBLdatadeatracacao);
             Controls.Add(LBLprevisao);
@@ -1021,5 +1072,9 @@
         private Label label8;
         private TextBox TXTpendencia;
         private Label lblPEmbarque;
+        private Label label4;
+        private TextBox TXTli;
+        private Label label13;
+        private TextBox TXTnavio;
     }
 }

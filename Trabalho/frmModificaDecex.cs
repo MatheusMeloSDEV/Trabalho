@@ -44,32 +44,23 @@ namespace Trabalho
             decex.SR = TXTsr.Text;
             decex.Exportador = TXTexportador.Text;
             decex.Produto = TXTProduto.Text;
-            decex.PortoDestino = TXTportodedestino.Text;
-            decex.Ordem = TXTordem.Text;
-            decex.FLO = TXTflo.Text;
-            decex.FreeTime = int.Parse(NUMfreetime.Text);
-            decex.BL = TXTbl.Text;
-            decex.AgenteDeCarga = TXTagentedecarga.Text;
+            decex.Origem = TXTorigem.Text;
+            decex.LI = TXTli.Text;
+            decex.NCM = TXTncm.Text;
 
-            decex.LI_LPCO = TXTlilpco.Text;
-            decex.DataRegistroLILPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
-            decex.DataDeferimentoLILPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
-            decex.ParametrizacaoLILPCO = CBparametrizacaolilpco.Text;
+            decex.LPCO = TXTlilpco.Text;
+            decex.DataRegistroLPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
+            decex.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
+            decex.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
 
-            decex.DI = TXTdi.Text;
-            decex.DataRegistroDI = DTPdataderegistrodi.Value.ToShortDateString().ToString();
-            decex.DataDesembaracoDI = DTPdatadedesembaracodi.Value.ToShortDateString().ToString();
-            decex.DataCarregamentoDI = DTPdatadecarregamentodi.Value.ToShortDateString().ToString();
-            decex.ParametrizacaoDI = CBparametrizacaodi.Text;
+            decex.TEmbarque = cbEmbarque.Checked;
 
             decex.DataDeAtracacao = DTPdatadeatracacao.Value.ToShortDateString().ToString();
             decex.Inspecao = DTPdatadeinspecao.Value.ToShortDateString().ToString();
             decex.DataEmbarque = DTPdatadeembarque.Value.ToShortDateString().ToString();
-            decex.Previsao = DTPdatadeprevisao.Value.ToShortDateString().ToString();
             decex.StatusDoProcesso = TXTstatusdoprocesso.Text;
             decex.Pendencia = TXTpendencia.Text;
             decex.Amostra = CBamostra.Checked;
-            decex.Desovado = CBdesovado.Checked;
 
             this.DialogResult = DialogResult.OK;
         }
@@ -84,8 +75,6 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = true;
                 LBLinspecao.Visible = true;
                 DTPdatadeinspecao.Visible = true;
-                LBLprevisao.Visible = true;
-                DTPdatadeprevisao.Visible = true;
             }
             else
             {
@@ -95,8 +84,6 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = false;
                 LBLinspecao.Visible = false;
                 DTPdatadeinspecao.Visible = false;
-                LBLprevisao.Visible = false;
-                DTPdatadeprevisao.Visible = false;
             }
         }
     }

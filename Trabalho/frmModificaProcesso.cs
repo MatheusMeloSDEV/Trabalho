@@ -49,6 +49,7 @@ namespace Trabalho
             processo.TImetro = CBimetro.Checked;
 
             processo.Importador = TXTimportador.Text;
+            processo.Navio = TXTnavio.Text;
             processo.Ref_USA = TXTnr.Text;
             processo.SR = TXTsr.Text;
             processo.Exportador = TXTexportador.Text;
@@ -60,10 +61,11 @@ namespace Trabalho
             processo.BL = TXTbl.Text;
             processo.AgenteDeCarga = TXTagentedecarga.Text;
 
-            processo.LI_LPCO = TXTlilpco.Text;
-            processo.DataRegistroLILPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
-            processo.DataDeferimentoLILPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
-            processo.ParametrizacaoLILPCO = CBparametrizacaolilpco.Text;
+            processo.LI = TXTli.Text;
+            processo.LPCO = TXTlilpco.Text;
+            processo.DataRegistroLPCO = DTPdataderegistrolilpco.Value.ToShortDateString().ToString();
+            processo.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
+            processo.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
 
             processo.DI = TXTdi.Text;
             processo.DataRegistroDI = DTPdataderegistrodi.Value.ToShortDateString().ToString();
@@ -74,7 +76,6 @@ namespace Trabalho
             processo.DataDeAtracacao = DTPdatadeatracacao.Value.ToShortDateString().ToString();
             processo.Inspecao = DTPdatadeinspecao.Value.ToShortDateString().ToString();
             processo.DataEmbarque = DTPdatadeembarque.Value.ToShortDateString().ToString();
-            processo.Previsao = DTPdatadeprevisao.Value.ToShortDateString().ToString();
             processo.StatusDoProcesso = TXTstatusdoprocesso.Text;
             processo.Pendencia = TXTpendencia.Text;
             processo.Amostra = CBamostra.Checked;
@@ -109,5 +110,8 @@ namespace Trabalho
             }
         }
 
+        private void CBmapa_CheckedChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

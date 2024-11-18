@@ -13,38 +13,25 @@ namespace CLUSA
         public string Importador { get; set; } = string.Empty;
         public string SR { get; set; } = string.Empty;
         public string Exportador { get; set; } = string.Empty;
+        public string Navio {  get; set; } = string.Empty;
+        public string Terminal {  get; set; } = string.Empty;
         public string Produto { get; set; } = string.Empty;
-        public string PortoDestino { get; set; } = string.Empty;
-        public string Ordem { get; set; } = string.Empty;
-        public string FLO { get; set; } = string.Empty;
-        public int FreeTime { get; set; } = 0;
-        public string BL { get; set; } = string.Empty;
-        public string AgenteDeCarga { get; set; } = string.Empty;
-
-
-        public string LI_LPCO { get; set; } = string.Empty;
-        public string DataRegistroLILPCO { get; set; } = string.Empty;
-        public string DataDeferimentoLILPCO { get; set; } = string.Empty;
-        public string ParametrizacaoLILPCO { get; set; } = string.Empty;
-
-
-        public string DI { get; set; } = string.Empty;
-        public string DataRegistroDI { get; set; } = string.Empty;
-        public string DataDesembaracoDI { get; set; } = string.Empty;
-        public string DataCarregamentoDI { get; set; } = string.Empty;
-        public string ParametrizacaoDI { get; set; } = string.Empty;
-
-
-        public bool PossuiEmbarque { get; set; } = false;
+        public string Origem { get; set; } = string.Empty;
+        public bool TEmbarque {  get; set; } = false;
         public string DataDeAtracacao { get; set; } = string.Empty;
-        public string Inspecao { get; set; } = string.Empty;
         public string DataEmbarque { get; set; } = string.Empty;
-        public string Previsao { get; set; } = string.Empty;
-        public string RecebOriginais { get; set; } = string.Empty;
-        public string FormaRecebERecebidos { get; set; } = string.Empty;
+        public string Inspecao { get; set; } = string.Empty;
+        public string NCM { get; set; } = string.Empty;
+        public string LI { get; set; } = string.Empty;
+
+        //public string LI_LPCO { get; set; } = string.Empty;
+        public string LPCO { get; set; } = string.Empty;
+        public string DataRegistroLPCO { get; set; } = string.Empty;
+        public string DataDeferimentoLPCO { get; set; } = string.Empty;
+        public string ParametrizacaoLPCO { get; set; } = string.Empty;
         public bool Amostra { get; set; } = false;
-        public bool Desovado { get; set; } = false;
         public string Pendencia { get; set; } = string.Empty;
         public string StatusDoProcesso { get; set; } = string.Empty;
+        //RefUSA, Importador, SR, Navio, terminal, data de atracaçao, produto, ncm, origem, exportador, pendencia, certificado original. LI/LPCO, Entrada LI/LPCO, parametrizacao LI/LPCO, SEI, Data de inspecao, Situacao
     }
 }
