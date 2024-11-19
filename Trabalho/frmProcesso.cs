@@ -53,7 +53,7 @@ namespace Trabalho
 
             if (frm.DialogResult == DialogResult.OK)
             {
-                if(pr.TMapa != frm.processo.TMapa)
+                if (pr.TMapa != frm.processo.TMapa)
                 {
                     if (frm.processo.TMapa)
                     {
@@ -141,6 +141,23 @@ namespace Trabalho
 
                 bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text = columnName, txtPesquisar.Text = cellText);
             }
+        }
+
+        private void BTNexportar_Click(object sender, EventArgs e)
+        {
+            // Lista de objetos para exportar
+            RepositorioProcesso p = new();
+            
+
+
+            // Caminho do arquivo
+            string caminhoArquivo = "C:\\FollowUp\\Processos.xlsx";
+
+            // Exportação
+            var exportar = new ExportarParaExcel();
+            exportar.ExportarDadosParaExcel(p.ListaProcesso, caminhoArquivo);
+
+            MessageBox.Show("Dados exportados com sucesso para " + caminhoArquivo);
         }
     }
 }

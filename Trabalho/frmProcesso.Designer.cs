@@ -29,21 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
             dataGridView1 = new DataGridView();
-            bsProcesso = new BindingSource(components);
-            toolStrip1 = new ToolStrip();
-            btnAdicionar = new ToolStripButton();
-            btnExcluir = new ToolStripButton();
-            btnEditar = new ToolStripButton();
-            btnCancelar = new ToolStripButton();
-            btnPesquisar = new ToolStripButton();
-            txtPesquisar = new ToolStripTextBox();
-            CmbPesquisar = new ToolStripComboBox();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tDecexDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             tAnvisaDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
@@ -83,6 +74,16 @@
             desovadoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             pendenciaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDoProcessoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            bsProcesso = new BindingSource(components);
+            toolStrip1 = new ToolStrip();
+            btnAdicionar = new ToolStripButton();
+            btnExcluir = new ToolStripButton();
+            btnCancelar = new ToolStripButton();
+            btnPesquisar = new ToolStripButton();
+            txtPesquisar = new ToolStripTextBox();
+            CmbPesquisar = new ToolStripComboBox();
+            btnEditar = new ToolStripButton();
+            BTNexportar = new ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsProcesso).BeginInit();
             toolStrip1.SuspendLayout();
@@ -93,141 +94,41 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = SystemColors.ControlLightLight;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = SystemColors.ControlLightLight;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tDecexDataGridViewCheckBoxColumn, tAnvisaDataGridViewCheckBoxColumn, tMapaDataGridViewCheckBoxColumn, tImetroDataGridViewCheckBoxColumn, tIbamaDataGridViewCheckBoxColumn, refUSADataGridViewTextBoxColumn, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, exportadorDataGridViewTextBoxColumn, produtoDataGridViewTextBoxColumn, navioDataGridViewTextBoxColumn, portoDestinoDataGridViewTextBoxColumn, ordemDataGridViewTextBoxColumn, fLODataGridViewTextBoxColumn, freeTimeDataGridViewTextBoxColumn, bLDataGridViewTextBoxColumn, agenteDeCargaDataGridViewTextBoxColumn, lIDataGridViewTextBoxColumn, lPCODataGridViewTextBoxColumn, dataRegistroLPCODataGridViewTextBoxColumn, dataDeferimentoLPCODataGridViewTextBoxColumn, parametrizacaoLPCODataGridViewTextBoxColumn, dIDataGridViewTextBoxColumn, dataRegistroDIDataGridViewTextBoxColumn, dataDesembaracoDIDataGridViewTextBoxColumn, dataCarregamentoDIDataGridViewTextBoxColumn, parametrizacaoDIDataGridViewTextBoxColumn, possuiEmbarqueDataGridViewCheckBoxColumn, dataDeAtracacaoDataGridViewTextBoxColumn, inspecaoDataGridViewTextBoxColumn, dataEmbarqueDataGridViewTextBoxColumn, dataRecebOriginaisDataGridViewTextBoxColumn, formaRecOriginaisDataGridViewTextBoxColumn, docRecebidosDataGridViewTextBoxColumn, amostraDataGridViewCheckBoxColumn, desovadoDataGridViewCheckBoxColumn, pendenciaDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
             dataGridView1.DataSource = bsProcesso;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Window;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new Point(12, 41);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = SystemColors.ControlLight;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = SystemColors.ControlLight;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 2;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
-            // 
-            // bsProcesso
-            // 
-            bsProcesso.DataMember = "ListaProcesso";
-            bsProcesso.DataSource = typeof(CLUSA.RepositorioProcesso);
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.AutoSize = false;
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnExcluir, btnEditar, btnCancelar, btnPesquisar, txtPesquisar, CmbPesquisar });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.RenderMode = ToolStripRenderMode.System;
-            toolStrip1.Size = new Size(800, 38);
-            toolStrip1.TabIndex = 10;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // btnAdicionar
-            // 
-            btnAdicionar.BackColor = Color.GreenYellow;
-            btnAdicionar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnAdicionar.Image = (Image)resources.GetObject("btnAdicionar.Image");
-            btnAdicionar.ImageTransparentColor = Color.Magenta;
-            btnAdicionar.Margin = new Padding(11, 4, 0, 2);
-            btnAdicionar.Name = "btnAdicionar";
-            btnAdicionar.Size = new Size(62, 32);
-            btnAdicionar.Text = "Adicionar";
-            btnAdicionar.Click += btnAdicionar_Click;
-            // 
-            // btnExcluir
-            // 
-            btnExcluir.AutoSize = false;
-            btnExcluir.BackColor = Color.IndianRed;
-            btnExcluir.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnExcluir.Image = (Image)resources.GetObject("btnExcluir.Image");
-            btnExcluir.ImageTransparentColor = Color.Magenta;
-            btnExcluir.Margin = new Padding(5, 4, 0, 2);
-            btnExcluir.Name = "btnExcluir";
-            btnExcluir.Size = new Size(62, 32);
-            btnExcluir.Text = "Excluir";
-            btnExcluir.Click += btnExcluir_Click;
-            // 
-            // btnEditar
-            // 
-            btnEditar.AutoSize = false;
-            btnEditar.BackColor = Color.MediumTurquoise;
-            btnEditar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnEditar.Image = (Image)resources.GetObject("btnEditar.Image");
-            btnEditar.ImageTransparentColor = Color.Magenta;
-            btnEditar.Margin = new Padding(5, 4, 0, 2);
-            btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(62, 32);
-            btnEditar.Text = "Editar";
-            btnEditar.Click += btnEditar_Click;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Alignment = ToolStripItemAlignment.Right;
-            btnCancelar.BackgroundImage = (Image)resources.GetObject("btnCancelar.BackgroundImage");
-            btnCancelar.BackgroundImageLayout = ImageLayout.Zoom;
-            btnCancelar.DisplayStyle = ToolStripItemDisplayStyle.None;
-            btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
-            btnCancelar.ImageTransparentColor = Color.Magenta;
-            btnCancelar.Margin = new Padding(0, 4, 0, 2);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(23, 32);
-            btnCancelar.Text = "toolStripButton2";
-            // 
-            // btnPesquisar
-            // 
-            btnPesquisar.Alignment = ToolStripItemAlignment.Right;
-            btnPesquisar.BackgroundImage = (Image)resources.GetObject("btnPesquisar.BackgroundImage");
-            btnPesquisar.BackgroundImageLayout = ImageLayout.Zoom;
-            btnPesquisar.DisplayStyle = ToolStripItemDisplayStyle.None;
-            btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
-            btnPesquisar.ImageTransparentColor = Color.Magenta;
-            btnPesquisar.Margin = new Padding(0, 4, 0, 2);
-            btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(23, 32);
-            btnPesquisar.Text = "toolStripButton1";
-            btnPesquisar.Click += btnPesquisar_Click;
-            // 
-            // txtPesquisar
-            // 
-            txtPesquisar.Alignment = ToolStripItemAlignment.Right;
-            txtPesquisar.Margin = new Padding(0, 4, 3, 0);
-            txtPesquisar.Name = "txtPesquisar";
-            txtPesquisar.Size = new Size(250, 34);
-            txtPesquisar.Click += txtPesquisar_Click;
-            // 
-            // CmbPesquisar
-            // 
-            CmbPesquisar.Alignment = ToolStripItemAlignment.Right;
-            CmbPesquisar.AutoSize = false;
-            CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "StatusDoProcesso" });
-            CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
-            CmbPesquisar.Name = "CmbPesquisar";
-            CmbPesquisar.Size = new Size(121, 23);
-            CmbPesquisar.Click += CmbPesquisar_Click;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -509,6 +410,119 @@
             statusDoProcessoDataGridViewTextBoxColumn.Name = "statusDoProcessoDataGridViewTextBoxColumn";
             statusDoProcessoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // bsProcesso
+            // 
+            bsProcesso.DataMember = "ListaProcesso";
+            bsProcesso.DataSource = typeof(CLUSA.RepositorioProcesso);
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.AutoSize = false;
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnExcluir, btnCancelar, btnPesquisar, txtPesquisar, CmbPesquisar, btnEditar, BTNexportar });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
+            toolStrip1.Size = new Size(800, 38);
+            toolStrip1.TabIndex = 10;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // btnAdicionar
+            // 
+            btnAdicionar.BackColor = Color.GreenYellow;
+            btnAdicionar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnAdicionar.Image = (Image)resources.GetObject("btnAdicionar.Image");
+            btnAdicionar.ImageTransparentColor = Color.Magenta;
+            btnAdicionar.Margin = new Padding(11, 4, 0, 2);
+            btnAdicionar.Name = "btnAdicionar";
+            btnAdicionar.Size = new Size(62, 32);
+            btnAdicionar.Text = "Adicionar";
+            btnAdicionar.Click += btnAdicionar_Click;
+            // 
+            // btnExcluir
+            // 
+            btnExcluir.AutoSize = false;
+            btnExcluir.BackColor = Color.IndianRed;
+            btnExcluir.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnExcluir.Image = (Image)resources.GetObject("btnExcluir.Image");
+            btnExcluir.ImageTransparentColor = Color.Magenta;
+            btnExcluir.Margin = new Padding(5, 4, 0, 2);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(62, 32);
+            btnExcluir.Text = "Excluir";
+            btnExcluir.Click += btnExcluir_Click;
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Alignment = ToolStripItemAlignment.Right;
+            btnCancelar.BackgroundImage = (Image)resources.GetObject("btnCancelar.BackgroundImage");
+            btnCancelar.BackgroundImageLayout = ImageLayout.Zoom;
+            btnCancelar.DisplayStyle = ToolStripItemDisplayStyle.None;
+            btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
+            btnCancelar.ImageTransparentColor = Color.Magenta;
+            btnCancelar.Margin = new Padding(0, 4, 0, 2);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(23, 32);
+            btnCancelar.Text = "toolStripButton2";
+            // 
+            // btnPesquisar
+            // 
+            btnPesquisar.Alignment = ToolStripItemAlignment.Right;
+            btnPesquisar.BackgroundImage = (Image)resources.GetObject("btnPesquisar.BackgroundImage");
+            btnPesquisar.BackgroundImageLayout = ImageLayout.Zoom;
+            btnPesquisar.DisplayStyle = ToolStripItemDisplayStyle.None;
+            btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
+            btnPesquisar.ImageTransparentColor = Color.Magenta;
+            btnPesquisar.Margin = new Padding(0, 4, 0, 2);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(23, 32);
+            btnPesquisar.Text = "toolStripButton1";
+            btnPesquisar.Click += btnPesquisar_Click;
+            // 
+            // txtPesquisar
+            // 
+            txtPesquisar.Alignment = ToolStripItemAlignment.Right;
+            txtPesquisar.Margin = new Padding(0, 4, 3, 0);
+            txtPesquisar.Name = "txtPesquisar";
+            txtPesquisar.Size = new Size(250, 34);
+            txtPesquisar.Click += txtPesquisar_Click;
+            // 
+            // CmbPesquisar
+            // 
+            CmbPesquisar.Alignment = ToolStripItemAlignment.Right;
+            CmbPesquisar.AutoSize = false;
+            CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "StatusDoProcesso" });
+            CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
+            CmbPesquisar.Name = "CmbPesquisar";
+            CmbPesquisar.Size = new Size(121, 23);
+            CmbPesquisar.Click += CmbPesquisar_Click;
+            // 
+            // btnEditar
+            // 
+            btnEditar.AutoSize = false;
+            btnEditar.BackColor = Color.MediumTurquoise;
+            btnEditar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnEditar.Image = (Image)resources.GetObject("btnEditar.Image");
+            btnEditar.ImageTransparentColor = Color.Magenta;
+            btnEditar.Margin = new Padding(5, 4, 0, 2);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(62, 32);
+            btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
+            // 
+            // BTNexportar
+            // 
+            BTNexportar.AutoSize = false;
+            BTNexportar.BackColor = Color.Yellow;
+            BTNexportar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            BTNexportar.Image = (Image)resources.GetObject("BTNexportar.Image");
+            BTNexportar.ImageTransparentColor = Color.Magenta;
+            BTNexportar.Margin = new Padding(5, 4, 0, 2);
+            BTNexportar.Name = "BTNexportar";
+            BTNexportar.Size = new Size(62, 32);
+            BTNexportar.Text = "Exportar";
+            BTNexportar.Click += BTNexportar_Click;
+            // 
             // frmProcesso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -591,5 +605,6 @@
         private DataGridViewCheckBoxColumn desovadoDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn pendenciaDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn;
+        private ToolStripButton BTNexportar;
     }
 }
