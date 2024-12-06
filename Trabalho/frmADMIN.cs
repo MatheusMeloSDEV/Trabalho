@@ -16,6 +16,7 @@ namespace Trabalho
         {
             repositorio = new RepositorioUsers();
             BSAdmin.DataSource = repositorio;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
         public async void btnAdcionar_Click(object sender, EventArgs e)

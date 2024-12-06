@@ -1,13 +1,5 @@
 ﻿using CLUSA;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Google.Type;
 
 namespace Trabalho
 {
@@ -21,7 +13,7 @@ namespace Trabalho
 
         private void frmModificaProcesso_Load(object sender, EventArgs e)
         {
-            bsModificaProcesso.DataSource = processo;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             if (processo.PossuiEmbarque)
             {
                 LBLdatadeatracacao.Visible = true;
@@ -30,9 +22,17 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = true;
                 LBLinspecao.Visible = true;
                 DTPdatadeinspecao.Visible = true;
-                LBLprevisao.Visible = true;
-                DTPdatadeprevisao.Visible = true;
+
             }
+            DTPdatadedeferimentolilpco.Value = System.DateTime.Today;
+            DTPdataderegistrolilpco.Value = System.DateTime.Today;
+            DTPdataderegistrodi.Value = System.DateTime.Today;
+            DTPdatadedesembaracodi.Value = System.DateTime.Today;
+            DTPdatadecarregamentodi.Value = System.DateTime.Today;
+            DTPdatadeinspecao.Value = System.DateTime.Today;
+            DTPdatadeatracacao.Value = System.DateTime.Today;
+            DTPdatadeembarque.Value = System.DateTime.Today;
+            bsModificaProcesso.DataSource = processo;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -58,6 +58,8 @@ namespace Trabalho
             processo.Ordem = TXTordem.Text;
             processo.FLO = TXTflo.Text;
             processo.FreeTime = int.Parse(NUMfreetime.Text);
+            processo.VencimentoFreeTime = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value.ToShortDateString().ToString(), int.Parse(NUMfreetime.Text));
+            processo.VencimentoFMA = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value.ToShortDateString().ToString(), 85);
             processo.BL = TXTbl.Text;
             processo.AgenteDeCarga = TXTagentedecarga.Text;
 
@@ -81,7 +83,21 @@ namespace Trabalho
             processo.Amostra = CBamostra.Checked;
             processo.Desovado = CBdesovado.Checked;
 
-            DialogResult = DialogResult.OK;
+            var confirmResult = MessageBox.Show(
+                            $"Tem certeza de que deseja adicionar o novo processo?",
+                            "Confirmação",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                // Opcional: Exibir um feedback ao usuário
+                MessageBox.Show("Modificação feita.","Sucesso",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+            }
+            
         }
 
         private void cbEmbarque_CheckedChanged(object sender, EventArgs e)
@@ -94,8 +110,6 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = true;
                 LBLinspecao.Visible = true;
                 DTPdatadeinspecao.Visible = true;
-                LBLprevisao.Visible = true;
-                DTPdatadeprevisao.Visible = true;
             }
             else
             {
@@ -105,8 +119,6 @@ namespace Trabalho
                 DTPdatadeembarque.Visible = false;
                 LBLinspecao.Visible = false;
                 DTPdatadeinspecao.Visible = false;
-                LBLprevisao.Visible = false;
-                DTPdatadeprevisao.Visible = false;
             }
         }
 

@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace CLUSA
 {
@@ -20,7 +20,7 @@ namespace CLUSA
         public bool TEmbarque { get; set; } = false;
         public string DataDeAtracacao { get; set; } = string.Empty;
         public string Inspecao { get; set; } = string.Empty;
-        public string DataEmbarque {  get; set; } = string.Empty;
+        public string DataEmbarque { get; set; } = string.Empty;
         public string NCM { get; set; } = string.Empty;
         public string LI { get; set; } = string.Empty;
 

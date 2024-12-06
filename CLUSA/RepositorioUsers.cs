@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
-using System.ComponentModel;
+﻿using MongoDB.Driver;
 
 namespace CLUSA
 {
@@ -42,7 +39,7 @@ namespace CLUSA
                 if (user.Password == result)
                 {
                     Log.log = true;
-                    if(resultAdmin == true)
+                    if (resultAdmin == true)
                     {
                         Log.admin = true;
                         return Log;
@@ -65,7 +62,7 @@ namespace CLUSA
 
         public async Task Delete(Users user, string USER)
         {
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 var filter = Builders<Users>.Filter.Eq("ID", user.ID);
                 _Users.DeleteOne(filter);

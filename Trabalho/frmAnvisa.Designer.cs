@@ -86,6 +86,7 @@
             toolStrip1.Size = new Size(800, 38);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.ItemClicked += toolStrip1_ItemClicked;
             // 
             // btnEditar
             // 
@@ -153,7 +154,7 @@
             dataGridView1.AutoGenerateColumns = false;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -172,6 +173,7 @@
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 11;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -334,28 +336,8 @@
         private ToolStripTextBox txtPesquisar;
         private ToolStripComboBox CmbPesquisar;
         private BindingSource bsAnvisa;
-        private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn portoDestinoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn ordemDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fLODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn freeTimeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn bLDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn agenteDeCargaDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn lILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataRegistroLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeferimentoLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn parametrizacaoLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dIDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataRegistroDIDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDesembaracoDIDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataCarregamentoDIDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn parametrizacaoDIDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn possuiEmbarqueDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn recebOriginaisDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn formaRecebERecebidosDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn desovadoDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn refUSADataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;

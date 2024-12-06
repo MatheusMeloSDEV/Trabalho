@@ -1,7 +1,4 @@
 ﻿using CLUSA;
-using DnsClient.Protocol;
-using System.Text.RegularExpressions;
-using ZstdSharp.Unsafe;
 
 namespace Trabalho
 {
@@ -16,11 +13,17 @@ namespace Trabalho
 
         public void frmModifica_Load(object sender, EventArgs e)
         {
-            bsModificaMAPA.DataSource = mapa;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             if (frmLogin.instance.escuro)
             {
                 //DarkMode();
             }
+            DTPdatadedeferimentolilpco.Value = System.DateTime.Today;
+            DTPdataderegistrolilpco.Value = System.DateTime.Today;
+            DTPdatadeinspecao.Value = System.DateTime.Today;
+            DTPdatadeatracacao.Value = System.DateTime.Today;
+            DTPdatadeembarque.Value = System.DateTime.Today;
+            bsModificaMAPA.DataSource = mapa;
         }
 
         private void tErro_Tick(object sender, EventArgs e)

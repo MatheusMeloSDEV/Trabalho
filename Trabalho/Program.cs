@@ -10,8 +10,19 @@ namespace Trabalho
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+
+            // Inicializar o console
+            AllocConsole();
+
+            Console.WriteLine("Console inicializado. O programa está rodando!");
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmLogin());
+
+            Console.WriteLine("O programa foi encerrado.");
         }
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
     }
 }

@@ -1,14 +1,4 @@
 ﻿using CLUSA;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Trabalho
 {
@@ -22,7 +12,12 @@ namespace Trabalho
 
         private void frmModificaDecex_Load(object sender, EventArgs e)
         {
-
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            DTPdatadedeferimentolilpco.Value = System.DateTime.Today;
+            DTPdataderegistrolilpco.Value = System.DateTime.Today;
+            DTPdatadeinspecao.Value = System.DateTime.Today;
+            DTPdatadeatracacao.Value = System.DateTime.Today;
+            DTPdatadeembarque.Value = System.DateTime.Today;
             bsModificaDecex.DataSource = decex;
         }
 

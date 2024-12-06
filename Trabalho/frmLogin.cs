@@ -1,8 +1,4 @@
 ﻿using CLUSA;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Drawing.Imaging;
-using System.Windows;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace Trabalho
@@ -20,6 +16,7 @@ namespace Trabalho
         }
         private void frmPricipal_Load(object sender, EventArgs e)
         {
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             repositorio = new RepositorioUsers();
         }
 

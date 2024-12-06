@@ -1,4 +1,7 @@
 ﻿using CLUSA;
+using iText.Commons.Datastructures;
+using MongoDB.Driver;
+using System;
 using System.Diagnostics;
 
 namespace Trabalho
@@ -9,9 +12,109 @@ namespace Trabalho
         public frmProcesso()
         {
             InitializeComponent();
+        }
+        private void frmProcesso_Load(object sender, EventArgs e)
+        {
             repositorio = new();
             bsProcesso.DataSource = repositorio;
+            dataGridView1.DataSource = bsProcesso;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            if (frmLogin.instance.escuro)
+            {
+                DarkMode();
+            }
+            // Preencher o ToolStripComboBox
+            PopularToolStripComboBox();
+
+            // Configurar o autocompletar para o campo inicial
+            ConfigurarAutoCompletarParaPesquisa();
         }
+        private void ConfigurarAutoCompletarParaPesquisa()
+        {
+            // Obter o campo selecionado no ToolStripComboBox
+            var campoSelecionado = CmbPesquisar.SelectedItem as DisplayItem;
+
+            if (campoSelecionado == null)
+            {
+                MessageBox.Show("Selecione um campo para configurar o autocompletar.",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string dataPropertyName = campoSelecionado.DataPropertyName;
+
+            // Buscar os valores únicos no MongoDB
+            var valores = repositorio.ObterValoresUnicos(dataPropertyName);
+
+            // Configurar o autocompletar no TextBox
+            ConfigurarAutoCompletar(txtPesquisar, valores);
+        }
+        private void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
+        {
+            // Criar a coleção para autocompletar
+            var autoCompleteCollection = new AutoCompleteStringCollection();
+            autoCompleteCollection.AddRange(valores.ToArray());
+
+            // Configurar o TextBox para usar o autocompletar
+            textBox.AutoCompleteCustomSource = autoCompleteCollection;
+            textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+        private void PopularToolStripComboBox()
+        {
+            // Lista de campos a serem ignorados
+            var camposIgnorados = new HashSet<string>
+            {
+                "Id",
+                "TDecex",
+                "TAnvisa",
+                "TMapa",
+                "TImetro",
+                "TIbama",
+                "PossuiEmbarque",
+                "VencimentoFreeTime",
+                "VencimentoFMA"
+            };
+
+            // Limpar o ToolStripComboBox antes de adicionar os itens
+            CmbPesquisar.Items.Clear();
+
+            // Adicionar os HeaderTexts e DataPropertyNames das colunas do DataGridView
+            foreach (DataGridViewColumn coluna in dataGridView1.Columns)
+            {
+                if (!string.IsNullOrEmpty(coluna.DataPropertyName) &&
+                    !camposIgnorados.Contains(coluna.DataPropertyName)) // Excluir campos ignorados
+                {
+                    // Adicionar diretamente o HeaderText ao ToolStripComboBox
+                    CmbPesquisar.Items.Add(new DisplayItem(coluna.DataPropertyName, coluna.HeaderText));
+                }
+            }
+
+            // Selecionar o primeiro item por padrão, se houver itens
+            if (CmbPesquisar.Items.Count > 0)
+            {
+                CmbPesquisar.SelectedIndex = 0;
+            }
+        }
+
+        // Classe auxiliar para exibir HeaderText, mas armazenar DataPropertyName
+        public class DisplayItem
+        {
+            public string DataPropertyName { get; }
+            public string HeaderText { get; }
+
+            public DisplayItem(string dataPropertyName, string headerText)
+            {
+                DataPropertyName = dataPropertyName;
+                HeaderText = headerText;
+            }
+
+            public override string ToString()
+            {
+                return HeaderText; // Exibir apenas o HeaderText no ComboBox
+            }
+        }
+
 
         private async void btnAdicionar_Click(object sender, EventArgs e)
         {
@@ -29,10 +132,38 @@ namespace Trabalho
 
         private async void btnExcluir_Click(object sender, EventArgs e)
         {
-            await repositorio.Delete(bsProcesso.Current as Processo);
-            bsProcesso.Remove(bsProcesso.Current as Processo);
-            bsProcesso.ResetBindings(false);
-            bsProcesso.DataSource = repositorio.FindAll();
+            // Obter o processo selecionado
+            var processoSelecionado = bsProcesso.Current as Processo;
+
+            if (processoSelecionado == null)
+            {
+                MessageBox.Show("Nenhum processo selecionado para exclusão.",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Exibir uma mensagem de confirmação com o RefUsa
+            var confirmResult = MessageBox.Show(
+                $"Tem certeza de que deseja excluir o processo: '{processoSelecionado.Ref_USA}'?",
+                "Confirmação de Exclusão",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                // Executar a exclusão
+                await repositorio.Delete(processoSelecionado);
+
+                // Remover da fonte de dados
+                bsProcesso.Remove(processoSelecionado);
+                bsProcesso.ResetBindings(false);
+
+                // Atualizar a lista de processos
+                bsProcesso.DataSource = repositorio.FindAll();
+
+                MessageBox.Show("Processo excluído com sucesso.",
+                                "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private async void btnEditar_Click(object sender, EventArgs e)
@@ -111,17 +242,49 @@ namespace Trabalho
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            repositorio = new();
-            bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text, txtPesquisar.Text);
+            if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
+            {
+                string dataPropertyName = campoSelecionado.DataPropertyName;
+                string textoPesquisa = txtPesquisar.Text;
+
+                if (string.IsNullOrEmpty(textoPesquisa))
+                {
+                    MessageBox.Show("Digite um valor para pesquisar.",
+                                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                try
+                {
+                    // Buscar os dados no MongoDB
+                    var resultados = repositorio.Find(dataPropertyName, textoPesquisa);
+
+                    if (resultados.Any())
+                    {
+                        bsProcesso.DataSource = resultados; // Atualizar o BindingSource com os novos resultados
+                        bsProcesso.ResetBindings(false);    // Atualizar o DataGridView
+                        Console.WriteLine($"Filtro aplicado: {dataPropertyName} com pesquisa '{textoPesquisa}'. Itens encontrados: {resultados.Count}");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nenhum resultado encontrado para os critérios de pesquisa.",
+                                        "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao buscar dados: {ex.Message}",
+                                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um campo para pesquisar.",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
 
-        private void frmProcesso_Load(object sender, EventArgs e)
-        {
-            if (frmLogin.instance.escuro)
-            {
-                DarkMode();
-            }
-        }
 
         private void DarkMode()
         {
@@ -133,31 +296,147 @@ namespace Trabalho
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+                var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                object cellValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                string valorCelula = cell.Value?.ToString();
 
-                string cellText = cellValue != null ? cellValue.ToString() : "Célula vazia";
+                string dataPropertyName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
 
-                bsProcesso.DataSource = repositorio.Find(CmbPesquisar.Text = columnName, txtPesquisar.Text = cellText);
+                if (!string.IsNullOrEmpty(dataPropertyName))
+                {
+                    MessageBox.Show($"Valor da célula: {valorCelula}\nDataPropertyName: {dataPropertyName}",
+                                    "Pesquisa",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+
+                    bsProcesso.DataSource = repositorio.Find(dataPropertyName, valorCelula);
+                }
+                else
+                {
+                    MessageBox.Show("DataPropertyName não definido para esta coluna.",
+                                    "Erro",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                }
             }
         }
 
+        private string ExecutarScriptPython(string importador)
+        {
+            // Caminho do Python e do Script
+            string pythonPath = @"C:\Users\mathe\AppData\Local\Programs\Python\Python313\python.exe";
+            string scriptPath = @"C:\USA App\Python Program\index.py";
+
+            // Configurar o processo
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = pythonPath,
+                Arguments = $"\"{scriptPath}\" \"{importador}\"", // Passar o importador como argumento
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                // Iniciar o processo
+                using (Process process = Process.Start(psi))
+                {
+                    // Capturar a saída
+                    string output = process.StandardOutput.ReadToEnd();
+                    string errors = process.StandardError.ReadToEnd();
+
+                    process.WaitForExit();
+
+                    if (!string.IsNullOrEmpty(errors))
+                    {
+                        return $"Erro ao executar o script Python:\n{errors}";
+                    }
+
+                    return $"Saída do Python:\n{output}";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Erro ao executar o script Python:\n{ex.Message}";
+            }
+        }
+
+
         private void BTNexportar_Click(object sender, EventArgs e)
         {
-            // Lista de objetos para exportar
-            RepositorioProcesso p = new();
-            
+            // Obter importadores únicos do MongoDB
+            var processoRepo = new RepositorioProcesso();
+            var importadores = processoRepo.ObterImportadoresUnicos();
 
+            // Abrir o formulário de seleção de importador
+            var form = new ImporterSelectionForm(importadores);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                // Importador selecionado pelo usuário
+                string importador = form.SelectedImporter;
 
-            // Caminho do arquivo
-            string caminhoArquivo = "C:\\FollowUp\\Processos.xlsx";
+                // Mostrar o ProgressForm
+                ProgressForm progressForm = new ProgressForm();
+                progressForm.Show();
+                progressForm.Update();
 
-            // Exportação
-            var exportar = new ExportarParaExcel();
-            exportar.ExportarDadosParaExcel(p.ListaProcesso, caminhoArquivo);
+                // Executar o script Python em segundo plano
+                Task.Run(() =>
+                {
+                    string result = ExecutarScriptPython(importador);
 
-            MessageBox.Show("Dados exportados com sucesso para " + caminhoArquivo);
+                    // Voltar à thread principal para atualizar a interface
+                    Invoke(new Action(() =>
+                    {
+                        // Fechar o ProgressForm
+                        if (progressForm != null && !progressForm.IsDisposed)
+                        {
+                            progressForm.Close();
+                            progressForm.Dispose();
+                        }
+
+                        // Mostrar o resultado
+                        MessageBox.Show(result, "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }));
+                });
+            }
+        }
+
+        private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConfigurarAutoCompletarParaPesquisa();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Buscar todos os processos no MongoDB
+                var todosProcessos = repositorio.FindAll(); // Método para buscar todos os documentos
+
+                // Atualizar o BindingSource
+                bsProcesso.DataSource = todosProcessos;
+                bsProcesso.ResetBindings(false); // Atualizar o DataGridView
+
+                Console.WriteLine($"Total de processos carregados: {todosProcessos.Count}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar todos os processos: {ex.Message}",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void frmProcesso_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnPesquisar.PerformClick(); // Simula o clique no ToolStripButton
+                e.Handled = true; // Marca o evento como tratado
+                e.SuppressKeyPress = true; // Impede que o Enter insira uma nova linha ou emita outro som
+            }
         }
     }
 }

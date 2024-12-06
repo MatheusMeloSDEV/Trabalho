@@ -86,13 +86,11 @@
             TXTexportador = new TextBox();
             LBLinspecao = new Label();
             LBLdatadeatracacao = new Label();
-            LBLprevisao = new Label();
             LBLdatadeembarque = new Label();
             cbEmbarque = new CheckBox();
             DTPdatadeinspecao = new DateTimePicker();
             DTPdatadeatracacao = new DateTimePicker();
             DTPdatadeembarque = new DateTimePicker();
-            DTPdatadeprevisao = new DateTimePicker();
             label10 = new Label();
             TXTstatusdoprocesso = new TextBox();
             label8 = new Label();
@@ -134,7 +132,7 @@
             // 
             label22.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Font = new Font("Segoe UI", 11F);
             label22.Location = new Point(585, 19);
             label22.Name = "label22";
             label22.Size = new Size(111, 20);
@@ -145,7 +143,7 @@
             // 
             label20.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label20.AutoSize = true;
-            label20.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Font = new Font("Segoe UI", 11F);
             label20.Location = new Point(394, 20);
             label20.Name = "label20";
             label20.Size = new Size(150, 20);
@@ -156,7 +154,7 @@
             // 
             label18.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Font = new Font("Segoe UI", 11F);
             label18.Location = new Point(227, 20);
             label18.Name = "label18";
             label18.Size = new Size(121, 20);
@@ -215,7 +213,7 @@
             // 
             label26.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Font = new Font("Segoe UI", 12F);
             label26.Location = new Point(31, 34);
             label26.Name = "label26";
             label26.Size = new Size(28, 21);
@@ -245,7 +243,7 @@
             // 
             label23.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Font = new Font("Segoe UI", 11F);
             label23.Location = new Point(753, 24);
             label23.Name = "label23";
             label23.Size = new Size(111, 20);
@@ -256,7 +254,7 @@
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Font = new Font("Segoe UI", 11F);
             label6.Location = new Point(560, 24);
             label6.Name = "label6";
             label6.Size = new Size(161, 20);
@@ -267,7 +265,7 @@
             // 
             label19.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label19.Font = new Font("Segoe UI", 11F);
             label19.Location = new Point(380, 24);
             label19.Name = "label19";
             label19.Size = new Size(158, 20);
@@ -278,7 +276,7 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 11F);
             label1.Location = new Point(219, 24);
             label1.Name = "label1";
             label1.Size = new Size(121, 20);
@@ -350,7 +348,7 @@
             // 
             label21.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Font = new Font("Segoe UI", 12F);
             label21.Location = new Point(22, 35);
             label21.Name = "label21";
             label21.Size = new Size(28, 21);
@@ -361,7 +359,7 @@
             // 
             CBamostra.AutoSize = true;
             CBamostra.DataBindings.Add(new Binding("Checked", bsModificaProcesso, "Amostra", true));
-            CBamostra.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CBamostra.Font = new Font("Segoe UI", 12F);
             CBamostra.Location = new Point(440, 600);
             CBamostra.Name = "CBamostra";
             CBamostra.Size = new Size(88, 25);
@@ -373,7 +371,7 @@
             // 
             CBdesovado.AutoSize = true;
             CBdesovado.DataBindings.Add(new Binding("Checked", bsModificaProcesso, "Desovado", true));
-            CBdesovado.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CBdesovado.Font = new Font("Segoe UI", 12F);
             CBdesovado.Location = new Point(534, 600);
             CBdesovado.Name = "CBdesovado";
             CBdesovado.Size = new Size(98, 25);
@@ -384,7 +382,7 @@
             // checkBox2
             // 
             checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox2.Font = new Font("Segoe UI", 12F);
             checkBox2.Location = new Point(534, 607);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(88, 25);
@@ -395,7 +393,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox1.Font = new Font("Segoe UI", 12F);
             checkBox1.Location = new Point(534, 607);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(98, 25);
@@ -509,7 +507,7 @@
             // 
             label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label17.AutoSize = true;
-            label17.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Font = new Font("Segoe UI", 12F);
             label17.Location = new Point(221, 78);
             label17.Name = "label17";
             label17.Size = new Size(89, 21);
@@ -530,7 +528,7 @@
             // 
             label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Font = new Font("Segoe UI", 12F);
             label14.Location = new Point(689, 120);
             label14.Name = "label14";
             label14.Size = new Size(125, 21);
@@ -551,7 +549,7 @@
             // 
             label15.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Font = new Font("Segoe UI", 12F);
             label15.Location = new Point(689, 158);
             label15.Name = "label15";
             label15.Size = new Size(78, 21);
@@ -562,7 +560,7 @@
             // 
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label12.Font = new Font("Segoe UI", 12F);
             label12.Location = new Point(378, 195);
             label12.Name = "label12";
             label12.Size = new Size(125, 21);
@@ -573,7 +571,7 @@
             // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.Font = new Font("Segoe UI", 12F);
             label11.Location = new Point(226, 37);
             label11.Name = "label11";
             label11.Size = new Size(35, 21);
@@ -584,7 +582,7 @@
             // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Font = new Font("Segoe UI", 12F);
             label9.Location = new Point(73, 37);
             label9.Name = "label9";
             label9.Size = new Size(38, 21);
@@ -615,7 +613,7 @@
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Font = new Font("Segoe UI", 12F);
             label5.Location = new Point(73, 199);
             label5.Name = "label5";
             label5.Size = new Size(27, 21);
@@ -646,7 +644,7 @@
             // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Font = new Font("Segoe UI", 12F);
             label7.Location = new Point(378, 120);
             label7.Name = "label7";
             label7.Size = new Size(66, 21);
@@ -667,7 +665,7 @@
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("Segoe UI", 12F);
             label3.Location = new Point(73, 158);
             label3.Name = "label3";
             label3.Size = new Size(59, 21);
@@ -688,7 +686,7 @@
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI", 12F);
             label2.Location = new Point(378, 158);
             label2.Name = "label2";
             label2.Size = new Size(37, 21);
@@ -709,7 +707,7 @@
             // 
             Exportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Exportador.AutoSize = true;
-            Exportador.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Exportador.Font = new Font("Segoe UI", 12F);
             Exportador.Location = new Point(73, 120);
             Exportador.Name = "Exportador";
             Exportador.Size = new Size(86, 21);
@@ -730,7 +728,7 @@
             // 
             LBLinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLinspecao.AutoSize = true;
-            LBLinspecao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLinspecao.Font = new Font("Segoe UI", 11F);
             LBLinspecao.Location = new Point(300, 430);
             LBLinspecao.Name = "LBLinspecao";
             LBLinspecao.Size = new Size(68, 20);
@@ -742,7 +740,7 @@
             // 
             LBLdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLdatadeatracacao.AutoSize = true;
-            LBLdatadeatracacao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLdatadeatracacao.Font = new Font("Segoe UI", 11F);
             LBLdatadeatracacao.Location = new Point(100, 430);
             LBLdatadeatracacao.Name = "LBLdatadeatracacao";
             LBLdatadeatracacao.Size = new Size(133, 20);
@@ -750,23 +748,11 @@
             LBLdatadeatracacao.Text = "Data de Atracação";
             LBLdatadeatracacao.Visible = false;
             // 
-            // LBLprevisao
-            // 
-            LBLprevisao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            LBLprevisao.AutoSize = true;
-            LBLprevisao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLprevisao.Location = new Point(826, 430);
-            LBLprevisao.Name = "LBLprevisao";
-            LBLprevisao.Size = new Size(64, 20);
-            LBLprevisao.TabIndex = 299;
-            LBLprevisao.Text = "Previsão";
-            LBLprevisao.Visible = false;
-            // 
             // LBLdatadeembarque
             // 
             LBLdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLdatadeembarque.AutoSize = true;
-            LBLdatadeembarque.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLdatadeembarque.Font = new Font("Segoe UI", 11F);
             LBLdatadeembarque.Location = new Point(624, 430);
             LBLdatadeembarque.Name = "LBLdatadeembarque";
             LBLdatadeembarque.Size = new Size(134, 20);
@@ -824,24 +810,11 @@
             DTPdatadeembarque.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeembarque.Visible = false;
             // 
-            // DTPdatadeprevisao
-            // 
-            DTPdatadeprevisao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdatadeprevisao.DataBindings.Add(new Binding("Value", bsModificaProcesso, "Previsao", true));
-            DTPdatadeprevisao.Format = DateTimePickerFormat.Short;
-            DTPdatadeprevisao.Location = new Point(791, 453);
-            DTPdatadeprevisao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            DTPdatadeprevisao.Name = "DTPdatadeprevisao";
-            DTPdatadeprevisao.Size = new Size(135, 23);
-            DTPdatadeprevisao.TabIndex = 293;
-            DTPdatadeprevisao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            DTPdatadeprevisao.Visible = false;
-            // 
             // label10
             // 
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.Font = new Font("Segoe UI", 12F);
             label10.Location = new Point(88, 493);
             label10.Name = "label10";
             label10.Size = new Size(140, 21);
@@ -861,7 +834,7 @@
             // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Font = new Font("Segoe UI", 12F);
             label8.Location = new Point(134, 533);
             label8.Name = "label8";
             label8.Size = new Size(80, 21);
@@ -881,7 +854,7 @@
             // 
             lblPEmbarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblPEmbarque.AutoSize = true;
-            lblPEmbarque.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblPEmbarque.Font = new Font("Segoe UI", 11F);
             lblPEmbarque.Location = new Point(470, 441);
             lblPEmbarque.Name = "lblPEmbarque";
             lblPEmbarque.Size = new Size(77, 20);
@@ -892,7 +865,7 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Font = new Font("Segoe UI", 12F);
             label4.Location = new Point(689, 195);
             label4.Name = "label4";
             label4.Size = new Size(22, 21);
@@ -913,7 +886,7 @@
             // 
             label13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Font = new Font("Segoe UI", 12F);
             label13.Location = new Point(515, 78);
             label13.Name = "label13";
             label13.Size = new Size(51, 21);
@@ -942,13 +915,11 @@
             Controls.Add(TXTli);
             Controls.Add(LBLinspecao);
             Controls.Add(LBLdatadeatracacao);
-            Controls.Add(LBLprevisao);
             Controls.Add(LBLdatadeembarque);
             Controls.Add(cbEmbarque);
             Controls.Add(DTPdatadeinspecao);
             Controls.Add(DTPdatadeatracacao);
             Controls.Add(DTPdatadeembarque);
-            Controls.Add(DTPdatadeprevisao);
             Controls.Add(label10);
             Controls.Add(TXTstatusdoprocesso);
             Controls.Add(label8);
@@ -1060,13 +1031,11 @@
         private TextBox TXTexportador;
         private Label LBLinspecao;
         private Label LBLdatadeatracacao;
-        private Label LBLprevisao;
         private Label LBLdatadeembarque;
         private CheckBox cbEmbarque;
         private DateTimePicker DTPdatadeinspecao;
         private DateTimePicker DTPdatadeatracacao;
         private DateTimePicker DTPdatadeembarque;
-        private DateTimePicker DTPdatadeprevisao;
         private Label label10;
         private TextBox TXTstatusdoprocesso;
         private Label label8;

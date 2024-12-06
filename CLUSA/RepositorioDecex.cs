@@ -1,10 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System.Text.RegularExpressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CLUSA
 {
@@ -23,7 +19,12 @@ namespace CLUSA
                 return _Decex.Find<Decex>(filter).ToList<Decex>();
             }
         }
-
+        public List<string> ObterValoresUnicos(string campo)
+        {
+            // Filtrar os valores únicos no MongoDB
+            var valoresUnicos = _Decex.Distinct<string>(campo, FilterDefinition<Decex>.Empty).ToList();
+            return valoresUnicos;
+        }
         public async Task Delete(Decex decex)
         {
             await Task.Run(() =>
@@ -149,29 +150,42 @@ namespace CLUSA
         }
         public List<Decex> FindAll()
         {
-            var filter = Builders<Decex>.Filter.Empty;
-            return _Decex.Find<Decex>(filter).ToList<Decex>();
+            try
+            {
+                // Busca todos os documentos da coleção
+                return _Decex.Find(FilterDefinition<Decex>.Empty).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao buscar todos os processos: {ex.Message}");
+                return new List<Decex>();
+            }
         }
         public List<Decex> Find(string filtro, string pesquisa)
         {
-            var filter = Builders<Decex>.Filter.Empty;
-            if (filtro == "NR")
+            try
             {
-                filter = Builders<Decex>.Filter.Regex(g => g.Ref_USA, new Regex(pesquisa, RegexOptions.IgnoreCase));
+                // Verificar se o campo existe na classe
+                var property = typeof(Decex).GetProperty(filtro);
+                if (property == null)
+                {
+                    throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
+                }
+
+                // Construir o filtro Regex
+                var filter = Builders<Decex>.Filter.Regex(filtro, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
+
+                // Buscar os resultados no MongoDB
+                var resultados = _Decex.Find(filter).ToList();
+
+                Console.WriteLine($"Filtro aplicado no MongoDB: {filtro} com pesquisa '{pesquisa}'. Itens encontrados: {resultados.Count}");
+                return resultados;
             }
-            if (filtro == "Importador")
+            catch (Exception ex)
             {
-                filter = Builders<Decex>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
+                Console.WriteLine($"Erro ao buscar dados no MongoDB: {ex.Message}");
+                return new List<Decex>();
             }
-            if (filtro == "Pendencia")
-            {
-                filter = Builders<Decex>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "StatusDoProcesso")
-            {
-                filter = Builders<Decex>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            return _Decex.Find(filter).ToList();
         }
 
         public RepositorioDecex()

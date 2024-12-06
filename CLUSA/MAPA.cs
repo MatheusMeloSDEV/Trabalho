@@ -13,11 +13,11 @@ namespace CLUSA
         public string Importador { get; set; } = string.Empty;
         public string SR { get; set; } = string.Empty;
         public string Exportador { get; set; } = string.Empty;
-        public string Navio {  get; set; } = string.Empty;
-        public string Terminal {  get; set; } = string.Empty;
+        public string Navio { get; set; } = string.Empty;
+        public string Terminal { get; set; } = string.Empty;
         public string Produto { get; set; } = string.Empty;
         public string Origem { get; set; } = string.Empty;
-        public bool TEmbarque {  get; set; } = false;
+        public bool TEmbarque { get; set; } = false;
         public string DataDeAtracacao { get; set; } = string.Empty;
         public string DataEmbarque { get; set; } = string.Empty;
         public string Inspecao { get; set; } = string.Empty;

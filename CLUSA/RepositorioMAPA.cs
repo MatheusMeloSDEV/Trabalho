@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace CLUSA
@@ -19,7 +18,12 @@ namespace CLUSA
                 return _MAPA.Find<MAPA>(filter).ToList<MAPA>();
             }
         }
-
+        public List<string> ObterValoresUnicos(string campo)
+        {
+            // Filtrar os valores únicos no MongoDB
+            var valoresUnicos = _MAPA.Distinct<string>(campo, FilterDefinition<MAPA>.Empty).ToList();
+            return valoresUnicos;
+        }
         public async Task Delete(MAPA mapa)
         {
             await Task.Run(() =>

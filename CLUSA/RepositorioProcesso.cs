@@ -1,10 +1,6 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CLUSA
 {
@@ -34,6 +30,18 @@ namespace CLUSA
             }
         }
 
+        public List<string> ObterValoresUnicos(string campo)
+        {
+            // Filtrar os valores únicos no MongoDB
+            var valoresUnicos = _Processo.Distinct<string>(campo, FilterDefinition<Processo>.Empty).ToList();
+            return valoresUnicos;
+        }
+
+        public List<string> ObterImportadoresUnicos()
+        {
+            var distinctImportadores = _Processo.Distinct<string>("Importador", new BsonDocument()).ToList();
+            return distinctImportadores;
+        }
         public async Task Create(Processo processo)
         {
             await Task.Run(() =>
@@ -316,37 +324,44 @@ namespace CLUSA
         }
         public List<Processo> FindAll()
         {
-            var filter = Builders<Processo>.Filter.Empty;
-            return _Processo.Find<Processo>(filter).ToList<Processo>();
+            try
+            {
+                // Busca todos os documentos da coleção
+                return _Processo.Find(FilterDefinition<Processo>.Empty).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao buscar todos os processos: {ex.Message}");
+                return new List<Processo>();
+            }
         }
+
         public List<Processo> Find(string filtro, string pesquisa)
         {
-            var filter = Builders<Processo>.Filter.Empty;
-            //if (filtro == "NR")
-            //{
-            //    filter = Builders<Processo>.Filter.Eq(g => g.NR, int.Parse(pesquisa));
-            //}
-            //if (filtro == "SR")
-            //{
-            //    filter = Builders<Processo>.Filter.Eq(g => g.SR, int.Parse(pesquisa));
-            //}
-            //if (filtro == "Importador")
-            //{
-            //    filter = Builders<Processo>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            //}
-            //if (filtro == "Previsao")
-            //{
-            //    filter = Builders<Processo>.Filter.Regex(g => g.Previsao, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            //}
-            //if (filtro == "Terminal")
-            //{
-            //    filter = Builders<Processo>.Filter.Regex(g => g.Terminal, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            //}
-            if (filtro == "StatusDoProcesso")
+            try
             {
-                filter = Builders<Processo>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
+                // Verificar se o campo existe na classe
+                var property = typeof(Processo).GetProperty(filtro);
+                if (property == null)
+                {
+                    throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
+                }
+
+                // Construir o filtro Regex
+                var filter = Builders<Processo>.Filter.Regex(filtro, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
+
+                // Buscar os resultados no MongoDB
+                var resultados = _Processo.Find(filter).ToList();
+
+                Console.WriteLine($"Filtro aplicado no MongoDB: {filtro} com pesquisa '{pesquisa}'. Itens encontrados: {resultados.Count}");
+                return resultados;
             }
-            return _Processo.Find(filter).ToList();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao buscar dados no MongoDB: {ex.Message}");
+                return new List<Processo>();
+            }
         }
+
     }
 }

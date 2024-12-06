@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
             dataGridView1 = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -41,6 +41,7 @@
             tMapaDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             tImetroDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             tIbamaDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            possuiEmbarqueDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             refUSADataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
@@ -63,8 +64,9 @@
             dataDesembaracoDIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataCarregamentoDIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             parametrizacaoDIDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            possuiEmbarqueDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             dataDeAtracacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            vencimentoFreeTimeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            vencimentoFMADataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             inspecaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataEmbarqueDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataRecebOriginaisDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -94,37 +96,38 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = SystemColors.ControlLightLight;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = SystemColors.ControlLightLight;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tDecexDataGridViewCheckBoxColumn, tAnvisaDataGridViewCheckBoxColumn, tMapaDataGridViewCheckBoxColumn, tImetroDataGridViewCheckBoxColumn, tIbamaDataGridViewCheckBoxColumn, refUSADataGridViewTextBoxColumn, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, exportadorDataGridViewTextBoxColumn, produtoDataGridViewTextBoxColumn, navioDataGridViewTextBoxColumn, portoDestinoDataGridViewTextBoxColumn, ordemDataGridViewTextBoxColumn, fLODataGridViewTextBoxColumn, freeTimeDataGridViewTextBoxColumn, bLDataGridViewTextBoxColumn, agenteDeCargaDataGridViewTextBoxColumn, lIDataGridViewTextBoxColumn, lPCODataGridViewTextBoxColumn, dataRegistroLPCODataGridViewTextBoxColumn, dataDeferimentoLPCODataGridViewTextBoxColumn, parametrizacaoLPCODataGridViewTextBoxColumn, dIDataGridViewTextBoxColumn, dataRegistroDIDataGridViewTextBoxColumn, dataDesembaracoDIDataGridViewTextBoxColumn, dataCarregamentoDIDataGridViewTextBoxColumn, parametrizacaoDIDataGridViewTextBoxColumn, possuiEmbarqueDataGridViewCheckBoxColumn, dataDeAtracacaoDataGridViewTextBoxColumn, inspecaoDataGridViewTextBoxColumn, dataEmbarqueDataGridViewTextBoxColumn, dataRecebOriginaisDataGridViewTextBoxColumn, formaRecOriginaisDataGridViewTextBoxColumn, docRecebidosDataGridViewTextBoxColumn, amostraDataGridViewCheckBoxColumn, desovadoDataGridViewCheckBoxColumn, pendenciaDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tDecexDataGridViewCheckBoxColumn, tAnvisaDataGridViewCheckBoxColumn, tMapaDataGridViewCheckBoxColumn, tImetroDataGridViewCheckBoxColumn, tIbamaDataGridViewCheckBoxColumn, possuiEmbarqueDataGridViewCheckBoxColumn, refUSADataGridViewTextBoxColumn, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, exportadorDataGridViewTextBoxColumn, produtoDataGridViewTextBoxColumn, navioDataGridViewTextBoxColumn, portoDestinoDataGridViewTextBoxColumn, ordemDataGridViewTextBoxColumn, fLODataGridViewTextBoxColumn, freeTimeDataGridViewTextBoxColumn, bLDataGridViewTextBoxColumn, agenteDeCargaDataGridViewTextBoxColumn, lIDataGridViewTextBoxColumn, lPCODataGridViewTextBoxColumn, dataRegistroLPCODataGridViewTextBoxColumn, dataDeferimentoLPCODataGridViewTextBoxColumn, parametrizacaoLPCODataGridViewTextBoxColumn, dIDataGridViewTextBoxColumn, dataRegistroDIDataGridViewTextBoxColumn, dataDesembaracoDIDataGridViewTextBoxColumn, dataCarregamentoDIDataGridViewTextBoxColumn, parametrizacaoDIDataGridViewTextBoxColumn, dataDeAtracacaoDataGridViewTextBoxColumn, vencimentoFreeTimeDataGridViewTextBoxColumn, vencimentoFMADataGridViewTextBoxColumn, inspecaoDataGridViewTextBoxColumn, dataEmbarqueDataGridViewTextBoxColumn, dataRecebOriginaisDataGridViewTextBoxColumn, formaRecOriginaisDataGridViewTextBoxColumn, docRecebidosDataGridViewTextBoxColumn, amostraDataGridViewCheckBoxColumn, desovadoDataGridViewCheckBoxColumn, pendenciaDataGridViewTextBoxColumn, statusDoProcessoDataGridViewTextBoxColumn });
             dataGridView1.DataSource = bsProcesso;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Window;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle7.NullValue = null;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new Point(12, 41);
+            dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle8.BackColor = SystemColors.ControlLight;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.BackColor = SystemColors.ControlLight;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 2;
@@ -178,6 +181,14 @@
             tIbamaDataGridViewCheckBoxColumn.ReadOnly = true;
             tIbamaDataGridViewCheckBoxColumn.Visible = false;
             // 
+            // possuiEmbarqueDataGridViewCheckBoxColumn
+            // 
+            possuiEmbarqueDataGridViewCheckBoxColumn.DataPropertyName = "PossuiEmbarque";
+            possuiEmbarqueDataGridViewCheckBoxColumn.HeaderText = "PossuiEmbarque";
+            possuiEmbarqueDataGridViewCheckBoxColumn.Name = "possuiEmbarqueDataGridViewCheckBoxColumn";
+            possuiEmbarqueDataGridViewCheckBoxColumn.ReadOnly = true;
+            possuiEmbarqueDataGridViewCheckBoxColumn.Visible = false;
+            // 
             // refUSADataGridViewTextBoxColumn
             // 
             refUSADataGridViewTextBoxColumn.DataPropertyName = "Ref_USA";
@@ -195,7 +206,7 @@
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.DataPropertyName = "SR";
-            dataGridViewTextBoxColumn2.HeaderText = "SR";
+            dataGridViewTextBoxColumn2.HeaderText = "Ref Imp";
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
@@ -332,20 +343,26 @@
             parametrizacaoDIDataGridViewTextBoxColumn.Name = "parametrizacaoDIDataGridViewTextBoxColumn";
             parametrizacaoDIDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // possuiEmbarqueDataGridViewCheckBoxColumn
-            // 
-            possuiEmbarqueDataGridViewCheckBoxColumn.DataPropertyName = "PossuiEmbarque";
-            possuiEmbarqueDataGridViewCheckBoxColumn.HeaderText = "PossuiEmbarque";
-            possuiEmbarqueDataGridViewCheckBoxColumn.Name = "possuiEmbarqueDataGridViewCheckBoxColumn";
-            possuiEmbarqueDataGridViewCheckBoxColumn.ReadOnly = true;
-            possuiEmbarqueDataGridViewCheckBoxColumn.Visible = false;
-            // 
             // dataDeAtracacaoDataGridViewTextBoxColumn
             // 
             dataDeAtracacaoDataGridViewTextBoxColumn.DataPropertyName = "DataDeAtracacao";
             dataDeAtracacaoDataGridViewTextBoxColumn.HeaderText = "Data de Atracação";
             dataDeAtracacaoDataGridViewTextBoxColumn.Name = "dataDeAtracacaoDataGridViewTextBoxColumn";
             dataDeAtracacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // vencimentoFreeTimeDataGridViewTextBoxColumn
+            // 
+            vencimentoFreeTimeDataGridViewTextBoxColumn.DataPropertyName = "VencimentoFreeTime";
+            vencimentoFreeTimeDataGridViewTextBoxColumn.HeaderText = "Vencimento Free Time";
+            vencimentoFreeTimeDataGridViewTextBoxColumn.Name = "vencimentoFreeTimeDataGridViewTextBoxColumn";
+            vencimentoFreeTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // vencimentoFMADataGridViewTextBoxColumn
+            // 
+            vencimentoFMADataGridViewTextBoxColumn.DataPropertyName = "VencimentoFMA";
+            vencimentoFMADataGridViewTextBoxColumn.HeaderText = "Vencimento FMA";
+            vencimentoFMADataGridViewTextBoxColumn.Name = "vencimentoFMADataGridViewTextBoxColumn";
+            vencimentoFMADataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // inspecaoDataGridViewTextBoxColumn
             // 
@@ -371,7 +388,7 @@
             // formaRecOriginaisDataGridViewTextBoxColumn
             // 
             formaRecOriginaisDataGridViewTextBoxColumn.DataPropertyName = "FormaRecOriginais";
-            formaRecOriginaisDataGridViewTextBoxColumn.HeaderText = "Forma de Recebimento Originais";
+            formaRecOriginaisDataGridViewTextBoxColumn.HeaderText = "Forma Recebimento Originais";
             formaRecOriginaisDataGridViewTextBoxColumn.Name = "formaRecOriginaisDataGridViewTextBoxColumn";
             formaRecOriginaisDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -399,7 +416,7 @@
             // pendenciaDataGridViewTextBoxColumn
             // 
             pendenciaDataGridViewTextBoxColumn.DataPropertyName = "Pendencia";
-            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendencia";
+            pendenciaDataGridViewTextBoxColumn.HeaderText = "Pendência";
             pendenciaDataGridViewTextBoxColumn.Name = "pendenciaDataGridViewTextBoxColumn";
             pendenciaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -464,6 +481,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(23, 32);
             btnCancelar.Text = "toolStripButton2";
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnPesquisar
             // 
@@ -476,7 +494,6 @@
             btnPesquisar.Margin = new Padding(0, 4, 0, 2);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(23, 32);
-            btnPesquisar.Text = "toolStripButton1";
             btnPesquisar.Click += btnPesquisar_Click;
             // 
             // txtPesquisar
@@ -494,7 +511,8 @@
             CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "StatusDoProcesso" });
             CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
             CmbPesquisar.Name = "CmbPesquisar";
-            CmbPesquisar.Size = new Size(121, 23);
+            CmbPesquisar.Size = new Size(175, 23);
+            CmbPesquisar.SelectedIndexChanged += CmbPesquisar_SelectedIndexChanged;
             CmbPesquisar.Click += CmbPesquisar_Click;
             // 
             // btnEditar
@@ -535,6 +553,7 @@
             Text = "frmProcesso";
             WindowState = FormWindowState.Maximized;
             Load += frmProcesso_Load;
+            KeyDown += frmProcesso_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsProcesso).EndInit();
             toolStrip1.ResumeLayout(false);
@@ -553,7 +572,6 @@
         private ToolStripComboBox CmbPesquisar;
         private ToolStripButton btnAdicionar;
         private ToolStripButton btnExcluir;
-        private BindingSource bsProcesso;
         private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn sRDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;
@@ -566,12 +584,14 @@
         private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn recebOriginaisDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn formaRecebERecebidosDataGridViewTextBoxColumn;
+        private ToolStripButton BTNexportar;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn tDecexDataGridViewCheckBoxColumn;
         private DataGridViewCheckBoxColumn tAnvisaDataGridViewCheckBoxColumn;
         private DataGridViewCheckBoxColumn tMapaDataGridViewCheckBoxColumn;
         private DataGridViewCheckBoxColumn tImetroDataGridViewCheckBoxColumn;
         private DataGridViewCheckBoxColumn tIbamaDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn possuiEmbarqueDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn refUSADataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -594,8 +614,9 @@
         private DataGridViewTextBoxColumn dataDesembaracoDIDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataCarregamentoDIDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn parametrizacaoDIDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn possuiEmbarqueDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn dataDeAtracacaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn vencimentoFreeTimeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn vencimentoFMADataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn inspecaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataEmbarqueDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataRecebOriginaisDataGridViewTextBoxColumn;
@@ -605,6 +626,6 @@
         private DataGridViewCheckBoxColumn desovadoDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn pendenciaDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn;
-        private ToolStripButton BTNexportar;
+        private BindingSource bsProcesso;
     }
 }

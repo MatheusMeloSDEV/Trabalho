@@ -111,6 +111,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(23, 32);
             btnCancelar.Text = "toolStripButton2";
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnPesquisar
             // 
@@ -124,6 +125,7 @@
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(23, 32);
             btnPesquisar.Text = "toolStripButton1";
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // txtPesquisar
             // 
@@ -139,7 +141,7 @@
             CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "Pendencia", "LI", "DataDeEntrada", "StatusDoProcesso" });
             CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
             CmbPesquisar.Name = "CmbPesquisar";
-            CmbPesquisar.Size = new Size(121, 23);
+            CmbPesquisar.Size = new Size(175, 23);
             CmbPesquisar.Click += CmbPesquisar_Click;
             // 
             // dataGridView1
@@ -153,7 +155,7 @@
             dataGridView1.AutoGenerateColumns = false;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -171,6 +173,7 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 10;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -333,9 +336,7 @@
         private ToolStripTextBox txtPesquisar;
         private ToolStripComboBox CmbPesquisar;
         private BindingSource bsDecex;
-        private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn portoDestinoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn ordemDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fLODataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn freeTimeDataGridViewTextBoxColumn;

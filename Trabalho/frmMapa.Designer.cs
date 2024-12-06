@@ -38,7 +38,7 @@
             toolStrip1 = new ToolStrip();
             BTNeditar = new ToolStripButton();
             btnCancelar = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
+            btnPesquisar = new ToolStripButton();
             btnReload = new ToolStripButton();
             txtPesquisar = new ToolStripTextBox();
             CmbPesquisar = new ToolStripComboBox();
@@ -95,7 +95,7 @@
             toolStrip1.AutoSize = false;
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { BTNeditar, btnCancelar, toolStripButton1, btnReload, txtPesquisar, CmbPesquisar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { BTNeditar, btnCancelar, btnPesquisar, btnReload, txtPesquisar, CmbPesquisar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.System;
@@ -129,18 +129,19 @@
             btnCancelar.Size = new Size(23, 32);
             btnCancelar.Text = "toolStripButton2";
             // 
-            // toolStripButton1
+            // btnPesquisar
             // 
-            toolStripButton1.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton1.BackgroundImage = (Image)resources.GetObject("toolStripButton1.BackgroundImage");
-            toolStripButton1.BackgroundImageLayout = ImageLayout.Zoom;
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.None;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Margin = new Padding(0, 4, 0, 2);
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(23, 32);
-            toolStripButton1.Text = "toolStripButton1";
+            btnPesquisar.Alignment = ToolStripItemAlignment.Right;
+            btnPesquisar.BackgroundImage = (Image)resources.GetObject("btnPesquisar.BackgroundImage");
+            btnPesquisar.BackgroundImageLayout = ImageLayout.Zoom;
+            btnPesquisar.DisplayStyle = ToolStripItemDisplayStyle.None;
+            btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
+            btnPesquisar.ImageTransparentColor = Color.Magenta;
+            btnPesquisar.Margin = new Padding(0, 4, 0, 2);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(23, 32);
+            btnPesquisar.Text = "toolStripButton1";
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // btnReload
             // 
@@ -169,7 +170,7 @@
             CmbPesquisar.Items.AddRange(new object[] { "NR", "SR", "Importador", "Previsao", "Terminal", "Pendencia", "CSIOriginal", "LI", "LPCO", "DataDeEntrada", "Prametrizacao", "SEI", "DataDeInspeção", "StatusDoProcesso" });
             CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
             CmbPesquisar.Name = "CmbPesquisar";
-            CmbPesquisar.Size = new Size(121, 23);
+            CmbPesquisar.Size = new Size(175, 23);
             // 
             // nRDataGridViewTextBoxColumn
             // 
@@ -297,7 +298,7 @@
             dataGridView1.AutoGenerateColumns = false;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -312,7 +313,7 @@
             dataGridView1.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.ControlLight;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
@@ -324,6 +325,7 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 9;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -533,7 +535,7 @@
         private DataGridViewTextBoxColumn dataDeInspeçãoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn statusDoProcessoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cSIOriginalDataGridViewTextBoxColumn1;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton btnPesquisar;
         private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn1;
         private ToolStripButton BTNeditar;
         private DataGridViewTextBoxColumn terminalDataGridViewTextBoxColumn1;

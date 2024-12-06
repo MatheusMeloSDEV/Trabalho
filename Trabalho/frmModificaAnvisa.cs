@@ -1,14 +1,4 @@
 ﻿using CLUSA;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Trabalho
 {
@@ -22,7 +12,13 @@ namespace Trabalho
 
         private void frmModificaAnvisa_Load(object sender, EventArgs e)
         {
+            DTPdatadedeferimentolilpco.Value = System.DateTime.Today;
+            DTPdataderegistrolilpco.Value = System.DateTime.Today;
+            DTPdatadeinspecao.Value = System.DateTime.Today;
+            DTPdatadeatracacao.Value = System.DateTime.Today;
+            DTPdatadeembarque.Value = System.DateTime.Today;
             bsModificaAnvisa.DataSource = anvisa;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
