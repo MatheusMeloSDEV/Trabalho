@@ -23,8 +23,6 @@ namespace CLUSA
         public string Inspecao { get; set; } = string.Empty;
         public string NCM { get; set; } = string.Empty;
         public string LI { get; set; } = string.Empty;
-
-        //public string LI_LPCO { get; set; } = string.Empty;
         public string LPCO { get; set; } = string.Empty;
         public string DataRegistroLPCO { get; set; } = string.Empty;
         public string DataDeferimentoLPCO { get; set; } = string.Empty;
@@ -32,5 +30,29 @@ namespace CLUSA
         public bool Amostra { get; set; } = false;
         public string Pendencia { get; set; } = string.Empty;
         public string StatusDoProcesso { get; set; } = string.Empty;
+
+        public Decex() { }
+        public Decex(Processo processo)
+        {
+            Ref_USA = processo.Ref_USA;
+            Importador = processo.Importador;
+            SR = processo.SR;
+            Exportador = processo.Exportador;
+            Navio = processo.Navio;
+            Terminal = processo.PortoDestino;
+            Produto = processo.Produto;
+            TEmbarque = processo.PossuiEmbarque;
+            DataDeAtracacao = processo.DataDeAtracacao;
+            DataEmbarque = processo.DataEmbarque;
+            Inspecao = processo.Inspecao;
+            LI = processo.LI;
+            LPCO = processo.LPCO;
+            DataRegistroLPCO = processo.DataRegistroLPCO;
+            DataDeferimentoLPCO = processo.DataDeferimentoLPCO;
+            ParametrizacaoLPCO = processo.ParametrizacaoLPCO;
+            Amostra = processo.Amostra;
+            Pendencia = processo.Pendencia;
+            StatusDoProcesso = processo.StatusDoProcesso;
+        }
     }
 }

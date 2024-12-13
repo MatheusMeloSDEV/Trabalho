@@ -502,7 +502,6 @@
             txtPesquisar.Margin = new Padding(0, 4, 3, 0);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.Size = new Size(250, 34);
-            txtPesquisar.Click += txtPesquisar_Click;
             // 
             // CmbPesquisar
             // 
@@ -513,7 +512,6 @@
             CmbPesquisar.Name = "CmbPesquisar";
             CmbPesquisar.Size = new Size(175, 23);
             CmbPesquisar.SelectedIndexChanged += CmbPesquisar_SelectedIndexChanged;
-            CmbPesquisar.Click += CmbPesquisar_Click;
             // 
             // btnEditar
             // 

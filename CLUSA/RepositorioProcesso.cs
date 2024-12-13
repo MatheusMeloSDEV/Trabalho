@@ -6,10 +6,10 @@ namespace CLUSA
 {
     public class RepositorioProcesso
     {
-        private IMongoCollection<Processo> _Processo;
-        private IMongoCollection<Anvisa> _Anvisa;
-        private IMongoCollection<Decex> _Decex;
-        private IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<Processo> _Processo;
+        private readonly IMongoCollection<Anvisa> _Anvisa;
+        private readonly IMongoCollection<Decex> _Decex;
+        private readonly IMongoCollection<MAPA> _MAPA;
 
         public RepositorioProcesso()
         {
@@ -21,110 +21,37 @@ namespace CLUSA
             _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
 
-        public List<Processo> ListaProcesso
-        {
-            get
-            {
-                var filter = Builders<Processo>.Filter.Empty;
-                return _Processo.Find<Processo>(filter).ToList<Processo>();
-            }
-        }
+        public List<Processo> ListaProcesso => _Processo.Find(Builders<Processo>.Filter.Empty).ToList();
 
         public List<string> ObterValoresUnicos(string campo)
         {
-            // Filtrar os valores únicos no MongoDB
-            var valoresUnicos = _Processo.Distinct<string>(campo, FilterDefinition<Processo>.Empty).ToList();
-            return valoresUnicos;
+            return _Processo.Distinct<string>(campo, FilterDefinition<Processo>.Empty).ToList();
         }
 
         public List<string> ObterImportadoresUnicos()
         {
-            var distinctImportadores = _Processo.Distinct<string>("Importador", new BsonDocument()).ToList();
-            return distinctImportadores;
+            return _Processo.Distinct<string>("Importador", FilterDefinition<Processo>.Empty).ToList();
         }
-        public async Task Create(Processo processo)
+
+        public async Task Create(Processo processo, string colecao)
         {
             await Task.Run(() =>
             {
-                if (processo.TAnvisa == true)
+                switch (colecao)
                 {
-                    Anvisa anvisa = new()
-                    {
-                        Ref_USA = processo.Ref_USA,
-                        Importador = processo.Importador,
-                        SR = processo.SR,
-                        Exportador = processo.Exportador,
-                        Produto = processo.Produto,
-
-                        LI = processo.LI,
-                        LPCO = processo.LPCO,
-                        DataRegistroLPCO = processo.DataRegistroLPCO,
-                        DataDeferimentoLPCO = processo.DataDeferimentoLPCO,
-                        ParametrizacaoLPCO = processo.ParametrizacaoLPCO,
-
-                        DataDeAtracacao = processo.DataDeAtracacao,
-                        Inspecao = processo.Inspecao,
-                        Amostra = processo.Amostra,
-                        Pendencia = processo.Pendencia,
-                        StatusDoProcesso = processo.StatusDoProcesso
-                    };
-
-                    _Anvisa.InsertOne(anvisa);
+                    case "MAPA":
+                        _MAPA.InsertOne(new MAPA(processo));
+                        break;
+                    case "Anvisa":
+                        _Anvisa.InsertOne(new Anvisa(processo));
+                        break;
+                    case "Decex":
+                        _Decex.InsertOne(new Decex(processo));
+                        break;
+                    default:
+                        _Processo.InsertOne(processo);
+                        break;
                 }
-
-                if (processo.TDecex == true)
-                {
-                    Decex decex = new()
-                    {
-                        Ref_USA = processo.Ref_USA,
-                        Importador = processo.Importador,
-                        SR = processo.SR,
-                        Exportador = processo.Exportador,
-                        Produto = processo.Produto,
-
-                        LI = processo.LI,
-                        LPCO = processo.LPCO,
-                        DataRegistroLPCO = processo.DataRegistroLPCO,
-                        DataDeferimentoLPCO = processo.DataDeferimentoLPCO,
-                        ParametrizacaoLPCO = processo.ParametrizacaoLPCO,
-
-                        DataDeAtracacao = processo.DataDeAtracacao,
-                        Inspecao = processo.Inspecao,
-                        Amostra = processo.Amostra,
-                        Pendencia = processo.Pendencia,
-                        StatusDoProcesso = processo.StatusDoProcesso
-                    };
-
-                    _Decex.InsertOne(decex);
-                }
-
-                if (processo.TMapa == true)
-                {
-                    MAPA mapa = new()
-                    {
-                        Ref_USA = processo.Ref_USA,
-                        Importador = processo.Importador,
-                        SR = processo.SR,
-                        Exportador = processo.Exportador,
-                        Produto = processo.Produto,
-
-                        LI = processo.LI,
-                        LPCO = processo.LPCO,
-                        DataRegistroLPCO = processo.DataRegistroLPCO,
-                        DataDeferimentoLPCO = processo.DataDeferimentoLPCO,
-                        ParametrizacaoLPCO = processo.ParametrizacaoLPCO,
-
-                        DataDeAtracacao = processo.DataDeAtracacao,
-                        Inspecao = processo.Inspecao,
-                        Amostra = processo.Amostra,
-                        Pendencia = processo.Pendencia,
-                        StatusDoProcesso = processo.StatusDoProcesso
-                    };
-
-                    _MAPA.InsertOne(mapa);
-                }
-
-                _Processo.InsertOne(processo);
             });
         }
 
@@ -132,201 +59,96 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
-                var filter = Builders<Processo>.Filter.Eq("Id", processo.Id);
+                // Excluir o processo principal
+                var filter = Builders<Processo>.Filter.Eq(p => p.Id, processo.Id);
                 _Processo.DeleteOne(filter);
 
-                var filterMapa = Builders<MAPA>.Filter.Eq(g => g.Ref_USA, processo.Ref_USA);
-                var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
-                var filterMapaR = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
-                _MAPA.DeleteOne(filterMapaR);
-
-                var filterAnvisa = Builders<Anvisa>.Filter.Eq(g => g.Ref_USA, processo.Ref_USA);
-                var resultIDAnvisa = _Anvisa.Find(filterAnvisa).FirstOrDefaultAsync<Anvisa>().Result?.Id;
-                var filterAnvisaR = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
-                _Anvisa.DeleteOne(filterAnvisaR);
-
-                var filterDecex = Builders<Decex>.Filter.Eq(g => g.Ref_USA, processo.Ref_USA);
-                var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
-                var filterDecexR = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
-                _Decex.DeleteOne(filterDecexR);
+                // Excluir documentos relacionados nas coleções específicas
+                ExcluirDocumentoRelacionado(_MAPA, processo.Ref_USA);
+                ExcluirDocumentoRelacionado(_Anvisa, processo.Ref_USA);
+                ExcluirDocumentoRelacionado(_Decex, processo.Ref_USA);
             });
+        }
+
+        private void ExcluirDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+            colecao.DeleteMany(filtro);
         }
 
         public async Task Update(Processo processo)
         {
-            await Task.Run(() =>
-            {
-                var filterProcesso = Builders<Processo>.Filter.Eq("Id", processo.Id);
-                var updateProcesso = Builders<Processo>.Update
-                        .Set("Ref_USA", processo.Ref_USA)
-                        .Set("Importador", processo.Importador)
-                        .Set("SR", processo.SR)
-                        .Set("Exportador", processo.Exportador)
-                        .Set("Produto", processo.Produto)
-                        .Set("Navio", processo.Navio)
-                        .Set("PortoDestino", processo.PortoDestino)
-                        .Set("Ordem", processo.Ordem)
-                        .Set("FLO", processo.FLO)
-                        .Set("FreeTime", processo.FreeTime)
-                        .Set("BL", processo.BL)
-                        .Set("AgenteDeCarga", processo.AgenteDeCarga)
-
-                        .Set("LPCO", processo.LPCO)
-                        .Set("DataRegistroLPCO", processo.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", processo.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", processo.ParametrizacaoLPCO)
-
-                        .Set("DI", processo.DI)
-                        .Set("DataRegistroDI", processo.DataRegistroDI)
-                        .Set("DataDesembaracoDI", processo.DataDesembaracoDI)
-                        .Set("DataCarregamentoDI", processo.DataCarregamentoDI)
-                        .Set("ParametrizacaoDI", processo.ParametrizacaoDI)
-
-                        .Set("PossuiEmbarque", processo.PossuiEmbarque)
-                        .Set("DataDeAtracacao", processo.DataDeAtracacao)
-                        .Set("Inspecao", processo.Inspecao)
-                        .Set("DataEmbarque", processo.DataEmbarque)
-                        .Set("DataRecebOriginais", processo.DataRecebOriginais)
-                        .Set("FormaRecOriginais", processo.FormaRecOriginais)
-                        .Set("DocRecebidos", processo.DocRecebidos)
-                        .Set("Amostra", processo.Amostra)
-                        .Set("Desovado", processo.Desovado)
-                        .Set("Pendencia", processo.Pendencia)
-                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
-                _Processo.UpdateOne(filterProcesso, updateProcesso);
-
-                MAPA mapa = new();
-                var filterMapa = Builders<MAPA>.Filter.Eq(g => g.Ref_USA, processo.Ref_USA);
-                var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
-                var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
-                var updateMapa = Builders<MAPA>.Update
-                        .Set("Ref_USA", processo.Ref_USA)
-                        .Set("Importador", processo.Importador)
-                        .Set("SR", processo.SR)
-                        .Set("Exportador", processo.Exportador)
-                        .Set("Produto", processo.Produto)
-                        .Set("Navio", processo.Navio)
-                        .Set("PortoDestino", processo.PortoDestino)
-                        .Set("Ordem", processo.Ordem)
-                        .Set("FLO", processo.FLO)
-                        .Set("FreeTime", processo.FreeTime)
-                        .Set("BL", processo.BL)
-                        .Set("AgenteDeCarga", processo.AgenteDeCarga)
-
-                        .Set("LPCO", processo.LPCO)
-                        .Set("DataRegistroLPCO", processo.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", processo.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", processo.ParametrizacaoLPCO)
-
-                        .Set("DI", processo.DI)
-                        .Set("DataRegistroDI", processo.DataRegistroDI)
-                        .Set("DataDesembaracoDI", processo.DataDesembaracoDI)
-                        .Set("DataCarregamentoDI", processo.DataCarregamentoDI)
-                        .Set("ParametrizacaoDI", processo.ParametrizacaoDI)
-
-                        .Set("PossuiEmbarque", processo.PossuiEmbarque)
-                        .Set("DataDeAtracacao", processo.DataDeAtracacao)
-                        .Set("Inspecao", processo.Inspecao)
-                        .Set("DataEmbarque", processo.DataEmbarque)
-                        .Set("DataRecebOriginais", processo.DataRecebOriginais)
-                        .Set("FormaRecOriginais", processo.FormaRecOriginais)
-                        .Set("DocRecebidos", processo.DocRecebidos)
-                        .Set("Amostra", processo.Amostra)
-                        .Set("Desovado", processo.Desovado)
-                        .Set("Pendencia", processo.Pendencia)
-                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
-                _MAPA.UpdateOne(filterMapaUpdate, updateMapa);
-
-                Anvisa anvisa = new();
-                var filterAnvisa = Builders<Anvisa>.Filter.Eq(g => g.Ref_USA, processo.Ref_USA);
-                var resultIDAnvisa = _Anvisa.Find(filterAnvisa).FirstOrDefaultAsync<Anvisa>().Result?.Id;
-                var filterAnvisaUpdate = Builders<Anvisa>.Filter.Eq("Id", resultIDAnvisa);
-                var updateAnvisa = Builders<Anvisa>.Update
-                         .Set("Ref_USA", processo.Ref_USA)
-                        .Set("Importador", processo.Importador)
-                        .Set("SR", processo.SR)
-                        .Set("Exportador", processo.Exportador)
-                        .Set("Produto", processo.Produto)
-                        .Set("Navio", processo.Navio)
-                        .Set("PortoDestino", processo.PortoDestino)
-                        .Set("Ordem", processo.Ordem)
-                        .Set("FLO", processo.FLO)
-                        .Set("FreeTime", processo.FreeTime)
-                        .Set("BL", processo.BL)
-                        .Set("AgenteDeCarga", processo.AgenteDeCarga)
-
-                        .Set("LPCO", processo.LPCO)
-                        .Set("DataRegistroLPCO", processo.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", processo.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", processo.ParametrizacaoLPCO)
-
-                        .Set("DI", processo.DI)
-                        .Set("DataRegistroDI", processo.DataRegistroDI)
-                        .Set("DataDesembaracoDI", processo.DataDesembaracoDI)
-                        .Set("DataCarregamentoDI", processo.DataCarregamentoDI)
-                        .Set("ParametrizacaoDI", processo.ParametrizacaoDI)
-
-                        .Set("PossuiEmbarque", processo.PossuiEmbarque)
-                        .Set("DataDeAtracacao", processo.DataDeAtracacao)
-                        .Set("Inspecao", processo.Inspecao)
-                        .Set("DataEmbarque", processo.DataEmbarque)
-                        .Set("DataRecebOriginais", processo.DataRecebOriginais)
-                        .Set("FormaRecOriginais", processo.FormaRecOriginais)
-                        .Set("DocRecebidos", processo.DocRecebidos)
-                        .Set("Amostra", processo.Amostra)
-                        .Set("Desovado", processo.Desovado)
-                        .Set("Pendencia", processo.Pendencia)
-                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
-                _Anvisa.UpdateOne(filterAnvisaUpdate, updateAnvisa);
-
-                Decex decex = new();
-                var filterDecex = Builders<Decex>.Filter.Eq(g => g.Ref_USA, processo.Ref_USA);
-                var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
-                var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
-                var updateDecex = Builders<Decex>.Update
-                        .Set("Ref_USA", processo.Ref_USA)
-                        .Set("Importador", processo.Importador)
-                        .Set("SR", processo.SR)
-                        .Set("Exportador", processo.Exportador)
-                        .Set("Produto", processo.Produto)
-                        .Set("Navio", processo.Navio)
-                        .Set("PortoDestino", processo.PortoDestino)
-                        .Set("Ordem", processo.Ordem)
-                        .Set("FLO", processo.FLO)
-                        .Set("FreeTime", processo.FreeTime)
-                        .Set("BL", processo.BL)
-                        .Set("AgenteDeCarga", processo.AgenteDeCarga)
-
-                        .Set("LPCO", processo.LPCO)
-                        .Set("DataRegistroLPCO", processo.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", processo.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", processo.ParametrizacaoLPCO)
-
-                        .Set("DI", processo.DI)
-                        .Set("DataRegistroDI", processo.DataRegistroDI)
-                        .Set("DataDesembaracoDI", processo.DataDesembaracoDI)
-                        .Set("DataCarregamentoDI", processo.DataCarregamentoDI)
-                        .Set("ParametrizacaoDI", processo.ParametrizacaoDI)
-
-                        .Set("PossuiEmbarque", processo.PossuiEmbarque)
-                        .Set("DataDeAtracacao", processo.DataDeAtracacao)
-                        .Set("Inspecao", processo.Inspecao)
-                        .Set("DataEmbarque", processo.DataEmbarque)
-                        .Set("DataRecebOriginais", processo.DataRecebOriginais)
-                        .Set("FormaRecOriginais", processo.FormaRecOriginais)
-                        .Set("DocRecebidos", processo.DocRecebidos)
-                        .Set("Amostra", processo.Amostra)
-                        .Set("Desovado", processo.Desovado)
-                        .Set("Pendencia", processo.Pendencia)
-                        .Set("StatusDoProcesso", processo.StatusDoProcesso);
-                _Decex.UpdateOne(filterDecexUpdate, updateDecex);
-            });
+            await Task.WhenAll(
+                AtualizarDocumentoAsync(_Processo, processo.Id, processo),
+                AtualizarDocumentoRelacionadoAsync(_MAPA, processo.Ref_USA, processo),
+                AtualizarDocumentoRelacionadoAsync(_Anvisa, processo.Ref_USA, processo),
+                AtualizarDocumentoRelacionadoAsync(_Decex, processo.Ref_USA, processo)
+            );
         }
+
+        private async Task AtualizarDocumentoAsync<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq("_id", id);
+            var updateDef = CriarAtualizacao(documento);
+            await colecao.UpdateOneAsync(filtro, updateDef);
+        }
+
+        private async Task AtualizarDocumentoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, Processo processo) where T : class, new()
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+
+            // Obter o documento atual
+            var documentoAtual = await colecao.Find(filtro).FirstOrDefaultAsync();
+
+            if (documentoAtual != null)
+            {
+                // Mapear as propriedades do objeto Processo para o tipo T
+                var documentoAtualizado = MapearPropriedades(processo, documentoAtual);
+
+                var updateDef = CriarAtualizacao(documentoAtualizado);
+                await colecao.UpdateOneAsync(filtro, updateDef);
+            }
+        }
+
+        private UpdateDefinition<T> CriarAtualizacao<T>(T documento) where T : class
+        {
+            var updateDef = Builders<T>.Update;
+            var updates = new List<UpdateDefinition<T>>();
+
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                var value = prop.GetValue(documento);
+                if (value != null)
+                {
+                    updates.Add(updateDef.Set(prop.Name, value));
+                }
+                else
+                {
+                    updates.Add(updateDef.Unset(prop.Name)); // Remove a propriedade se for nula
+                }
+            }
+
+            return updateDef.Combine(updates);
+        }
+
+        private T MapearPropriedades<T>(Processo origem, T destino) where T : class, new()
+        {
+            foreach (var propDestino in typeof(T).GetProperties())
+            {
+                var propOrigem = typeof(Processo).GetProperty(propDestino.Name);
+                if (propOrigem != null && propOrigem.CanRead && propDestino.CanWrite)
+                {
+                    var valorOrigem = propOrigem.GetValue(origem);
+                    propDestino.SetValue(destino, valorOrigem);
+                }
+            }
+            return destino;
+        }
+
         public List<Processo> FindAll()
         {
             try
             {
-                // Busca todos os documentos da coleção
                 return _Processo.Find(FilterDefinition<Processo>.Empty).ToList();
             }
             catch (Exception ex)
@@ -335,22 +157,39 @@ namespace CLUSA
                 return new List<Processo>();
             }
         }
+        public async Task<List<Processo>> FindAllAsync()
+        {
+            try
+            {
+                // Busca todos os documentos da coleção 'Processo' de forma assíncrona
+                var processos = await _Processo.Find(FilterDefinition<Processo>.Empty).ToListAsync();
 
+                Console.WriteLine($"Total de processos encontrados: {processos.Count}");
+                return processos;
+            }
+            catch (MongoException ex)
+            {
+                Console.WriteLine($"Erro no MongoDB ao buscar todos os processos: {ex.Message}");
+                return new List<Processo>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado ao buscar todos os processos: {ex.Message}");
+                return new List<Processo>();
+            }
+        }
         public List<Processo> Find(string filtro, string pesquisa)
         {
             try
             {
-                // Verificar se o campo existe na classe
                 var property = typeof(Processo).GetProperty(filtro);
                 if (property == null)
                 {
                     throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
                 }
 
-                // Construir o filtro Regex
                 var filter = Builders<Processo>.Filter.Regex(filtro, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
 
-                // Buscar os resultados no MongoDB
                 var resultados = _Processo.Find(filter).ToList();
 
                 Console.WriteLine($"Filtro aplicado no MongoDB: {filtro} com pesquisa '{pesquisa}'. Itens encontrados: {resultados.Count}");
@@ -362,6 +201,6 @@ namespace CLUSA
                 return new List<Processo>();
             }
         }
-
     }
+
 }

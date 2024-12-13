@@ -88,7 +88,6 @@
             // 
             BSmapa.DataMember = "ListaMapa";
             BSmapa.DataSource = typeof(CLUSA.RepositorioMAPA);
-            BSmapa.CurrentChanged += bsMAPA_CurrentChanged;
             // 
             // toolStrip1
             // 

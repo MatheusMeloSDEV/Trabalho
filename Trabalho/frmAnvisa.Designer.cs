@@ -86,7 +86,6 @@
             toolStrip1.Size = new Size(800, 38);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
-            toolStrip1.ItemClicked += toolStrip1_ItemClicked;
             // 
             // btnEditar
             // 
@@ -99,7 +98,6 @@
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(62, 32);
             btnEditar.Text = "Editar";
-            btnEditar.Click += btnEditar_Click;
             // 
             // btnCancelar
             // 
@@ -172,7 +170,6 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(776, 397);
             dataGridView1.TabIndex = 11;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // idDataGridViewTextBoxColumn
