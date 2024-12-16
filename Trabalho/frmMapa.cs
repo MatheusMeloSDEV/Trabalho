@@ -5,37 +5,55 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Text.RegularExpressions;
-using static Trabalho.frmProcesso;
+using static Trabalho.FrmProcesso;
 
 namespace Trabalho
 {
-    public partial class frmMapa : Form
+    public partial class FrmMapa : Form
     {
         private RepositorioMAPA _repositorio;
 
-        public frmMapa()
+        public FrmMapa()
         {
             InitializeComponent();
+            ConfigurarToolStripIcons();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             _repositorio = new RepositorioMAPA();
         }
-
-        private void frmMapa_Load(object sender, EventArgs e)
+        private void FrmMapa_Load(object sender, EventArgs e)
         {
             BSmapa.DataSource = _repositorio.FindAll();
             ConfigurarInterface();
             PopularToolStripComboBox();
             ConfigurarAutoCompletarParaPesquisa();
         }
+        private void ConfigurarToolStripIcons()
+        {
+            string GetIconPath(string iconName)
+            {
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons", iconName);
+            }
 
+            try
+            {
+                BtnEditar.Image = System.Drawing.Image.FromFile(GetIconPath("edit_icon.png"));
+                BtnCancelar.Image = System.Drawing.Image.FromFile(GetIconPath("cancel_icon.png"));
+                BtnPesquisar.Image = System.Drawing.Image.FromFile(GetIconPath("search_icon.png"));
+                BtnReload.Image = System.Drawing.Image.FromFile(GetIconPath("reload_icon.png"));
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"Erro ao carregar ícones: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void ConfigurarInterface()
         {
-            if (frmLogin.instance.escuro)
+            if (FrmLogin.Instance.Escuro)
             {
                 toolStrip1.BackColor = SystemColors.ControlDark;
                 this.BackColor = SystemColors.ControlDark;
                 CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
-                txtPesquisar.BackColor = SystemColors.ControlDarkDark;
+                TxtPesquisar.BackColor = SystemColors.ControlDarkDark;
                 dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
                 dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
                 dataGridView1.BackgroundColor = SystemColors.ControlDark;
@@ -66,7 +84,7 @@ namespace Trabalho
             if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
             {
                 var valores = _repositorio.ObterValoresUnicos(campoSelecionado.DataPropertyName);
-                ConfigurarAutoCompletar(txtPesquisar, valores);
+                ConfigurarAutoCompletar(TxtPesquisar, valores);
             }
             else
             {
@@ -84,7 +102,7 @@ namespace Trabalho
             textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -97,17 +115,17 @@ namespace Trabalho
             }
         }
 
-        private void btnReload_Click(object sender, EventArgs e)
+        private void BtnReload_Click(object sender, EventArgs e)
         {
             BSmapa.DataSource = _repositorio.FindAll();
         }
 
-        private void btnPesquisar_Click(object sender, EventArgs e)
+        private void BtnPesquisar_Click(object sender, EventArgs e)
         {
             if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
             {
                 var dataPropertyName = campoSelecionado.DataPropertyName;
-                var textoPesquisa = txtPesquisar.Text;
+                var textoPesquisa = TxtPesquisar.Text;
 
                 if (!string.IsNullOrEmpty(textoPesquisa))
                 {
@@ -124,7 +142,7 @@ namespace Trabalho
             }
         }
 
-        private async void BTNeditar_Click_1(object sender, EventArgs e)
+        private async void BtnEditar_Click(object sender, EventArgs e)
         {
             if (BSmapa.Current is not MAPA mapaAtual)
             {

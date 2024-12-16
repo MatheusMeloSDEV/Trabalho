@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using static Trabalho.frmProcesso;
+using static Trabalho.FrmProcesso;
 
 namespace Trabalho
 {
-    public partial class frmAnvisa : Form
+    public partial class FrmAnvisa : Form
     {
         private RepositorioAnvisa _repositorio;
 
-        public frmAnvisa()
+        public FrmAnvisa()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
@@ -28,7 +28,7 @@ namespace Trabalho
 
         private void ConfigurarInterface()
         {
-            if (frmLogin.instance.escuro)
+            if (FrmLogin.Instance.Escuro)
             {
                 toolStrip1.BackColor = SystemColors.ControlDark;
                 this.BackColor = SystemColors.ControlDark;
@@ -109,7 +109,7 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(textoPesquisa))
                 {
-                    bsAnvisa.Filter = $"{dataPropertyName} LIKE '%{textoPesquisa}%'"];
+                    bsAnvisa.Filter = $"{dataPropertyName} LIKE '%{textoPesquisa}%'";
                 }
                 else
                 {

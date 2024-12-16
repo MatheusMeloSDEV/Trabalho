@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmLogin
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             lblError = new Label();
             check = new PictureBox();
             lblLogado = new Label();
@@ -96,7 +96,7 @@
             btnLogin.TabIndex = 22;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
-            btnLogin.Click += btnLogin_Click;
+            btnLogin.Click += BtnLogin_Click;
             // 
             // lblPassword
             // 
@@ -143,11 +143,8 @@
             // 
             // tLogado
             // 
-            tLogado.Tick += timer1_Tick;
+            tLogado.Tick += TimerLogado_Tick;
             // 
-            // tErro
-            // 
-            tErro.Tick += tErro_Tick;
             // 
             // btnFechar
             // 
@@ -161,7 +158,7 @@
             btnFechar.TabIndex = 26;
             btnFechar.Text = "Fechar";
             btnFechar.UseVisualStyleBackColor = false;
-            btnFechar.Click += btnFechar_Click;
+            btnFechar.Click += BtnFechar_Click;
             // 
             // ftLua
             // 
@@ -172,7 +169,7 @@
             ftLua.SizeMode = PictureBoxSizeMode.StretchImage;
             ftLua.TabIndex = 27;
             ftLua.TabStop = false;
-            ftLua.Click += ftLua_Click;
+            ftLua.Click += FtLua_Click;
             // 
             // ftSol
             // 
@@ -185,7 +182,7 @@
             ftSol.TabIndex = 28;
             ftSol.TabStop = false;
             ftSol.Visible = false;
-            ftSol.Click += ftSol_Click;
+            ftSol.Click += FtSol_Click;
             // 
             // frmLogin
             // 
@@ -212,7 +209,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "   Login";
             TransparencyKey = Color.Transparent;
-            Load += frmPricipal_Load;
+            Load += FrmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)check).EndInit();
             ((System.ComponentModel.ISupportInitialize)ftLua).EndInit();
             ((System.ComponentModel.ISupportInitialize)ftSol).EndInit();

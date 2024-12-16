@@ -2,14 +2,14 @@
 
 namespace Trabalho
 {
-    public partial class frmADMIN : Form
+    public partial class FrmAdmin : Form
     {
         public RepositorioUsers repositorio;
         public string usuario;
-        public frmADMIN()
+        public FrmAdmin()
         {
             InitializeComponent();
-            usuario = frmLogin.instance.logado.Usuario;
+            usuario = FrmLogin.Instance.Logado.Usuario;
         }
 
         public void frmADMIN_Load(object sender, EventArgs e)

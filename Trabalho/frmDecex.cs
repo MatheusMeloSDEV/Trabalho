@@ -1,12 +1,12 @@
 ﻿using CLUSA;
-using static Trabalho.frmProcesso;
+using static Trabalho.FrmProcesso;
 
 namespace Trabalho
 {
-    public partial class frmDecex : Form
+    public partial class FrmDecex : Form
     {
         private RepositorioDecex repositorio;
-        public frmDecex()
+        public FrmDecex()
         {
             InitializeComponent();
             repositorio = new RepositorioDecex();

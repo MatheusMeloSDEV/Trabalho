@@ -54,6 +54,20 @@ namespace CLUSA
                 }
             });
         }
+        public bool VerificarExistencia(Processo processo)
+        {
+            bool existeMapa = ExisteNaColecao(_MAPA, "TMapa", processo.TMapa);
+            bool existeAnvisa = ExisteNaColecao(_Anvisa, "TAnvisa", processo.TAnvisa);
+            bool existeDecex = ExisteNaColecao(_Decex, "TDecex", processo.TDecex);
+
+            return existeMapa || existeAnvisa || existeDecex;
+        }
+
+        public static bool ExisteNaColecao<T>(IMongoCollection<T> colecao, string campo, bool valor) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq(campo, valor);
+            return colecao.Find(filtro).Any();
+        }
 
         public async Task Delete(Processo processo)
         {
@@ -70,7 +84,7 @@ namespace CLUSA
             });
         }
 
-        private void ExcluirDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
+        private static void ExcluirDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
             colecao.DeleteMany(filtro);
@@ -78,49 +92,95 @@ namespace CLUSA
 
         public async Task Update(Processo processo)
         {
-            await Task.WhenAll(
-                AtualizarDocumentoAsync(_Processo, processo.Id, processo),
-                AtualizarDocumentoRelacionadoAsync(_MAPA, processo.Ref_USA, processo),
-                AtualizarDocumentoRelacionadoAsync(_Anvisa, processo.Ref_USA, processo),
-                AtualizarDocumentoRelacionadoAsync(_Decex, processo.Ref_USA, processo)
-            );
+            // Atualizar o documento principal
+            await AtualizarDocumento(_Processo, processo.Id, processo);
+
+            // Gerenciar a atualização ou exclusão de documentos relacionados
+            await GerenciarRelacoes(processo);
         }
 
-        private async Task AtualizarDocumentoAsync<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
+        private async Task GerenciarRelacoes(Processo processo)
+        {
+            // MAPA
+            if (!processo.TMapa)
+            {
+                await RemoverDocumentoRelacionado(_MAPA, processo.Ref_USA);
+            }
+            else
+            {
+                await AtualizarDocumentoRelacionado(_MAPA, processo.Ref_USA, processo);
+            }
+
+            // Anvisa
+            if (!processo.TAnvisa)
+            {
+                await RemoverDocumentoRelacionado(_Anvisa, processo.Ref_USA);
+            }
+            else
+            {
+                await AtualizarDocumentoRelacionado(_Anvisa, processo.Ref_USA, processo);
+            }
+
+            // Decex
+            if (!processo.TDecex)
+            {
+                await RemoverDocumentoRelacionado(_Decex, processo.Ref_USA);
+            }
+            else
+            {
+                await AtualizarDocumentoRelacionado(_Decex, processo.Ref_USA, processo);
+            }
+        }
+
+        private async Task RemoverDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+            await colecao.DeleteOneAsync(filtro);
+        }
+
+        private async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
         {
             var filtro = Builders<T>.Filter.Eq("_id", id);
-            var updateDef = CriarAtualizacao(documento);
-            await colecao.UpdateOneAsync(filtro, updateDef);
+            var updateDef = CriarAtualizacaoSemId(documento);
+            await colecao.UpdateOneAsync(filtro, updateDef, new UpdateOptions { IsUpsert = true });
         }
 
-        private async Task AtualizarDocumentoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, Processo processo) where T : class, new()
+        private async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, Processo processo) where T : class, new()
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
 
-            // Obter o documento atual
+            // Tentar buscar o documento existente
             var documentoAtual = await colecao.Find(filtro).FirstOrDefaultAsync();
 
             if (documentoAtual != null)
             {
-                // Mapear as propriedades do objeto Processo para o tipo T
+                Console.WriteLine($"Atualizando documento existente em {typeof(T).Name} com Ref_USA = {refUsa}");
+                // Atualizar o documento existente
                 var documentoAtualizado = MapearPropriedades(processo, documentoAtual);
-
-                var updateDef = CriarAtualizacao(documentoAtualizado);
+                var updateDef = CriarAtualizacaoSemId(documentoAtualizado);
                 await colecao.UpdateOneAsync(filtro, updateDef);
+            }
+            else
+            {
+                Console.WriteLine($"Inserindo novo documento em {typeof(T).Name} com Ref_USA = {refUsa}");
+                // Inserir novo documento se não existir
+                var novoDocumento = MapearPropriedades(processo, new T());
+                await colecao.InsertOneAsync(novoDocumento);
             }
         }
 
-        private UpdateDefinition<T> CriarAtualizacao<T>(T documento) where T : class
+        private UpdateDefinition<T> CriarAtualizacaoSemId<T>(T documento)
         {
             var updateDef = Builders<T>.Update;
             var updates = new List<UpdateDefinition<T>>();
 
             foreach (var prop in typeof(T).GetProperties())
             {
-                var value = prop.GetValue(documento);
-                if (value != null)
+                if (prop.Name == "_id") continue; // Ignora o campo _id
+                var valor = prop.GetValue(documento);
+                if (valor != null)
                 {
-                    updates.Add(updateDef.Set(prop.Name, value));
+                    updates.Add(updateDef.Set(prop.Name, valor));
                 }
                 else
                 {
@@ -131,7 +191,7 @@ namespace CLUSA
             return updateDef.Combine(updates);
         }
 
-        private T MapearPropriedades<T>(Processo origem, T destino) where T : class, new()
+        private static T MapearPropriedades<T>(Processo origem, T destino) where T : class, new()
         {
             foreach (var propDestino in typeof(T).GetProperties())
             {
@@ -182,12 +242,7 @@ namespace CLUSA
         {
             try
             {
-                var property = typeof(Processo).GetProperty(filtro);
-                if (property == null)
-                {
-                    throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
-                }
-
+                var property = typeof(Processo).GetProperty(filtro) ?? throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
                 var filter = Builders<Processo>.Filter.Regex(filtro, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
 
                 var resultados = _Processo.Find(filter).ToList();

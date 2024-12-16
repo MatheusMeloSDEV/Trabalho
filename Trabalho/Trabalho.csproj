@@ -55,7 +55,6 @@
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="24.11.0" />
     <PackageReference Include="Google.Api.CommonProtos" Version="2.16.0" />
-    <PackageReference Include="itext7" Version="8.0.5" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="MongoDB.Driver" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -75,13 +74,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Imagem\" />
   </ItemGroup>
 
 </Project>

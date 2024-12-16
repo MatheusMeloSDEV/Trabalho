@@ -1,6 +1,11 @@
-﻿namespace Trabalho
+﻿using Google.Api;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Trabalho
 {
-    partial class frmMenu
+    partial class FrmMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -23,174 +28,183 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Required method for Designer support - do not modify the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenu));
-            menuStrip1 = new MenuStrip();
-            notificacoesDropDownButton = new ToolStripMenuItem();
-            menuToolStripMenuItem = new ToolStripMenuItem();
-            inícioToolStripMenuItem = new ToolStripMenuItem();
-            maximizarToolStripMenuItem = new ToolStripMenuItem();
-            sairToolStripMenuItem = new ToolStripMenuItem();
-            planilhasToolStripMenuItem = new ToolStripMenuItem();
-            processoToolStripMenuItem = new ToolStripMenuItem();
-            mAPAToolStripMenuItem = new ToolStripMenuItem();
-            anvisaToolStripMenuItem = new ToolStripMenuItem();
-            decexToolStripMenuItem = new ToolStripMenuItem();
-            aDMINToolStripMenuItem = new ToolStripMenuItem();
-            tLiberaSaida = new System.Windows.Forms.Timer(components);
-            tabControl1 = new TabControl();
-            menuStrip1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.BackColor = SystemColors.Control;
-            menuStrip1.Items.AddRange(new ToolStripItem[] { notificacoesDropDownButton, menuToolStripMenuItem, planilhasToolStripMenuItem, aDMINToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(878, 24);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
-            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
-            // 
-            // notificacoesDropDownButton
-            // 
-            notificacoesDropDownButton.BackgroundImageLayout = ImageLayout.None;
-            notificacoesDropDownButton.Image = (Image)resources.GetObject("notificacoesDropDownButton.Image");
-            notificacoesDropDownButton.Name = "notificacoesDropDownButton";
-            notificacoesDropDownButton.Size = new Size(101, 20);
-            notificacoesDropDownButton.Text = "Notificações";
-            notificacoesDropDownButton.TextImageRelation = TextImageRelation.TextBeforeImage;
-            // 
-            // menuToolStripMenuItem
-            // 
-            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { inícioToolStripMenuItem, maximizarToolStripMenuItem, sairToolStripMenuItem });
-            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            menuToolStripMenuItem.Size = new Size(50, 20);
-            menuToolStripMenuItem.Text = "Menu";
-            menuToolStripMenuItem.Click += menuToolStripMenuItem_Click;
-            // 
-            // inícioToolStripMenuItem
-            // 
-            inícioToolStripMenuItem.Name = "inícioToolStripMenuItem";
-            inícioToolStripMenuItem.Size = new Size(129, 22);
-            inícioToolStripMenuItem.Text = "Início";
-            inícioToolStripMenuItem.Click += inícioToolStripMenuItem_Click;
-            // 
-            // maximizarToolStripMenuItem
-            // 
-            maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
-            maximizarToolStripMenuItem.Size = new Size(129, 22);
-            maximizarToolStripMenuItem.Text = "Maximizar";
-            maximizarToolStripMenuItem.Click += maximizarToolStripMenuItem_Click;
-            // 
-            // sairToolStripMenuItem
-            // 
-            sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            sairToolStripMenuItem.Size = new Size(129, 22);
-            sairToolStripMenuItem.Text = "Sair";
-            sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
-            // 
-            // planilhasToolStripMenuItem
-            // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { processoToolStripMenuItem, mAPAToolStripMenuItem, anvisaToolStripMenuItem, decexToolStripMenuItem });
-            planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
-            planilhasToolStripMenuItem.Size = new Size(66, 20);
-            planilhasToolStripMenuItem.Text = "Planilhas";
-            // 
-            // processoToolStripMenuItem
-            // 
-            processoToolStripMenuItem.Name = "processoToolStripMenuItem";
-            processoToolStripMenuItem.Size = new Size(121, 22);
-            processoToolStripMenuItem.Text = "Processo";
-            processoToolStripMenuItem.Click += processoToolStripMenuItem_Click;
-            // 
-            // mAPAToolStripMenuItem
-            // 
-            mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
-            mAPAToolStripMenuItem.Size = new Size(121, 22);
-            mAPAToolStripMenuItem.Text = "Mapa";
-            mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
-            // 
-            // anvisaToolStripMenuItem
-            // 
-            anvisaToolStripMenuItem.Name = "anvisaToolStripMenuItem";
-            anvisaToolStripMenuItem.Size = new Size(121, 22);
-            anvisaToolStripMenuItem.Text = "Anvisa";
-            anvisaToolStripMenuItem.Click += anvisaToolStripMenuItem_Click;
-            // 
-            // decexToolStripMenuItem
-            // 
-            decexToolStripMenuItem.Name = "decexToolStripMenuItem";
-            decexToolStripMenuItem.Size = new Size(121, 22);
-            decexToolStripMenuItem.Text = "Decex";
-            decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
-            // 
-            // aDMINToolStripMenuItem
-            // 
-            aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
-            aDMINToolStripMenuItem.Size = new Size(95, 20);
-            aDMINToolStripMenuItem.Text = "Administrador";
-            aDMINToolStripMenuItem.Click += aDMINToolStripMenuItem_Click;
-            // 
-            // tLiberaSaida
-            // 
-            tLiberaSaida.Tick += tLiberaSaida_Tick;
-            // 
-            // tabControl1
-            // 
-            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tabControl1.Location = new Point(160, 68);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(528, 323);
-            tabControl1.SizeMode = TabSizeMode.FillToRight;
-            tabControl1.TabIndex = 5;
-            // 
-            // frmMenu
-            // 
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenu));
+
+            // MenuStrip
+            MSnotificacoes = new MenuStrip
+            {
+                BackColor = SystemColors.Control,
+                Location = new Point(0, 0),
+                Name = "MSnotificacoes",
+                Size = new Size(878, 24),
+                TabIndex = 1,
+                Text = "MSnotificacoes"
+            };
+            MSnotificacoes.ItemClicked += MSnotificacoes_ItemClicked;
+
+            // Notificações
+            MenuItemNotifications = new ToolStripMenuItem
+            {
+                Image = (Image)resources.GetObject("notificationsIcon"),
+                Name = "MenuItemNotifications",
+                Size = new Size(101, 20),
+                Text = "Notificações",
+                TextImageRelation = TextImageRelation.TextBeforeImage
+            };
+
+            // Menu principal
+            MenuItemMain = new ToolStripMenuItem
+            {
+                Name = "MenuItemMain",
+                Size = new Size(50, 20),
+                Text = "Menu"
+            };
+            MenuItemMain.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                MenuItemHome = new ToolStripMenuItem
+                {
+                    Name = "MenuItemHome",
+                    Size = new Size(129, 22),
+                    Text = "Início"
+                },
+                MenuItemMaximize = new ToolStripMenuItem
+                {
+                    Name = "MenuItemMaximize",
+                    Size = new Size(129, 22),
+                    Text = "Maximizar"
+                },
+                MenuItemExit = new ToolStripMenuItem
+                {
+                    Name = "MenuItemExit",
+                    Size = new Size(129, 22),
+                    Text = "Sair"
+                }
+            });
+
+            MenuItemHome.Click += MenuItemHome_Click;
+            MenuItemMaximize.Click += MenuItemMaximize_Click;
+            MenuItemExit.Click += MenuItemExit_Click;
+
+            // Planilhas
+            MenuItemSheets = new ToolStripMenuItem
+            {
+                Name = "MenuItemSheets",
+                Size = new Size(66, 20),
+                Text = "Planilhas"
+            };
+            MenuItemSheets.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                MenuItemProcess = new ToolStripMenuItem
+                {
+                    Name = "MenuItemProcess",
+                    Size = new Size(121, 22),
+                    Text = "Processo"
+                },
+                MenuItemMap = new ToolStripMenuItem
+                {
+                    Name = "MenuItemMap",
+                    Size = new Size(121, 22),
+                    Text = "Mapa"
+                },
+                MenuItemAnvisa = new ToolStripMenuItem
+                {
+                    Name = "MenuItemAnvisa",
+                    Size = new Size(121, 22),
+                    Text = "Anvisa"
+                },
+                MenuItemDecex = new ToolStripMenuItem
+                {
+                    Name = "MenuItemDecex",
+                    Size = new Size(121, 22),
+                    Text = "Decex"
+                }
+            });
+
+            MenuItemProcess.Click += MenuItemProcess_Click;
+            MenuItemMap.Click += MenuItemMap_Click;
+            MenuItemAnvisa.Click += MenuItemAnvisa_Click;
+            MenuItemDecex.Click += MenuItemDecex_Click;
+
+            // Administrador
+            MenuItemAdmin = new ToolStripMenuItem
+            {
+                Name = "MenuItemAdmin",
+                Size = new Size(95, 20),
+                Text = "Administrador"
+            };
+            MenuItemAdmin.Click += MenuItemAdmin_Click;
+
+            // Adicionar itens ao MenuStrip
+            MSnotificacoes.Items.AddRange(new ToolStripItem[]
+            {
+                MenuItemNotifications,
+                MenuItemMain,
+                MenuItemSheets,
+                MenuItemAdmin
+            });
+
+            // Timer
+            timerReleaseExit = new System.Windows.Forms.Timer(components)
+            {
+                Interval = 1000 // Exemplo de intervalo, ajuste conforme necessário
+            };
+            timerReleaseExit.Tick += TimerReleaseExit_Tick;
+
+            // TabControl
+            TCabas = new TabControl
+            {
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Location = new Point(160, 68),
+                Name = "TCabas",
+                SelectedIndex = 0,
+                Size = new Size(528, 323),
+                SizeMode = TabSizeMode.FillToRight,
+                TabIndex = 5
+            };
+
+            // Configuração do Formulário
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 448);
             ControlBox = false;
-            Controls.Add(tabControl1);
-            Controls.Add(menuStrip1);
+            Controls.Add(TCabas);
+            Controls.Add(MSnotificacoes);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
-            MainMenuStrip = menuStrip1;
+            MainMenuStrip = MSnotificacoes;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmMenu";
+            Name = "FrmMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Área de trabalho";
             WindowState = FormWindowState.Maximized;
-            Load += frmMenu_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+
+            MSnotificacoes.ResumeLayout(false);
+            MSnotificacoes.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem menuToolStripMenuItem;
-        private ToolStripMenuItem maximizarToolStripMenuItem;
-        private ToolStripMenuItem sairToolStripMenuItem;
-        private ToolStripMenuItem planilhasToolStripMenuItem;
-        private ToolStripMenuItem mAPAToolStripMenuItem;
-        private ToolStripMenuItem decexToolStripMenuItem;
-        private ToolStripMenuItem aDMINToolStripMenuItem;
-        private System.Windows.Forms.Timer tLiberaSaida;
-        private ToolStripMenuItem processoToolStripMenuItem;
-        private ToolStripMenuItem anvisaToolStripMenuItem;
-        private ToolStripMenuItem inícioToolStripMenuItem;
-        private TabControl tabControl1;
-        private ToolStripMenuItem notificacoesDropDownButton;
+        private MenuStrip MSnotificacoes;
+        private ToolStripMenuItem MenuItemNotifications;
+        private ToolStripMenuItem MenuItemMain;
+        private ToolStripMenuItem MenuItemHome;
+        private ToolStripMenuItem MenuItemMaximize;
+        private ToolStripMenuItem MenuItemExit;
+        private ToolStripMenuItem MenuItemSheets;
+        private ToolStripMenuItem MenuItemProcess;
+        private ToolStripMenuItem MenuItemMap;
+        private ToolStripMenuItem MenuItemAnvisa;
+        private ToolStripMenuItem MenuItemDecex;
+        private ToolStripMenuItem MenuItemAdmin;
+        private System.Windows.Forms.Timer timerReleaseExit;
+        private TabControl TCabas;
     }
 }

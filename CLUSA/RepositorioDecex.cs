@@ -6,10 +6,10 @@ namespace CLUSA
 {
     public class RepositorioDecex
     {
-        private IMongoCollection<Processo> _Processo;
-        private IMongoCollection<Anvisa> _Anvisa;
-        private IMongoCollection<Decex> _Decex;
-        private IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<Processo> _Processo;
+        private readonly IMongoCollection<Anvisa> _Anvisa;
+        private readonly IMongoCollection<Decex> _Decex;
+        private readonly IMongoCollection<MAPA> _MAPA;
 
         public List<Decex> ListaDecex
         {
@@ -166,11 +166,7 @@ namespace CLUSA
             try
             {
                 // Verificar se o campo existe na classe
-                var property = typeof(Decex).GetProperty(filtro);
-                if (property == null)
-                {
-                    throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
-                }
+                var property = typeof(Decex).GetProperty(filtro) ?? throw new KeyNotFoundException($"O campo '{filtro}' não existe no modelo Processo.");
 
                 // Construir o filtro Regex
                 var filter = Builders<Decex>.Filter.Regex(filtro, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));

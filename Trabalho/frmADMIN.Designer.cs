@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmADMIN
+    partial class FrmAdmin
     {
         /// <summary>
         /// Required designer variable.

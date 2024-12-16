@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmProcesso
+    partial class FrmProcesso
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcesso));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProcesso));
             dataGridView1 = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tDecexDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
@@ -570,18 +570,6 @@
         private ToolStripComboBox CmbPesquisar;
         private ToolStripButton btnAdicionar;
         private ToolStripButton btnExcluir;
-        private DataGridViewTextBoxColumn nRDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn sRDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Previsao;
-        private DataGridViewTextBoxColumn terminalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn lILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataRegistroLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeferimentoLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn parametrizacaoLILPCODataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn previsaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn recebOriginaisDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn formaRecebERecebidosDataGridViewTextBoxColumn;
         private ToolStripButton BTNexportar;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn tDecexDataGridViewCheckBoxColumn;

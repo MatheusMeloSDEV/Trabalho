@@ -1,191 +1,117 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System.Text.RegularExpressions;
-
 
 namespace CLUSA
 {
     public class RepositorioAnvisa
     {
-        private IMongoCollection<Processo> _Processo;
-        private IMongoCollection<Anvisa> _Anvisa;
-        private IMongoCollection<Decex> _Decex;
-        private IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<Anvisa> _Anvisa;
+        private readonly IMongoCollection<Processo> _Processo;
+        private readonly IMongoCollection<Decex> _Decex;
+        private readonly IMongoCollection<MAPA> _MAPA;
+
         public RepositorioAnvisa()
         {
             var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
-            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
+            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
+            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
 
-        public List<Anvisa> ListaAnvisa
+        public List<Anvisa> ListaAnvisa => _Anvisa.Find(Builders<Anvisa>.Filter.Empty).ToList();
+
+        public async Task CreateAsync(Anvisa anvisa)
         {
-            get
-            {
-                var filter = Builders<Anvisa>.Filter.Empty;
-                return _Anvisa.Find<Anvisa>(filter).ToList<Anvisa>();
-            }
+            await _Anvisa.InsertOneAsync(anvisa);
         }
 
-        public async Task Create(Anvisa anvisa)
+        public async Task DeleteAsync(ObjectId id)
         {
-            await Task.Run(() =>
-            {
-                _Anvisa.InsertOne(anvisa);
-            });
+            var filter = Builders<Anvisa>.Filter.Eq("_id", id);
+            await _Anvisa.DeleteOneAsync(filter);
         }
 
-        public async Task Delete(Anvisa anvisa)
+        public async Task UpdateAsync(Anvisa anvisa)
         {
-            await Task.Run(() =>
-            {
-                var filter = Builders<Anvisa>.Filter.Eq("Id", anvisa.Id);
-                _Anvisa.DeleteOne(filter);
-            });
+            var filter = Builders<Anvisa>.Filter.Eq("_id", anvisa.Id);
+            var update = Builders<Anvisa>.Update
+                .Set(a => a.Ref_USA, anvisa.Ref_USA)
+                .Set(a => a.Importador, anvisa.Importador)
+                .Set(a => a.SR, anvisa.SR)
+                .Set(a => a.Exportador, anvisa.Exportador)
+                .Set(a => a.Navio, anvisa.Navio)
+                .Set(a => a.Terminal, anvisa.Terminal)
+                .Set(a => a.Produto, anvisa.Produto)
+                .Set(a => a.Origem, anvisa.Origem)
+                .Set(a => a.NCM, anvisa.NCM)
+                .Set(a => a.LI, anvisa.LI)
+                .Set(a => a.LPCO, anvisa.LPCO)
+                .Set(a => a.DataRegistroLPCO, anvisa.DataRegistroLPCO)
+                .Set(a => a.DataDeferimentoLPCO, anvisa.DataDeferimentoLPCO)
+                .Set(a => a.ParametrizacaoLPCO, anvisa.ParametrizacaoLPCO)
+                .Set(a => a.DataDeAtracacao, anvisa.DataDeAtracacao)
+                .Set(a => a.Inspecao, anvisa.Inspecao)
+                .Set(a => a.Amostra, anvisa.Amostra)
+                .Set(a => a.Pendencia, anvisa.Pendencia)
+                .Set(a => a.StatusDoProcesso, anvisa.StatusDoProcesso);
+
+            await _Anvisa.UpdateOneAsync(filter, update);
+
+            // Atualizar coleções relacionadas
+            await AtualizarColecaoRelacionadoAsync(_Processo, anvisa.Ref_USA, anvisa);
+            await AtualizarColecaoRelacionadoAsync(_Decex, anvisa.Ref_USA, anvisa);
+            await AtualizarColecaoRelacionadoAsync(_MAPA, anvisa.Ref_USA, anvisa);
         }
 
-        public async Task Udpate(Anvisa anvisa)
+        private static async Task AtualizarColecaoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, Anvisa anvisa) where T : class
         {
-            await Task.Run(() =>
-            {
-                var filterAnvisa = Builders<Anvisa>.Filter.Eq("Id", anvisa.Id);
-                var updateAnvisa = Builders<Anvisa>.Update
-                        .Set("Ref_USA", anvisa.Ref_USA)
-                        .Set("Importador", anvisa.Importador)
-                        .Set("SR", anvisa.SR)
-                        .Set("Exportador", anvisa.Exportador)
-                        .Set("Navio", anvisa.Navio)
-                        .Set("Terminal", anvisa.Terminal)
-                        .Set("Produto", anvisa.Produto)
-                        .Set("Origem", anvisa.Origem)
-                        .Set("NCM", anvisa.NCM)
+            var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+            var update = Builders<T>.Update
+                .Set("Ref_USA", anvisa.Ref_USA)
+                .Set("Importador", anvisa.Importador)
+                .Set("SR", anvisa.SR)
+                .Set("Exportador", anvisa.Exportador)
+                .Set("Navio", anvisa.Navio)
+                .Set("Terminal", anvisa.Terminal)
+                .Set("Produto", anvisa.Produto)
+                .Set("Origem", anvisa.Origem)
+                .Set("NCM", anvisa.NCM)
+                .Set("LI", anvisa.LI)
+                .Set("LPCO", anvisa.LPCO)
+                .Set("DataRegistroLPCO", anvisa.DataRegistroLPCO)
+                .Set("DataDeferimentoLPCO", anvisa.DataDeferimentoLPCO)
+                .Set("ParametrizacaoLPCO", anvisa.ParametrizacaoLPCO)
+                .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
+                .Set("Inspecao", anvisa.Inspecao)
+                .Set("Amostra", anvisa.Amostra)
+                .Set("Pendencia", anvisa.Pendencia)
+                .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
 
-                        .Set("LI", anvisa.LI)
-                        .Set("LPCO", anvisa.LPCO)
-                        .Set("DataRegistroLPCO", anvisa.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", anvisa.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", anvisa.ParametrizacaoLPCO)
-
-                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
-                        .Set("Inspecao", anvisa.Inspecao)
-                        .Set("Amostra", anvisa.Amostra)
-                        .Set("Pendencia", anvisa.Pendencia)
-                        .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
-                _Anvisa.UpdateOne(filterAnvisa, updateAnvisa);
-
-
-                Processo processo = new();
-                var filterProcesso = Builders<Processo>.Filter.Eq(g => g.Ref_USA, anvisa.Ref_USA);
-                var resultIDProcesso = _Processo.Find(filterProcesso).FirstOrDefaultAsync<Processo>().Result?.Id;
-                var filterProcessoUpdate = Builders<Processo>.Filter.Eq("Id", resultIDProcesso);
-                var updateProcesso = Builders<Processo>.Update
-                       .Set("Ref_USA", anvisa.Ref_USA)
-                        .Set("Importador", anvisa.Importador)
-                        .Set("SR", anvisa.SR)
-                        .Set("Exportador", anvisa.Exportador)
-                        .Set("Navio", anvisa.Navio)
-                        .Set("Terminal", anvisa.Terminal)
-                        .Set("Produto", anvisa.Produto)
-                        .Set("Origem", anvisa.Origem)
-                        .Set("NCM", anvisa.NCM)
-
-                        .Set("LI", anvisa.LI)
-                        .Set("LPCO", anvisa.LPCO)
-                        .Set("DataRegistroLPCO", anvisa.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", anvisa.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", anvisa.ParametrizacaoLPCO)
-
-                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
-                        .Set("Inspecao", anvisa.Inspecao)
-                        .Set("Amostra", anvisa.Amostra)
-                        .Set("Pendencia", anvisa.Pendencia)
-                        .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
-                _Processo.UpdateOne(filterProcessoUpdate, updateProcesso);
-
-                Decex decex = new();
-                var filterDecex = Builders<Decex>.Filter.Eq(g => g.Ref_USA, anvisa.Ref_USA);
-                var resultIDDecex = _Decex.Find(filterDecex).FirstOrDefaultAsync<Decex>().Result?.Id;
-                var filterDecexUpdate = Builders<Decex>.Filter.Eq("Id", resultIDDecex);
-                var updateDecex = Builders<Decex>.Update
-                       .Set("Ref_USA", anvisa.Ref_USA)
-                        .Set("Importador", anvisa.Importador)
-                        .Set("SR", anvisa.SR)
-                        .Set("Exportador", anvisa.Exportador)
-                        .Set("Navio", anvisa.Navio)
-                        .Set("Terminal", anvisa.Terminal)
-                        .Set("Produto", anvisa.Produto)
-                        .Set("Origem", anvisa.Origem)
-                        .Set("NCM", anvisa.NCM)
-
-                        .Set("LI", anvisa.LI)
-                        .Set("LPCO", anvisa.LPCO)
-                        .Set("DataRegistroLPCO", anvisa.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", anvisa.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", anvisa.ParametrizacaoLPCO)
-
-                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
-                        .Set("Inspecao", anvisa.Inspecao)
-                        .Set("Amostra", anvisa.Amostra)
-                        .Set("Pendencia", anvisa.Pendencia)
-                        .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
-                _Decex.UpdateOne(filterDecex, updateDecex);
-
-                MAPA mapa = new();
-                var filterMapa = Builders<MAPA>.Filter.Eq(g => g.Ref_USA, anvisa.Ref_USA);
-                var resultIDMapa = _MAPA.Find(filterMapa).FirstOrDefaultAsync<MAPA>().Result?.Id;
-                var filterMapaUpdate = Builders<MAPA>.Filter.Eq("Id", resultIDMapa);
-                var updateMapa = Builders<MAPA>.Update
-                       .Set("Ref_USA", anvisa.Ref_USA)
-                        .Set("Importador", anvisa.Importador)
-                        .Set("SR", anvisa.SR)
-                        .Set("Exportador", anvisa.Exportador)
-                        .Set("Navio", anvisa.Navio)
-                        .Set("Terminal", anvisa.Terminal)
-                        .Set("Produto", anvisa.Produto)
-                        .Set("Origem", anvisa.Origem)
-                        .Set("NCM", anvisa.NCM)
-
-                        .Set("LI", anvisa.LI)
-                        .Set("LPCO", anvisa.LPCO)
-                        .Set("DataRegistroLPCO", anvisa.DataRegistroLPCO)
-                        .Set("DataDeferimentoLPCO", anvisa.DataDeferimentoLPCO)
-                        .Set("ParametrizacaoLPCO", anvisa.ParametrizacaoLPCO)
-
-                        .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
-                        .Set("Inspecao", anvisa.Inspecao)
-                        .Set("Amostra", anvisa.Amostra)
-                        .Set("Pendencia", anvisa.Pendencia)
-                        .Set("StatusDoProcesso", anvisa.StatusDoProcesso);
-                _MAPA.UpdateOne(filterMapa, updateMapa);
-            });
+            await colecao.UpdateOneAsync(filter, update);
         }
+
+        public async Task<List<Anvisa>> FindAllAsync()
+        {
+            return await _Anvisa.Find(Builders<Anvisa>.Filter.Empty).ToListAsync();
+        }
+
+        public List<string> ObterValoresUnicos(string campo)
+        {
+            return _Anvisa.Distinct<string>(campo, Builders<Anvisa>.Filter.Empty).ToList();
+        }
+
         public List<Anvisa> FindAll()
         {
-            var filter = Builders<Anvisa>.Filter.Empty;
-            return _Anvisa.Find<Anvisa>(filter).ToList<Anvisa>();
+            return _Anvisa.Find(Builders<Anvisa>.Filter.Empty).ToList();
         }
-        public List<Anvisa> Find(string filtro, string pesquisa)
+
+        public List<Anvisa> Find(string campo, string pesquisa)
         {
-            var filter = Builders<Anvisa>.Filter.Empty;
-            if (filtro == "NR")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.Ref_USA, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "Importador")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.Importador, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "Pendencia")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.Pendencia, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            if (filtro == "StatusDoProcesso")
-            {
-                filter = Builders<Anvisa>.Filter.Regex(g => g.StatusDoProcesso, new Regex(pesquisa, RegexOptions.IgnoreCase));
-            }
-            return _Anvisa.Find(filter).ToList();
+            var filtro = Builders<Anvisa>.Filter.Regex(campo, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
+            return _Anvisa.Find(filtro).ToList();
         }
     }
 }

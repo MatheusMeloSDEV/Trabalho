@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmAnvisa
+    partial class FrmAnvisa
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnvisa));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAnvisa));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -334,7 +334,6 @@
         private ToolStripComboBox CmbPesquisar;
         private BindingSource bsAnvisa;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn lILPCODataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn refUSADataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn importadorDataGridViewTextBoxColumn;

@@ -6,23 +6,23 @@ using System.Diagnostics;
 
 namespace Trabalho
 {
-    public partial class frmProcesso : Form
+    public partial class FrmProcesso : Form
     {
-        private RepositorioProcesso _repositorio;
+        private readonly RepositorioProcesso _repositorio;
 
-        public frmProcesso()
+        public FrmProcesso()
         {
             InitializeComponent();
+            _repositorio = new RepositorioProcesso(); // Inicialização direta
         }
 
         private void frmProcesso_Load(object sender, EventArgs e)
         {
-            _repositorio = new RepositorioProcesso();
             bsProcesso.DataSource = _repositorio.FindAll();
             dataGridView1.DataSource = bsProcesso;
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            if (frmLogin.instance.escuro)
+            if (FrmLogin.Instance.Escuro)
                 AplicarModoEscuro();
 
             PopularToolStripComboBox();
@@ -73,7 +73,7 @@ namespace Trabalho
             }
         }
 
-        private void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
+        private static void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
         {
             var autoCompleteCollection = new AutoCompleteStringCollection();
             autoCompleteCollection.AddRange(valores.ToArray());
@@ -82,7 +82,6 @@ namespace Trabalho
             textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
-
         private async void btnAdicionar_Click(object sender, EventArgs e)
         {
             var processo = new Processo();
@@ -91,12 +90,29 @@ namespace Trabalho
 
             if (frm.DialogResult == DialogResult.OK)
             {
+                // Adiciona o processo principal
                 await _repositorio.Create(processo, "PROCESSO");
                 bsProcesso.Add(processo);
                 bsProcesso.ResetBindings(false);
+
+                // Verifica e adiciona nas coleções específicas se necessário
+                if (!_repositorio.VerificarExistencia(processo))
+                {
+                    if (processo.TMapa)
+                    {
+                        await _repositorio.Create(processo, "MAPA");
+                    }
+                    if (processo.TAnvisa)
+                    {
+                        await _repositorio.Create(processo, "Anvisa");
+                    }
+                    if (processo.TDecex)
+                    {
+                        await _repositorio.Create(processo, "Decex");
+                    }
+                }
             }
         }
-
         private async void btnExcluir_Click(object sender, EventArgs e)
         {
             if (bsProcesso.Current is not Processo processoSelecionado)
@@ -117,26 +133,26 @@ namespace Trabalho
                 bsProcesso.ResetBindings(false);
             }
         }
-
         private async void btnEditar_Click(object sender, EventArgs e)
         {
-            if (bsProcesso.Current is not Processo processoAtual)
+            if (bsProcesso.Current is not Processo processoSelecionado)
             {
-                MessageBox.Show("Nenhum processo selecionado para edição.",
-                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var frm = new frmModificaProcesso { processo = processoAtual };
+            using var frm = new frmModificaProcesso { processo = processoSelecionado };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
             {
-                await _repositorio.Update(processoAtual);
-                bsProcesso.DataSource = await _repositorio.FindAllAsync();
+                // Atualiza o processo principal
+                await _repositorio.Update(processoSelecionado);
+
                 bsProcesso.ResetBindings(false);
             }
         }
+
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
@@ -179,20 +195,29 @@ namespace Trabalho
                 var valorCelula = cell.Value?.ToString();
                 var dataPropertyName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
 
-                if (!string.IsNullOrEmpty(dataPropertyName))
+                if (!string.IsNullOrEmpty(dataPropertyName) && !string.IsNullOrEmpty(valorCelula))
                 {
                     bsProcesso.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
                     bsProcesso.ResetBindings(false);
                 }
+                else
+                {
+                    MessageBox.Show(
+                        "Valor da célula ou DataPropertyName está vazio. Não é possível realizar a busca.",
+                        "Aviso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                }
             }
         }
 
-        private string ExecutarScriptPython(string importador)
+        private static string ExecutarScriptPython(string importador)
         {
             string pythonPath = @"C:\Users\mathe\AppData\Local\Programs\Python\Python313\python.exe";
             string scriptPath = @"C:\USA App\Python Program\index.py";
 
-            ProcessStartInfo psi = new ProcessStartInfo
+            ProcessStartInfo psi = new()
             {
                 FileName = pythonPath,
                 Arguments = $"\"{scriptPath}\" \"{importador}\"",
@@ -204,7 +229,7 @@ namespace Trabalho
 
             try
             {
-                using Process process = Process.Start(psi);
+                using Process? process = Process.Start(psi) ?? throw new InvalidOperationException("O processo não pôde ser iniciado.");
                 string output = process.StandardOutput.ReadToEnd();
                 string errors = process.StandardError.ReadToEnd();
                 process.WaitForExit();

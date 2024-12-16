@@ -18,7 +18,7 @@ namespace Trabalho
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
+            Application.Run(new FrmLogin());
 
             Console.WriteLine("O programa foi encerrado.");
         }
