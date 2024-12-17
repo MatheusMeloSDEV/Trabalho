@@ -14,7 +14,7 @@ namespace Trabalho
         public void frmModifica_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            if (frmLogin.instance.escuro)
+            if (FrmLogin.Instance.Escuro)
             {
                 //DarkMode();
             }

@@ -2,11 +2,11 @@
 
 namespace Trabalho
 {
-    public partial class frmModificaAdmin : Form
+    public partial class FrmModificaAdmin : Form
     {
         public Users user;
         public bool block = false;
-        public frmModificaAdmin()
+        public FrmModificaAdmin()
         {
             InitializeComponent();
         }

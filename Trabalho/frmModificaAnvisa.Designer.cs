@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmModificaAnvisa
+    partial class FrmModificaAnvisa
     {
         /// <summary>
         /// Required designer variable.

@@ -2,40 +2,58 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Trabalho
 {
     public partial class FrmMenu : Form
     {
-        private FrmMapa? _mapaForm;
-        private FrmAdmin? _adminForm;
-        private FrmDecex? _decexForm;
-        private FrmProcesso? _processoForm;
-        private FrmAnvisa? _anvisaForm;
+        private FrmMapa? _frmMapa;
+        private FrmAdmin? _frmAdmin;
+        private FrmDecex? _frmDecex;
+        private FrmProcesso? _frmProcesso;
+        private FrmAnvisa? _frmAnvisa;
 
         public FrmMenu()
         {
             InitializeComponent();
 
+            // Verifica permissão de administrador
             if (!FrmLogin.Instance.Logado.admin)
             {
                 MenuItemAdmin.Visible = false;
             }
 
+            // Timer para liberar a opção de sair após 3 segundos
             timerReleaseExit.Interval = 3000;
             timerReleaseExit.Tick += TimerReleaseExit_Tick;
             MenuItemExit.Enabled = false;
             timerReleaseExit.Start();
 
+            // Aplica modo escuro se definido no login
             if (FrmLogin.Instance.Escuro)
             {
-                ApplyDarkMode();
+                AplicarModoEscuro();
             }
         }
 
-        private async void LoadProcessData()
+        private void FrmMenu_Load(object sender, EventArgs e)
+        {
+            // Ajusta o ícone da aplicação
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+            // Carrega dados assim que a tela é aberta
+            _ = CarregarDadosProcessos();
+            TCabas.Visible = true;
+        }
+
+        /// <summary>
+        /// Carrega dados dos processos, cria/atualiza notificações e exibe na aba correspondente.
+        /// </summary>
+        private async Task CarregarDadosProcessos()
         {
             Cursor = Cursors.WaitCursor;
 
@@ -47,8 +65,9 @@ namespace Trabalho
                 var notificacaoRepo = new RepositorioNotificacao(database);
 
                 var processos = await processoCollection.Find(new BsonDocument()).ToListAsync();
-                Console.WriteLine($"Found {processos.Count} processes in the database.");
+                Console.WriteLine($"Foram encontrados {processos.Count} processos no banco de dados.");
 
+                // Cria ou obtém a TabPage "Data de Atracação"
                 var tabPage = TCabas.TabPages["DataDeAtracacao"] ??
                               new TabPage("Data de Atracação") { Name = "DataDeAtracacao" };
 
@@ -58,6 +77,7 @@ namespace Trabalho
                 }
                 tabPage.Controls.Clear();
 
+                // Cria um layout para exibir os dados
                 var tableLayout = new TableLayoutPanel
                 {
                     Dock = DockStyle.Fill,
@@ -65,6 +85,7 @@ namespace Trabalho
                     ColumnCount = 1
                 };
 
+                // Preenche a tabela com os dados dos processos
                 foreach (var processo in processos)
                 {
                     string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
@@ -72,21 +93,17 @@ namespace Trabalho
                     string dataAtracacao = processo.Contains("DataDeAtracacao") ? processo["DataDeAtracacao"].AsString : "N/A";
 
                     string diasRestantes = string.Empty;
-                    if (DateTime.TryParse(dataAtracacao, out DateTime dataAtracacaoDt))
+                    if (DateTime.TryParse(dataAtracacao, out DateTime atracacaoDate))
                     {
-                        int dias = (dataAtracacaoDt - DateTime.Today).Days;
+                        int dias = (atracacaoDate - DateTime.Today).Days;
                         diasRestantes = $"{dias} dia(s)";
 
+                        // Verifica se deve gerar notificação
                         string? mensagem = null;
-
                         if (dias == 5)
-                        {
                             mensagem = $"Processo {refUsa}: Redestinar container ao terminal";
-                        }
                         else if (dias == 15)
-                        {
                             mensagem = $"Processo {refUsa}: Dar entrada no Mapa/Anvisa";
-                        }
 
                         if (!string.IsNullOrEmpty(mensagem))
                         {
@@ -102,6 +119,7 @@ namespace Trabalho
                         }
                     }
 
+                    // Cria um label para exibir informações do processo
                     var label = new Label
                     {
                         AutoSize = true,
@@ -114,12 +132,15 @@ namespace Trabalho
                 }
 
                 tabPage.Controls.Add(tableLayout);
-                UpdateNotifications();
-                Console.WriteLine("Data loaded successfully.");
+
+                // Atualiza a lista de notificações no menu
+                AtualizarNotificacoes();
+
+                Console.WriteLine("Dados carregados com sucesso.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading process data: {ex.Message}");
+                Console.WriteLine($"Erro ao carregar processos: {ex.Message}");
             }
             finally
             {
@@ -127,22 +148,27 @@ namespace Trabalho
             }
         }
 
-        private void UpdateNotifications()
+        /// <summary>
+        /// Atualiza a exibição de notificações no menu e salva/atualiza notificações conforme necessário.
+        /// </summary>
+        private void AtualizarNotificacoes()
         {
             var client = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
             var database = client.GetDatabase("Trabalho");
             var notificacaoRepo = new RepositorioNotificacao(database);
 
-            var processos = database.GetCollection<BsonDocument>("PROCESSO").Find(new BsonDocument()).ToList();
+            var processoCollection = database.GetCollection<BsonDocument>("PROCESSO");
+            var processos = processoCollection.Find(new BsonDocument()).ToList();
 
+            // Gera ou atualiza notificações com base nos prazos
             foreach (var processo in processos)
             {
                 string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
                 string dataAtracacao = processo.Contains("DataDeAtracacao") ? processo["DataDeAtracacao"].AsString : "N/A";
 
-                if (DateTime.TryParse(dataAtracacao, out DateTime dataAtracacaoDt))
+                if (DateTime.TryParse(dataAtracacao, out DateTime atracacaoDate))
                 {
-                    int dias = (dataAtracacaoDt - DateTime.Today).Days;
+                    int dias = (atracacaoDate - DateTime.Today).Days;
                     string mensagem = dias switch
                     {
                         5 => $"Processo {refUsa}: Redestinar container ao terminal",
@@ -152,17 +178,20 @@ namespace Trabalho
 
                     if (!string.IsNullOrEmpty(mensagem))
                     {
-                        notificacaoRepo.SalvarNotificacao(new Notificacao
+                        // Salva notificação
+                        var notificacao = new Notificacao
                         {
                             RefUsa = refUsa,
                             Mensagem = mensagem,
                             DataCriacao = DateTime.Now,
                             Visualizado = false
-                        });
+                        };
+                        notificacaoRepo.SalvarNotificacao(notificacao);
                     }
                 }
             }
 
+            // Exibe notificações não visualizadas no menu
             var notificacoesNaoVisualizadas = notificacaoRepo.ObterNotificacoesNaoVisualizadas();
             MenuItemNotifications.DropDownItems.Clear();
 
@@ -174,18 +203,25 @@ namespace Trabalho
                     Tag = notificacao.RefUsa
                 };
 
+                // Ao clicar com o botão direito sobre a notificação, confirmar finalização
                 menuItem.MouseDown += (s, e) =>
                 {
                     if (e.Button == MouseButtons.Right)
                     {
-                        if (MessageBox.Show(
-                                $"Deseja finalizar a notificação {notificacao.RefUsa}?",
-                                "Confirmação",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question) == DialogResult.Yes)
+                        var confirmResult = MessageBox.Show(
+                            $"Deseja finalizar a notificação {notificacao.RefUsa}?",
+                            "Confirmação",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (confirmResult == DialogResult.Yes)
                         {
                             notificacaoRepo.MarcarComoVisualizado(notificacao.RefUsa);
                             MenuItemNotifications.DropDownItems.Remove(menuItem);
+                            MessageBox.Show("Notificação finalizada com sucesso.",
+                                            "Sucesso",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
                         }
                     }
                 };
@@ -193,7 +229,7 @@ namespace Trabalho
                 MenuItemNotifications.DropDownItems.Add(menuItem);
             }
 
-            if (!MenuItemNotifications.DropDownItems.Any())
+            if (!MenuItemNotifications.DropDownItems.OfType<ToolStripItem>().Any())
             {
                 MenuItemNotifications.DropDownItems.Add(new ToolStripMenuItem
                 {
@@ -203,13 +239,33 @@ namespace Trabalho
             }
         }
 
+        /// <summary>
+        /// Método de teste para salvar uma notificação.
+        /// </summary>
+        private void TestarSalvarNotificacao()
+        {
+            var client = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
+            var database = client.GetDatabase("Trabalho");
+            var notificacaoRepo = new RepositorioNotificacao(database);
+
+            var notificacao = new Notificacao
+            {
+                RefUsa = "TEST123",
+                Mensagem = "Testando notificação",
+                DataCriacao = DateTime.Now,
+                Visualizado = false
+            };
+
+            notificacaoRepo.SalvarNotificacao(notificacao);
+        }
+
         private void TimerReleaseExit_Tick(object? sender, EventArgs e)
         {
             timerReleaseExit.Stop();
             MenuItemExit.Enabled = true;
         }
 
-        private void ApplyDarkMode()
+        private void AplicarModoEscuro()
         {
             MSnotificacoes.BackColor = SystemColors.ControlDark;
         }
@@ -221,11 +277,25 @@ namespace Trabalho
             {
                 childForm.Close();
             }
-            LoadProcessData();
+            _ = CarregarDadosProcessos();
         }
 
-        private void OpenForm<T>(ref T? form) where T : Form, new()
+        private void MenuItemMaximize_Click(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void MenuItemExit_Click(object sender, EventArgs e)
+        {
+            // Fecha a janela atual e volta ao login
+            var frmLogin = new FrmLogin();
+            frmLogin.Show();
+            this.Close();
+        }
+
+        private void AbrirFormularioFilho<T>(ref T? form) where T : Form, new()
+        {
+            TCabas.Visible = false;
             if (form == null || form.IsDisposed)
             {
                 form = new T { MdiParent = this };
@@ -237,10 +307,15 @@ namespace Trabalho
             }
         }
 
-        private void MenuItemMap_Click(object sender, EventArgs e) => OpenForm(ref _mapaForm);
-        private void MenuItemAnvisa_Click(object sender, EventArgs e) => OpenForm(ref _anvisaForm);
-        private void MenuItemDecex_Click(object sender, EventArgs e) => OpenForm(ref _decexForm);
-        private void MenuItemProcess_Click(object sender, EventArgs e) => OpenForm(ref _processoForm);
-        private void MenuItemAdmin_Click(object sender, EventArgs e) => OpenForm(ref _adminForm);
+        private void MenuItemMap_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmMapa);
+        private void MenuItemAnvisa_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmAnvisa);
+        private void MenuItemDecex_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmDecex);
+        private void MenuItemProcess_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmProcesso);
+        private void MenuItemAdmin_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmAdmin);
+
+        private void buttonTestNotification_Click(object sender, EventArgs e)
+        {
+            TestarSalvarNotificacao();
+        }
     }
 }

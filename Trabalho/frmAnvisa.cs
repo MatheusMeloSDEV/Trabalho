@@ -1,15 +1,15 @@
-﻿using CLUSA;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using CLUSA;
 using static Trabalho.FrmProcesso;
 
 namespace Trabalho
 {
     public partial class FrmAnvisa : Form
     {
-        private RepositorioAnvisa _repositorio;
+        private readonly RepositorioAnvisa _repositorio;
 
         public FrmAnvisa()
         {
@@ -18,53 +18,84 @@ namespace Trabalho
             _repositorio = new RepositorioAnvisa();
         }
 
-        private void frmAnvisa_Load(object sender, EventArgs e)
+        private void FrmAnvisa_Load(object sender, EventArgs e)
         {
-            bsAnvisa.DataSource = _repositorio.FindAll();
+            // Primeiro configurar os DataPropertyNames das colunas
+            ConfigurarDataPropertyNames();
+
+            // Depois carregar a fonte de dados
+            BsAnvisa.DataSource = _repositorio.FindAll();
+
             ConfigurarInterface();
-            PopularToolStripComboBox();
-            ConfigurarAutoCompletarParaPesquisa();
+            PopularComboBoxPesquisa();
+            ConfigurarAutoCompletarPesquisa();
+        }
+
+        private void ConfigurarDataPropertyNames()
+        {
+            ColId.DataPropertyName = "Id";
+            ColRefUSA.DataPropertyName = "Ref_USA";
+            ColImportador.DataPropertyName = "Importador";
+            ColSR.DataPropertyName = "SR";
+            ColExportador.DataPropertyName = "Exportador";
+            ColNavio.DataPropertyName = "Navio";
+            ColTerminal.DataPropertyName = "Terminal";
+            ColProduto.DataPropertyName = "Produto";
+            ColOrigem.DataPropertyName = "Origem";
+            ColTEmbarque.DataPropertyName = "TEmbarque";
+            ColDataDeAtracacao.DataPropertyName = "DataDeAtracacao";
+            ColInspecao.DataPropertyName = "Inspecao";
+            ColDataEmbarque.DataPropertyName = "DataEmbarque";
+            ColNCM.DataPropertyName = "NCM"; // Caso seja adicionado posteriormente ao modelo
+            ColLI.DataPropertyName = "LI";
+            ColLPCO.DataPropertyName = "LPCO";
+            ColDataRegistroLPCO.DataPropertyName = "DataRegistroLPCO";
+            ColDataDeferimentoLPCO.DataPropertyName = "DataDeferimentoLPCO";
+            ColParametrizacaoLPCO.DataPropertyName = "ParametrizacaoLPCO";
+            ColAmostra.DataPropertyName = "Amostra";
+            ColPendencia.DataPropertyName = "Pendencia";
+            ColStatusDoProcesso.DataPropertyName = "StatusDoProcesso";
         }
 
         private void ConfigurarInterface()
         {
             if (FrmLogin.Instance.Escuro)
             {
-                toolStrip1.BackColor = SystemColors.ControlDark;
+                ToolStripMain.BackColor = SystemColors.ControlDark;
                 this.BackColor = SystemColors.ControlDark;
-                CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
-                txtPesquisar.BackColor = SystemColors.ControlDarkDark;
-                dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
-                dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
-                dataGridView1.BackgroundColor = SystemColors.ControlDark;
+                CmbPesquisa.BackColor = SystemColors.ControlDarkDark;
+                TxtPesquisa.BackColor = SystemColors.ControlDarkDark;
+                DgvAnvisa.DefaultCellStyle.BackColor = SystemColors.ControlDark;
+                DgvAnvisa.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
+                DgvAnvisa.BackgroundColor = SystemColors.ControlDark;
             }
         }
 
-        private void PopularToolStripComboBox()
+        private void PopularComboBoxPesquisa()
         {
             var camposIgnorados = new HashSet<string> { "Id", "TEmbarque" };
-            CmbPesquisar.Items.Clear();
+            CmbPesquisa.Items.Clear();
 
-            foreach (DataGridViewColumn coluna in dataGridView1.Columns)
+            foreach (DataGridViewColumn coluna in DgvAnvisa.Columns)
             {
                 if (!string.IsNullOrEmpty(coluna.DataPropertyName) && !camposIgnorados.Contains(coluna.DataPropertyName))
                 {
-                    CmbPesquisar.Items.Add(new DisplayItem(coluna.DataPropertyName, coluna.HeaderText));
+                    CmbPesquisa.Items.Add(new DisplayItem(coluna.DataPropertyName, coluna.HeaderText));
                 }
             }
 
-            if (CmbPesquisar.Items.Count > 0)
+            if (CmbPesquisa.Items.Count > 0)
             {
-                CmbPesquisar.SelectedIndex = 0;
+                CmbPesquisa.SelectedIndex = 0;
             }
         }
 
-        private void ConfigurarAutoCompletarParaPesquisa()
+        private void ConfigurarAutoCompletarPesquisa()
         {
-            if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
+            if (CmbPesquisa.SelectedItem is DisplayItem campoSelecionado)
             {
                 var valores = _repositorio.ObterValoresUnicos(campoSelecionado.DataPropertyName);
-                ConfigurarAutoCompletar(txtPesquisar, valores);
+                ConfigurarAutoCompletar(TxtPesquisa, valores);
             }
             else
             {
@@ -72,7 +103,7 @@ namespace Trabalho
             }
         }
 
-        private void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
+        private static void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
         {
             var autoCompleteCollection = new AutoCompleteStringCollection();
             autoCompleteCollection.AddRange(valores.ToArray());
@@ -82,12 +113,12 @@ namespace Trabalho
             textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             try
             {
-                bsAnvisa.DataSource = _repositorio.FindAll();
-                bsAnvisa.ResetBindings(false);
+                BsAnvisa.DataSource = _repositorio.FindAll();
+                BsAnvisa.ResetBindings(false);
             }
             catch (Exception ex)
             {
@@ -95,21 +126,21 @@ namespace Trabalho
             }
         }
 
-        private void btnReload_Click(object sender, EventArgs e)
+        private void BtnReload_Click(object sender, EventArgs e)
         {
-            bsAnvisa.DataSource = _repositorio.FindAll();
+            BsAnvisa.DataSource = _repositorio.FindAll();
         }
 
-        private void btnPesquisar_Click(object sender, EventArgs e)
+        private void BtnPesquisar_Click(object sender, EventArgs e)
         {
-            if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
+            if (CmbPesquisa.SelectedItem is DisplayItem campoSelecionado)
             {
                 var dataPropertyName = campoSelecionado.DataPropertyName;
-                var textoPesquisa = txtPesquisar.Text;
+                var textoPesquisa = TxtPesquisa.Text;
 
                 if (!string.IsNullOrEmpty(textoPesquisa))
                 {
-                    bsAnvisa.Filter = $"{dataPropertyName} LIKE '%{textoPesquisa}%'";
+                    BsAnvisa.Filter = $"{dataPropertyName} LIKE '%{textoPesquisa}%'";
                 }
                 else
                 {
@@ -122,15 +153,15 @@ namespace Trabalho
             }
         }
 
-        private async void BTNeditar_Click_1(object sender, EventArgs e)
+        private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (bsAnvisa.Current is not Anvisa anvisaAtual)
+            if (BsAnvisa.Current is not Anvisa anvisaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new frmModificaAnvisa { anvisa = anvisaAtual };
+            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
@@ -138,8 +169,8 @@ namespace Trabalho
                 try
                 {
                     await _repositorio.UpdateAsync(frm.anvisa);
-                    bsAnvisa.DataSource = await _repositorio.FindAllAsync();
-                    bsAnvisa.ResetBindings(false);
+                    BsAnvisa.DataSource = await _repositorio.FindAllAsync();
+                    BsAnvisa.ResetBindings(false);
                 }
                 catch (Exception ex)
                 {
@@ -148,23 +179,31 @@ namespace Trabalho
             }
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvAnvisa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var cell = DgvAnvisa.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 var valorCelula = cell.Value?.ToString();
-                var dataPropertyName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
+                var dataPropertyName = DgvAnvisa.Columns[e.ColumnIndex].DataPropertyName;
 
                 if (!string.IsNullOrEmpty(dataPropertyName))
                 {
-                    bsAnvisa.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
+                    if (valorCelula != null)
+                    {
+                        BsAnvisa.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Célula sem valor válido para pesquisa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
                     MessageBox.Show("DataPropertyName não definido para esta coluna.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+
         }
     }
 }

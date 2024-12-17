@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmModificaAdmin
+    partial class FrmModificaAdmin 
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModificaAdmin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmModificaAdmin));
             BsModificaAdmin = new BindingSource(components);
             btnEnviar = new Button();
             txtPassword = new TextBox();

@@ -2,10 +2,10 @@
 
 namespace Trabalho
 {
-    public partial class frmModificaAnvisa : Form
+    public partial class FrmModificaAnvisa : Form
     {
         public Anvisa anvisa;
-        public frmModificaAnvisa()
+        public FrmModificaAnvisa()
         {
             InitializeComponent();
         }

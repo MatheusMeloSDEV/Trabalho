@@ -11,7 +11,7 @@ namespace Trabalho
 {
     public partial class FrmMapa : Form
     {
-        private RepositorioMAPA _repositorio;
+        private readonly RepositorioMAPA _repositorio;
 
         public FrmMapa()
         {
@@ -29,7 +29,7 @@ namespace Trabalho
         }
         private void ConfigurarToolStripIcons()
         {
-            string GetIconPath(string iconName)
+            static string GetIconPath(string iconName)
             {
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons", iconName);
             }
@@ -92,7 +92,7 @@ namespace Trabalho
             }
         }
 
-        private void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
+        private static void ConfigurarAutoCompletar(ToolStripTextBox textBox, IEnumerable<string> valores)
         {
             var autoCompleteCollection = new AutoCompleteStringCollection();
             autoCompleteCollection.AddRange(valores.ToArray());
@@ -168,7 +168,7 @@ namespace Trabalho
             }
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {

@@ -45,7 +45,7 @@ namespace Trabalho
                 TabIndex = 1,
                 Text = "MSnotificacoes"
             };
-            MSnotificacoes.ItemClicked += MSnotificacoes_ItemClicked;
+            //MSnotificacoes.ItemClicked += MSnotificacoes_ItemClicked;
 
             // Notificações
             MenuItemNotifications = new ToolStripMenuItem
