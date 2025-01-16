@@ -4,12 +4,14 @@ namespace Trabalho
 {
     public partial class FrmAdmin : Form
     {
-        public RepositorioUsers repositorio;
+        public RepositorioUsers? repositorio;
         public string usuario;
+
         public FrmAdmin()
         {
             InitializeComponent();
             usuario = FrmLogin.Instance.Logado.Usuario;
+            // repositorio não precisa ser inicializado imediatamente
         }
 
         public void frmADMIN_Load(object sender, EventArgs e)
@@ -22,7 +24,7 @@ namespace Trabalho
         public async void btnAdcionar_Click(object sender, EventArgs e)
         {
             Users users = new Users();
-            frmModificaAdmin form = new frmModificaAdmin();
+            FrmModificaAdmin form = new FrmModificaAdmin();
             form.user = users;
             form.ShowDialog();
 
@@ -36,7 +38,13 @@ namespace Trabalho
 
         private async void btnExcluir_Click(object sender, EventArgs e)
         {
-            await repositorio.Delete(BSAdmin.Current as Users, usuario);
+            var currentUser = BSAdmin.Current as Users;
+            if (currentUser == null)
+            {
+                throw new InvalidOperationException("Não foi possível obter o usuário atual.");
+            }
+
+            await repositorio.Delete(currentUser, usuario);
             BSAdmin.Remove(BSAdmin.Current as Users);
             BSAdmin.ResetBindings(false);
             BSAdmin.DataSource = repositorio.FindAll();
@@ -44,8 +52,9 @@ namespace Trabalho
 
         private async void btnEditar_Click(object sender, EventArgs e)
         {
-            frmModificaAdmin frm = new frmModificaAdmin();
-            frm.user = BSAdmin.Current as Users;
+            FrmModificaAdmin frm = new FrmModificaAdmin();
+            var currentUser = BSAdmin.Current as Users;
+            frm.user = currentUser != null ? currentUser : throw new InvalidOperationException("Não foi possível obter o usuário atual.");
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
