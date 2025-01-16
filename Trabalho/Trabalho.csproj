@@ -12,6 +12,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Imagens\botao-adicionar.png" />
+    <None Remove="Imagens\botao-ativar-notificacoes.png" />
+    <None Remove="Imagens\botao-de-notificacoes.png" />
+    <None Remove="Imagens\botao-editar.png" />
+    <None Remove="Imagens\cancelar.png" />
+    <None Remove="Imagens\excluir.png" />
+    <None Remove="Imagens\exportar.png" />
+    <None Remove="Imagens\lupa-de-pesquisa.png" />
+    <None Remove="Imagens\recarregar.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="Office">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>6</VersionMinor>
@@ -46,6 +58,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Imagens\botao-ativar-notificacoes.png" />
+    <EmbeddedResource Include="Imagens\botao-de-notificacoes.png" />
+    <EmbeddedResource Include="Imagens\botao-editar.png" />
+    <EmbeddedResource Include="Imagens\cancelar.png" />
+    <EmbeddedResource Include="Imagens\excluir.png" />
+    <EmbeddedResource Include="Imagens\exportar.png" />
+    <EmbeddedResource Include="Imagens\lupa-de-pesquisa.png" />
+    <EmbeddedResource Include="Imagens\recarregar.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\..\..\..\Downloads\logo-removebg-preview (1).png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -77,6 +100,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Imagens\botao-adicionar.png" />
   </ItemGroup>
 
 </Project>

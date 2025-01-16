@@ -1,113 +1,205 @@
-﻿namespace Trabalho
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using System.Reflection;
+
+namespace Trabalho
 {
     partial class FrmMapa
     {
-        /// <summary>
-        /// Variável de designer necessária.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        // BindingSource
+        private BindingSource BSmapa;
+
+        // ToolStrip e itens
+        private ToolStrip toolStrip1;
+        private ToolStripButton BtnEditar;
+        private ToolStripButton BtnCancelar;
+        private ToolStripButton BtnPesquisar;
+        private ToolStripButton BtnReload;
+        private ToolStripTextBox TxtPesquisar;
+        private ToolStripComboBox CmbPesquisar;
+
+        // DataGridView
+        private DataGridView dataGridView1;
+
         /// <summary>
-        /// Limpar os recursos que estão sendo usados.
+        /// Liberar recursos usados.
         /// </summary>
-        /// <param name="disposing">true se recursos gerenciados devem ser descartados; caso contrário, false.</param>
+        /// <param name="disposing">true se gerenciado, senão false</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
+                BSmapa.Dispose();
             }
             base.Dispose(disposing);
         }
 
-
-        #region Código gerado pelo Windows Form Designer
-
         /// <summary>
-        /// Método necessário para suporte ao Designer - não modifique 
-        /// o conteúdo deste método com o editor de código.
+        /// Método gerado pelo designer para inicializar componentes.
         /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            BSmapa = new System.Windows.Forms.BindingSource(components);
-            toolStrip1 = new System.Windows.Forms.ToolStrip();
-            BtnEditar = new System.Windows.Forms.ToolStripButton();
-            BtnCancelar = new System.Windows.Forms.ToolStripButton();
-            TxtPesquisar = new System.Windows.Forms.ToolStripTextBox();
-            CmbPesquisar = new System.Windows.Forms.ToolStripComboBox();
-            BtnPesquisar = new System.Windows.Forms.ToolStripButton();
-            BtnReload = new System.Windows.Forms.ToolStripButton();
-            dataGridView1 = new System.Windows.Forms.DataGridView();
+            BSmapa = new BindingSource(components);
 
-            // 
-            // BSmapa
-            // 
-            // A propriedade DataSource será atribuída no FrmMapa_Load ou em outro local conforme necessário.
-            // Não há configurações adicionais necessárias aqui no designer.
+            #region ToolStrip Config
 
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            toolStrip1.BackColor = System.Drawing.Color.LightGray;
-            toolStrip1.AutoSize = false;
-            toolStrip1.Height = 40;
-
-            BtnEditar.Text = "Editar";
-            BtnCancelar.Text = "Cancelar";
-            TxtPesquisar.Size = new System.Drawing.Size(250, 25);
-            CmbPesquisar.Size = new System.Drawing.Size(175, 25);
-            BtnPesquisar.Text = "Pesquisar";
-            BtnReload.Text = "Recarregar";
-
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
+            toolStrip1 = new ToolStrip
             {
-                BtnEditar,
-                new System.Windows.Forms.ToolStripSeparator(),
-                BtnCancelar,
-                new System.Windows.Forms.ToolStripSeparator(),
-                TxtPesquisar,
-                CmbPesquisar,
-                BtnPesquisar,
-                BtnReload
-            });
+                GripStyle = ToolStripGripStyle.Hidden,
+                RenderMode = ToolStripRenderMode.Professional,
+                BackColor = Color.WhiteSmoke,
+                AutoSize = false,
+                Height = 40,
+                Padding = new Padding(5, 5, 5, 5)
+            };
 
-            toolStrip1.Location = new System.Drawing.Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Padding = new System.Windows.Forms.Padding(6, 0, 1, 0);
-            toolStrip1.Size = new System.Drawing.Size(800, 40);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStrip1";
+            // Definir uma fonte padrão
+            Font defaultFont = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top
-                                     | System.Windows.Forms.AnchorStyles.Bottom
-                                     | System.Windows.Forms.AnchorStyles.Left
-                                     | System.Windows.Forms.AnchorStyles.Right;
-            dataGridView1.Location = new System.Drawing.Point(12, 41);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new System.Drawing.Size(776, 397);
-            dataGridView1.TabIndex = 1;
-            // Caso existam colunas a serem configuradas, isso é feito no FrmMapa.cs ou diretamente no modo designer do Visual Studio
+            BtnEditar = new ToolStripButton
+            {
+                Text = "Editar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnEditar.Click += BtnEditar_Click;
 
-            // 
-            // FrmMapa
-            // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 450);
+            new ToolStripSeparator();
+
+            BtnCancelar = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Cancelar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnCancelar.Click += BtnCancelar_Click;
+
+            BtnReload = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Recarregar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnReload.Click += BtnReload_Click;
+
+            new ToolStripSeparator();
+
+            BtnPesquisar = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Pesquisar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnPesquisar.Click += BtnPesquisar_Click;
+
+            CmbPesquisar = new ToolStripComboBox
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Font = defaultFont,
+                Size = new Size(150, 25),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            CmbPesquisar.SelectedIndexChanged += CmbPesquisar_SelectedIndexChanged;
+
+            TxtPesquisar = new ToolStripTextBox
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Font = defaultFont,
+                Size = new Size(200, 25),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            // Agora adicione na ordem inversa desejada para itens à direita:
+            ToolStripSeparator ToolStripRight = new ToolStripSeparator
+            {
+                Alignment = ToolStripItemAlignment.Right,
+            };
+            ToolStripSeparator ToolStripRight1 = new ToolStripSeparator
+            {
+                Alignment = ToolStripItemAlignment.Right,
+            };
+
+            toolStrip1.Items.Add(BtnEditar);
+            toolStrip1.Items.Add(BtnCancelar);
+            toolStrip1.Items.Add(ToolStripRight1);
+            toolStrip1.Items.Add(BtnReload);
+            toolStrip1.Items.Add(ToolStripRight);
+            toolStrip1.Items.Add(BtnPesquisar);
+            toolStrip1.Items.Add(CmbPesquisar);
+            toolStrip1.Items.Add(TxtPesquisar);
+
+            #endregion
+
+            #region DataGridView Config
+
+            dataGridView1 = new DataGridView
+            {
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                AutoGenerateColumns = false,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                EnableHeadersVisualStyles = false,
+                Location = new Point(12, 50),
+                Name = "dataGridView1",
+                ReadOnly = true,
+                RowHeadersVisible = false,
+                RowTemplate = { Height = 25 },
+                Size = new Size(776, 388),
+                BorderStyle = BorderStyle.FixedSingle,
+                BackgroundColor = Color.White,
+            };
+
+            // Estilo do cabeçalho
+            dataGridView1.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(50, 50, 50),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                WrapMode = DataGridViewTriState.True
+            };
+
+            // Estilo das células
+            dataGridView1.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Font = new Font("Segoe UI", 10),
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                SelectionBackColor = Color.LightBlue,
+                SelectionForeColor = Color.Black,
+                Alignment = DataGridViewContentAlignment.MiddleLeft
+            };
+
+            // Ajuste automático das colunas
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Estilo alternado nas linhas
+            dataGridView1.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.WhiteSmoke
+            };
+
+            #endregion
+
+            #region Form Config
+
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
             ControlBox = false;
             Controls.Add(dataGridView1);
             Controls.Add(toolStrip1);
@@ -115,23 +207,13 @@
             MinimizeBox = false;
             Name = "FrmMapa";
             Text = "Planilha MAPA";
-            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
             Load += FrmMapa_Load;
+
+            #endregion
 
             ((System.ComponentModel.ISupportInitialize)BSmapa).EndInit();
             ResumeLayout(false);
         }
-
-        #endregion
-
-        private System.Windows.Forms.BindingSource BSmapa;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton BtnEditar;
-        private System.Windows.Forms.ToolStripButton BtnCancelar;
-        private System.Windows.Forms.ToolStripButton BtnPesquisar;
-        private System.Windows.Forms.ToolStripButton BtnReload;
-        private System.Windows.Forms.ToolStripTextBox TxtPesquisar;
-        private System.Windows.Forms.ToolStripComboBox CmbPesquisar;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
