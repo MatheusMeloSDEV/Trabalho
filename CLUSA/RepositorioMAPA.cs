@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CLUSA
 {
@@ -24,7 +25,7 @@ namespace CLUSA
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
         }
-
+        [DataMember]
         public List<MAPA> ListaMapa => _MAPA.Find(FilterDefinition<MAPA>.Empty).ToList();
 
         public List<string> ObterValoresUnicos(string campo)
@@ -53,14 +54,14 @@ namespace CLUSA
             );
         }
 
-        private async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
+        private static async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
         {
             var filtro = Builders<T>.Filter.Eq("_id", id);
             var updateDef = CriarAtualizacao(documento);
             await colecao.UpdateOneAsync(filtro, updateDef);
         }
 
-        private async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, MAPA mapa) where T : class, new()
+        private static async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, MAPA mapa) where T : class, new()
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
             var documentoAtual = await colecao.Find(filtro).FirstOrDefaultAsync();
@@ -73,7 +74,7 @@ namespace CLUSA
             }
         }
 
-        private UpdateDefinition<T> CriarAtualizacao<T>(T documento) where T : class
+        private static UpdateDefinition<T> CriarAtualizacao<T>(T documento) where T : class
         {
             var updates = typeof(T).GetProperties()
                 .Where(prop => prop.CanRead)
@@ -86,7 +87,7 @@ namespace CLUSA
             return Builders<T>.Update.Combine(updates);
         }
 
-        private TDestino MapearPropriedades<TDestino>(MAPA origem, TDestino destino) where TDestino : class, new()
+        private static TDestino MapearPropriedades<TDestino>(MAPA origem, TDestino destino) where TDestino : class, new()
         {
             foreach (var propDestino in typeof(TDestino).GetProperties().Where(p => p.CanWrite))
             {
@@ -104,10 +105,7 @@ namespace CLUSA
         {
             try
             {
-                var property = typeof(MAPA).GetProperty(campo);
-                if (property == null)
-                    throw new KeyNotFoundException($"O campo '{campo}' não existe no modelo MAPA.");
-
+                var property = typeof(MAPA).GetProperty(campo) ?? throw new KeyNotFoundException($"O campo '{campo}' não existe no modelo MAPA.");
                 var filter = Builders<MAPA>.Filter.Regex(campo, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
                 return _MAPA.Find(filter).ToList();
             }
@@ -120,7 +118,15 @@ namespace CLUSA
 
         public List<MAPA> FindAll()
         {
-            return _MAPA.Find(FilterDefinition<MAPA>.Empty).ToList();
+            try
+            {
+                return _MAPA.Find(FilterDefinition<MAPA>.Empty).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao buscar todos os documentos: {ex.Message}");
+                return new List<MAPA>(); // Retorna uma lista vazia em vez de null
+            }
         }
 
         public async Task<List<MAPA>> FindAllAsync()

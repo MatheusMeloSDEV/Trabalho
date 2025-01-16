@@ -25,30 +25,37 @@ namespace CLUSA
                 return;
             }
 
-            var filtro = Builders<Notificacao>.Filter.Eq(n => n.RefUsa, notificacao.RefUsa);
+            var filtro = Builders<Notificacao>.Filter.And(
+                Builders<Notificacao>.Filter.Eq(n => n.RefUsa, notificacao.RefUsa),
+                Builders<Notificacao>.Filter.Eq(n => n.Mensagem, notificacao.Mensagem)
+            );
 
             var atualizacao = Builders<Notificacao>.Update
-                .SetOnInsert(n => n.RefUsa, notificacao.RefUsa) // Apenas no Insert
+                .SetOnInsert(n => n.RefUsa, notificacao.RefUsa)
                 .Set(n => n.Mensagem, notificacao.Mensagem)
                 .Set(n => n.DataCriacao, notificacao.DataCriacao)
-                .Set(n => n.Visualizado, notificacao.Visualizado); // Define somente se especificado
+                .Set(n => n.Visualizado, notificacao.Visualizado);
 
-            // Aplicar o Update com Upsert (Atualizar ou Inserir)
             var resultado = _notificacaoCollection.UpdateOne(
                 filtro,
                 atualizacao,
                 new UpdateOptions { IsUpsert = true }
             );
 
-            if (resultado.MatchedCount == 0 && resultado.UpsertedId != null)
+            if (resultado.UpsertedId != null)
             {
                 Console.WriteLine($"Nova notificação adicionada com ID: {resultado.UpsertedId}");
             }
-            else
+            else if (resultado.ModifiedCount > 0)
             {
                 Console.WriteLine("Notificação existente atualizada.");
             }
+            else
+            {
+                Console.WriteLine("Nenhuma mudança realizada na notificação.");
+            }
         }
+
 
         public Notificacao ObterNotificacaoPorRefUsa(string refUsa)
         {

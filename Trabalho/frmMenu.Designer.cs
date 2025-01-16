@@ -1,5 +1,4 @@
-﻿using Google.Api;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -45,12 +44,10 @@ namespace Trabalho
                 TabIndex = 1,
                 Text = "MSnotificacoes"
             };
-            MSnotificacoes.ItemClicked += MSnotificacoes_ItemClicked;
 
             // Notificações
             MenuItemNotifications = new ToolStripMenuItem
             {
-                Image = (Image)resources.GetObject("notificationsIcon"),
                 Name = "MenuItemNotifications",
                 Size = new Size(101, 20),
                 Text = "Notificações",

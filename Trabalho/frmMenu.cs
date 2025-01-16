@@ -33,6 +33,28 @@ namespace Trabalho
             {
                 ApplyDarkMode();
             }
+            LoadProcessData();
+            ImagensBotoes();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style &= ~0x200000; // WS_MINIMIZEBOX: Remove o estilo que permite minimizar
+                return cp;
+            }
+        }
+
+        private void ImagensBotoes()
+        {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream("Trabalho.Imagens.icon_edit.png");
+            if (stream != null)
+            {
+                MenuItemNotifications.Image = Image.FromStream(stream);
+            }
         }
 
         private async void LoadProcessData()
@@ -67,7 +89,7 @@ namespace Trabalho
 
                 foreach (var processo in processos)
                 {
-                    string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
+                    string refUsa = processo.Contains("RefUsa") ? processo["RefUsa"].AsString : "N/A";
                     string sr = processo.Contains("SR") ? processo["SR"].AsString : "N/A";
                     string dataAtracacao = processo.Contains("DataDeAtracacao") ? processo["DataDeAtracacao"].AsString : "N/A";
 
@@ -79,11 +101,11 @@ namespace Trabalho
 
                         string? mensagem = null;
 
-                        if (dias == 5)
+                        if (dias >= 0 && dias <= 5)
                         {
                             mensagem = $"Processo {refUsa}: Redestinar container ao terminal";
                         }
-                        else if (dias == 15)
+                        else if (dias >= 0 && dias <= 15)
                         {
                             mensagem = $"Processo {refUsa}: Dar entrada no Mapa/Anvisa";
                         }
@@ -133,73 +155,63 @@ namespace Trabalho
             var database = client.GetDatabase("Trabalho");
             var notificacaoRepo = new RepositorioNotificacao(database);
 
-            var processos = database.GetCollection<BsonDocument>("PROCESSO").Find(new BsonDocument()).ToList();
-
-            foreach (var processo in processos)
-            {
-                string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
-                string dataAtracacao = processo.Contains("DataDeAtracacao") ? processo["DataDeAtracacao"].AsString : "N/A";
-
-                if (DateTime.TryParse(dataAtracacao, out DateTime dataAtracacaoDt))
-                {
-                    int dias = (dataAtracacaoDt - DateTime.Today).Days;
-                    string mensagem = dias switch
-                    {
-                        5 => $"Processo {refUsa}: Redestinar container ao terminal",
-                        15 => $"Processo {refUsa}: Dar entrada no Mapa/Anvisa",
-                        _ => string.Empty
-                    };
-
-                    if (!string.IsNullOrEmpty(mensagem))
-                    {
-                        notificacaoRepo.SalvarNotificacao(new Notificacao
-                        {
-                            RefUsa = refUsa,
-                            Mensagem = mensagem,
-                            DataCriacao = DateTime.Now,
-                            Visualizado = false
-                        });
-                    }
-                }
-            }
-
             var notificacoesNaoVisualizadas = notificacaoRepo.ObterNotificacoesNaoVisualizadas();
             MenuItemNotifications.DropDownItems.Clear();
 
-            foreach (var notificacao in notificacoesNaoVisualizadas)
+            Console.WriteLine($"Notificações não visualizadas: {notificacoesNaoVisualizadas.Count}");
+
+            if (notificacoesNaoVisualizadas.Any())
             {
-                var menuItem = new ToolStripMenuItem
+                foreach (var notificacao in notificacoesNaoVisualizadas)
                 {
-                    Text = notificacao.Mensagem,
-                    Tag = notificacao.RefUsa
-                };
-
-                menuItem.MouseDown += (s, e) =>
-                {
-                    if (e.Button == MouseButtons.Right)
+                    var menuItem = new ToolStripMenuItem
                     {
-                        if (MessageBox.Show(
-                                $"Deseja finalizar a notificação {notificacao.RefUsa}?",
-                                "Confirmação",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question) == DialogResult.Yes)
+                        Text = notificacao.Mensagem,
+                        Tag = notificacao.RefUsa
+                    };
+
+                    menuItem.MouseDown += (s, e) =>
+                    {
+                        if (e.Button == MouseButtons.Right)
                         {
-                            notificacaoRepo.MarcarComoVisualizado(notificacao.RefUsa);
-                            MenuItemNotifications.DropDownItems.Remove(menuItem);
+                            if (MessageBox.Show(
+                                    $"Deseja finalizar a notificação {notificacao.RefUsa}?",
+                                    "Confirmação",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                notificacaoRepo.MarcarComoVisualizado(notificacao.RefUsa);
+                                MenuItemNotifications.DropDownItems.Remove(menuItem);
+                                LoadProcessData();
+                                Console.WriteLine($"Notificação {notificacao.RefUsa} removida.");
+                            }
                         }
-                    }
-                };
+                    };
 
-                MenuItemNotifications.DropDownItems.Add(menuItem);
+                    MenuItemNotifications.DropDownItems.Add(menuItem);
+                }
+
+                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                using var stream = assembly.GetManifestResourceStream("Trabalho.Imagens.botao-ativar-notificacoes.png");
+                if (stream != null)
+                {
+                    MenuItemNotifications.Image = Image.FromStream(stream);
+                }
             }
-
-            if (!MenuItemNotifications.DropDownItems.Any())
+            else
             {
                 MenuItemNotifications.DropDownItems.Add(new ToolStripMenuItem
                 {
                     Text = "Sem notificações",
                     Enabled = false
                 });
+
+                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                using var stream = assembly.GetManifestResourceStream("Trabalho.Imagens.botao-de-notificacoes.png");
+                if (stream != null)
+                {
+                    MenuItemNotifications.Image = Image.FromStream(stream);
+                }
             }
         }
 
@@ -226,21 +238,61 @@ namespace Trabalho
 
         private void OpenForm<T>(ref T? form) where T : Form, new()
         {
+            foreach (var childForm in MdiChildren)
+            {
+                childForm.Close();
+            }
+
+            SuspendLayout();
+
             if (form == null || form.IsDisposed)
             {
-                form = new T { MdiParent = this };
+                form = new T
+                {
+                    MdiParent = this,
+                    WindowState = FormWindowState.Maximized
+                };
                 form.Show();
+                form.Refresh();
             }
             else
             {
-                form.Activate();
+                if (form.MdiParent != this)
+                {
+                    form.MdiParent = this;
+                }
+
+                form.WindowState = FormWindowState.Normal;
+                form.WindowState = FormWindowState.Maximized;
+                form.BringToFront();
+                form.Show();
+                form.Refresh();
             }
+
+            ResumeLayout();
         }
 
-        private void MenuItemMap_Click(object sender, EventArgs e) => OpenForm(ref _mapaForm);
-        private void MenuItemAnvisa_Click(object sender, EventArgs e) => OpenForm(ref _anvisaForm);
-        private void MenuItemDecex_Click(object sender, EventArgs e) => OpenForm(ref _decexForm);
-        private void MenuItemProcess_Click(object sender, EventArgs e) => OpenForm(ref _processoForm);
-        private void MenuItemAdmin_Click(object sender, EventArgs e) => OpenForm(ref _adminForm);
+        private void MenuItemMaximize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void MenuItemExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            FrmLogin frmLogin = new();
+            frmLogin.Show();
+        }
+
+        private void FrmMenu_Activated(object sender, EventArgs e)
+        {
+            TCabas.Visible = true;
+        }
+
+        private void MenuItemMap_Click(object sender, EventArgs e) { TCabas.Visible = false; OpenForm(ref _mapaForm); }
+        private void MenuItemAnvisa_Click(object sender, EventArgs e) { TCabas.Visible = false; OpenForm(ref _anvisaForm); }
+        private void MenuItemDecex_Click(object sender, EventArgs e) { TCabas.Visible = false; OpenForm(ref _decexForm); }
+        private void MenuItemProcess_Click(object sender, EventArgs e) { TCabas.Visible = false; OpenForm(ref _processoForm); }
+        private void MenuItemAdmin_Click(object sender, EventArgs e) { TCabas.Visible = false; OpenForm(ref _adminForm); }
     }
 }

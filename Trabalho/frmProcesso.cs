@@ -3,6 +3,7 @@ using iText.Commons.Datastructures;
 using MongoDB.Driver;
 using System;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Trabalho
 {
@@ -14,26 +15,344 @@ namespace Trabalho
         {
             InitializeComponent();
             _repositorio = new RepositorioProcesso(); // Inicialização direta
+            try
+            {
+                try
+                {
+                    ConectarProcesso();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao carregar o formulário: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                ConfigurarInterface();
+                PopularToolStripComboBox();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar os dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ConectarProcesso()
+        {
+            try
+            {
+                ConfigurarColunasDataGridViewProcesso();
+
+                // Recupera os registros do repositório
+                var registros = _repositorio.FindAll();
+
+                if (registros.Count > 0)
+                {
+                    // Configura o BindingSource e o DataGridView
+                    BsProcesso = new BindingSource
+                    {
+                        DataSource = registros
+                    };
+
+                    DataGridView1.DataSource = BsProcesso;
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum registro foi encontrado para carregar no DataGridView.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Captura e exibe erros
+                MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ConfigurarColunasDataGridViewProcesso()
+        {
+            DataGridView1.Columns.Clear(); // Limpa colunas anteriores
+
+            // Configuração básica
+            DataGridView1.AutoGenerateColumns = false;
+            DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            DataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridView1.RowHeadersVisible = false;
+
+            // Colunas configuradas para todas as propriedades do objeto Processo
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Id",
+                HeaderText = "ID",
+                Name = "ColunaId",
+                ReadOnly = true,
+                Visible = false
+            });
+
+            // Campos Booleanos
+            DataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "TDecex",
+                HeaderText = "TDecex",
+                Name = "ColunaTDecex",
+                Visible = false
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "TAnvisa",
+                HeaderText = "TAnvisa",
+                Name = "ColunaTAnvisa",
+                Visible = false
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "TMapa",
+                HeaderText = "TMapa",
+                Name = "ColunaTMapa",
+                Visible = false
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "TImetro",
+                HeaderText = "TImetro",
+                Name = "ColunaTImetro",
+                Visible = false
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "TIbama",
+                HeaderText = "TIbama",
+                Name = "ColunaTIbama",
+                Visible = false
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "PossuiEmbarque",
+                HeaderText = "Possui Embarque",
+                Name = "ColunaPossuiEmbarque",
+                Visible = false
+            });
+
+            // Campos de Texto
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Ref_USA",
+                HeaderText = "Ref. USA",
+                Name = "ColunaRefUSA"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SR",
+                HeaderText = "SR",
+                Name = "ColunaSR"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Importador",
+                HeaderText = "Importador",
+                Name = "ColunaImportador"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Exportador",
+                HeaderText = "Exportador",
+                Name = "ColunaExportador"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Produto",
+                HeaderText = "Produto",
+                Name = "ColunaProduto"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Navio",
+                HeaderText = "Navio",
+                Name = "ColunaNavio"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PortoDestino",
+                HeaderText = "Porto Destino",
+                Name = "ColunaPortoDestino"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Ordem",
+                HeaderText = "Ordem",
+                Name = "ColunaOrdem"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FLO",
+                HeaderText = "FLO",
+                Name = "ColunaFLO"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FreeTime",
+                HeaderText = "Free Time",
+                Name = "ColunaFreeTime"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "VencimentoFreeTime",
+                HeaderText = "Vencimento Free Time",
+                Name = "ColunaVencimentoFreeTime"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "BL",
+                HeaderText = "BL",
+                Name = "ColunaBL"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AgenteDeCarga",
+                HeaderText = "Agente de Carga",
+                Name = "ColunaAgenteDeCarga"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LI",
+                HeaderText = "LI",
+                Name = "ColunaLI"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LPCO",
+                HeaderText = "LPCO",
+                Name = "ColunaLPCO"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataRegistroLPCO",
+                HeaderText = "Data Registro LPCO",
+                Name = "ColunaDataRegistroLPCO"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataDeferimentoLPCO",
+                HeaderText = "Data Deferimento LPCO",
+                Name = "ColunaDataDeferimentoLPCO"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ParametrizacaoLPCO",
+                HeaderText = "Parametrização LPCO",
+                Name = "ColunaParametrizacaoLPCO"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DI",
+                HeaderText = "DI",
+                Name = "ColunaDI"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataRegistroDI",
+                HeaderText = "Data Registro DI",
+                Name = "ColunaDataRegistroDI"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataDesembaracoDI",
+                HeaderText = "Data Desembaraço DI",
+                Name = "ColunaDataDesembaracoDI"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataCarregamentoDI",
+                HeaderText = "Data Carregamento DI",
+                Name = "ColunaDataCarregamentoDI"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataDeAtracacao",
+                HeaderText = "Data de Atracação",
+                Name = "ColunaDataDeAtracacao"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "VencimentoFMA",
+                HeaderText = "Vencimento FMA",
+                Name = "ColunaVencimentoFMA"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataEmbarque",
+                HeaderText = "Data de Embarque",
+                Name = "ColunaDataEmbarque"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Pendencia",
+                HeaderText = "Pendência",
+                Name = "ColunaPendencia"
+            });
+
+            DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StatusDoProcesso",
+                HeaderText = "Status do Processo",
+                Name = "ColunaStatusDoProcesso"
+            });
+
+            // Configuração de estilo
+            foreach (DataGridViewColumn coluna in DataGridView1.Columns)
+            {
+                coluna.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                coluna.DefaultCellStyle.ForeColor = Color.Black;
+                coluna.DefaultCellStyle.BackColor = Color.White;
+                coluna.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+                coluna.DefaultCellStyle.SelectionForeColor = Color.Black;
+                coluna.MinimumWidth = 100;
+            }
         }
 
-        private void frmProcesso_Load(object sender, EventArgs e)
+        private void FrmProcesso_Load(object sender, EventArgs e)
         {
-            bsProcesso.DataSource = _repositorio.FindAll();
-            dataGridView1.DataSource = bsProcesso;
+            BsProcesso.DataSource = _repositorio.FindAll();
+            DataGridView1.DataSource = BsProcesso;
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             if (FrmLogin.Instance.Escuro)
                 AplicarModoEscuro();
 
             PopularToolStripComboBox();
-            ConfigurarAutoCompletarParaPesquisa();
         }
 
         private void AplicarModoEscuro()
         {
             BackColor = SystemColors.ControlDark;
-            toolStrip1.BackColor = SystemColors.ControlDark;
-            dataGridView1.BackgroundColor = SystemColors.ControlDarkDark;
+            ToolStrip1.BackColor = SystemColors.ControlDark;
+            DataGridView1.BackgroundColor = SystemColors.ControlDarkDark;
         }
 
         private void PopularToolStripComboBox()
@@ -46,7 +365,7 @@ namespace Trabalho
 
             CmbPesquisar.Items.Clear();
 
-            foreach (DataGridViewColumn coluna in dataGridView1.Columns)
+            foreach (DataGridViewColumn coluna in DataGridView1.Columns)
             {
                 if (!string.IsNullOrEmpty(coluna.DataPropertyName) &&
                     !camposIgnorados.Contains(coluna.DataPropertyName))
@@ -59,12 +378,26 @@ namespace Trabalho
                 CmbPesquisar.SelectedIndex = 0;
         }
 
+        private void ConfigurarInterface()
+        {
+            if (FrmLogin.Instance.Escuro)
+            {
+                ToolStrip1.BackColor = SystemColors.ControlDark;
+                this.BackColor = SystemColors.ControlDark;
+                CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
+                TxtPesquisar.BackColor = SystemColors.ControlDarkDark;
+                DataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
+                DataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
+                DataGridView1.BackgroundColor = SystemColors.ControlDark;
+            }
+        }
+
         private void ConfigurarAutoCompletarParaPesquisa()
         {
             if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
             {
                 var valores = _repositorio.ObterValoresUnicos(campoSelecionado.DataPropertyName);
-                ConfigurarAutoCompletar(txtPesquisar, valores);
+                ConfigurarAutoCompletar(TxtPesquisar, valores);
             }
             else
             {
@@ -82,7 +415,7 @@ namespace Trabalho
             textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
-        private async void btnAdicionar_Click(object sender, EventArgs e)
+        private async void BtnAdicionar_Click(object sender, EventArgs e)
         {
             var processo = new Processo();
             using var frm = new frmModificaProcesso { processo = processo };
@@ -92,8 +425,8 @@ namespace Trabalho
             {
                 // Adiciona o processo principal
                 await _repositorio.Create(processo, "PROCESSO");
-                bsProcesso.Add(processo);
-                bsProcesso.ResetBindings(false);
+                BsProcesso.Add(processo);
+                BsProcesso.ResetBindings(false);
 
                 // Verifica e adiciona nas coleções específicas se necessário
                 if (!_repositorio.VerificarExistencia(processo))
@@ -113,9 +446,9 @@ namespace Trabalho
                 }
             }
         }
-        private async void btnExcluir_Click(object sender, EventArgs e)
+        private async void BtnExcluir_Click(object sender, EventArgs e)
         {
-            if (bsProcesso.Current is not Processo processoSelecionado)
+            if (BsProcesso.Current is not Processo processoSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para exclusão.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -129,13 +462,13 @@ namespace Trabalho
             if (confirmResult == DialogResult.Yes)
             {
                 await _repositorio.Delete(processoSelecionado);
-                bsProcesso.Remove(processoSelecionado);
-                bsProcesso.ResetBindings(false);
+                BsProcesso.Remove(processoSelecionado);
+                BsProcesso.ResetBindings(false);
             }
         }
-        private async void btnEditar_Click(object sender, EventArgs e)
+        private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (bsProcesso.Current is not Processo processoSelecionado)
+            if (BsProcesso.Current is not Processo processoSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -149,12 +482,12 @@ namespace Trabalho
                 // Atualiza o processo principal
                 await _repositorio.Update(processoSelecionado);
 
-                bsProcesso.ResetBindings(false);
+                BsProcesso.ResetBindings(false);
             }
         }
 
 
-        private void btnPesquisar_Click(object sender, EventArgs e)
+        private void BtnPesquisar_Click(object sender, EventArgs e)
         {
             if (CmbPesquisar.SelectedItem is not DisplayItem campoSelecionado)
             {
@@ -164,7 +497,7 @@ namespace Trabalho
             }
 
             var filtro = campoSelecionado.DataPropertyName;
-            var pesquisa = txtPesquisar.Text;
+            var pesquisa = TxtPesquisar.Text;
 
             if (string.IsNullOrEmpty(pesquisa))
             {
@@ -177,8 +510,8 @@ namespace Trabalho
 
             if (resultados.Any())
             {
-                bsProcesso.DataSource = resultados;
-                bsProcesso.ResetBindings(false);
+                BsProcesso.DataSource = resultados;
+                BsProcesso.ResetBindings(false);
             }
             else
             {
@@ -187,18 +520,18 @@ namespace Trabalho
             }
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var cell = DataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 var valorCelula = cell.Value?.ToString();
-                var dataPropertyName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
+                var dataPropertyName = DataGridView1.Columns[e.ColumnIndex].DataPropertyName;
 
                 if (!string.IsNullOrEmpty(dataPropertyName) && !string.IsNullOrEmpty(valorCelula))
                 {
-                    bsProcesso.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
-                    bsProcesso.ResetBindings(false);
+                    BsProcesso.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
+                    BsProcesso.ResetBindings(false);
                 }
                 else
                 {
@@ -242,7 +575,7 @@ namespace Trabalho
             }
         }
 
-        private void BTNexportar_Click(object sender, EventArgs e)
+        private void BtnExportar_Click(object sender, EventArgs e)
         {
             var importadores = _repositorio.ObterImportadoresUnicos();
 
@@ -273,17 +606,17 @@ namespace Trabalho
             ConfigurarAutoCompletarParaPesquisa();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
-            bsProcesso.DataSource = _repositorio.FindAll();
-            bsProcesso.ResetBindings(false);
+            BsProcesso.DataSource = _repositorio.FindAll();
+            BsProcesso.ResetBindings(false);
         }
 
-        private void frmProcesso_KeyDown(object sender, KeyEventArgs e)
+        private void FrmProcesso_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                btnPesquisar.PerformClick();
+                BtnPesquisar.PerformClick();
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
