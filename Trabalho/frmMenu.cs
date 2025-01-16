@@ -13,6 +13,8 @@ namespace Trabalho
     {
         private FrmMapa? _frmMapa;
         private FrmAdmin? _frmAdmin;
+        private FrmAdmin? _frmImetro;
+        private FrmAdmin? _frmIbama;
         private FrmDecex? _frmDecex;
         private FrmProcesso? _frmProcesso;
         private FrmAnvisa? _frmAnvisa;
@@ -310,6 +312,8 @@ namespace Trabalho
         private void MenuItemMap_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmMapa);
         private void MenuItemAnvisa_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmAnvisa);
         private void MenuItemDecex_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmDecex);
+        private void MenuItemIbama_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmIbama);
+        private void MenuItemImetro_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmImetro);
         private void MenuItemProcess_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmProcesso);
         private void MenuItemAdmin_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmAdmin);
 
