@@ -217,7 +217,7 @@
             cbEmbarque.Size = new Size(15, 14);
             cbEmbarque.TabIndex = 264;
             cbEmbarque.UseVisualStyleBackColor = true;
-            cbEmbarque.Click += cbEmbarque_CheckedChanged;
+            cbEmbarque.Click += CbEmbarque_CheckedChanged;
             // 
             // label17
             // 
@@ -273,7 +273,7 @@
             button1.TabIndex = 258;
             button1.Text = "Cancelar";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += btnCancel_Click;
+            button1.Click += BtnCancel_Click;
             // 
             // label14
             // 
@@ -304,7 +304,7 @@
             btnAdiciona.TabIndex = 254;
             btnAdiciona.Text = "Ok";
             btnAdiciona.UseVisualStyleBackColor = true;
-            btnAdiciona.Click += btnEditar_Click;
+            btnAdiciona.Click += BtnEditar_Click;
             // 
             // DTPdatadeatracacao
             // 
@@ -577,7 +577,7 @@
             Controls.Add(lblPEmbarque);
             Name = "frmModificaIbama";
             StartPosition = FormStartPosition.CenterScreen;
-            Load += frmModificaIbama_Load;
+            Load += FrmModificaIbama_Load;
             ((System.ComponentModel.ISupportInitialize)bsModificaIbama).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();

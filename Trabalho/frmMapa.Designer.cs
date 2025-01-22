@@ -203,11 +203,9 @@ namespace Trabalho
             ControlBox = false;
             Controls.Add(dataGridView1);
             Controls.Add(toolStrip1);
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "FrmMapa";
-            Text = "Planilha MAPA";
+            Text = "Gerenciamento de Mapa";
             WindowState = FormWindowState.Maximized;
+
             Load += FrmMapa_Load;
 
             #endregion

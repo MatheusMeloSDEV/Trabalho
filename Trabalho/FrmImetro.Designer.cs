@@ -1,308 +1,212 @@
-﻿namespace Trabalho
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using System.Reflection;
+
+namespace Trabalho
 {
     partial class FrmImetro
     {
-        /// <summary>
-        /// Variável de designer necessária.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        // BindingSource
+        private BindingSource BsImetro;
+
+        // ToolStrip e itens
+        private ToolStrip toolStrip1;
+        private ToolStripButton BtnEditar;
+        private ToolStripButton BtnCancelar;
+        private ToolStripButton BtnPesquisar;
+        private ToolStripButton BtnReload;
+        private ToolStripTextBox TxtPesquisar;
+        private ToolStripComboBox CmbPesquisar;
+
+        // DataGridView
+        private DataGridView dataGridView1;
+
         /// <summary>
-        /// Limpar os recursos que estão sendo usados.
+        /// Liberar recursos usados.
         /// </summary>
-        /// <param name="disposing">true se recursos gerenciados devem ser descartados; caso contrário, false.</param>
+        /// <param name="disposing">true se gerenciado, senão false</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
+                BsImetro.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        #region Código gerado pelo Windows Form Designer
-
         /// <summary>
-        /// Método necessário para suporte ao Designer - não modifique 
-        /// o conteúdo deste método com o editor de código.
+        /// Método gerado pelo designer para inicializar componentes.
         /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmImetro));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+
+            // Inicializa o BindingSource
             BsImetro = new BindingSource(components);
-            ToolStripMain = new ToolStrip();
-            BtnEditar = new ToolStripButton();
-            BtnCancelar = new ToolStripButton();
-            BtnPesquisar = new ToolStripButton();
-            TxtPesquisa = new ToolStripTextBox();
-            CmbPesquisa = new ToolStripComboBox();
-            DgvImetro = new DataGridView();
-            ColId = new DataGridViewTextBoxColumn();
-            ColRefUSA = new DataGridViewTextBoxColumn();
-            ColImportador = new DataGridViewTextBoxColumn();
-            ColSR = new DataGridViewTextBoxColumn();
-            ColExportador = new DataGridViewTextBoxColumn();
-            ColNavio = new DataGridViewTextBoxColumn();
-            ColTerminal = new DataGridViewTextBoxColumn();
-            ColProduto = new DataGridViewTextBoxColumn();
-            ColOrigem = new DataGridViewTextBoxColumn();
-            ColTEmbarque = new DataGridViewCheckBoxColumn();
-            ColDataDeAtracacao = new DataGridViewTextBoxColumn();
-            ColInspecao = new DataGridViewTextBoxColumn();
-            ColDataEmbarque = new DataGridViewTextBoxColumn();
-            ColNCM = new DataGridViewTextBoxColumn();
-            ColLI = new DataGridViewTextBoxColumn();
-            ColLPCO = new DataGridViewTextBoxColumn();
-            ColDataRegistroLPCO = new DataGridViewTextBoxColumn();
-            ColDataDeferimentoLPCO = new DataGridViewTextBoxColumn();
-            ColParametrizacaoLPCO = new DataGridViewTextBoxColumn();
-            ColAmostra = new DataGridViewCheckBoxColumn();
-            ColPendencia = new DataGridViewTextBoxColumn();
-            ColStatusDoProcesso = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)BsImetro).BeginInit();
-            ToolStripMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DgvImetro).BeginInit();
-            SuspendLayout();
-            // 
-            // BsImetro
-            // 
-            BsImetro.DataMember = "ListaImetro";
-            BsImetro.DataSource = typeof(CLUSA.RepositorioImetro);
-            // 
-            // ToolStripMain
-            // 
-            ToolStripMain.AutoSize = false;
-            ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.ImageScalingSize = new Size(20, 20);
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { BtnEditar, BtnCancelar, BtnPesquisar, TxtPesquisa, CmbPesquisa });
-            ToolStripMain.Location = new Point(0, 0);
-            ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Padding = new Padding(6, 0, 1, 0);
-            ToolStripMain.RenderMode = ToolStripRenderMode.System;
-            ToolStripMain.Size = new Size(800, 38);
-            ToolStripMain.TabIndex = 10;
-            // 
-            // BtnEditar
-            // 
-            BtnEditar.AutoSize = false;
-            BtnEditar.BackColor = Color.MediumTurquoise;
-            BtnEditar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            BtnEditar.Name = "BtnEditar";
-            BtnEditar.Size = new Size(62, 32);
-            BtnEditar.Text = "Editar";
-            // 
-            // BtnCancelar
-            // 
-            BtnCancelar.Alignment = ToolStripItemAlignment.Right;
-            BtnCancelar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            BtnCancelar.Name = "BtnCancelar";
-            BtnCancelar.Size = new Size(62, 32);
-            BtnCancelar.Text = "Cancelar";
-            // 
-            // BtnPesquisar
-            // 
-            BtnPesquisar.Alignment = ToolStripItemAlignment.Right;
-            BtnPesquisar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            BtnPesquisar.Name = "BtnPesquisar";
-            BtnPesquisar.Size = new Size(62, 32);
-            BtnPesquisar.Text = "Pesquisar";
-            // 
-            // TxtPesquisa
-            // 
-            TxtPesquisa.Alignment = ToolStripItemAlignment.Right;
-            TxtPesquisa.Name = "TxtPesquisa";
-            TxtPesquisa.Size = new Size(250, 34);
-            // 
-            // CmbPesquisa
-            // 
-            CmbPesquisa.Alignment = ToolStripItemAlignment.Right;
-            CmbPesquisa.AutoSize = false;
-            CmbPesquisa.Items.AddRange(new object[] { "Ref USA", "Importador", "Terminal", "Pendencias", "LI", "LPCO" });
-            CmbPesquisa.Name = "CmbCriterioPesquisa";
-            CmbPesquisa.Size = new Size(121, 23);
-            // 
-            // DgvImetro
-            // 
-            DgvImetro.AllowUserToAddRows = false;
-            DgvImetro.AllowUserToDeleteRows = false;
-            DgvImetro.AutoGenerateColumns = false;
-            DgvImetro.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvImetro.Columns.AddRange(new DataGridViewColumn[]
+
+            #region ToolStrip Config
+
+            toolStrip1 = new ToolStrip
             {
-                ColId, ColRefUSA, ColImportador, ColSR, ColExportador, ColNavio, ColTerminal, ColProduto,
-                ColOrigem, ColTEmbarque, ColDataDeAtracacao, ColInspecao, ColDataEmbarque, ColNCM,
-                ColLI, ColLPCO, ColDataRegistroLPCO, ColDataDeferimentoLPCO, ColParametrizacaoLPCO,
-                ColAmostra, ColPendencia, ColStatusDoProcesso
-            });
-            DgvImetro.DataSource = BsImetro;
-            DgvImetro.Location = new Point(12, 41);
-            DgvImetro.Name = "DgvImetro";
-            DgvImetro.RowHeadersVisible = false;
-            DgvImetro.Size = new Size(776, 397);
-            DgvImetro.TabIndex = 11;
-            // 
-            // ColId
-            // 
-            ColId.HeaderText = "Id";
-            ColId.Name = "ColId";
-            // 
-            // ColRefUSA
-            // 
-            ColRefUSA.HeaderText = "Ref USA";
-            ColRefUSA.Name = "ColRefUSA";
-            // 
-            // ColImportador
-            // 
-            ColImportador.HeaderText = "Importador";
-            ColImportador.Name = "ColImportador";
-            // 
-            // ColSR
-            // 
-            ColSR.HeaderText = "SR";
-            ColSR.Name = "ColSR";
-            // 
-            // ColExportador
-            // 
-            ColExportador.HeaderText = "Exportador";
-            ColExportador.Name = "ColExportador";
-            // 
-            // ColNavio
-            // 
-            ColNavio.HeaderText = "Navio";
-            ColNavio.Name = "ColNavio";
-            // 
-            // ColTerminal
-            // 
-            ColTerminal.HeaderText = "Terminal";
-            ColTerminal.Name = "ColTerminal";
-            // 
-            // ColProduto
-            // 
-            ColProduto.HeaderText = "Produto";
-            ColProduto.Name = "ColProduto";
-            // 
-            // ColOrigem
-            // 
-            ColOrigem.HeaderText = "Origem";
-            ColOrigem.Name = "ColOrigem";
-            // 
-            // ColTEmbarque
-            // 
-            ColTEmbarque.HeaderText = "Embarque (T)";
-            ColTEmbarque.Name = "ColTEmbarque";
-            // 
-            // ColDataDeAtracacao
-            // 
-            ColDataDeAtracacao.HeaderText = "Data de Atracação";
-            ColDataDeAtracacao.Name = "ColDataDeAtracacao";
-            // 
-            // ColInspecao
-            // 
-            ColInspecao.HeaderText = "Inspeção";
-            ColInspecao.Name = "ColInspecao";
-            // 
-            // ColDataEmbarque
-            // 
-            ColDataEmbarque.HeaderText = "Data de Embarque";
-            ColDataEmbarque.Name = "ColDataEmbarque";
-            // 
-            // ColNCM
-            // 
-            ColNCM.HeaderText = "NCM";
-            ColNCM.Name = "ColNCM";
-            // 
-            // ColLI
-            // 
-            ColLI.HeaderText = "LI";
-            ColLI.Name = "ColLI";
-            // 
-            // ColLPCO
-            // 
-            ColLPCO.HeaderText = "LPCO";
-            ColLPCO.Name = "ColLPCO";
-            // 
-            // ColDataRegistroLPCO
-            // 
-            ColDataRegistroLPCO.HeaderText = "Data Registro LPCO";
-            ColDataRegistroLPCO.Name = "ColDataRegistroLPCO";
-            // 
-            // ColDataDeferimentoLPCO
-            // 
-            ColDataDeferimentoLPCO.HeaderText = "Data Deferimento LPCO";
-            ColDataDeferimentoLPCO.Name = "ColDataDeferimentoLPCO";
-            // 
-            // ColParametrizacaoLPCO
-            // 
-            ColParametrizacaoLPCO.HeaderText = "Parametrização LPCO";
-            ColParametrizacaoLPCO.Name = "ColParametrizacaoLPCO";
-            // 
-            // ColAmostra
-            // 
-            ColAmostra.HeaderText = "Amostra";
-            ColAmostra.Name = "ColAmostra";
-            // 
-            // ColPendencia
-            // 
-            ColPendencia.HeaderText = "Pendência";
-            ColPendencia.Name = "ColPendencia";
-            // 
-            // ColStatusDoProcesso
-            // 
-            ColStatusDoProcesso.HeaderText = "Status do Processo";
-            ColStatusDoProcesso.Name = "ColStatusDoProcesso";
-            // 
-            // FrmImetro
-            // 
+                GripStyle = ToolStripGripStyle.Hidden,
+                RenderMode = ToolStripRenderMode.Professional,
+                BackColor = Color.WhiteSmoke,
+                AutoSize = false,
+                Height = 40,
+                Padding = new Padding(5, 5, 5, 5)
+            };
+
+            Font defaultFont = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            BtnEditar = new ToolStripButton
+            {
+                Text = "Editar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnEditar.Click += BtnEditar_Click;
+
+            BtnCancelar = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Cancelar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnCancelar.Click += BtnCancelar_Click;
+
+            BtnReload = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Recarregar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnReload.Click += BtnReload_Click;
+
+            BtnPesquisar = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Pesquisar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnPesquisar.Click += BtnPesquisar_Click;
+
+            CmbPesquisar = new ToolStripComboBox
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Font = defaultFont,
+                Size = new Size(150, 25),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            CmbPesquisar.SelectedIndexChanged += CmbPesquisar_SelectedIndexChanged;
+
+            TxtPesquisar = new ToolStripTextBox
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Font = defaultFont,
+                Size = new Size(200, 25),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            ToolStripSeparator ToolStripRight = new ToolStripSeparator
+            {
+                Alignment = ToolStripItemAlignment.Right,
+            };
+            ToolStripSeparator ToolStripRight1 = new ToolStripSeparator
+            {
+                Alignment = ToolStripItemAlignment.Right,
+            };
+
+            toolStrip1.Items.Add(BtnEditar);
+            toolStrip1.Items.Add(BtnCancelar);
+            toolStrip1.Items.Add(ToolStripRight1);
+            toolStrip1.Items.Add(BtnReload);
+            toolStrip1.Items.Add(ToolStripRight);
+            toolStrip1.Items.Add(BtnPesquisar);
+            toolStrip1.Items.Add(CmbPesquisar);
+            toolStrip1.Items.Add(TxtPesquisar);
+
+            #endregion
+
+            #region DataGridView Config
+
+            dataGridView1 = new DataGridView
+            {
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                AutoGenerateColumns = false,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                EnableHeadersVisualStyles = false,
+                Location = new Point(12, 50),
+                Name = "dataGridView1",
+                ReadOnly = true,
+                RowHeadersVisible = false,
+                RowTemplate = { Height = 25 },
+                Size = new Size(776, 388),
+                BorderStyle = BorderStyle.FixedSingle,
+                BackgroundColor = Color.White,
+            };
+
+            dataGridView1.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(50, 50, 50),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                WrapMode = DataGridViewTriState.True
+            };
+
+            dataGridView1.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Font = new Font("Segoe UI", 10),
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                SelectionBackColor = Color.LightBlue,
+                SelectionForeColor = Color.Black,
+                Alignment = DataGridViewContentAlignment.MiddleLeft
+            };
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.WhiteSmoke
+            };
+
+            #endregion
+
+            #region Form Config
+
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(DgvImetro);
-            Controls.Add(ToolStripMain);
+            ControlBox = false;
+            Controls.Add(dataGridView1);
+            Controls.Add(toolStrip1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmImetro";
-            Text = "Gestão de Processos Imetro";
+            Text = "Planilha Imetro";
+            WindowState = FormWindowState.Maximized;
             Load += FrmImetro_Load;
-            ToolStripMain.ResumeLayout(false);
-            ToolStripMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)BsImetro).EndInit();
-            ((System.ComponentModel.ISupportInitialize)DgvImetro).EndInit();
+
+            #endregion
+
+            ((System.ComponentModel.ISupportInitialize)BsImetro).EndInit(); // Usando BsImetro corretamente
             ResumeLayout(false);
         }
 
-        #endregion
-
-        private ToolStrip ToolStripMain;
-        private ToolStripButton BtnEditar;
-        private ToolStripButton BtnCancelar;
-        private ToolStripButton BtnPesquisar;
-        private ToolStripTextBox TxtPesquisa;
-        private ToolStripComboBox CmbPesquisa;
-        private BindingSource BsImetro;
-        private DataGridView DgvImetro;
-        private DataGridViewTextBoxColumn ColId;
-        private DataGridViewTextBoxColumn ColRefUSA;
-        private DataGridViewTextBoxColumn ColImportador;
-        private DataGridViewTextBoxColumn ColSR;
-        private DataGridViewTextBoxColumn ColExportador;
-        private DataGridViewTextBoxColumn ColNavio;
-        private DataGridViewTextBoxColumn ColTerminal;
-        private DataGridViewTextBoxColumn ColProduto;
-        private DataGridViewTextBoxColumn ColOrigem;
-        private DataGridViewCheckBoxColumn ColTEmbarque;
-        private DataGridViewTextBoxColumn ColDataDeAtracacao;
-        private DataGridViewTextBoxColumn ColInspecao;
-        private DataGridViewTextBoxColumn ColDataEmbarque;
-        private DataGridViewTextBoxColumn ColNCM;
-        private DataGridViewTextBoxColumn ColLI;
-        private DataGridViewTextBoxColumn ColLPCO;
-        private DataGridViewTextBoxColumn ColDataRegistroLPCO;
-        private DataGridViewTextBoxColumn ColDataDeferimentoLPCO;
-        private DataGridViewTextBoxColumn ColParametrizacaoLPCO;
-        private DataGridViewCheckBoxColumn ColAmostra;
-        private DataGridViewTextBoxColumn ColPendencia;
-        private DataGridViewTextBoxColumn ColStatusDoProcesso;
     }
 }

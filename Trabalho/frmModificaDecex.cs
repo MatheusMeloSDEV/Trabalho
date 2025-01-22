@@ -2,15 +2,16 @@
 
 namespace Trabalho
 {
-    public partial class frmModificaDecex : Form
+    public partial class FrmModificaDecex : Form
     {
         public Decex decex;
-        public frmModificaDecex()
+        public FrmModificaDecex()
         {
             InitializeComponent();
+            decex = new();
         }
 
-        private void frmModificaDecex_Load(object sender, EventArgs e)
+        private void FrmModificaDecex_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             DTPdatadedeferimentolilpco.Value = System.DateTime.Today;
@@ -21,18 +22,18 @@ namespace Trabalho
             bsModificaDecex.DataSource = decex;
         }
 
-        private void btnOkMAPA_Click(object sender, EventArgs e)
+        private void BtnOkMAPA_Click(object sender, EventArgs e)
         {
 
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
         {
             decex.Importador = TXTimportador.Text;
             decex.Ref_USA = TXTnr.Text;
@@ -60,7 +61,7 @@ namespace Trabalho
             this.DialogResult = DialogResult.OK;
         }
 
-        private void cbEmbarque_CheckedChanged(object sender, EventArgs e)
+        private void CbEmbarque_CheckedChanged(object sender, EventArgs e)
         {
             if (cbEmbarque.Checked)
             {

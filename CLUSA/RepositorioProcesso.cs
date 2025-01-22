@@ -9,6 +9,8 @@ namespace CLUSA
         private readonly IMongoCollection<Processo> _Processo;
         private readonly IMongoCollection<Anvisa> _Anvisa;
         private readonly IMongoCollection<Decex> _Decex;
+        private readonly IMongoCollection<Ibama> _Ibama;
+        private readonly IMongoCollection<Imetro> _Imetro;
         private readonly IMongoCollection<MAPA> _MAPA;
 
         public RepositorioProcesso()
@@ -18,6 +20,8 @@ namespace CLUSA
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
+            _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
+            _Imetro = mongoDatabase.GetCollection<Imetro>("IMETRO");
             _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
 
@@ -48,6 +52,12 @@ namespace CLUSA
                     case "Decex":
                         _Decex.InsertOne(new Decex(processo));
                         break;
+                    case "IBAMA":
+                        _Ibama.InsertOne(new Ibama(processo));
+                        break;
+                    case "IMETRO":
+                        _Imetro.InsertOne(new Imetro(processo));
+                        break;
                     default:
                         _Processo.InsertOne(processo);
                         break;
@@ -59,8 +69,10 @@ namespace CLUSA
             bool existeMapa = ExisteNaColecao(_MAPA, "TMapa", processo.TMapa);
             bool existeAnvisa = ExisteNaColecao(_Anvisa, "TAnvisa", processo.TAnvisa);
             bool existeDecex = ExisteNaColecao(_Decex, "TDecex", processo.TDecex);
+            bool existeImetro = ExisteNaColecao(_Imetro, "TImetro", processo.TImetro);
+            bool existeIbama = ExisteNaColecao(_Ibama, "TIbama", processo.TIbama);
 
-            return existeMapa || existeAnvisa || existeDecex;
+            return existeMapa || existeAnvisa || existeDecex || existeImetro || existeIbama;
         }
 
         public static bool ExisteNaColecao<T>(IMongoCollection<T> colecao, string campo, bool valor) where T : class
@@ -81,6 +93,8 @@ namespace CLUSA
                 ExcluirDocumentoRelacionado(_MAPA, processo.Ref_USA);
                 ExcluirDocumentoRelacionado(_Anvisa, processo.Ref_USA);
                 ExcluirDocumentoRelacionado(_Decex, processo.Ref_USA);
+                ExcluirDocumentoRelacionado(_Ibama, processo.Ref_USA);
+                ExcluirDocumentoRelacionado(_Imetro, processo.Ref_USA);
             });
         }
 
@@ -130,22 +144,42 @@ namespace CLUSA
             {
                 await AtualizarDocumentoRelacionado(_Decex, processo.Ref_USA, processo);
             }
+
+            // Ibama
+            if (!processo.TIbama)
+            {
+                await RemoverDocumentoRelacionado(_Ibama, processo.Ref_USA);
+            }
+            else
+            {
+                await AtualizarDocumentoRelacionado(_Ibama, processo.Ref_USA, processo);
+            }
+
+            // Imetro
+            if (!processo.TImetro)
+            {
+                await RemoverDocumentoRelacionado(_Imetro, processo.Ref_USA);
+            }
+            else
+            {
+                await AtualizarDocumentoRelacionado(_Imetro, processo.Ref_USA, processo);
+            }
         }
 
-        private async Task RemoverDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
+        private static async Task RemoverDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
             await colecao.DeleteOneAsync(filtro);
         }
 
-        private async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
+        private static async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
         {
             var filtro = Builders<T>.Filter.Eq("_id", id);
             var updateDef = CriarAtualizacaoSemId(documento);
             await colecao.UpdateOneAsync(filtro, updateDef, new UpdateOptions { IsUpsert = true });
         }
 
-        private async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, Processo processo) where T : class, new()
+        private static async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, Processo processo) where T : class, new()
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
 
@@ -169,7 +203,7 @@ namespace CLUSA
             }
         }
 
-        private UpdateDefinition<T> CriarAtualizacaoSemId<T>(T documento)
+        private static UpdateDefinition<T> CriarAtualizacaoSemId<T>(T documento)
         {
             var updateDef = Builders<T>.Update;
             var updates = new List<UpdateDefinition<T>>();

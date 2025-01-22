@@ -3,15 +3,16 @@ using Google.Type;
 
 namespace Trabalho
 {
-    public partial class frmModificaProcesso : Form
+    public partial class FrmModificaProcesso : Form
     {
         public Processo processo;
-        public frmModificaProcesso()
+        public FrmModificaProcesso()
         {
             InitializeComponent();
+            processo = new();
         }
 
-        private void frmModificaProcesso_Load(object sender, EventArgs e)
+        private void FrmModificaProcesso_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             if (processo.PossuiEmbarque)

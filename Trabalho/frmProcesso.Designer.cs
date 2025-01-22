@@ -224,18 +224,10 @@ namespace Trabalho
             Text = "Gerenciamento de Processos";
             WindowState = FormWindowState.Maximized;
             ControlBox = false;
-        
 
             Load += FrmProcesso_Load;
 
             #endregion
-        }
-
-        private Image? CarregarImagemDoRecurso(string caminhoRecurso)
-        {
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            using var stream = assembly.GetManifestResourceStream(caminhoRecurso);
-            return stream != null ? Image.FromStream(stream) : null;
         }
     }
 }

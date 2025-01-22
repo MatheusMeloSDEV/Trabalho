@@ -4,22 +4,22 @@ namespace Trabalho
 {
     public partial class FrmModificaAdmin : Form
     {
-        public Users user;
+        public Users user = null!;
         public bool block = false;
         public FrmModificaAdmin()
         {
             InitializeComponent();
         }
 
-        public void frmModificaAdmin_Load(object sender, EventArgs e)
+        public void FrmModificaAdmin_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             BsModificaAdmin.DataSource = user;
         }
 
-        public void btnEnviar_Click(object sender, EventArgs e)
+        public void BtnEnviar_Click(object sender, EventArgs e)
         {
-            if (!check())
+            if (!Check())
             {
                 user.Username = txtUsername.Text;
                 user.Password = txtPassword.Text;
@@ -27,12 +27,12 @@ namespace Trabalho
                 this.DialogResult = DialogResult.OK;
             }
         }
-        public bool check()
+        public bool Check()
         {
             if (txtPassword.Text == "")
             {
                 tErro.Interval = 3000;
-                tErro.Tick += new System.EventHandler(this.tErro_Tick);
+                tErro.Tick += new System.EventHandler(this.TErro_Tick);
                 txtPassword.BackColor = Color.MistyRose;
                 tErro.Start();
                 block = true;
@@ -40,7 +40,7 @@ namespace Trabalho
             if (txtUsername.Text == "")
             {
                 tErro.Interval = 3000;
-                tErro.Tick += new System.EventHandler(this.tErro_Tick);
+                tErro.Tick += new System.EventHandler(this.TErro_Tick);
                 txtUsername.BackColor = Color.MistyRose;
                 tErro.Start();
                 block = true;
@@ -52,7 +52,7 @@ namespace Trabalho
             return block;
         }
 
-        private void tErro_Tick(object sender, EventArgs e)
+        private void TErro_Tick(object? sender, EventArgs e)
         {
             txtPassword.BackColor = Color.White;
             txtUsername.BackColor = Color.White;

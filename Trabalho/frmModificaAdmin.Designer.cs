@@ -50,7 +50,7 @@
             resources.ApplyResources(btnEnviar, "btnEnviar");
             btnEnviar.Name = "btnEnviar";
             btnEnviar.UseVisualStyleBackColor = true;
-            btnEnviar.Click += btnEnviar_Click;
+            btnEnviar.Click += BtnEnviar_Click;
             // 
             // txtPassword
             // 
@@ -89,7 +89,7 @@
             // 
             // tErro
             // 
-            tErro.Tick += tErro_Tick;
+            tErro.Tick += TErro_Tick;
             // 
             // frmModificaAdmin
             // 
@@ -102,7 +102,7 @@
             Controls.Add(txtPassword);
             Controls.Add(btnEnviar);
             Name = "frmModificaAdmin";
-            Load += frmModificaAdmin_Load;
+            Load += FrmModificaAdmin_Load;
             ((System.ComponentModel.ISupportInitialize)BsModificaAdmin).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -119,6 +119,18 @@ namespace Trabalho
                     Name = "MenuItemDecex",
                     Size = new Size(121, 22),
                     Text = "Decex"
+                },
+                MenuItemIbama = new ToolStripMenuItem
+                {
+                    Name = "MenuItemIbama",
+                    Size = new Size(121, 22),
+                    Text = "Ibama"
+                },
+                MenuItemImetro = new ToolStripMenuItem
+                {
+                    Name = "MenuItemImetro",
+                    Size = new Size(121, 22),
+                    Text = "Imetro"
                 }
             });
 
@@ -126,6 +138,8 @@ namespace Trabalho
             MenuItemMap.Click += MenuItemMap_Click;
             MenuItemAnvisa.Click += MenuItemAnvisa_Click;
             MenuItemDecex.Click += MenuItemDecex_Click;
+            MenuItemIbama.Click += MenuItemIbama_Click;
+            MenuItemImetro.Click += MenuItemImetro_Click;
 
             // Administrador
             MenuItemAdmin = new ToolStripMenuItem
@@ -200,6 +214,8 @@ namespace Trabalho
         private ToolStripMenuItem MenuItemMap;
         private ToolStripMenuItem MenuItemAnvisa;
         private ToolStripMenuItem MenuItemDecex;
+        private ToolStripMenuItem MenuItemIbama;
+        private ToolStripMenuItem MenuItemImetro;
         private ToolStripMenuItem MenuItemAdmin;
         private System.Windows.Forms.Timer timerReleaseExit;
         private TabControl TCabas;

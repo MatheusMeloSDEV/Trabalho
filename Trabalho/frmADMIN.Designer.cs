@@ -125,7 +125,7 @@
             btnAdcionar.TabIndex = 4;
             btnAdcionar.Text = "Adicionar";
             btnAdcionar.UseVisualStyleBackColor = true;
-            btnAdcionar.Click += btnAdcionar_Click;
+            btnAdcionar.Click += BtnAdcionar_Click;
             // 
             // btnExcluir
             // 
@@ -136,7 +136,7 @@
             btnExcluir.TabIndex = 5;
             btnExcluir.Text = "Excluir";
             btnExcluir.UseVisualStyleBackColor = true;
-            btnExcluir.Click += btnExcluir_Click;
+            btnExcluir.Click += BtnExcluir_Click;
             // 
             // btnEditar
             // 
@@ -147,7 +147,7 @@
             btnEditar.TabIndex = 6;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
-            btnEditar.Click += btnEditar_Click;
+            btnEditar.Click += BtnEditar_Click;
             // 
             // frmADMIN
             // 
@@ -162,8 +162,8 @@
             Name = "frmADMIN";
             Text = "ADMIN";
             WindowState = FormWindowState.Maximized;
-            FormClosed += frmADMIN_FormClosed;
-            Load += frmADMIN_Load;
+            FormClosed += FrmADMIN_FormClosed;
+            Load += FrmADMIN_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)BSAdmin).EndInit();
             ResumeLayout(false);

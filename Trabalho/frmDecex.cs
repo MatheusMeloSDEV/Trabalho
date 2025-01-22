@@ -120,6 +120,13 @@ namespace Trabalho
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
+                DataPropertyName = "SR",
+                HeaderText = "SR",
+                Name = "ColunaSR"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 DataPropertyName = "Importador",
                 HeaderText = "Importador",
                 Name = "ColunaImportador"
@@ -134,9 +141,108 @@ namespace Trabalho
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
+                DataPropertyName = "Navio",
+                HeaderText = "Navio",
+                Name = "ColunaNavio"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Terminal",
+                HeaderText = "Terminal",
+                Name = "ColunaTerminal"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 DataPropertyName = "Produto",
                 HeaderText = "Produto",
                 Name = "ColunaProduto"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Origem",
+                HeaderText = "Origem",
+                Name = "ColunaOrigem"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "TEmbarque",
+                HeaderText = "Tem Embarque",
+                Name = "ColunaTEmbarque",
+                Visible = false
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataDeAtracacao",
+                HeaderText = "Data de Atracação",
+                Name = "ColunaDataDeAtracacao"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataEmbarque",
+                HeaderText = "Data de Embarque",
+                Name = "ColunaDataEmbarque"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Inspecao",
+                HeaderText = "Inspeção",
+                Name = "ColunaInspecao"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NCM",
+                HeaderText = "NCM",
+                Name = "ColunaNCM"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LI",
+                HeaderText = "LI",
+                Name = "ColunaLI"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LPCO",
+                HeaderText = "LPCO",
+                Name = "ColunaLPCO"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataRegistroLPCO",
+                HeaderText = "Data Registro LPCO",
+                Name = "ColunaDataRegistroLPCO"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataDeferimentoLPCO",
+                HeaderText = "Data Deferimento LPCO",
+                Name = "ColunaDataDeferimentoLPCO"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ParametrizacaoLPCO",
+                HeaderText = "Parametrização LPCO",
+                Name = "ColunaParametrizacaoLPCO"
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "Amostra",
+                HeaderText = "Amostra",
+                Name = "ColunaAmostra"
             });
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
@@ -277,7 +383,7 @@ namespace Trabalho
                 return;
             }
 
-            var frm = new frmModificaDecex { decex = decexAtual };
+            var frm = new FrmModificaDecex { decex = decexAtual };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

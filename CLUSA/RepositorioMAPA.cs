@@ -1,37 +1,31 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 
 namespace CLUSA
 {
     public class RepositorioMAPA
     {
-        private readonly IMongoCollection<Processo> _Processo;
-        private readonly IMongoCollection<Anvisa> _Anvisa;
-        private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<Imetro> _Imetro;
+        private readonly IMongoCollection<Processo> _Processo;
+        private readonly IMongoCollection<Decex> _Decex;
+        private readonly IMongoCollection<Anvisa> _Anvisa;
+        private readonly IMongoCollection<Ibama> _Ibama;
 
         public RepositorioMAPA()
         {
-            var connectionString = "mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/";
-            var mongoClient = new MongoClient(connectionString);
+            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
+            _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
+            _Imetro = mongoDatabase.GetCollection<Imetro>("IMETRO");
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
-            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
+            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
+            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
-        [DataMember]
-        public List<MAPA> ListaMapa => _MAPA.Find(FilterDefinition<MAPA>.Empty).ToList();
 
-        public List<string> ObterValoresUnicos(string campo)
-        {
-            return _MAPA.Distinct<string>(campo, FilterDefinition<MAPA>.Empty).ToList();
-        }
+        public List<MAPA> ListaMAPA => _MAPA.Find(Builders<MAPA>.Filter.Empty).ToList();
 
         public async Task CreateAsync(MAPA mapa)
         {
@@ -46,92 +40,84 @@ namespace CLUSA
 
         public async Task UpdateAsync(MAPA mapa)
         {
-            await Task.WhenAll(
-                AtualizarDocumento(_MAPA, mapa.Id, mapa),
-                AtualizarDocumentoRelacionado(_Processo, mapa.Ref_USA, mapa),
-                AtualizarDocumentoRelacionado(_Anvisa, mapa.Ref_USA, mapa),
-                AtualizarDocumentoRelacionado(_Decex, mapa.Ref_USA, mapa)
-            );
+            var filter = Builders<MAPA>.Filter.Eq("_id", mapa.Id);
+            var update = Builders<MAPA>.Update
+                .Set(a => a.Ref_USA, mapa.Ref_USA)
+                .Set(a => a.Importador, mapa.Importador)
+                .Set(a => a.SR, mapa.SR)
+                .Set(a => a.Exportador, mapa.Exportador)
+                .Set(a => a.Navio, mapa.Navio)
+                .Set(a => a.Terminal, mapa.Terminal)
+                .Set(a => a.Produto, mapa.Produto)
+                .Set(a => a.Origem, mapa.Origem)
+                .Set(a => a.NCM, mapa.NCM)
+                .Set(a => a.LI, mapa.LI)
+                .Set(a => a.LPCO, mapa.LPCO)
+                .Set(a => a.DataRegistroLPCO, mapa.DataRegistroLPCO)
+                .Set(a => a.DataDeferimentoLPCO, mapa.DataDeferimentoLPCO)
+                .Set(a => a.ParametrizacaoLPCO, mapa.ParametrizacaoLPCO)
+                .Set(a => a.DataDeAtracacao, mapa.DataDeAtracacao)
+                .Set(a => a.Inspecao, mapa.Inspecao)
+                .Set(a => a.Amostra, mapa.Amostra)
+                .Set(a => a.Pendencia, mapa.Pendencia)
+                .Set(a => a.StatusDoProcesso, mapa.StatusDoProcesso);
+
+            await _MAPA.UpdateOneAsync(filter, update);
+
+            // Atualizar coleções relacionadas
+            await AtualizarColecaoRelacionadoAsync(_Processo, mapa.Ref_USA, mapa);
+            await AtualizarColecaoRelacionadoAsync(_Decex, mapa.Ref_USA, mapa);
+            await AtualizarColecaoRelacionadoAsync(_Anvisa, mapa.Ref_USA, mapa);
+            await AtualizarColecaoRelacionadoAsync(_Imetro, mapa.Ref_USA, mapa);
+            await AtualizarColecaoRelacionadoAsync(_Ibama, mapa.Ref_USA, mapa);
         }
 
-        private static async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
+        private static async Task AtualizarColecaoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, MAPA mapa) where T : class
         {
-            var filtro = Builders<T>.Filter.Eq("_id", id);
-            var updateDef = CriarAtualizacao(documento);
-            await colecao.UpdateOneAsync(filtro, updateDef);
-        }
+            var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+            var update = Builders<T>.Update
+                .Set("Ref_USA", mapa.Ref_USA)
+                .Set("Importador", mapa.Importador)
+                .Set("SR", mapa.SR)
+                .Set("Exportador", mapa.Exportador)
+                .Set("Navio", mapa.Navio)
+                .Set("Terminal", mapa.Terminal)
+                .Set("Produto", mapa.Produto)
+                .Set("Origem", mapa.Origem)
+                .Set("NCM", mapa.NCM)
+                .Set("LI", mapa.LI)
+                .Set("LPCO", mapa.LPCO)
+                .Set("DataRegistroLPCO", mapa.DataRegistroLPCO)
+                .Set("DataDeferimentoLPCO", mapa.DataDeferimentoLPCO)
+                .Set("ParametrizacaoLPCO", mapa.ParametrizacaoLPCO)
+                .Set("DataDeAtracacao", mapa.DataDeAtracacao)
+                .Set("Inspecao", mapa.Inspecao)
+                .Set("Amostra", mapa.Amostra)
+                .Set("Pendencia", mapa.Pendencia)
+                .Set("StatusDoProcesso", mapa.StatusDoProcesso);
 
-        private static async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, MAPA mapa) where T : class, new()
-        {
-            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            var documentoAtual = await colecao.Find(filtro).FirstOrDefaultAsync();
-
-            if (documentoAtual != null)
-            {
-                var documentoAtualizado = MapearPropriedades(mapa, documentoAtual);
-                var updateDef = CriarAtualizacao(documentoAtualizado);
-                await colecao.UpdateOneAsync(filtro, updateDef);
-            }
-        }
-
-        private static UpdateDefinition<T> CriarAtualizacao<T>(T documento) where T : class
-        {
-            var updates = typeof(T).GetProperties()
-                .Where(prop => prop.CanRead)
-                .Select(prop => new { prop.Name, Value = prop.GetValue(documento) })
-                .Select(pair => pair.Value != null
-                    ? Builders<T>.Update.Set(pair.Name, pair.Value)
-                    : Builders<T>.Update.Unset(pair.Name))
-                .ToList();
-
-            return Builders<T>.Update.Combine(updates);
-        }
-
-        private static TDestino MapearPropriedades<TDestino>(MAPA origem, TDestino destino) where TDestino : class, new()
-        {
-            foreach (var propDestino in typeof(TDestino).GetProperties().Where(p => p.CanWrite))
-            {
-                var propOrigem = typeof(MAPA).GetProperty(propDestino.Name);
-                if (propOrigem != null && propOrigem.CanRead)
-                {
-                    var valorOrigem = propOrigem.GetValue(origem);
-                    propDestino.SetValue(destino, valorOrigem);
-                }
-            }
-            return destino;
-        }
-
-        public List<MAPA> Find(string campo, string pesquisa)
-        {
-            try
-            {
-                var property = typeof(MAPA).GetProperty(campo) ?? throw new KeyNotFoundException($"O campo '{campo}' não existe no modelo MAPA.");
-                var filter = Builders<MAPA>.Filter.Regex(campo, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
-                return _MAPA.Find(filter).ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao buscar dados no MongoDB: {ex.Message}");
-                return new List<MAPA>();
-            }
-        }
-
-        public List<MAPA> FindAll()
-        {
-            try
-            {
-                return _MAPA.Find(FilterDefinition<MAPA>.Empty).ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao buscar todos os documentos: {ex.Message}");
-                return new List<MAPA>(); // Retorna uma lista vazia em vez de null
-            }
+            await colecao.UpdateOneAsync(filter, update);
         }
 
         public async Task<List<MAPA>> FindAllAsync()
         {
-            return await _MAPA.Find(FilterDefinition<MAPA>.Empty).ToListAsync();
+            return await _MAPA.Find(Builders<MAPA>.Filter.Empty).ToListAsync();
+        }
+
+        public List<string> ObterValoresUnicos(string campo)
+        {
+            return _MAPA.Distinct<string>(campo, Builders<MAPA>.Filter.Empty).ToList();
+        }
+
+        public List<MAPA> FindAll()
+        {
+            return _MAPA.Find(Builders<MAPA>.Filter.Empty).ToList();
+        }
+
+        public List<MAPA> Find(string campo, string pesquisa)
+        {
+            var filtro = Builders<MAPA>.Filter.Regex(campo, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
+            return _MAPA.Find(filtro).ToList();
         }
     }
 }

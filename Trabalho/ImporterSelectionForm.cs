@@ -17,16 +17,16 @@ namespace Trabalho
         public ImporterSelectionForm(List<string> importadores)
         {
             InitializeComponent();
-
-            // Preencher o ListBox com os importadores únicos
             listBoxImportadores.Items.AddRange(importadores.ToArray());
+
+            SelectedImporter = ""; // valor padrão (string vazia, por exemplo)
         }
 
-        private void btnConfirmar_Click(object sender, EventArgs e)
+        private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             if (listBoxImportadores.SelectedItem != null)
             {
-                SelectedImporter = listBoxImportadores.SelectedItem.ToString();
+                SelectedImporter = listBoxImportadores.SelectedItem?.ToString() ?? string.Empty;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

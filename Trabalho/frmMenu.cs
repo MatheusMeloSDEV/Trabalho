@@ -13,8 +13,8 @@ namespace Trabalho
     {
         private FrmMapa? _frmMapa;
         private FrmAdmin? _frmAdmin;
-        private FrmAdmin? _frmImetro;
-        private FrmAdmin? _frmIbama;
+        private FrmImetro? _frmImetro;
+        private FrmIbama? _frmIbama;
         private FrmDecex? _frmDecex;
         private FrmProcesso? _frmProcesso;
         private FrmAnvisa? _frmAnvisa;
@@ -244,22 +244,6 @@ namespace Trabalho
         /// <summary>
         /// Método de teste para salvar uma notificação.
         /// </summary>
-        private void TestarSalvarNotificacao()
-        {
-            var client = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
-            var database = client.GetDatabase("Trabalho");
-            var notificacaoRepo = new RepositorioNotificacao(database);
-
-            var notificacao = new Notificacao
-            {
-                RefUsa = "TEST123",
-                Mensagem = "Testando notificação",
-                DataCriacao = DateTime.Now,
-                Visualizado = false
-            };
-
-            notificacaoRepo.SalvarNotificacao(notificacao);
-        }
 
         private void TimerReleaseExit_Tick(object? sender, EventArgs e)
         {
@@ -295,31 +279,40 @@ namespace Trabalho
             this.Close();
         }
 
-        private void AbrirFormularioFilho<T>(ref T? form) where T : Form, new()
+        private readonly Dictionary<Type, Form> _forms = new();
+
+        private T AbrirFormularioFilho<T>() where T : Form, new()
         {
-            TCabas.Visible = false;
-            if (form == null || form.IsDisposed)
+            // Se já existir no dicionário e não estiver disposed, reusa
+            if (_forms.TryGetValue(typeof(T), out var formExistente) && !formExistente.IsDisposed)
             {
-                form = new T { MdiParent = this };
-                form.Show();
+                if (formExistente.WindowState == FormWindowState.Minimized)
+                    formExistente.WindowState = FormWindowState.Maximized;
+
+                formExistente.Show();
+                formExistente.BringToFront();
+                formExistente.Activate();
+
+                return (T)formExistente;
             }
-            else
-            {
-                form.Activate();
-            }
+
+            // Caso contrário, cria nova instância
+            var formNovo = new T { MdiParent = this };
+            formNovo.Show();
+
+            _forms[typeof(T)] = formNovo;
+            return formNovo;
         }
 
-        private void MenuItemMap_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmMapa);
-        private void MenuItemAnvisa_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmAnvisa);
-        private void MenuItemDecex_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmDecex);
-        private void MenuItemIbama_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmIbama);
-        private void MenuItemImetro_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmImetro);
-        private void MenuItemProcess_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmProcesso);
-        private void MenuItemAdmin_Click(object sender, EventArgs e) => AbrirFormularioFilho(ref _frmAdmin);
 
-        private void buttonTestNotification_Click(object sender, EventArgs e)
-        {
-            TestarSalvarNotificacao();
-        }
+
+
+        private void MenuItemMap_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmMapa>();
+        private void MenuItemAnvisa_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmAnvisa>();
+        private void MenuItemDecex_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmDecex>();
+        private void MenuItemIbama_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmIbama>();
+        private void MenuItemImetro_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmImetro>();
+        private void MenuItemProcess_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmProcesso>();
+        private void MenuItemAdmin_Click(object sender, EventArgs e) => AbrirFormularioFilho<FrmAdmin>();
     }
 }

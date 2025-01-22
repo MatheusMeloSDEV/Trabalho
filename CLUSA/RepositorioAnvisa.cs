@@ -9,6 +9,8 @@ namespace CLUSA
         private readonly IMongoCollection<Anvisa> _Anvisa;
         private readonly IMongoCollection<Processo> _Processo;
         private readonly IMongoCollection<Decex> _Decex;
+        private readonly IMongoCollection<Ibama> _Ibama;
+        private readonly IMongoCollection<Imetro> _Imetro;
         private readonly IMongoCollection<MAPA> _MAPA;
 
         public RepositorioAnvisa()
@@ -17,6 +19,8 @@ namespace CLUSA
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
+            _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
+            _Imetro = mongoDatabase.GetCollection<Imetro>("IMETRO");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
@@ -64,6 +68,8 @@ namespace CLUSA
             await AtualizarColecaoRelacionadoAsync(_Processo, anvisa.Ref_USA, anvisa);
             await AtualizarColecaoRelacionadoAsync(_Decex, anvisa.Ref_USA, anvisa);
             await AtualizarColecaoRelacionadoAsync(_MAPA, anvisa.Ref_USA, anvisa);
+            await AtualizarColecaoRelacionadoAsync(_Ibama, anvisa.Ref_USA, anvisa);
+            await AtualizarColecaoRelacionadoAsync(_Imetro, anvisa.Ref_USA, anvisa);
         }
 
         private static async Task AtualizarColecaoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, Anvisa anvisa) where T : class

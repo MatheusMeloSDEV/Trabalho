@@ -33,6 +33,12 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao carregar os dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private static Image? CarregarImagemDoRecurso(string caminhoRecurso)
+        {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream(caminhoRecurso);
+            return stream != null ? Image.FromStream(stream) : null;
+        }
         private void ConectarProcesso()
         {
             try
@@ -418,7 +424,7 @@ namespace Trabalho
         private async void BtnAdicionar_Click(object sender, EventArgs e)
         {
             var processo = new Processo();
-            using var frm = new frmModificaProcesso { processo = processo };
+            using var frm = new FrmModificaProcesso { processo = processo };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
@@ -474,7 +480,7 @@ namespace Trabalho
                 return;
             }
 
-            using var frm = new frmModificaProcesso { processo = processoSelecionado };
+            using var frm = new FrmModificaProcesso { processo = processoSelecionado };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

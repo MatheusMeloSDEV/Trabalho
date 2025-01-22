@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmModificaProcesso
+    partial class FrmModificaProcesso
     {
         /// <summary>
         /// Required designer variable.
@@ -959,7 +959,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmModificaProcesso";
             Text = "frmModificaProcesso";
-            Load += frmModificaProcesso_Load;
+            Load += FrmModificaProcesso_Load;
             ((System.ComponentModel.ISupportInitialize)bsModificaProcesso).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();

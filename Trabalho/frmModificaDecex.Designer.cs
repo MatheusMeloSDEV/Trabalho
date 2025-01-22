@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmModificaDecex
+    partial class FrmModificaDecex
     {
         /// <summary>
         /// Required designer variable.
@@ -271,7 +271,7 @@
             cbEmbarque.Size = new Size(15, 14);
             cbEmbarque.TabIndex = 299;
             cbEmbarque.UseVisualStyleBackColor = true;
-            cbEmbarque.Click += cbEmbarque_CheckedChanged;
+            cbEmbarque.Click += CbEmbarque_CheckedChanged;
             // 
             // label17
             // 
@@ -328,7 +328,7 @@
             button1.TabIndex = 294;
             button1.Text = "Cancelar";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += btnCancel_Click;
+            button1.Click += BtnCancel_Click;
             // 
             // label14
             // 
@@ -359,7 +359,7 @@
             btnAdiciona.TabIndex = 291;
             btnAdiciona.Text = "Ok";
             btnAdiciona.UseVisualStyleBackColor = true;
-            btnAdiciona.Click += btnEditar_Click;
+            btnAdiciona.Click += BtnEditar_Click;
             // 
             // DTPdatadeatracacao
             // 
@@ -582,7 +582,7 @@
             Controls.Add(lblPEmbarque);
             Name = "frmModificaDecex";
             StartPosition = FormStartPosition.CenterScreen;
-            Load += frmModificaDecex_Load;
+            Load += FrmModificaDecex_Load;
             ((System.ComponentModel.ISupportInitialize)bsModificaDecex).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();

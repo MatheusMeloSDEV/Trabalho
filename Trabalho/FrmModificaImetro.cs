@@ -8,9 +8,10 @@ namespace Trabalho
         public FrmModificaImetro()
         {
             InitializeComponent();
+            imetro = new();
         }
 
-        private void frmModificaImetro_Load(object sender, EventArgs e)
+        private void FrmModificaImetro_Load(object sender, EventArgs e)
         {
             DTPdatadedeferimentolilpco.Value = System.DateTime.Today;
             DTPdataderegistrolilpco.Value = System.DateTime.Today;
@@ -21,12 +22,12 @@ namespace Trabalho
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
         {
             imetro.Importador = TXTimportador.Text;
             imetro.Ref_USA = TXTnr.Text;
@@ -55,7 +56,7 @@ namespace Trabalho
             this.DialogResult = DialogResult.OK;
         }
 
-        private void cbEmbarque_CheckedChanged(object sender, EventArgs e)
+        private void CbEmbarque_CheckedChanged(object sender, EventArgs e)
         {
             if (cbEmbarque.Checked)
             {

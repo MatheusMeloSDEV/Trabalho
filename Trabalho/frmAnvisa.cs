@@ -387,13 +387,13 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsAnvisa.Current is not Anvisa mapaAtual)
+            if (BsAnvisa.Current is not Anvisa anvisaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new frmModificaAnvisa { anvisa = mapaAtual };
+            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

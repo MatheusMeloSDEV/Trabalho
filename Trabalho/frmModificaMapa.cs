@@ -2,16 +2,17 @@
 
 namespace Trabalho
 {
-    public partial class frmModificaMapa : Form
+    public partial class FrmModificaMapa : Form
     {
         public MAPA mapa;
 
-        public frmModificaMapa()
+        public FrmModificaMapa()
         {
             InitializeComponent();
+            mapa = new();
         }
 
-        public void frmModifica_Load(object sender, EventArgs e)
+        public void FrmModifica_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             if (FrmLogin.Instance.Escuro)
@@ -23,20 +24,20 @@ namespace Trabalho
             DTPdatadeinspecao.Value = System.DateTime.Today;
             DTPdatadeatracacao.Value = System.DateTime.Today;
             DTPdatadeembarque.Value = System.DateTime.Today;
-            bsModificaMAPA.DataSource = mapa;
+            BsModificaMAPA.DataSource = mapa;
         }
 
-        private void tErro_Tick(object sender, EventArgs e)
+        private void TErro_Tick(object sender, EventArgs e)
         {
 
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
         {
             mapa.Importador = TXTimportador.Text;
             mapa.Ref_USA = TXTnr.Text;
@@ -52,7 +53,7 @@ namespace Trabalho
             mapa.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value.ToShortDateString().ToString();
             mapa.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
 
-            mapa.TEmbarque = cbEmbarque.Checked;
+            mapa.TEmbarque = CbEmbarque.Checked;
 
             mapa.DataDeAtracacao = DTPdatadeatracacao.Value.ToShortDateString().ToString();
             mapa.Inspecao = DTPdatadeinspecao.Value.ToShortDateString().ToString();
@@ -64,9 +65,9 @@ namespace Trabalho
             this.DialogResult = DialogResult.OK;
         }
 
-        private void cbEmbarque_CheckedChanged(object sender, EventArgs e)
+        private void CbEmbarque_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbEmbarque.Checked)
+            if (CbEmbarque.Checked)
             {
                 LBLdatadeatracacao.Visible = true;
                 DTPdatadeatracacao.Visible = true;

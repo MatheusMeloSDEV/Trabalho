@@ -27,9 +27,9 @@ namespace CLUSA
 
         public List<Ibama> ListaIbama => _Ibama.Find(Builders<Ibama>.Filter.Empty).ToList();
 
-        public async Task CreateAsync(Ibama anvisa)
+        public async Task CreateAsync(Ibama ibama)
         {
-            await _Ibama.InsertOneAsync(anvisa);
+            await _Ibama.InsertOneAsync(ibama);
         }
 
         public async Task DeleteAsync(ObjectId id)
@@ -38,38 +38,38 @@ namespace CLUSA
             await _Ibama.DeleteOneAsync(filter);
         }
 
-        public async Task UpdateAsync(Ibama anvisa)
+        public async Task UpdateAsync(Ibama ibama)
         {
-            var filter = Builders<Ibama>.Filter.Eq("_id", anvisa.Id);
+            var filter = Builders<Ibama>.Filter.Eq("_id", ibama.Id);
             var update = Builders<Ibama>.Update
-                .Set(a => a.Ref_USA, anvisa.Ref_USA)
-                .Set(a => a.Importador, anvisa.Importador)
-                .Set(a => a.SR, anvisa.SR)
-                .Set(a => a.Exportador, anvisa.Exportador)
-                .Set(a => a.Navio, anvisa.Navio)
-                .Set(a => a.Terminal, anvisa.Terminal)
-                .Set(a => a.Produto, anvisa.Produto)
-                .Set(a => a.Origem, anvisa.Origem)
-                .Set(a => a.NCM, anvisa.NCM)
-                .Set(a => a.LI, anvisa.LI)
-                .Set(a => a.LPCO, anvisa.LPCO)
-                .Set(a => a.DataRegistroLPCO, anvisa.DataRegistroLPCO)
-                .Set(a => a.DataDeferimentoLPCO, anvisa.DataDeferimentoLPCO)
-                .Set(a => a.ParametrizacaoLPCO, anvisa.ParametrizacaoLPCO)
-                .Set(a => a.DataDeAtracacao, anvisa.DataDeAtracacao)
-                .Set(a => a.Inspecao, anvisa.Inspecao)
-                .Set(a => a.Amostra, anvisa.Amostra)
-                .Set(a => a.Pendencia, anvisa.Pendencia)
-                .Set(a => a.StatusDoProcesso, anvisa.StatusDoProcesso);
+                .Set(a => a.Ref_USA, ibama.Ref_USA)
+                .Set(a => a.Importador, ibama.Importador)
+                .Set(a => a.SR, ibama.SR)
+                .Set(a => a.Exportador, ibama.Exportador)
+                .Set(a => a.Navio, ibama.Navio)
+                .Set(a => a.Terminal, ibama.Terminal)
+                .Set(a => a.Produto, ibama.Produto)
+                .Set(a => a.Origem, ibama.Origem)
+                .Set(a => a.NCM, ibama.NCM)
+                .Set(a => a.LI, ibama.LI)
+                .Set(a => a.LPCO, ibama.LPCO)
+                .Set(a => a.DataRegistroLPCO, ibama.DataRegistroLPCO)
+                .Set(a => a.DataDeferimentoLPCO, ibama.DataDeferimentoLPCO)
+                .Set(a => a.ParametrizacaoLPCO, ibama.ParametrizacaoLPCO)
+                .Set(a => a.DataDeAtracacao, ibama.DataDeAtracacao)
+                .Set(a => a.Inspecao, ibama.Inspecao)
+                .Set(a => a.Amostra, ibama.Amostra)
+                .Set(a => a.Pendencia, ibama.Pendencia)
+                .Set(a => a.StatusDoProcesso, ibama.StatusDoProcesso);
 
             await _Ibama.UpdateOneAsync(filter, update);
 
             // Atualizar coleções relacionadas
-            await AtualizarColecaoRelacionadoAsync(_Processo, anvisa.Ref_USA, anvisa);
-            await AtualizarColecaoRelacionadoAsync(_Decex, anvisa.Ref_USA, anvisa);
-            await AtualizarColecaoRelacionadoAsync(_Anvisa, anvisa.Ref_USA, anvisa);
-            await AtualizarColecaoRelacionadoAsync(_Imetro, anvisa.Ref_USA, anvisa);
-            await AtualizarColecaoRelacionadoAsync(_MAPA, anvisa.Ref_USA, anvisa);
+            await AtualizarColecaoRelacionadoAsync(_Processo, ibama.Ref_USA, ibama);
+            await AtualizarColecaoRelacionadoAsync(_Decex, ibama.Ref_USA, ibama);
+            await AtualizarColecaoRelacionadoAsync(_Anvisa, ibama.Ref_USA, ibama);
+            await AtualizarColecaoRelacionadoAsync(_Imetro, ibama.Ref_USA, ibama);
+            await AtualizarColecaoRelacionadoAsync(_MAPA, ibama.Ref_USA, ibama);
         }
 
         private static async Task AtualizarColecaoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, Ibama ibama) where T : class

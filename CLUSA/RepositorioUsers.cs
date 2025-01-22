@@ -4,7 +4,7 @@ namespace CLUSA
 {
     public class RepositorioUsers
     {
-        private IMongoCollection<Users> _Users;
+        private readonly IMongoCollection<Users> _Users;
 
         public List<Users> ListaUsers
         {
@@ -16,7 +16,7 @@ namespace CLUSA
         }
         public Logado Login(Users user)
         {
-            Logado Log = new Logado();
+            Logado Log = new();
             bool? resultAdmin = null;
             string? result = null;
 
@@ -52,7 +52,7 @@ namespace CLUSA
             }
             return Log;
         }
-        public async Task Create(Users user, string USER)
+        public async Task Create(Users user)
         {
             await Task.Run(() =>
             {
@@ -60,19 +60,19 @@ namespace CLUSA
             });
         }
 
-        public async Task Delete(Users user, string USER)
+        public async Task Delete(Users user)
         {
             await Task.Run(() =>
             {
-                var filter = Builders<Users>.Filter.Eq("ID", user.ID);
+                var filter = Builders<Users>.Filter.Eq("ID", user.Id);
                 _Users.DeleteOne(filter);
             });
         }
-        public async Task Udpate(Users user, string USER)
+        public async Task Udpate(Users user)
         {
             await Task.Run(() =>
             {
-                var filter = Builders<Users>.Filter.Eq("ID", user.ID);
+                var filter = Builders<Users>.Filter.Eq("ID", user.Id);
                 var update = Builders<Users>.Update
                         .Set("Username", user.Username)
                         .Set("Password", user.Password)
