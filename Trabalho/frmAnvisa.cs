@@ -1,10 +1,4 @@
 ﻿using CLUSA;
-using iText.Commons.Datastructures;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using static Trabalho.FrmProcesso;
 
 namespace Trabalho
@@ -387,13 +381,13 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsAnvisa.Current is not Anvisa anvisaAtual)
+            if (BsAnvisa.Current is not Anvisa mapaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual };
+            var frm = new FrmModificaAnvisa { anvisa = mapaAtual };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

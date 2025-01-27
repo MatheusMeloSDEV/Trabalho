@@ -52,7 +52,7 @@ namespace Trabalho
             btnConfirmar.TabIndex = 1;
             btnConfirmar.Text = "Confirmar";
             btnConfirmar.UseVisualStyleBackColor = true;
-            btnConfirmar.Click += BtnConfirmar_Click;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
             // ImporterSelectionForm
             // 

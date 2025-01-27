@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Trabalho
+﻿namespace Trabalho
 {
     public partial class ImporterSelectionForm : Form
     {
@@ -17,16 +7,16 @@ namespace Trabalho
         public ImporterSelectionForm(List<string> importadores)
         {
             InitializeComponent();
-            listBoxImportadores.Items.AddRange(importadores.ToArray());
 
-            SelectedImporter = ""; // valor padrão (string vazia, por exemplo)
+            // Preencher o ListBox com os importadores únicos
+            listBoxImportadores.Items.AddRange(importadores.ToArray());
         }
 
-        private void BtnConfirmar_Click(object sender, EventArgs e)
+        private void btnConfirmar_Click(object sender, EventArgs e)
         {
             if (listBoxImportadores.SelectedItem != null)
             {
-                SelectedImporter = listBoxImportadores.SelectedItem?.ToString() ?? string.Empty;
+                SelectedImporter = listBoxImportadores.SelectedItem.ToString();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

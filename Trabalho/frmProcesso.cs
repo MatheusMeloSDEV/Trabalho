@@ -1,9 +1,6 @@
 ﻿using CLUSA;
-using iText.Commons.Datastructures;
 using MongoDB.Driver;
-using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace Trabalho
 {
@@ -448,6 +445,14 @@ namespace Trabalho
                     if (processo.TDecex)
                     {
                         await _repositorio.Create(processo, "Decex");
+                    }
+                    if (processo.TImetro)
+                    {
+                        await _repositorio.Create(processo, "IMETRO");
+                    }
+                    if (processo.TIbama)
+                    {
+                        await _repositorio.Create(processo, "IBAMA");
                     }
                 }
             }

@@ -2,7 +2,8 @@
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace CLUSA
-{    public class Ibama
+{
+    public class Ibama
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

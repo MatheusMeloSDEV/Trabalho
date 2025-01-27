@@ -64,7 +64,7 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
-                var filter = Builders<Users>.Filter.Eq("ID", user.Id);
+                var filter = Builders<Users>.Filter.Eq("ID", user.ID);
                 _Users.DeleteOne(filter);
             });
         }
@@ -72,7 +72,7 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
-                var filter = Builders<Users>.Filter.Eq("ID", user.Id);
+                var filter = Builders<Users>.Filter.Eq("ID", user.ID);
                 var update = Builders<Users>.Update
                         .Set("Username", user.Username)
                         .Set("Password", user.Password)

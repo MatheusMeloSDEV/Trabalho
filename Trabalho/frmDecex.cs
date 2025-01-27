@@ -1,9 +1,4 @@
 ﻿using CLUSA;
-using iText.Commons.Datastructures;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using static Trabalho.FrmProcesso;
 
 namespace Trabalho

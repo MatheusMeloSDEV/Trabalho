@@ -1,10 +1,4 @@
 ﻿using CLUSA;
-using iText.Commons.Datastructures;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using static Trabalho.FrmProcesso;
 
 namespace Trabalho
@@ -19,7 +13,6 @@ namespace Trabalho
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             _repositorio = new RepositorioMAPA();
         }
-
         private void FrmMapa_Load(object sender, EventArgs e)
         {
             try
@@ -41,7 +34,6 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao carregar os dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void Conectar()
         {
             try
@@ -71,35 +63,6 @@ namespace Trabalho
                 // Captura e exibe erros
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        private void ImagensBotoes()
-        {
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            var resources = assembly.GetManifestResourceNames();
-            foreach (var r in resources)
-            {
-                Console.WriteLine(r);
-            }
-
-            // Crie um array de tuplas (string caminhoRecurso, Button botao)
-            var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
-            {
-                ("Trabalho.Imagens.botao-editar.png", BtnEditar),
-                ("Trabalho.Imagens.cancelar.png", BtnCancelar),
-                ("Trabalho.Imagens.lupa-de-pesquisa.png", BtnPesquisar),
-                ("Trabalho.Imagens.recarregar.png", BtnReload)
-            };
-
-            foreach (var (caminho, botao) in recursos)
-            {
-                botao.Image = CarregarImagemDoRecurso(assembly, caminho);
-            }
-        }
-        private static System.Drawing.Image? CarregarImagemDoRecurso(System.Reflection.Assembly assembly, string resourcePath)
-        {
-            using var stream = assembly.GetManifestResourceStream(resourcePath);
-            return stream != null ? System.Drawing.Image.FromStream(stream) : null;
         }
         private void ConfigurarColunasDataGridView()
         {
@@ -277,10 +240,51 @@ namespace Trabalho
                 coluna.MinimumWidth = 100; // Define largura mínima
             }
         }
+        private void ImagensBotoes()
+        {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
+            var resources = assembly.GetManifestResourceNames();
+            foreach (var r in resources)
+            {
+                Console.WriteLine(r);
+            }
+
+            // Crie um array de tuplas (string caminhoRecurso, Button botao)
+            var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
+            {
+                ("Trabalho.Imagens.botao-editar.png", BtnEditar),
+                ("Trabalho.Imagens.cancelar.png", BtnCancelar),
+                ("Trabalho.Imagens.lupa-de-pesquisa.png", BtnPesquisar),
+                ("Trabalho.Imagens.recarregar.png", BtnReload)
+            };
+
+            foreach (var (caminho, botao) in recursos)
+            {
+                botao.Image = CarregarImagemDoRecurso(assembly, caminho);
+            }
+        }
+        private static System.Drawing.Image? CarregarImagemDoRecurso(System.Reflection.Assembly assembly, string resourcePath)
+        {
+            using var stream = assembly.GetManifestResourceStream(resourcePath);
+            return stream != null ? System.Drawing.Image.FromStream(stream) : null;
+        }
+        private void ConfigurarInterface()
+        {
+            if (FrmLogin.Instance.Escuro)
+            {
+                toolStrip1.BackColor = SystemColors.ControlDark;
+                this.BackColor = SystemColors.ControlDark;
+                CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
+                TxtPesquisar.BackColor = SystemColors.ControlDarkDark;
+                dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
+                dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
+                dataGridView1.BackgroundColor = SystemColors.ControlDark;
+            }
+        }
         private void PopularToolStripComboBox()
         {
-            var camposIgnorados = new HashSet<string> { "Id" };
+            var camposIgnorados = new HashSet<string> { "Id", "PossuiEmbarque" };
             CmbPesquisar.Items.Clear();
 
             foreach (DataGridViewColumn coluna in dataGridView1.Columns)
@@ -296,25 +300,11 @@ namespace Trabalho
                 CmbPesquisar.SelectedIndex = 0;
             }
         }
-
-        private void ConfigurarInterface()
-        {
-            if (FrmLogin.Instance.Escuro)
-            {
-                toolStrip1.BackColor = SystemColors.ControlDark;
-                this.BackColor = SystemColors.ControlDark;
-                CmbPesquisar.BackColor = SystemColors.ControlDarkDark;
-                TxtPesquisar.BackColor = SystemColors.ControlDarkDark;
-                dataGridView1.DefaultCellStyle.BackColor = SystemColors.ControlDark;
-                dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ControlDarkDark;
-                dataGridView1.BackgroundColor = SystemColors.ControlDark;
-            }
-        }
-
         private void ConfigurarAutoCompletarParaPesquisa()
         {
             try
             {
+                // Certifique-se de que há um campo selecionado no ComboBox
                 if (CmbPesquisar.SelectedItem == null)
                 {
                     MessageBox.Show("Selecione um campo para configurar o autocompletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -344,7 +334,6 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao configurar o autocompletar: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             try
@@ -357,12 +346,10 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao carregar todos os processos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void BtnReload_Click(object sender, EventArgs e)
         {
             BSmapa.DataSource = _repositorio.FindAll();
         }
-
         private void BtnPesquisar_Click(object sender, EventArgs e)
         {
             if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
@@ -384,7 +371,6 @@ namespace Trabalho
                 MessageBox.Show("Selecione um campo para pesquisar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
             if (BSmapa.Current is not MAPA mapaAtual)

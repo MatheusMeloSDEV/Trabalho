@@ -150,13 +150,22 @@ namespace Trabalho
             };
             MenuItemAdmin.Click += MenuItemAdmin_Click;
 
+            MenuItemFinanceiro = new ToolStripMenuItem
+            {
+                Name = "MenuItemFinanceiro",
+                Size = new Size(95, 20),
+                Text = "Financeiro"
+            };
+            MenuItemFinanceiro.Click += MenuItemFinanceiro_Click;
+
             // Adicionar itens ao MenuStrip
             MSnotificacoes.Items.AddRange(new ToolStripItem[]
             {
                 MenuItemNotifications,
                 MenuItemMain,
                 MenuItemSheets,
-                MenuItemAdmin
+                MenuItemAdmin,
+                MenuItemFinanceiro
             });
 
             // Timer
@@ -217,6 +226,7 @@ namespace Trabalho
         private ToolStripMenuItem MenuItemIbama;
         private ToolStripMenuItem MenuItemImetro;
         private ToolStripMenuItem MenuItemAdmin;
+        private ToolStripMenuItem MenuItemFinanceiro;
         private System.Windows.Forms.Timer timerReleaseExit;
         private TabControl TCabas;
     }
