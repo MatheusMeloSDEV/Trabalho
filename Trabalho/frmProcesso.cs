@@ -558,8 +558,8 @@ namespace Trabalho
 
         private static string ExecutarScriptPython(string importador)
         {
-            string pythonPath = @"C:\Users\mathe\AppData\Local\Programs\Python\Python313\python.exe";
-            string scriptPath = @"C:\USA App\Python Program\index.py";
+            string pythonPath = PythonExecutor.ExecutarScript();
+            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Codigos\Python Program\index.py");
 
             ProcessStartInfo psi = new()
             {

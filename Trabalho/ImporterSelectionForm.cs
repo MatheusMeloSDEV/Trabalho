@@ -2,21 +2,19 @@
 {
     public partial class ImporterSelectionForm : Form
     {
-        public string SelectedImporter { get; private set; }
+        public string SelectedImporter { get; private set; } = string.Empty;
 
         public ImporterSelectionForm(List<string> importadores)
         {
             InitializeComponent();
-
-            // Preencher o ListBox com os importadores únicos
             listBoxImportadores.Items.AddRange(importadores.ToArray());
         }
 
-        private void btnConfirmar_Click(object sender, EventArgs e)
+        private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             if (listBoxImportadores.SelectedItem != null)
             {
-                SelectedImporter = listBoxImportadores.SelectedItem.ToString();
+                SelectedImporter = listBoxImportadores.SelectedItem?.ToString() ?? string.Empty;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -25,5 +23,6 @@
                 MessageBox.Show("Por favor, selecione um importador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
     }
 }

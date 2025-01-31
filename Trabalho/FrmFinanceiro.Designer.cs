@@ -62,8 +62,10 @@
             this.dgvTransacoes.Name = "dgvTransacoes";
             this.dgvTransacoes.ReadOnly = true;
             this.dgvTransacoes.RowTemplate.Height = 25;
+            this.dgvTransacoes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; // Ou DataGridViewAutoSizeColumnsMode.Fill
             this.dgvTransacoes.Size = new System.Drawing.Size(640, 320);
             this.dgvTransacoes.TabIndex = 0;
+
             // 
             // lblDescricao
             // 
@@ -159,33 +161,33 @@
             // 
             // btnAdicionar
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(470, 41);
+            this.btnAdicionar.Location = new System.Drawing.Point(12, 77);
             this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(144, 23);
+            this.btnAdicionar.Size = new System.Drawing.Size(75, 23);
             this.btnAdicionar.TabIndex = 11;
             this.btnAdicionar.Text = "Adicionar";
             this.btnAdicionar.UseVisualStyleBackColor = true;
-            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
+            this.btnAdicionar.Click += new System.EventHandler(this.BtnAdicionar_Click);
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(12, 77);
+            this.btnEditar.Location = new System.Drawing.Point(93, 77);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 12;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            this.btnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(93, 77);
+            this.btnExcluir.Location = new System.Drawing.Point(174, 77);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 13;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            this.btnExcluir.Click += new System.EventHandler(this.BtnExcluir_Click);
             // 
             // FrmFinanceiro
             // 
@@ -209,6 +211,7 @@
             this.Name = "FrmFinanceiro";
             this.Text = "Controle Financeiro (MongoDB)";
             this.Load += new System.EventHandler(this.FrmFinanceiro_Load);
+            this.WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransacoes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudValor)).EndInit();
             this.ResumeLayout(false);

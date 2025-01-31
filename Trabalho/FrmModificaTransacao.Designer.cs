@@ -135,7 +135,7 @@
             btnSalvar.TabIndex = 10;
             btnSalvar.Text = "Salvar Alterações";
             btnSalvar.UseVisualStyleBackColor = true;
-            btnSalvar.Click += btnSalvar_Click;
+            btnSalvar.Click += BtnSalvar_Click;
             // 
             // FrmModificaTransacao
             // 

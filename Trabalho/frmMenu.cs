@@ -10,19 +10,16 @@ namespace Trabalho
         {
             InitializeComponent();
 
-            // Verifica permissão de administrador
             if (!FrmLogin.Instance.Logado.admin)
             {
                 MenuItemAdmin.Visible = false;
             }
 
-            // Timer para liberar a opção de sair após 3 segundos
             timerReleaseExit.Interval = 3000;
             timerReleaseExit.Tick += TimerReleaseExit_Tick;
             MenuItemExit.Enabled = false;
             timerReleaseExit.Start();
 
-            // Aplica modo escuro se definido no login
             if (FrmLogin.Instance.Escuro)
             {
                 AplicarModoEscuro();
@@ -31,17 +28,12 @@ namespace Trabalho
 
         private void FrmMenu_Load(object sender, EventArgs e)
         {
-            // Ajusta o ícone da aplicação
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            // Carrega dados assim que a tela é aberta
             _ = CarregarDadosProcessos();
             TCabas.Visible = true;
         }
 
-        /// <summary>
-        /// Carrega dados dos processos, cria/atualiza notificações e exibe na aba correspondente.
-        /// </summary>
         private async Task CarregarDadosProcessos()
         {
             Cursor = Cursors.WaitCursor;
@@ -56,7 +48,6 @@ namespace Trabalho
                 var processos = await processoCollection.Find(new BsonDocument()).ToListAsync();
                 Console.WriteLine($"Foram encontrados {processos.Count} processos no banco de dados.");
 
-                // Cria ou obtém a TabPage "Data de Atracação"
                 var tabPage = TCabas.TabPages["DataDeAtracacao"] ??
                               new TabPage("Data de Atracação") { Name = "DataDeAtracacao" };
 
@@ -66,7 +57,6 @@ namespace Trabalho
                 }
                 tabPage.Controls.Clear();
 
-                // Cria um layout para exibir os dados
                 var tableLayout = new TableLayoutPanel
                 {
                     Dock = DockStyle.Fill,
@@ -74,7 +64,6 @@ namespace Trabalho
                     ColumnCount = 1
                 };
 
-                // Preenche a tabela com os dados dos processos
                 foreach (var processo in processos)
                 {
                     string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
@@ -87,7 +76,6 @@ namespace Trabalho
                         int dias = (atracacaoDate - DateTime.Today).Days;
                         diasRestantes = $"{dias} dia(s)";
 
-                        // Verifica se deve gerar notificação
                         string? mensagem = null;
                         if (dias == 5)
                             mensagem = $"Processo {refUsa}: Redestinar container ao terminal";
@@ -108,7 +96,6 @@ namespace Trabalho
                         }
                     }
 
-                    // Cria um label para exibir informações do processo
                     var label = new Label
                     {
                         AutoSize = true,
@@ -122,7 +109,6 @@ namespace Trabalho
 
                 tabPage.Controls.Add(tableLayout);
 
-                // Atualiza a lista de notificações no menu
                 AtualizarNotificacoes();
 
                 Console.WriteLine("Dados carregados com sucesso.");
@@ -137,9 +123,6 @@ namespace Trabalho
             }
         }
 
-        /// <summary>
-        /// Atualiza a exibição de notificações no menu e salva/atualiza notificações conforme necessário.
-        /// </summary>
         private void AtualizarNotificacoes()
         {
             var client = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
@@ -149,7 +132,6 @@ namespace Trabalho
             var processoCollection = database.GetCollection<BsonDocument>("PROCESSO");
             var processos = processoCollection.Find(new BsonDocument()).ToList();
 
-            // Gera ou atualiza notificações com base nos prazos
             foreach (var processo in processos)
             {
                 string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
@@ -167,7 +149,6 @@ namespace Trabalho
 
                     if (!string.IsNullOrEmpty(mensagem))
                     {
-                        // Salva notificação
                         var notificacao = new Notificacao
                         {
                             RefUsa = refUsa,
@@ -180,7 +161,6 @@ namespace Trabalho
                 }
             }
 
-            // Exibe notificações não visualizadas no menu
             var notificacoesNaoVisualizadas = notificacaoRepo.ObterNotificacoesNaoVisualizadas();
             MenuItemNotifications.DropDownItems.Clear();
 
@@ -192,7 +172,6 @@ namespace Trabalho
                     Tag = notificacao.RefUsa
                 };
 
-                // Ao clicar com o botão direito sobre a notificação, confirmar finalização
                 menuItem.MouseDown += (s, e) =>
                 {
                     if (e.Button == MouseButtons.Right)
@@ -228,10 +207,6 @@ namespace Trabalho
             }
         }
 
-        /// <summary>
-        /// Método de teste para salvar uma notificação.
-        /// </summary>
-
         private void TimerReleaseExit_Tick(object? sender, EventArgs e)
         {
             timerReleaseExit.Stop();
@@ -260,7 +235,6 @@ namespace Trabalho
 
         private void MenuItemExit_Click(object sender, EventArgs e)
         {
-            // Fecha a janela atual e volta ao login
             var frmLogin = new FrmLogin();
             frmLogin.Show();
             this.Close();
@@ -271,7 +245,6 @@ namespace Trabalho
         private T ShowSingleFormOfType<T>() where T : Form, new()
         {
             TCabas.Visible = false;
-            // Fecha janelas de outros tipos
             foreach (var kvp in _forms.ToList())
             {
                 if (kvp.Key != typeof(T))
@@ -281,7 +254,6 @@ namespace Trabalho
                 }
             }
 
-            // Se ainda existir T no dicionário e não estiver disposed, reusa
             if (_forms.TryGetValue(typeof(T), out var existingForm) && !existingForm.IsDisposed)
             {
                 existingForm.WindowState = FormWindowState.Maximized;
@@ -291,7 +263,6 @@ namespace Trabalho
                 return (T)existingForm;
             }
 
-            // Caso contrário, cria novo
             var newForm = new T { MdiParent = this };
             newForm.Show();
 

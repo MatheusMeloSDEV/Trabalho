@@ -27,7 +27,7 @@ namespace Trabalho
             dtData.Value = _transacao.Data;
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private void BtnSalvar_Click(object sender, EventArgs e)
         {
             // Atualiza os campos do objeto em memória
             _transacao.Descricao = txtDescricao.Text;

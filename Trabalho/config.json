@@ -1,0 +1,7 @@
+{
+  "mongodb_uri": "mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/",
+  "banco_dados": "Trabalho",
+  "colecao": "PROCESSO",
+  "caminho_pasta_exportacao": "C:/ProgramaCSharp/Trabalho/FollowUp",
+  "caminho_logo": "C:/ProgramaCSharp/Imagens/logo.png"
+}
