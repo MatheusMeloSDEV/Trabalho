@@ -6,6 +6,7 @@ using System.Runtime.Versioning;
 
 public class PythonExecutor
 {
+    [SupportedOSPlatform("windows")]
     public static void VerificarEInstalarPacotes()
     {
         string pythonPath = EncontrarPython(); // Tenta localizar o Python no sistema
