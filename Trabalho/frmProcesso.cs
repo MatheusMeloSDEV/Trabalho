@@ -556,53 +556,28 @@ namespace Trabalho
             }
         }
 
-        private static string ExecutarScriptPython(string importador)
-        {
-            string pythonPath = PythonExecutor.ExecutarScript();
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Codigos\Python Program\index.py");
-
-            ProcessStartInfo psi = new()
-            {
-                FileName = pythonPath,
-                Arguments = $"\"{scriptPath}\" \"{importador}\"",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            try
-            {
-                using Process? process = Process.Start(psi) ?? throw new InvalidOperationException("O processo não pôde ser iniciado.");
-                string output = process.StandardOutput.ReadToEnd();
-                string errors = process.StandardError.ReadToEnd();
-                process.WaitForExit();
-
-                return !string.IsNullOrEmpty(errors) ? $"Erro: {errors}" : output;
-            }
-            catch (Exception ex)
-            {
-                return $"Erro ao executar o script Python: {ex.Message}";
-            }
-        }
-
         private void BtnExportar_Click(object sender, EventArgs e)
         {
+            // Obtém a lista de importadores únicos do repositório
             var importadores = _repositorio.ObterImportadoresUnicos();
 
+            // Exibe um formulário para seleção do importador
             using var form = new ImporterSelectionForm(importadores);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string importador = form.SelectedImporter;
 
+                // Exibe um formulário de progresso
                 using var progressForm = new ProgressForm();
                 progressForm.Show();
                 progressForm.Update();
 
+                // Executa o executável do exportador em segundo plano
                 Task.Run(() =>
                 {
-                    string result = ExecutarScriptPython(importador);
+                    string result = ExportadorPythonRunner.ExecutarExportador(importador);
 
+                    // Após a conclusão, fecha o formulário de progresso e exibe a mensagem de resultado
                     Invoke(new Action(() =>
                     {
                         progressForm.Close();
@@ -611,6 +586,7 @@ namespace Trabalho
                 });
             }
         }
+
 
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {
