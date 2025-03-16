@@ -184,13 +184,24 @@ namespace Trabalho
 
                         if (confirmResult == DialogResult.Yes)
                         {
-                            notificacaoRepo.MarcarComoVisualizado(notificacao.RefUsa);
-                            MenuItemNotifications.DropDownItems.Remove(menuItem);
-                            MessageBox.Show("Notificação finalizada com sucesso.",
-                                            "Sucesso",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information);
+                            if (!string.IsNullOrEmpty(notificacao.RefUsa)) // Verifica se RefUsa não é nulo ou vazio
+                            {
+                                notificacaoRepo.MarcarComoVisualizado(notificacao.RefUsa);
+                                MenuItemNotifications.DropDownItems.Remove(menuItem);
+                                MessageBox.Show("Notificação finalizada com sucesso.",
+                                                "Sucesso",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Erro: Referência da notificação está vazia ou nula.",
+                                                "Erro",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Error);
+                            }
                         }
+
                     }
                 };
 

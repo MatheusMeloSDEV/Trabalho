@@ -1,6 +1,5 @@
 ﻿using CLUSA;
 using MongoDB.Driver;
-using System.Diagnostics;
 
 namespace Trabalho
 {

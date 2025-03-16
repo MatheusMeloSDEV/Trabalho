@@ -1,8 +1,4 @@
 ﻿using CLUSA;
-using MongoDB.Bson;
-using System;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Trabalho
 {

@@ -10,23 +10,37 @@ from openpyxl.drawing.image import Image
 from openpyxl.styles import Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-# ✅ Carregar configurações do arquivo JSON
+# ✅ Garantir que a saída do terminal use UTF-8 (evita erro com emojis)
+sys.stdout.reconfigure(encoding='utf-8')
+
+def resource_path(relative_path):
+    """
+    Retorna o caminho absoluto para o recurso.
+    Funciona tanto em ambiente de desenvolvimento quanto
+    quando empacotado com PyInstaller (--onefile).
+    """
+    try:
+        base_path = sys._MEIPASS  # Diretório temporário criado pelo PyInstaller
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+# ✅ Carregar configurações do JSON
 config_path = resource_path("config.json")
 with open(config_path, "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
-
 
 MONGO_URI = config["mongodb_uri"]
 BANCO_DADOS = config["banco_dados"]
 COLECAO = config["colecao"]
 DIRETORIO_EXPORTACAO = config["caminho_pasta_exportacao"]
 CAMINHO_LOGO = config["caminho_logo"]
+CAMINHO_LIBREOFFICE = config.get("caminho_libreoffice", r"C:\UsaAPP\LibreOfficePortable\App\libreoffice\program\soffice.exe")
 
 # ✅ Criar diretório de exportação, se não existir
-if not os.path.exists(DIRETORIO_EXPORTACAO):
-    os.makedirs(DIRETORIO_EXPORTACAO)
+os.makedirs(DIRETORIO_EXPORTACAO, exist_ok=True)
 
-# ✅ Verificar argumento
+# ✅ Verificar argumento obrigatório
 if len(sys.argv) < 2:
     raise ValueError("O nome do documento (importador) deve ser passado como argumento.")
 
@@ -42,21 +56,21 @@ try:
     db = client[BANCO_DADOS]
     collection = db[COLECAO]
 except Exception as e:
-    print(f"Erro ao conectar ao MongoDB: {e}")
+    print(f"[❌] Erro ao conectar ao MongoDB: {e}")
     traceback.print_exc()
     sys.exit(1)
 
-# ✅ Buscar dados do MongoDB
+# ✅ Buscar dados no MongoDB
 try:
     dados = list(collection.find({"Importador": nome_documento}))
     if not dados:
         raise ValueError(f"Nenhum processo encontrado para o importador: {nome_documento}")
 except Exception as e:
-    print(f"Erro ao buscar dados no MongoDB: {e}")
+    print(f"[❌] Erro ao buscar dados no MongoDB: {e}")
     traceback.print_exc()
     sys.exit(1)
 
-# ✅ Converter os dados para um DataFrame e ajustar colunas
+# ✅ Converter os dados para um DataFrame
 df = pd.DataFrame(dados)
 campos_desejados = [
     "Ref_USA", "Exportador", "SR", "Produto", "FreeTime", "VencimentoFreeTime", "VencimentoFMA",
@@ -70,7 +84,7 @@ df.columns = [
     "Data de Recebimento Originais", "Status do Processo", "DI", "Parametrização DI"
 ]
 
-# ✅ Criar Excel e formatar
+# ✅ Criar e formatar Excel
 wb = Workbook()
 ws = wb.active
 ws.title = "Planilha1"
@@ -121,23 +135,24 @@ for col_idx in range(2, len(df.columns) + 2):
 
 # Salvar Excel
 wb.save(arquivo_excel)
-print(f"Arquivo Excel salvo em: {arquivo_excel}")
+print(f"[✔] Arquivo Excel salvo em: {arquivo_excel}")
 
 # ✅ Converter para PDF usando LibreOffice
-def converter_para_pdf(input_file, output_file):
+def converter_para_pdf(input_file, output_file, libreoffice_path):
+    if not os.path.exists(libreoffice_path):
+        print(f"[❌] LibreOffice não encontrado em {libreoffice_path}. Verifique o caminho no config.json.")
+        return
+    
     try:
-        comando = f'soffice --headless --convert-to pdf "{input_file}" --outdir "{os.path.dirname(output_file)}"'
+        comando = f'"{libreoffice_path}" --headless --convert-to pdf "{input_file}" --outdir "{os.path.dirname(output_file)}"'
         os.system(comando)
-        print(f"PDF gerado com sucesso: {output_file}")
+        
+        if os.path.exists(output_file):
+            print(f"[✔] PDF gerado com sucesso: {output_file}")
+        else:
+            print("[⚠] Erro: PDF não foi gerado.")
+    
     except Exception as e:
-        print(f"Erro ao converter para PDF: {e}")
+        print(f"[❌] Erro ao converter para PDF: {e}")
 
-
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS  # Diretório temporário criado pelo PyInstaller
-    except Exception:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
-
-converter_para_pdf(arquivo_excel, arquivo_pdf)
+converter_para_pdf(arquivo_excel, arquivo_pdf, CAMINHO_LIBREOFFICE)
