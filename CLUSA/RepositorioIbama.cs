@@ -7,7 +7,7 @@ namespace CLUSA
     public class RepositorioIbama
     {
         private readonly IMongoCollection<Ibama> _Ibama;
-        private readonly IMongoCollection<Imetro> _Imetro;
+        private readonly IMongoCollection<Inmetro> _Inmetro;
         private readonly IMongoCollection<Processo> _Processo;
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Anvisa> _Anvisa;
@@ -18,7 +18,7 @@ namespace CLUSA
             var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
             _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
-            _Imetro = mongoDatabase.GetCollection<Imetro>("IMETRO");
+            _Inmetro = mongoDatabase.GetCollection<Inmetro>("IMETRO");
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
@@ -47,17 +47,22 @@ namespace CLUSA
                 .Set(a => a.SR, ibama.SR)
                 .Set(a => a.Exportador, ibama.Exportador)
                 .Set(a => a.Navio, ibama.Navio)
-                .Set(a => a.Terminal, ibama.Terminal)
                 .Set(a => a.Produto, ibama.Produto)
                 .Set(a => a.Origem, ibama.Origem)
                 .Set(a => a.NCM, ibama.NCM)
                 .Set(a => a.LI, ibama.LI)
                 .Set(a => a.LPCO, ibama.LPCO)
                 .Set(a => a.DataRegistroLPCO, ibama.DataRegistroLPCO)
+                .Set(a => a.CheckDataRegistroLPCO, ibama.CheckDataRegistroLPCO)
                 .Set(a => a.DataDeferimentoLPCO, ibama.DataDeferimentoLPCO)
+                .Set(a => a.CheckDataDeferimentoLPCO, ibama.CheckDataDeferimentoLPCO)
                 .Set(a => a.ParametrizacaoLPCO, ibama.ParametrizacaoLPCO)
+                .Set(a => a.InspecaoIbama, ibama.InspecaoIbama)
+                .Set(a => a.CheckInspecaoIbama, ibama.CheckInspecaoIbama)
                 .Set(a => a.DataDeAtracacao, ibama.DataDeAtracacao)
-                .Set(a => a.Inspecao, ibama.Inspecao)
+                .Set(a => a.CheckDataDeAtracacao, ibama.CheckDataDeAtracacao)
+                .Set(a => a.DataEmbarque, ibama.DataEmbarque)
+                .Set(a => a.CheckDataEmbarque, ibama.CheckDataEmbarque)
                 .Set(a => a.Amostra, ibama.Amostra)
                 .Set(a => a.Pendencia, ibama.Pendencia)
                 .Set(a => a.StatusDoProcesso, ibama.StatusDoProcesso);
@@ -68,7 +73,7 @@ namespace CLUSA
             await AtualizarColecaoRelacionadoAsync(_Processo, ibama.Ref_USA, ibama);
             await AtualizarColecaoRelacionadoAsync(_Decex, ibama.Ref_USA, ibama);
             await AtualizarColecaoRelacionadoAsync(_Anvisa, ibama.Ref_USA, ibama);
-            await AtualizarColecaoRelacionadoAsync(_Imetro, ibama.Ref_USA, ibama);
+            await AtualizarColecaoRelacionadoAsync(_Inmetro, ibama.Ref_USA, ibama);
             await AtualizarColecaoRelacionadoAsync(_MAPA, ibama.Ref_USA, ibama);
         }
 
@@ -81,17 +86,20 @@ namespace CLUSA
                 .Set("SR", ibama.SR)
                 .Set("Exportador", ibama.Exportador)
                 .Set("Navio", ibama.Navio)
-                .Set("Terminal", ibama.Terminal)
                 .Set("Produto", ibama.Produto)
                 .Set("Origem", ibama.Origem)
                 .Set("NCM", ibama.NCM)
                 .Set("LI", ibama.LI)
                 .Set("LPCO", ibama.LPCO)
                 .Set("DataRegistroLPCO", ibama.DataRegistroLPCO)
+                .Set("CheckDataRegistroLPCO", ibama.CheckDataRegistroLPCO)
                 .Set("DataDeferimentoLPCO", ibama.DataDeferimentoLPCO)
+                .Set("CheckDataDeferimentoLPCO", ibama.CheckDataDeferimentoLPCO)
                 .Set("ParametrizacaoLPCO", ibama.ParametrizacaoLPCO)
                 .Set("DataDeAtracacao", ibama.DataDeAtracacao)
-                .Set("Inspecao", ibama.Inspecao)
+                .Set("CheckDataDeAtracacao", ibama.CheckDataDeAtracacao)
+                .Set("DataEmbarque", ibama.DataEmbarque)
+                .Set("CheckDataEmbarque", ibama.CheckDataEmbarque)
                 .Set("Amostra", ibama.Amostra)
                 .Set("Pendencia", ibama.Pendencia)
                 .Set("StatusDoProcesso", ibama.StatusDoProcesso);

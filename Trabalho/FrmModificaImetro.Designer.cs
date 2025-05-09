@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class FrmModificaImetro
+    partial class FrmModificaInmetro
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            bsModificaImetro = new BindingSource(components);
+            bsModificaInmetro = new BindingSource(components);
             LBLinspecao = new Label();
             LBLdatadeatracacao = new Label();
             groupBox3 = new GroupBox();
@@ -41,7 +41,6 @@
             DTPdataderegistrolilpco = new DateTimePicker();
             TXTlilpco = new TextBox();
             label26 = new Label();
-            cbEmbarque = new CheckBox();
             label17 = new Label();
             TXTimportador = new TextBox();
             DTPdatadeinspecao = new DateTimePicker();
@@ -63,7 +62,6 @@
             TXTpendencia = new TextBox();
             Exportador = new Label();
             TXTexportador = new TextBox();
-            lblPEmbarque = new Label();
             label2 = new Label();
             TXTli = new TextBox();
             DTPdatadeembarque = new DateTimePicker();
@@ -72,37 +70,36 @@
             TXTncm = new TextBox();
             label3 = new Label();
             TXTnavio = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)bsModificaImetro).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsModificaInmetro).BeginInit();
             groupBox3.SuspendLayout();
             SuspendLayout();
             // 
-            // bsModificaImetro
+            // bsModificaInmetro
             // 
-            bsModificaImetro.DataSource = typeof(CLUSA.Imetro);
+            bsModificaInmetro.DataMember = "ListaInmetro";
+            bsModificaInmetro.DataSource = typeof(CLUSA.RepositorioInmetro);
             // 
             // LBLinspecao
             // 
             LBLinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLinspecao.AutoSize = true;
-            LBLinspecao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLinspecao.Location = new Point(445, 337);
+            LBLinspecao.Font = new Font("Segoe UI", 11F);
+            LBLinspecao.Location = new Point(437, 284);
             LBLinspecao.Name = "LBLinspecao";
             LBLinspecao.Size = new Size(68, 20);
             LBLinspecao.TabIndex = 272;
             LBLinspecao.Text = "Inspeção";
-            LBLinspecao.Visible = false;
             // 
             // LBLdatadeatracacao
             // 
             LBLdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLdatadeatracacao.AutoSize = true;
-            LBLdatadeatracacao.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLdatadeatracacao.Location = new Point(245, 337);
+            LBLdatadeatracacao.Font = new Font("Segoe UI", 11F);
+            LBLdatadeatracacao.Location = new Point(237, 284);
             LBLdatadeatracacao.Name = "LBLdatadeatracacao";
             LBLdatadeatracacao.Size = new Size(133, 20);
             LBLdatadeatracacao.TabIndex = 271;
             LBLdatadeatracacao.Text = "Data de Atracação";
-            LBLdatadeatracacao.Visible = false;
             // 
             // groupBox3
             // 
@@ -125,7 +122,7 @@
             // 
             label22.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Font = new Font("Segoe UI", 11F);
             label22.Location = new Point(594, 22);
             label22.Name = "label22";
             label22.Size = new Size(111, 20);
@@ -136,7 +133,7 @@
             // 
             label20.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label20.AutoSize = true;
-            label20.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Font = new Font("Segoe UI", 11F);
             label20.Location = new Point(407, 23);
             label20.Name = "label20";
             label20.Size = new Size(150, 20);
@@ -147,7 +144,7 @@
             // 
             label18.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Font = new Font("Segoe UI", 11F);
             label18.Location = new Point(240, 23);
             label18.Name = "label18";
             label18.Size = new Size(121, 20);
@@ -156,9 +153,11 @@
             // 
             // CBparametrizacaolilpco
             // 
-            CBparametrizacaolilpco.DataBindings.Add(new Binding("Text", bsModificaImetro, "ParametrizacaoLILPCO", true));
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("Text", bsModificaInmetro, "ParametrizacaoLPCO", true));
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("SelectedValue", bsModificaInmetro, "ParametrizacaoLPCO", true));
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("SelectedItem", bsModificaInmetro, "ParametrizacaoLPCO", true));
             CBparametrizacaolilpco.FormattingEnabled = true;
-            CBparametrizacaolilpco.Items.AddRange(new object[] { "Verde", "Amarelo", "Vermelho" });
+            CBparametrizacaolilpco.Items.AddRange(new object[] { "Documental", "Conferência Física", "Exame Físico", "Coleta de Amostra" });
             CBparametrizacaolilpco.Location = new Point(585, 46);
             CBparametrizacaolilpco.Name = "CBparametrizacaolilpco";
             CBparametrizacaolilpco.Size = new Size(128, 23);
@@ -167,7 +166,7 @@
             // DTPdatadedeferimentolilpco
             // 
             DTPdatadedeferimentolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Value", bsModificaImetro, "DataDeferimentoLILPCO", true));
+            DTPdatadedeferimentolilpco.Enabled = false;
             DTPdatadedeferimentolilpco.Format = DateTimePickerFormat.Short;
             DTPdatadedeferimentolilpco.Location = new Point(401, 46);
             DTPdatadedeferimentolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
@@ -179,7 +178,7 @@
             // DTPdataderegistrolilpco
             // 
             DTPdataderegistrolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Value", bsModificaImetro, "DataRegistroLILPCO", true));
+            DTPdataderegistrolilpco.Enabled = false;
             DTPdataderegistrolilpco.Format = DateTimePickerFormat.Short;
             DTPdataderegistrolilpco.Location = new Point(219, 46);
             DTPdataderegistrolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
@@ -191,9 +190,10 @@
             // TXTlilpco
             // 
             TXTlilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTlilpco.DataBindings.Add(new Binding("Text", bsModificaImetro, "LI_LPCO", true));
+            TXTlilpco.DataBindings.Add(new Binding("Text", bsModificaInmetro, "LPCO", true));
             TXTlilpco.Location = new Point(78, 35);
             TXTlilpco.Name = "TXTlilpco";
+            TXTlilpco.ReadOnly = true;
             TXTlilpco.Size = new Size(120, 23);
             TXTlilpco.TabIndex = 84;
             // 
@@ -201,29 +201,18 @@
             // 
             label26.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Font = new Font("Segoe UI", 12F);
             label26.Location = new Point(44, 37);
             label26.Name = "label26";
             label26.Size = new Size(28, 21);
             label26.TabIndex = 85;
             label26.Text = "N°";
             // 
-            // cbEmbarque
-            // 
-            cbEmbarque.AutoSize = true;
-            cbEmbarque.DataBindings.Add(new Binding("Checked", bsModificaImetro, "PossuiEmbarque", true));
-            cbEmbarque.Location = new Point(470, 310);
-            cbEmbarque.Name = "cbEmbarque";
-            cbEmbarque.Size = new Size(15, 14);
-            cbEmbarque.TabIndex = 264;
-            cbEmbarque.UseVisualStyleBackColor = true;
-            cbEmbarque.Click += CbEmbarque_CheckedChanged;
-            // 
             // label17
             // 
             label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label17.AutoSize = true;
-            label17.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Font = new Font("Segoe UI", 12F);
             label17.Location = new Point(50, 129);
             label17.Name = "label17";
             label17.Size = new Size(89, 21);
@@ -233,7 +222,7 @@
             // TXTimportador
             // 
             TXTimportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTimportador.DataBindings.Add(new Binding("Text", bsModificaImetro, "Importador", true));
+            TXTimportador.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Importador", true));
             TXTimportador.Location = new Point(145, 127);
             TXTimportador.Name = "TXTimportador";
             TXTimportador.Size = new Size(137, 23);
@@ -242,22 +231,20 @@
             // DTPdatadeinspecao
             // 
             DTPdatadeinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdatadeinspecao.DataBindings.Add(new Binding("Value", bsModificaImetro, "Inspecao", true));
             DTPdatadeinspecao.Format = DateTimePickerFormat.Short;
-            DTPdatadeinspecao.Location = new Point(412, 361);
+            DTPdatadeinspecao.Location = new Point(404, 308);
             DTPdatadeinspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeinspecao.Name = "DTPdatadeinspecao";
             DTPdatadeinspecao.Size = new Size(135, 23);
             DTPdatadeinspecao.TabIndex = 261;
             DTPdatadeinspecao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            DTPdatadeinspecao.Visible = false;
             // 
             // CBamostra
             // 
             CBamostra.AutoSize = true;
-            CBamostra.DataBindings.Add(new Binding("Checked", bsModificaImetro, "Amostra", true));
-            CBamostra.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CBamostra.Location = new Point(56, 505);
+            CBamostra.DataBindings.Add(new Binding("Checked", bsModificaInmetro, "Amostra", true));
+            CBamostra.Font = new Font("Segoe UI", 12F);
+            CBamostra.Location = new Point(48, 521);
             CBamostra.Name = "CBamostra";
             CBamostra.Size = new Size(88, 25);
             CBamostra.TabIndex = 259;
@@ -267,7 +254,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(670, 498);
+            button1.Location = new Point(662, 514);
             button1.Name = "button1";
             button1.Size = new Size(112, 32);
             button1.TabIndex = 258;
@@ -279,7 +266,7 @@
             // 
             label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Font = new Font("Segoe UI", 12F);
             label14.Location = new Point(666, 73);
             label14.Name = "label14";
             label14.Size = new Size(63, 21);
@@ -289,7 +276,7 @@
             // TXTorigem
             // 
             TXTorigem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTorigem.DataBindings.Add(new Binding("Text", bsModificaImetro, "PortoDestino", true));
+            TXTorigem.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Origem", true));
             TXTorigem.Location = new Point(735, 71);
             TXTorigem.Name = "TXTorigem";
             TXTorigem.Size = new Size(181, 23);
@@ -298,7 +285,7 @@
             // btnAdiciona
             // 
             btnAdiciona.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdiciona.Location = new Point(788, 498);
+            btnAdiciona.Location = new Point(780, 514);
             btnAdiciona.Name = "btnAdiciona";
             btnAdiciona.Size = new Size(112, 32);
             btnAdiciona.TabIndex = 254;
@@ -309,42 +296,40 @@
             // DTPdatadeatracacao
             // 
             DTPdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdatadeatracacao.DataBindings.Add(new Binding("Value", bsModificaImetro, "DataDeAtracacao", true));
             DTPdatadeatracacao.Format = DateTimePickerFormat.Short;
-            DTPdatadeatracacao.Location = new Point(244, 361);
+            DTPdatadeatracacao.Location = new Point(236, 308);
             DTPdatadeatracacao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeatracacao.Name = "DTPdatadeatracacao";
             DTPdatadeatracacao.Size = new Size(135, 23);
             DTPdatadeatracacao.TabIndex = 253;
             DTPdatadeatracacao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            DTPdatadeatracacao.Visible = false;
             // 
             // label11
             // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(386, 25);
+            label11.Font = new Font("Segoe UI", 12F);
+            label11.Location = new Point(372, 25);
             label11.Name = "label11";
-            label11.Size = new Size(35, 21);
+            label11.Size = new Size(49, 21);
             label11.TabIndex = 249;
-            label11.Text = "S/R";
+            label11.Text = "S. Ref";
             // 
             // label9
             // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(161, 25);
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(131, 25);
             label9.Name = "label9";
-            label9.Size = new Size(38, 21);
+            label9.Size = new Size(66, 21);
             label9.TabIndex = 248;
-            label9.Text = "N/R";
+            label9.Text = "Ref. Usa";
             // 
             // TXTsr
             // 
             TXTsr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTsr.DataBindings.Add(new Binding("Text", bsModificaImetro, "SR", true));
+            TXTsr.DataBindings.Add(new Binding("Text", bsModificaInmetro, "SR", true));
             TXTsr.Location = new Point(427, 23);
             TXTsr.Name = "TXTsr";
             TXTsr.Size = new Size(136, 23);
@@ -353,7 +338,7 @@
             // TXTnr
             // 
             TXTnr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTnr.DataBindings.Add(new Binding("Text", bsModificaImetro, "Ref_USA", true));
+            TXTnr.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Ref_USA", true));
             TXTnr.Location = new Point(203, 23);
             TXTnr.Name = "TXTnr";
             TXTnr.Size = new Size(126, 23);
@@ -363,8 +348,8 @@
             // 
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(56, 409);
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Underline);
+            label10.Location = new Point(56, 354);
             label10.Name = "label10";
             label10.Size = new Size(140, 21);
             label10.TabIndex = 245;
@@ -373,17 +358,18 @@
             // TXTstatusdoprocesso
             // 
             TXTstatusdoprocesso.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTstatusdoprocesso.DataBindings.Add(new Binding("Text", bsModificaImetro, "StatusDoProcesso", true));
-            TXTstatusdoprocesso.Location = new Point(202, 408);
+            TXTstatusdoprocesso.DataBindings.Add(new Binding("Text", bsModificaInmetro, "StatusDoProcesso", true));
+            TXTstatusdoprocesso.Location = new Point(202, 353);
+            TXTstatusdoprocesso.Multiline = true;
             TXTstatusdoprocesso.Name = "TXTstatusdoprocesso";
-            TXTstatusdoprocesso.Size = new Size(684, 23);
+            TXTstatusdoprocesso.Size = new Size(684, 91);
             TXTstatusdoprocesso.TabIndex = 244;
             // 
             // label7
             // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Font = new Font("Segoe UI", 12F);
             label7.Location = new Point(355, 73);
             label7.Name = "label7";
             label7.Size = new Size(66, 21);
@@ -393,7 +379,7 @@
             // TXTProduto
             // 
             TXTProduto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTProduto.DataBindings.Add(new Binding("Text", bsModificaImetro, "Produto", true));
+            TXTProduto.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Produto", true));
             TXTProduto.Location = new Point(427, 71);
             TXTProduto.Name = "TXTProduto";
             TXTProduto.Size = new Size(178, 23);
@@ -403,8 +389,8 @@
             // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(102, 449);
+            label8.Font = new Font("Segoe UI", 12F);
+            label8.Location = new Point(94, 465);
             label8.Name = "label8";
             label8.Size = new Size(80, 21);
             label8.TabIndex = 238;
@@ -413,8 +399,8 @@
             // TXTpendencia
             // 
             TXTpendencia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTpendencia.DataBindings.Add(new Binding("Text", bsModificaImetro, "Pendencia", true));
-            TXTpendencia.Location = new Point(185, 447);
+            TXTpendencia.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Pendencia", true));
+            TXTpendencia.Location = new Point(177, 463);
             TXTpendencia.Name = "TXTpendencia";
             TXTpendencia.Size = new Size(671, 23);
             TXTpendencia.TabIndex = 237;
@@ -423,7 +409,7 @@
             // 
             Exportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Exportador.AutoSize = true;
-            Exportador.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Exportador.Font = new Font("Segoe UI", 12F);
             Exportador.Location = new Point(50, 73);
             Exportador.Name = "Exportador";
             Exportador.Size = new Size(86, 21);
@@ -433,28 +419,17 @@
             // TXTexportador
             // 
             TXTexportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTexportador.DataBindings.Add(new Binding("Text", bsModificaImetro, "Exportador", true));
+            TXTexportador.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Exportador", true));
             TXTexportador.Location = new Point(145, 71);
             TXTexportador.Name = "TXTexportador";
             TXTexportador.Size = new Size(137, 23);
             TXTexportador.TabIndex = 231;
             // 
-            // lblPEmbarque
-            // 
-            lblPEmbarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblPEmbarque.AutoSize = true;
-            lblPEmbarque.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            lblPEmbarque.Location = new Point(439, 287);
-            lblPEmbarque.Name = "lblPEmbarque";
-            lblPEmbarque.Size = new Size(77, 20);
-            lblPEmbarque.TabIndex = 265;
-            lblPEmbarque.Text = "Embarque";
-            // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI", 12F);
             label2.Location = new Point(356, 129);
             label2.Name = "label2";
             label2.Size = new Size(22, 21);
@@ -464,7 +439,7 @@
             // TXTli
             // 
             TXTli.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTli.DataBindings.Add(new Binding("Text", bsModificaImetro, "LI", true));
+            TXTli.DataBindings.Add(new Binding("Text", bsModificaInmetro, "LI", true));
             TXTli.Location = new Point(384, 129);
             TXTli.Name = "TXTli";
             TXTli.Size = new Size(221, 23);
@@ -473,33 +448,30 @@
             // DTPdatadeembarque
             // 
             DTPdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            DTPdatadeembarque.DataBindings.Add(new Binding("Value", bsModificaImetro, "DataEmbarque", true));
             DTPdatadeembarque.Format = DateTimePickerFormat.Short;
-            DTPdatadeembarque.Location = new Point(581, 361);
+            DTPdatadeembarque.Location = new Point(570, 307);
             DTPdatadeembarque.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             DTPdatadeembarque.Name = "DTPdatadeembarque";
             DTPdatadeembarque.Size = new Size(135, 23);
             DTPdatadeembarque.TabIndex = 251;
             DTPdatadeembarque.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            DTPdatadeembarque.Visible = false;
             // 
             // LBLdatadeembarque
             // 
             LBLdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLdatadeembarque.AutoSize = true;
-            LBLdatadeembarque.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            LBLdatadeembarque.Location = new Point(581, 338);
+            LBLdatadeembarque.Font = new Font("Segoe UI", 11F);
+            LBLdatadeembarque.Location = new Point(570, 284);
             LBLdatadeembarque.Name = "LBLdatadeembarque";
             LBLdatadeembarque.Size = new Size(134, 20);
             LBLdatadeembarque.TabIndex = 270;
             LBLdatadeembarque.Text = "Data de Embarque";
-            LBLdatadeembarque.Visible = false;
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 12F);
             label1.Location = new Point(666, 129);
             label1.Name = "label1";
             label1.Size = new Size(46, 21);
@@ -509,7 +481,7 @@
             // TXTncm
             // 
             TXTncm.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTncm.DataBindings.Add(new Binding("Text", bsModificaImetro, "NCM", true));
+            TXTncm.DataBindings.Add(new Binding("Text", bsModificaInmetro, "NCM", true));
             TXTncm.Location = new Point(718, 127);
             TXTncm.Name = "TXTncm";
             TXTncm.Size = new Size(198, 23);
@@ -519,7 +491,7 @@
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("Segoe UI", 12F);
             label3.Location = new Point(610, 25);
             label3.Name = "label3";
             label3.Size = new Size(51, 21);
@@ -529,17 +501,17 @@
             // TXTnavio
             // 
             TXTnavio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTnavio.DataBindings.Add(new Binding("Text", bsModificaImetro, "Navio", true));
+            TXTnavio.DataBindings.Add(new Binding("Text", bsModificaInmetro, "Navio", true));
             TXTnavio.Location = new Point(667, 23);
             TXTnavio.Name = "TXTnavio";
             TXTnavio.Size = new Size(148, 23);
             TXTnavio.TabIndex = 277;
             // 
-            // frmModificaImetro
+            // FrmModificaInmetro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(941, 555);
+            ClientSize = new Size(941, 570);
             ControlBox = false;
             Controls.Add(label3);
             Controls.Add(TXTnavio);
@@ -551,7 +523,6 @@
             Controls.Add(LBLdatadeatracacao);
             Controls.Add(LBLdatadeembarque);
             Controls.Add(groupBox3);
-            Controls.Add(cbEmbarque);
             Controls.Add(label17);
             Controls.Add(TXTimportador);
             Controls.Add(DTPdatadeinspecao);
@@ -574,11 +545,10 @@
             Controls.Add(TXTpendencia);
             Controls.Add(Exportador);
             Controls.Add(TXTexportador);
-            Controls.Add(lblPEmbarque);
-            Name = "frmModificaImetro";
+            Name = "FrmModificaInmetro";
             StartPosition = FormStartPosition.CenterScreen;
-            Load += FrmModificaImetro_Load;
-            ((System.ComponentModel.ISupportInitialize)bsModificaImetro).EndInit();
+            Load += FrmModificaInmetro_Load;
+            ((System.ComponentModel.ISupportInitialize)bsModificaInmetro).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             ResumeLayout(false);
@@ -586,7 +556,7 @@
         }
 
         #endregion
-        private BindingSource bsModificaImetro;
+        private BindingSource bsModificaInmetro;
         private Label LBLinspecao;
         private Label LBLdatadeatracacao;
         private GroupBox groupBox3;
@@ -598,7 +568,6 @@
         private DateTimePicker DTPdataderegistrolilpco;
         private TextBox TXTlilpco;
         private Label label26;
-        private CheckBox cbEmbarque;
         private Label label17;
         private TextBox TXTimportador;
         private DateTimePicker DTPdatadeinspecao;
@@ -620,7 +589,6 @@
         private TextBox TXTpendencia;
         private Label Exportador;
         private TextBox TXTexportador;
-        private Label lblPEmbarque;
         private Label label2;
         private TextBox TXTli;
         private DateTimePicker DTPdatadeembarque;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,6 +10,21 @@
     <PackageIcon>logo-removebg-preview (1).png</PackageIcon>
     <ApplicationIcon>logo-removebg-preview (1).ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="FollowUp\**" />
+    <EmbeddedResource Remove="FollowUp\**" />
+    <None Remove="FollowUp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="frmRecibo.cs" />
+    <Compile Remove="frmRecibo.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="frmRecibo.resx" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Imagens\botao-adicionar.png" />
@@ -103,7 +118,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FollowUp\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 

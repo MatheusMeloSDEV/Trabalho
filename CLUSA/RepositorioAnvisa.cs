@@ -10,7 +10,7 @@ namespace CLUSA
         private readonly IMongoCollection<Processo> _Processo;
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Ibama> _Ibama;
-        private readonly IMongoCollection<Imetro> _Imetro;
+        private readonly IMongoCollection<Inmetro> _Imetro;
         private readonly IMongoCollection<MAPA> _MAPA;
 
         public RepositorioAnvisa()
@@ -20,7 +20,7 @@ namespace CLUSA
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
             _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
-            _Imetro = mongoDatabase.GetCollection<Imetro>("IMETRO");
+            _Imetro = mongoDatabase.GetCollection<Inmetro>("IMETRO");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
         }
@@ -47,17 +47,22 @@ namespace CLUSA
                 .Set(a => a.SR, anvisa.SR)
                 .Set(a => a.Exportador, anvisa.Exportador)
                 .Set(a => a.Navio, anvisa.Navio)
-                .Set(a => a.Terminal, anvisa.Terminal)
                 .Set(a => a.Produto, anvisa.Produto)
                 .Set(a => a.Origem, anvisa.Origem)
                 .Set(a => a.NCM, anvisa.NCM)
                 .Set(a => a.LI, anvisa.LI)
                 .Set(a => a.LPCO, anvisa.LPCO)
                 .Set(a => a.DataRegistroLPCO, anvisa.DataRegistroLPCO)
+                .Set(a => a.CheckDataRegistroLPCO, anvisa.CheckDataRegistroLPCO)
                 .Set(a => a.DataDeferimentoLPCO, anvisa.DataDeferimentoLPCO)
+                .Set(a => a.CheckDataDeferimentoLPCO, anvisa.CheckDataDeferimentoLPCO)
                 .Set(a => a.ParametrizacaoLPCO, anvisa.ParametrizacaoLPCO)
+                .Set(a => a.InspecaoAnvisa, anvisa.InspecaoAnvisa)
+                .Set(a => a.CheckInspecaoAnvisa, anvisa.CheckInspecaoAnvisa)
                 .Set(a => a.DataDeAtracacao, anvisa.DataDeAtracacao)
-                .Set(a => a.Inspecao, anvisa.Inspecao)
+                .Set(a => a.CheckDataDeAtracacao, anvisa.CheckDataDeAtracacao)
+                .Set(a => a.DataEmbarque, anvisa.DataEmbarque)
+                .Set(a => a.CheckDataEmbarque, anvisa.CheckDataEmbarque)
                 .Set(a => a.Amostra, anvisa.Amostra)
                 .Set(a => a.Pendencia, anvisa.Pendencia)
                 .Set(a => a.StatusDoProcesso, anvisa.StatusDoProcesso);
@@ -81,17 +86,20 @@ namespace CLUSA
                 .Set("SR", anvisa.SR)
                 .Set("Exportador", anvisa.Exportador)
                 .Set("Navio", anvisa.Navio)
-                .Set("Terminal", anvisa.Terminal)
                 .Set("Produto", anvisa.Produto)
                 .Set("Origem", anvisa.Origem)
                 .Set("NCM", anvisa.NCM)
                 .Set("LI", anvisa.LI)
                 .Set("LPCO", anvisa.LPCO)
                 .Set("DataRegistroLPCO", anvisa.DataRegistroLPCO)
+                .Set("CheckDataRegistroLPCO", anvisa.CheckDataRegistroLPCO)
                 .Set("DataDeferimentoLPCO", anvisa.DataDeferimentoLPCO)
+                .Set("CheckDataDeferimentoLPCO", anvisa.CheckDataDeferimentoLPCO)
                 .Set("ParametrizacaoLPCO", anvisa.ParametrizacaoLPCO)
                 .Set("DataDeAtracacao", anvisa.DataDeAtracacao)
-                .Set("Inspecao", anvisa.Inspecao)
+                .Set("CheckDataDeAtracacao", anvisa.CheckDataDeAtracacao)
+                .Set("DataEmbarque", anvisa.DataEmbarque)
+                .Set("CheckDataEmbarque", anvisa.CheckDataEmbarque)
                 .Set("Amostra", anvisa.Amostra)
                 .Set("Pendencia", anvisa.Pendencia)
                 .Set("StatusDoProcesso", anvisa.StatusDoProcesso);

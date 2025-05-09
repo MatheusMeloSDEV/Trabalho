@@ -129,7 +129,7 @@ namespace Trabalho
         }
         private void BtnFechar_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
         }
 
         private void FtLua_Click(object sender, EventArgs e)

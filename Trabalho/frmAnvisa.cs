@@ -97,8 +97,12 @@ namespace Trabalho
         }
         private void ConfigurarColunasDataGridView()
         {
-            dataGridView1.Columns.Clear(); // Limpa colunas anteriores
+            // Limpa colunas anteriores
+            dataGridView1.Columns.Clear();
 
+            // ——————————————————————
+            // 1) Colunas principais (texto)
+            // ——————————————————————
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
@@ -107,148 +111,66 @@ namespace Trabalho
                 ReadOnly = true,
                 Visible = false
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Ref_USA",
                 HeaderText = "Ref. USA",
                 Name = "ColunaRefUSA"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "SR",
                 HeaderText = "SR",
                 Name = "ColunaSR"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Importador",
                 HeaderText = "Importador",
                 Name = "ColunaImportador"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Exportador",
                 HeaderText = "Exportador",
                 Name = "ColunaExportador"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Navio",
                 HeaderText = "Navio",
                 Name = "ColunaNavio"
             });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Terminal",
-                HeaderText = "Terminal",
-                Name = "ColunaTerminal"
-            });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Produto",
                 HeaderText = "Produto",
                 Name = "ColunaProduto"
             });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Origem",
-                HeaderText = "Origem",
-                Name = "ColunaOrigem"
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "TEmbarque",
-                HeaderText = "Tem Embarque",
-                Name = "ColunaTEmbarque",
-                Visible = false
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataDeAtracacao",
-                HeaderText = "Data de Atracação",
-                Name = "ColunaDataDeAtracacao"
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataEmbarque",
-                HeaderText = "Data de Embarque",
-                Name = "ColunaDataEmbarque"
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Inspecao",
-                HeaderText = "Inspeção",
-                Name = "ColunaInspecao"
-            });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "NCM",
                 HeaderText = "NCM",
                 Name = "ColunaNCM"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "LI",
                 HeaderText = "LI",
                 Name = "ColunaLI"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "LPCO",
                 HeaderText = "LPCO",
                 Name = "ColunaLPCO"
             });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataRegistroLPCO",
-                HeaderText = "Data Registro LPCO",
-                Name = "ColunaDataRegistroLPCO"
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataDeferimentoLPCO",
-                HeaderText = "Data Deferimento LPCO",
-                Name = "ColunaDataDeferimentoLPCO"
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "ParametrizacaoLPCO",
-                HeaderText = "Parametrização LPCO",
-                Name = "ColunaParametrizacaoLPCO"
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "Amostra",
-                HeaderText = "Amostra",
-                Name = "ColunaAmostra"
-            });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Pendencia",
                 HeaderText = "Pendência",
                 Name = "ColunaPendencia"
             });
-
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "StatusDoProcesso",
@@ -256,19 +178,14 @@ namespace Trabalho
                 Name = "ColunaStatusDoProcesso"
             });
 
-            // Ajusta automaticamente o tamanho das colunas com base no conteúdo
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
-            // Permite quebra de texto nos cabeçalhos
             dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
-
-            // Ajusta a altura dos cabeçalhos para suportar múltiplas linhas
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 
-            // Define uma largura mínima para todas as colunas
             foreach (DataGridViewColumn coluna in dataGridView1.Columns)
             {
-                coluna.MinimumWidth = 100; // Define largura mínima
+                coluna.MinimumWidth = 100;
+                coluna.DefaultCellStyle.Font = new Font("Segoe UI", 10);
             }
         }
 
@@ -381,13 +298,13 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsAnvisa.Current is not Anvisa mapaAtual)
+            if (BsAnvisa.Current is not Anvisa anvisaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaAnvisa { anvisa = mapaAtual };
+            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

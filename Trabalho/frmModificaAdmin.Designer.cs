@@ -89,7 +89,6 @@
             // 
             // tErro
             // 
-            tErro.Tick += TErro_Tick;
             // 
             // frmModificaAdmin
             // 

@@ -1,4 +1,10 @@
-﻿using CLUSA;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;            // Timer vem daqui
+using CLUSA;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -6,219 +12,53 @@ namespace Trabalho
 {
     public partial class FrmMenu : Form
     {
+        private readonly string _connectionString = "mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/";
+        private readonly string _databaseName = "Trabalho";
+        private readonly IMongoCollection<BsonDocument> _processoCollection;
+        private readonly RepositorioNotificacao _notificacaoRepo;
+        // Mantém instâncias únicas dos formulários filhos
+            private readonly Dictionary<Type, Form> _forms = new();
+
         public FrmMenu()
         {
             InitializeComponent();
 
-            if (!FrmLogin.Instance.Logado.admin)
-            {
-                MenuItemAdmin.Visible = false;
-            }
-
-            timerReleaseExit.Interval = 3000;
+            this.Shown += FrmMenu_Shown;
+            // Inicializa e dispara o timer para habilitar o Exit após 3s
+            timerReleaseExit = new System.Windows.Forms.Timer { Interval = 3000 };
             timerReleaseExit.Tick += TimerReleaseExit_Tick;
             MenuItemExit.Enabled = false;
             timerReleaseExit.Start();
 
-            if (FrmLogin.Instance.Escuro)
+            if (FrmLogin.Instance.Logado.admin == false)
             {
-                AplicarModoEscuro();
+                MenuItemAdmin.Visible = false;
             }
-        }
 
+            // Inicializa acesso ao MongoDB
+            var client = new MongoClient(_connectionString);
+            var database = client.GetDatabase(_databaseName);
+            _processoCollection = database.GetCollection<BsonDocument>("PROCESSO");
+            _notificacaoRepo = new RepositorioNotificacao(database);
+
+            // Se estiver usando tema escuro:
+            if (FrmLogin.Instance.Escuro)
+                AplicarModoEscuro();
+        }
+        private async void FrmMenu_Shown(object? sender, EventArgs e)
+        {
+            // Aqui o form já apareceu na tela, podemos carregar sem bloquear a pintura
+            await CarregarDadosProcessos();
+            TCabas.Visible = true;  // se você ainda quiser mostrar as abas só após o load
+        }
         private void FrmMenu_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-
-            _ = CarregarDadosProcessos();
-            TCabas.Visible = true;
+            // não chame aqui o CarregarDadosProcessos
+            TCabas.Visible = false;   // se quiser só mostrar após o CarregarDados
         }
 
-        private async Task CarregarDadosProcessos()
-        {
-            Cursor = Cursors.WaitCursor;
-
-            try
-            {
-                var client = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
-                var database = client.GetDatabase("Trabalho");
-                var processoCollection = database.GetCollection<BsonDocument>("PROCESSO");
-                var notificacaoRepo = new RepositorioNotificacao(database);
-
-                var processos = await processoCollection.Find(new BsonDocument()).ToListAsync();
-                Console.WriteLine($"Foram encontrados {processos.Count} processos no banco de dados.");
-
-                var tabPage = TCabas.TabPages["DataDeAtracacao"] ??
-                              new TabPage("Data de Atracação") { Name = "DataDeAtracacao" };
-
-                if (!TCabas.TabPages.Contains(tabPage))
-                {
-                    TCabas.TabPages.Add(tabPage);
-                }
-                tabPage.Controls.Clear();
-
-                var tableLayout = new TableLayoutPanel
-                {
-                    Dock = DockStyle.Fill,
-                    AutoSize = true,
-                    ColumnCount = 1
-                };
-
-                foreach (var processo in processos)
-                {
-                    string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
-                    string sr = processo.Contains("SR") ? processo["SR"].AsString : "N/A";
-                    string dataAtracacao = processo.Contains("DataDeAtracacao") ? processo["DataDeAtracacao"].AsString : "N/A";
-
-                    string diasRestantes = string.Empty;
-                    if (DateTime.TryParse(dataAtracacao, out DateTime atracacaoDate))
-                    {
-                        int dias = (atracacaoDate - DateTime.Today).Days;
-                        diasRestantes = $"{dias} dia(s)";
-
-                        string? mensagem = null;
-                        if (dias == 5)
-                            mensagem = $"Processo {refUsa}: Redestinar container ao terminal";
-                        else if (dias == 15)
-                            mensagem = $"Processo {refUsa}: Dar entrada no Mapa/Anvisa";
-
-                        if (!string.IsNullOrEmpty(mensagem))
-                        {
-                            var notificacao = new Notificacao
-                            {
-                                RefUsa = refUsa,
-                                Mensagem = mensagem,
-                                DataCriacao = DateTime.Now,
-                                Visualizado = false
-                            };
-
-                            notificacaoRepo.SalvarNotificacao(notificacao);
-                        }
-                    }
-
-                    var label = new Label
-                    {
-                        AutoSize = true,
-                        Text = $"{refUsa} - {sr} - {dataAtracacao} - {diasRestantes}",
-                        Font = new System.Drawing.Font("Segoe UI", 10F),
-                        Margin = new Padding(5)
-                    };
-
-                    tableLayout.Controls.Add(label);
-                }
-
-                tabPage.Controls.Add(tableLayout);
-
-                AtualizarNotificacoes();
-
-                Console.WriteLine("Dados carregados com sucesso.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao carregar processos: {ex.Message}");
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
-            }
-        }
-
-        private void AtualizarNotificacoes()
-        {
-            var client = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
-            var database = client.GetDatabase("Trabalho");
-            var notificacaoRepo = new RepositorioNotificacao(database);
-
-            var processoCollection = database.GetCollection<BsonDocument>("PROCESSO");
-            var processos = processoCollection.Find(new BsonDocument()).ToList();
-
-            foreach (var processo in processos)
-            {
-                string refUsa = processo.Contains("Ref_USA") ? processo["Ref_USA"].AsString : "N/A";
-                string dataAtracacao = processo.Contains("DataDeAtracacao") ? processo["DataDeAtracacao"].AsString : "N/A";
-
-                if (DateTime.TryParse(dataAtracacao, out DateTime atracacaoDate))
-                {
-                    int dias = (atracacaoDate - DateTime.Today).Days;
-                    string mensagem = dias switch
-                    {
-                        5 => $"Processo {refUsa}: Redestinar container ao terminal",
-                        15 => $"Processo {refUsa}: Dar entrada no Mapa/Anvisa",
-                        _ => string.Empty
-                    };
-
-                    if (!string.IsNullOrEmpty(mensagem))
-                    {
-                        var notificacao = new Notificacao
-                        {
-                            RefUsa = refUsa,
-                            Mensagem = mensagem,
-                            DataCriacao = DateTime.Now,
-                            Visualizado = false
-                        };
-                        notificacaoRepo.SalvarNotificacao(notificacao);
-                    }
-                }
-            }
-
-            var notificacoesNaoVisualizadas = notificacaoRepo.ObterNotificacoesNaoVisualizadas();
-            MenuItemNotifications.DropDownItems.Clear();
-
-            foreach (var notificacao in notificacoesNaoVisualizadas)
-            {
-                var menuItem = new ToolStripMenuItem
-                {
-                    Text = notificacao.Mensagem,
-                    Tag = notificacao.RefUsa
-                };
-
-                menuItem.MouseDown += (s, e) =>
-                {
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        var confirmResult = MessageBox.Show(
-                            $"Deseja finalizar a notificação {notificacao.RefUsa}?",
-                            "Confirmação",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question);
-
-                        if (confirmResult == DialogResult.Yes)
-                        {
-                            if (!string.IsNullOrEmpty(notificacao.RefUsa)) // Verifica se RefUsa não é nulo ou vazio
-                            {
-                                notificacaoRepo.MarcarComoVisualizado(notificacao.RefUsa);
-                                MenuItemNotifications.DropDownItems.Remove(menuItem);
-                                MessageBox.Show("Notificação finalizada com sucesso.",
-                                                "Sucesso",
-                                                MessageBoxButtons.OK,
-                                                MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Erro: Referência da notificação está vazia ou nula.",
-                                                "Erro",
-                                                MessageBoxButtons.OK,
-                                                MessageBoxIcon.Error);
-                            }
-                        }
-
-                    }
-                };
-
-                MenuItemNotifications.DropDownItems.Add(menuItem);
-            }
-
-            if (!MenuItemNotifications.DropDownItems.OfType<ToolStripItem>().Any())
-            {
-                MenuItemNotifications.DropDownItems.Add(new ToolStripMenuItem
-                {
-                    Text = "Sem notificações",
-                    Enabled = false
-                });
-            }
-        }
-
-        private void TimerReleaseExit_Tick(object? sender, EventArgs e)
+        private void TimerReleaseExit_Tick(object sender, EventArgs e)
         {
             timerReleaseExit.Stop();
             MenuItemExit.Enabled = true;
@@ -227,32 +67,197 @@ namespace Trabalho
         private void AplicarModoEscuro()
         {
             MSnotificacoes.BackColor = SystemColors.ControlDark;
+            // configure outros componentes se necessário...
         }
 
+        private async Task CarregarDadosProcessos()
+        {
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                var processos = await _processoCollection
+                    .Find(FilterDefinition<BsonDocument>.Empty)
+                    .ToListAsync();
+
+                MontarTabProcessos(processos);
+                GerarNotificacoes(processos);
+                AtualizarNotificacoes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar processos: {ex.Message}", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void MontarTabProcessos(List<BsonDocument> processos)
+        {
+            var tabPage = TCabas.TabPages["DataDeAtracacao"];
+            if (tabPage == null)
+            {
+                tabPage = new TabPage("Data de Atracação") { Name = "DataDeAtracacao" };
+                TCabas.TabPages.Add(tabPage);
+            }
+            tabPage.Controls.Clear();
+
+            var table = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoSize = true,
+                ColumnCount = 1
+            };
+
+            foreach (var p in processos)
+            {
+                var refUsa = p.GetValue("Ref_USA", BsonNull.Value).ToString();
+                var sr = p.GetValue("SR", BsonNull.Value).ToString();
+
+                // extrai BsonDateTime se existir, senão tenta converter string
+                DateTime dt;
+                var bval = p.GetValue("DataDeAtracacao", BsonNull.Value);
+                if (bval.IsValidDateTime)
+                    dt = bval.ToUniversalTime().ToLocalTime();
+                else if (!DateTime.TryParse(bval.ToString(), out dt))
+                    dt = DateTime.MinValue;
+
+                var dataFmt = dt != DateTime.MinValue
+                    ? dt.ToString("dd/MM/yyyy")
+                    : "N/A";
+
+                var dias = dt != DateTime.MinValue
+                    ? (dt.Date - DateTime.Today).Days
+                    : 0;
+                var restantes = dt != DateTime.MinValue
+                    ? $"{dias} dia(s)"
+                    : "";
+
+                var lbl = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 10F),
+                    Margin = new Padding(5),
+                    Text = $"{refUsa} — {sr} — {dataFmt} — {restantes}"
+                };
+                table.Controls.Add(lbl);
+            }
+
+            tabPage.Controls.Add(table);
+        }
+
+        private void GerarNotificacoes(List<BsonDocument> processos)
+        {
+            var novas = new List<Notificacao>();
+
+            foreach (var p in processos)
+            {
+                string refUsa = p.GetValue("Ref_USA", BsonNull.Value)?.ToString() ?? "";
+                if (!DateTime.TryParse(p.GetValue("DataDeAtracacao", BsonNull.Value)?.ToString(), out var dt))
+                    continue;
+
+                int dias = (dt - DateTime.Today).Days;
+
+                // até 15 dias
+                if (dias <= 15 && dias >= 0)
+                {
+                    var msg15 = $"Processo {refUsa}: Dar entrada no Mapa/Anvisa";
+                    if (!_notificacaoRepo.ExisteNotificacao(refUsa, msg15))
+                    {
+                        novas.Add(new Notificacao
+                        {
+                            RefUsa = refUsa,
+                            Mensagem = msg15,
+                            DataCriacao = DateTime.Now,
+                            Visualizado = false
+                        });
+                    }
+                }
+                // até 5 dias
+                if (dias <= 5 && dias >= 0)
+                {
+                    var msg5 = $"Processo {refUsa}: Redestinar container ao terminal";
+                    if (!_notificacaoRepo.ExisteNotificacao(refUsa, msg5))
+                    {
+                        novas.Add(new Notificacao
+                        {
+                            RefUsa = refUsa,
+                            Mensagem = msg5,
+                            DataCriacao = DateTime.Now,
+                            Visualizado = false
+                        });
+                    }
+                }
+            }
+
+            // persiste somente as realmente novas
+            foreach (var n in novas)
+                _notificacaoRepo.SalvarNotificacao(n);
+        }
+
+
+        private void AtualizarNotificacoes()
+        {
+            MenuItemNotifications.DropDownItems.Clear();
+
+            var pendentes = _notificacaoRepo.ObterNotificacoesNaoVisualizadas();
+            if (!pendentes.Any())
+            {
+                MenuItemNotifications.DropDownItems.Add(new ToolStripMenuItem
+                {
+                    Text = "Sem notificações",
+                    Enabled = false
+                });
+                return;
+            }
+
+            foreach (var notif in pendentes)
+            {
+                var item = new ToolStripMenuItem
+                {
+                    Text = notif.Mensagem ?? "",
+                    Tag = notif.RefUsa  // pode ser string vazia, mas Tag aceita
+                };
+                item.MouseDown += (sender, e) =>
+                {
+                    if (e.Button == MouseButtons.Right &&
+                        sender is ToolStripMenuItem mnu &&
+                        mnu.Tag is string refUsa &&
+                        !string.IsNullOrEmpty(refUsa))
+                    {
+                        var resp = MessageBox.Show(
+                            $"Deseja finalizar a notificação {refUsa}?",
+                            "Confirmação",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (resp == DialogResult.Yes)
+                        {
+                            _notificacaoRepo.MarcarComoVisualizado(refUsa, mnu.Text);
+                            AtualizarNotificacoes();
+                            MessageBox.Show("Notificação finalizada.", "Sucesso",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                };
+                MenuItemNotifications.DropDownItems.Add(item);
+            }
+        }
+
+        // exemplos de handlers de menu
         private void MenuItemHome_Click(object sender, EventArgs e)
         {
             TCabas.Visible = true;
-            foreach (Form childForm in MdiChildren)
-            {
-                childForm.Close();
-            }
+            foreach (var f in MdiChildren) f.Close();
             _ = CarregarDadosProcessos();
         }
-
-        private void MenuItemMaximize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Maximized;
-        }
-
         private void MenuItemExit_Click(object sender, EventArgs e)
         {
-            var frmLogin = new FrmLogin();
-            frmLogin.Show();
+            new FrmLogin().Show();
             this.Close();
         }
-
-        private readonly Dictionary<Type, Form> _forms = new();
-
         private T ShowSingleFormOfType<T>() where T : Form, new()
         {
             TCabas.Visible = false;
@@ -265,29 +270,36 @@ namespace Trabalho
                 }
             }
 
-            if (_forms.TryGetValue(typeof(T), out var existingForm) && !existingForm.IsDisposed)
+            if (_forms.TryGetValue(typeof(T), out var form) && !form.IsDisposed)
             {
-                existingForm.WindowState = FormWindowState.Maximized;
-                existingForm.Show();
-                existingForm.BringToFront();
-                existingForm.Activate();
-                return (T)existingForm;
+                form.WindowState = FormWindowState.Maximized;
+                form.Show();
+                form.BringToFront();
+                return (T)form;
             }
 
-            var newForm = new T { MdiParent = this };
-            newForm.Show();
-
-            _forms[typeof(T)] = newForm;
-            return newForm;
+            var novo = new T { MdiParent = this };
+            novo.Show();
+            _forms[typeof(T)] = novo;
+            return novo;
         }
-        private void MenuItemMap_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmMapa>();
-        private void MenuItemAnvisa_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmAnvisa>();
-        private void MenuItemDecex_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmDecex>();
-        private void MenuItemIbama_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmIbama>();
-        private void MenuItemImetro_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmImetro>();
-        private void MenuItemProcess_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmProcesso>();
-        private void MenuItemAdmin_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmAdmin>();
-        private void MenuItemFinanceiro_Click(object sender, EventArgs e) => ShowSingleFormOfType<FrmFinanceiro>();
-
+        private void MenuItemMaximize_Click(object sender, EventArgs e)
+            => this.WindowState = FormWindowState.Maximized;
+        private void MenuItemMap_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmMapa>();
+        private void MenuItemAnvisa_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmAnvisa>();
+        private void MenuItemDecex_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmDecex>();
+        private void MenuItemIbama_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmIbama>();
+        private void MenuItemImetro_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmImetro>();
+        private void MenuItemProcess_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmProcesso>();
+        private void MenuItemAdmin_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmAdmin>();
+        private void MenuItemFinanceiro_Click(object sender, EventArgs e)
+            => ShowSingleFormOfType<FrmFinanceiro>();
     }
 }

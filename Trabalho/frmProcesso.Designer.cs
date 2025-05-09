@@ -182,6 +182,8 @@ namespace Trabalho
                 BackgroundColor = Color.White,
             };
 
+            DataGridView1.CellDoubleClick += DataGridView1_CellDoubleClick;
+
             // Estilo do cabeçalho
             DataGridView1.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {

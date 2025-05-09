@@ -45,8 +45,6 @@ namespace Trabalho
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-
-            // Inicializa o BindingSource
             BsImetro = new BindingSource(components);
 
             #region ToolStrip Config
@@ -61,6 +59,7 @@ namespace Trabalho
                 Padding = new Padding(5, 5, 5, 5)
             };
 
+            // Definir uma fonte padrão
             Font defaultFont = new Font("Segoe UI", 10, FontStyle.Regular);
 
             BtnEditar = new ToolStripButton
@@ -71,6 +70,8 @@ namespace Trabalho
                 ImageScaling = ToolStripItemImageScaling.SizeToFit
             };
             BtnEditar.Click += BtnEditar_Click;
+
+            new ToolStripSeparator();
 
             BtnCancelar = new ToolStripButton
             {
@@ -91,6 +92,8 @@ namespace Trabalho
                 ImageScaling = ToolStripItemImageScaling.SizeToFit
             };
             BtnReload.Click += BtnReload_Click;
+
+            new ToolStripSeparator();
 
             BtnPesquisar = new ToolStripButton
             {
@@ -119,6 +122,7 @@ namespace Trabalho
                 BorderStyle = BorderStyle.FixedSingle
             };
 
+            // Agora adicione na ordem inversa desejada para itens à direita:
             ToolStripSeparator ToolStripRight = new ToolStripSeparator
             {
                 Alignment = ToolStripItemAlignment.Right,
@@ -159,6 +163,7 @@ namespace Trabalho
                 BackgroundColor = Color.White,
             };
 
+            // Estilo do cabeçalho
             dataGridView1.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = Color.FromArgb(50, 50, 50),
@@ -168,6 +173,7 @@ namespace Trabalho
                 WrapMode = DataGridViewTriState.True
             };
 
+            // Estilo das células
             dataGridView1.DefaultCellStyle = new DataGridViewCellStyle
             {
                 Font = new Font("Segoe UI", 10),
@@ -178,8 +184,10 @@ namespace Trabalho
                 Alignment = DataGridViewContentAlignment.MiddleLeft
             };
 
+            // Ajuste automático das colunas
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Estilo alternado nas linhas
             dataGridView1.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = Color.WhiteSmoke
@@ -195,18 +203,17 @@ namespace Trabalho
             ControlBox = false;
             Controls.Add(dataGridView1);
             Controls.Add(toolStrip1);
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "FrmImetro";
-            Text = "Planilha Imetro";
+            Text = "Gerenciamento de Inmetro";
             WindowState = FormWindowState.Maximized;
+
             Load += FrmImetro_Load;
 
             #endregion
 
-            ((System.ComponentModel.ISupportInitialize)BsImetro).EndInit(); // Usando BsImetro corretamente
+            ((System.ComponentModel.ISupportInitialize)BsImetro).EndInit();
             ResumeLayout(false);
         }
-
+        private ToolStripSeparator ToolStripRight1;
+        private ToolStripSeparator ToolStripRight;
     }
 }

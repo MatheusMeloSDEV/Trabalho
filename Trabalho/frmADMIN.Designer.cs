@@ -125,7 +125,7 @@
             btnAdcionar.TabIndex = 4;
             btnAdcionar.Text = "Adicionar";
             btnAdcionar.UseVisualStyleBackColor = true;
-            btnAdcionar.Click += BtnAdcionar_Click;
+            btnAdcionar.Click += BtnAdicionar_Click;
             // 
             // btnExcluir
             // 

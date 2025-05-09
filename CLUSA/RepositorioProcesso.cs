@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
 
@@ -10,8 +11,13 @@ namespace CLUSA
         private readonly IMongoCollection<Anvisa> _Anvisa;
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Ibama> _Ibama;
-        private readonly IMongoCollection<Imetro> _Imetro;
+        private readonly IMongoCollection<Inmetro> _Inmetro;
         private readonly IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<Fatura> _Fatura;
+        private readonly IMongoCollection<Recibo> _Recibo;
+
+        private readonly RepositorioNotificacao _repositorioNotificacao;
+
 
         public RepositorioProcesso()
         {
@@ -21,11 +27,14 @@ namespace CLUSA
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
-            _Imetro = mongoDatabase.GetCollection<Imetro>("IMETRO");
+            _Inmetro = mongoDatabase.GetCollection<Inmetro>("INMETRO");
             _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
+            _Fatura = mongoDatabase.GetCollection<Fatura>("Fatura");
+            _Recibo = mongoDatabase.GetCollection<Recibo>("Recibo");
+            _repositorioNotificacao = new(mongoDatabase);
         }
 
-        public List<Processo> ListaProcesso => _Processo.Find(Builders<Processo>.Filter.Empty).ToList();
+        public List<Processo> ListaProcesso => _Processo.Find(FilterDefinition<Processo>.Empty).ToList();
 
         public List<string> ObterValoresUnicos(string campo)
         {
@@ -56,20 +65,171 @@ namespace CLUSA
                         _Ibama.InsertOne(new Ibama(processo));
                         break;
                     case "IMETRO":
-                        _Imetro.InsertOne(new Imetro(processo));
+                        _Inmetro.InsertOne(new Inmetro(processo));
                         break;
                     default:
                         _Processo.InsertOne(processo);
+                        var fatura = new Fatura(processo);
+                        _Fatura.InsertOne(fatura);
+                        var recibo = new Recibo(processo);
+                        _Recibo.InsertOne(recibo);
                         break;
                 }
             });
         }
+
+        public async Task Delete(Processo processo)
+        {
+            await Task.Run(() =>
+            {
+                // Excluir o processo principal
+                var filterP = Builders<Processo>.Filter.Eq(p => p.Id, processo.Id);
+                _Processo.DeleteOne(filterP);
+
+                // Excluir documentos relacionados nas coleções específicas
+                ExcluirRelacionado(_MAPA, processo.Ref_USA);
+                ExcluirRelacionado(_Anvisa, processo.Ref_USA);
+                ExcluirRelacionado(_Decex, processo.Ref_USA);
+                ExcluirRelacionado(_Ibama, processo.Ref_USA);
+                ExcluirRelacionado(_Inmetro, processo.Ref_USA);
+                ExcluirRelacionado(_Fatura, processo.Ref_USA);
+                ExcluirRelacionado(_Recibo, processo.Ref_USA);
+
+                _repositorioNotificacao.ExcluirPorRefUsa(processo.Ref_USA);
+            });
+        }
+
+        public async Task Update(Processo processo)
+        {
+            await AtualizarDocumento(_Processo, processo.Id, processo);
+
+            var faturaAtual = new Fatura(processo) { Id = GetFaturaId(processo.Ref_USA) };
+            await AtualizarDocumento(_Fatura, faturaAtual.Id, faturaAtual);
+
+            var reciboAtual = new Recibo(processo) { Id = GetReciboId(processo.Ref_USA) };
+            await AtualizarDocumento(_Recibo, reciboAtual.Id, reciboAtual);
+
+            await GerenciarRelacoes(processo);
+        }
+
+        private async Task GerenciarRelacoes(Processo processo)
+        {
+            // MAPA
+            if (!processo.TMapa) await RemoverRelacionado(_MAPA, processo.Ref_USA);
+            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new MAPA(processo));
+            // Anvisa
+            if (!processo.TAnvisa) await RemoverRelacionado(_Anvisa, processo.Ref_USA);
+            else await AtualizarRelacionado(_Anvisa, processo.Ref_USA, new Anvisa(processo));
+            // Decex
+            if (!processo.TDecex) await RemoverRelacionado(_Decex, processo.Ref_USA);
+            else await AtualizarRelacionado(_Decex, processo.Ref_USA, new Decex(processo));
+            // Ibama
+            if (!processo.TIbama) await RemoverRelacionado(_Ibama, processo.Ref_USA);
+            else await AtualizarRelacionado(_Ibama, processo.Ref_USA, new Ibama(processo));
+            // Imetro
+            if (!processo.TImetro) await RemoverRelacionado(_Inmetro, processo.Ref_USA);
+            else await AtualizarRelacionado(_Inmetro, processo.Ref_USA, new Inmetro(processo));
+        }
+
+        // Helpers genéricos
+        private static void ExcluirRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+            colecao.DeleteMany(filtro);
+        }
+
+        private static async Task RemoverRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+            await colecao.DeleteManyAsync(filtro);
+        }
+
+        private static async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
+        {
+            var filtro = Builders<T>.Filter.Eq("_id", id);
+            var updateDef = CriarAtualizacaoSemId(documento);
+            await colecao.UpdateOneAsync(filtro, updateDef, new UpdateOptions { IsUpsert = true });
+        }
+
+        private static async Task AtualizarRelacionado<T>(IMongoCollection<T> colecao, string refUsa, T documento)
+            where T : class, new()
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
+
+            // 1) Busca o existente (para pegar o Id)
+            var existente = await colecao.Find(filtro).FirstOrDefaultAsync();
+            if (existente != null)
+            {
+                // 2) Descobre qual prop. tem [BsonId] (ou se chama "Id")
+                var idProp = typeof(T)
+                    .GetProperties()
+                    .FirstOrDefault(p =>
+                        Attribute.IsDefined(p, typeof(BsonIdAttribute)) ||
+                        p.Name == "Id" ||
+                        p.Name == "_id");
+
+                if (idProp != null)
+                {
+                    // copia o valor do Id do existente para o documento novo
+                    var existingId = idProp.GetValue(existente);
+                    idProp.SetValue(documento, existingId);
+                }
+
+                // 3) Agora o ReplaceOne não vai tentar trocar o id
+                await colecao.ReplaceOneAsync(filtro, documento);
+            }
+            else
+            {
+                // Se não existe, insere normalmente (o driver vai gerar um novo Id)
+                await colecao.InsertOneAsync(documento);
+            }
+        }
+
+        private static UpdateDefinition<T> CriarAtualizacaoSemId<T>(T documento)
+        {
+            // 1) Converte o objeto em BsonDocument
+            var bson = documento.ToBsonDocument();
+
+            // 2) Remove o _id imutável
+            bson.Remove("_id");
+
+            // 3) Remove Id (se você tiver propriedade C# “Id” mapeada para _id)
+            bson.Remove("Id");
+
+            // 4) Remove Inspecao (não deve ser atualizado)
+            bson.Remove("Inspecao");
+
+            // 5) Monte o $set com tudo que sobrou (ignorando valores nulos)
+            var setDoc = new BsonDocument();
+            foreach (var elem in bson)
+            {
+                if (elem.Value != BsonNull.Value)
+                    setDoc.Add(elem.Name, elem.Value);
+            }
+
+            // 6) Retorna o UpdateDefinition com um único $set
+            return new BsonDocumentUpdateDefinition<T>(
+                new BsonDocument("$set", setDoc)
+            );
+        }
+
+        private ObjectId GetFaturaId(string refUsa)
+        {
+            var f = _Fatura.Find(Builders<Fatura>.Filter.Eq("Ref_USA", refUsa)).FirstOrDefault();
+            return f != null ? f.Id : ObjectId.GenerateNewId();
+        }
+        private ObjectId GetReciboId(string refUsa)
+        {
+            var f = _Recibo.Find(Builders<Recibo>.Filter.Eq("Ref_USA", refUsa)).FirstOrDefault();
+            return f != null ? f.Id : ObjectId.GenerateNewId();
+        }
+
         public bool VerificarExistencia(Processo processo)
         {
             bool existeMapa = ExisteNaColecao(_MAPA, "TMapa", processo.TMapa);
             bool existeAnvisa = ExisteNaColecao(_Anvisa, "TAnvisa", processo.TAnvisa);
             bool existeDecex = ExisteNaColecao(_Decex, "TDecex", processo.TDecex);
-            bool existeImetro = ExisteNaColecao(_Imetro, "TImetro", processo.TImetro);
+            bool existeImetro = ExisteNaColecao(_Inmetro, "TImetro", processo.TImetro);
             bool existeIbama = ExisteNaColecao(_Ibama, "TIbama", processo.TIbama);
 
             return existeMapa || existeAnvisa || existeDecex || existeImetro || existeIbama;
@@ -81,175 +241,9 @@ namespace CLUSA
             return colecao.Find(filtro).Any();
         }
 
-        public async Task Delete(Processo processo)
-        {
-            await Task.Run(() =>
-            {
-                // Excluir o processo principal
-                var filter = Builders<Processo>.Filter.Eq(p => p.Id, processo.Id);
-                _Processo.DeleteOne(filter);
-
-                // Excluir documentos relacionados nas coleções específicas
-                ExcluirDocumentoRelacionado(_MAPA, processo.Ref_USA);
-                ExcluirDocumentoRelacionado(_Anvisa, processo.Ref_USA);
-                ExcluirDocumentoRelacionado(_Decex, processo.Ref_USA);
-                ExcluirDocumentoRelacionado(_Ibama, processo.Ref_USA);
-                ExcluirDocumentoRelacionado(_Imetro, processo.Ref_USA);
-            });
-        }
-
-        private static void ExcluirDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
-        {
-            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            colecao.DeleteMany(filtro);
-        }
-
-        public async Task Update(Processo processo)
-        {
-            // Atualizar o documento principal
-            await AtualizarDocumento(_Processo, processo.Id, processo);
-
-            // Gerenciar a atualização ou exclusão de documentos relacionados
-            await GerenciarRelacoes(processo);
-        }
-
-        private async Task GerenciarRelacoes(Processo processo)
-        {
-            // MAPA
-            if (!processo.TMapa)
-            {
-                await RemoverDocumentoRelacionado(_MAPA, processo.Ref_USA);
-            }
-            else
-            {
-                await AtualizarDocumentoRelacionado(_MAPA, processo.Ref_USA, processo);
-            }
-
-            // Anvisa
-            if (!processo.TAnvisa)
-            {
-                await RemoverDocumentoRelacionado(_Anvisa, processo.Ref_USA);
-            }
-            else
-            {
-                await AtualizarDocumentoRelacionado(_Anvisa, processo.Ref_USA, processo);
-            }
-
-            // Decex
-            if (!processo.TDecex)
-            {
-                await RemoverDocumentoRelacionado(_Decex, processo.Ref_USA);
-            }
-            else
-            {
-                await AtualizarDocumentoRelacionado(_Decex, processo.Ref_USA, processo);
-            }
-
-            // Ibama
-            if (!processo.TIbama)
-            {
-                await RemoverDocumentoRelacionado(_Ibama, processo.Ref_USA);
-            }
-            else
-            {
-                await AtualizarDocumentoRelacionado(_Ibama, processo.Ref_USA, processo);
-            }
-
-            // Imetro
-            if (!processo.TImetro)
-            {
-                await RemoverDocumentoRelacionado(_Imetro, processo.Ref_USA);
-            }
-            else
-            {
-                await AtualizarDocumentoRelacionado(_Imetro, processo.Ref_USA, processo);
-            }
-        }
-
-        private static async Task RemoverDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
-        {
-            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            await colecao.DeleteOneAsync(filtro);
-        }
-
-        private static async Task AtualizarDocumento<T>(IMongoCollection<T> colecao, ObjectId id, T documento) where T : class
-        {
-            var filtro = Builders<T>.Filter.Eq("_id", id);
-            var updateDef = CriarAtualizacaoSemId(documento);
-            await colecao.UpdateOneAsync(filtro, updateDef, new UpdateOptions { IsUpsert = true });
-        }
-
-        private static async Task AtualizarDocumentoRelacionado<T>(IMongoCollection<T> colecao, string refUsa, Processo processo) where T : class, new()
-        {
-            var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-
-            // Tentar buscar o documento existente
-            var documentoAtual = await colecao.Find(filtro).FirstOrDefaultAsync();
-
-            if (documentoAtual != null)
-            {
-                Console.WriteLine($"Atualizando documento existente em {typeof(T).Name} com Ref_USA = {refUsa}");
-                // Atualizar o documento existente
-                var documentoAtualizado = MapearPropriedades(processo, documentoAtual);
-                var updateDef = CriarAtualizacaoSemId(documentoAtualizado);
-                await colecao.UpdateOneAsync(filtro, updateDef);
-            }
-            else
-            {
-                Console.WriteLine($"Inserindo novo documento em {typeof(T).Name} com Ref_USA = {refUsa}");
-                // Inserir novo documento se não existir
-                var novoDocumento = MapearPropriedades(processo, new T());
-                await colecao.InsertOneAsync(novoDocumento);
-            }
-        }
-
-        private static UpdateDefinition<T> CriarAtualizacaoSemId<T>(T documento)
-        {
-            var updateDef = Builders<T>.Update;
-            var updates = new List<UpdateDefinition<T>>();
-
-            foreach (var prop in typeof(T).GetProperties())
-            {
-                if (prop.Name == "_id") continue; // Ignora o campo _id
-                var valor = prop.GetValue(documento);
-                if (valor != null)
-                {
-                    updates.Add(updateDef.Set(prop.Name, valor));
-                }
-                else
-                {
-                    updates.Add(updateDef.Unset(prop.Name)); // Remove a propriedade se for nula
-                }
-            }
-
-            return updateDef.Combine(updates);
-        }
-
-        private static T MapearPropriedades<T>(Processo origem, T destino) where T : class, new()
-        {
-            foreach (var propDestino in typeof(T).GetProperties())
-            {
-                var propOrigem = typeof(Processo).GetProperty(propDestino.Name);
-                if (propOrigem != null && propOrigem.CanRead && propDestino.CanWrite)
-                {
-                    var valorOrigem = propOrigem.GetValue(origem);
-                    propDestino.SetValue(destino, valorOrigem);
-                }
-            }
-            return destino;
-        }
-
         public List<Processo> FindAll()
         {
-            try
-            {
-                return _Processo.Find(FilterDefinition<Processo>.Empty).ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao buscar todos os processos: {ex.Message}");
-                return new List<Processo>();
-            }
+            return _Processo.Find(FilterDefinition<Processo>.Empty).ToList();
         }
         public async Task<List<Processo>> FindAllAsync()
         {

@@ -21,21 +21,22 @@ namespace Trabalho
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
-        public async void BtnAdcionar_Click(object sender, EventArgs e)
+        private async void BtnAdicionar_Click(object sender, EventArgs e)
         {
-            Users users = new();
-            FrmModificaAdmin form = new()
-            {
-                user = users
-            };
-            form.ShowDialog();
+            // 1) Cria uma nova instância de Users e passa para o formulário
+            var novoUsuario = new Users();
+            using var form = new FrmModificaAdmin(novoUsuario);
 
-            if (form.DialogResult == DialogResult.OK)
+            // 2) Exibe em modal e só prossegue se o usuário clicar em OK
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                await repositorio.Create(users);
-                BSAdmin.Add(users);
+                // 3) Persiste no banco
+                await repositorio.CreateAsync(novoUsuario);
+
+                // 4) Recarrega a lista inteira do BindingSource
+                var todos = await repositorio.FindAllAsync();
+                BSAdmin.DataSource = todos;
             }
-            BSAdmin.DataSource = repositorio.FindAll();
         }
 
         private async void BtnExcluir_Click(object sender, EventArgs e)
@@ -45,28 +46,34 @@ namespace Trabalho
                 throw new InvalidOperationException("Não foi possível obter o usuário atual.");
             }
 
-            await repositorio.Delete(currentUser);
+            await repositorio.DeleteAsync(currentUser);
             BSAdmin.Remove(BSAdmin.Current as Users);
             BSAdmin.ResetBindings(false);
-            BSAdmin.DataSource = repositorio.FindAll();
+            BSAdmin.DataSource = repositorio.FindAllAsync();
         }
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            FrmModificaAdmin frm = new()
+            // 1) Obtém o usuário selecionado no BindingSource
+            if (BSAdmin.Current is not Users usuarioSelecionado)
             {
-                user = BSAdmin.Current is Users currentUser ? currentUser : throw new InvalidOperationException("Não foi possível obter o usuário atual.")
-            };
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                await repositorio.Udpate(frm.user);
-                BSAdmin.ResetBindings(false);
+                MessageBox.Show("Selecione um usuário para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            BSAdmin.DataSource = repositorio.FindAll();
-        }
 
+            // 2) Passa a instância existente para o formulário
+            using var form = new FrmModificaAdmin(usuarioSelecionado);
+
+            // 3) Se o usuário clicou em OK, atualiza
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                await repositorio.UpdateAsync(usuarioSelecionado);
+
+                // 4) Recarrega a lista inteira do BindingSource
+                var todos = await repositorio.FindAllAsync();
+                BSAdmin.DataSource = todos;
+            }
+        }
         private void FrmADMIN_FormClosed(object sender, FormClosedEventArgs e)
         {
             repositorio = new();

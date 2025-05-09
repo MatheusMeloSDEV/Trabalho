@@ -4,74 +4,60 @@ namespace CLUSA
 {
     public class RepositorioNotificacao
     {
-        private readonly IMongoCollection<Notificacao> _notificacaoCollection;
+
+        private readonly IMongoCollection<Notificacao> _colecao;
 
         public RepositorioNotificacao(IMongoDatabase database)
         {
-            _notificacaoCollection = database.GetCollection<Notificacao>("Notificacoes");
+            _colecao = database.GetCollection<Notificacao>("Notificacao");
         }
 
-        // Adicionar ou atualizar notificações no banco
-        public void SalvarNotificacao(Notificacao notificacao)
+        /// <summary>
+        /// Verifica se já existe alguma notificação (visível ou não)
+        /// para esta referência e mensagem.
+        /// </summary>
+        public bool ExisteNotificacao(string refUsa, string mensagem)
         {
-            if (string.IsNullOrEmpty(notificacao.RefUsa) || string.IsNullOrEmpty(notificacao.Mensagem))
-            {
-                Console.WriteLine("Notificação inválida. Campos obrigatórios estão vazios.");
-                return;
-            }
-
             var filtro = Builders<Notificacao>.Filter.And(
-                Builders<Notificacao>.Filter.Eq(n => n.RefUsa, notificacao.RefUsa),
-                Builders<Notificacao>.Filter.Eq(n => n.Mensagem, notificacao.Mensagem)
+                Builders<Notificacao>.Filter.Eq(n => n.RefUsa, refUsa),
+                Builders<Notificacao>.Filter.Eq(n => n.Mensagem, mensagem)
             );
-
-            var atualizacao = Builders<Notificacao>.Update
-                .SetOnInsert(n => n.RefUsa, notificacao.RefUsa)
-                .Set(n => n.Mensagem, notificacao.Mensagem)
-                .Set(n => n.DataCriacao, notificacao.DataCriacao)
-                .Set(n => n.Visualizado, notificacao.Visualizado);
-
-            var resultado = _notificacaoCollection.UpdateOne(
-                filtro,
-                atualizacao,
-                new UpdateOptions { IsUpsert = true }
-            );
-
-            if (resultado.UpsertedId != null)
-            {
-                Console.WriteLine($"Nova notificação adicionada com ID: {resultado.UpsertedId}");
-            }
-            else if (resultado.ModifiedCount > 0)
-            {
-                Console.WriteLine("Notificação existente atualizada.");
-            }
-            else
-            {
-                Console.WriteLine("Nenhuma mudança realizada na notificação.");
-            }
+            return _colecao.Find(filtro).Any();
         }
 
+        public void ExcluirPorRefUsa(string refUsa)
+        {
+            var filtro = Builders<Notificacao>.Filter.Eq(n => n.RefUsa, refUsa);
+            _colecao.DeleteMany(filtro);
+        }
+
+        public void SalvarNotificacao(Notificacao notif)
+        {
+            _colecao.InsertOne(notif);
+        }
 
         public Notificacao ObterNotificacaoPorRefUsa(string refUsa)
         {
             var filtro = Builders<Notificacao>.Filter.Eq(n => n.RefUsa, refUsa);
-            return _notificacaoCollection.Find(filtro).FirstOrDefault();
+            return _colecao.Find(filtro).FirstOrDefault();
         }
 
         // Obter notificações não visualizadas
         public List<Notificacao> ObterNotificacoesNaoVisualizadas()
         {
             var filtro = Builders<Notificacao>.Filter.Eq(n => n.Visualizado, false);
-            return _notificacaoCollection.Find(filtro).ToList();
+            return _colecao.Find(filtro).ToList();
         }
 
         // Marcar uma notificação como visualizada
-        public void MarcarComoVisualizado(string refUsa)
+        public void MarcarComoVisualizado(string refUsa, string mensagem)
         {
-            var filtro = Builders<Notificacao>.Filter.Eq(n => n.RefUsa, refUsa);
-            var atualizacao = Builders<Notificacao>.Update.Set(n => n.Visualizado, true);
-
-            var resultado = _notificacaoCollection.UpdateOne(filtro, atualizacao);
+            var filtro = Builders<Notificacao>.Filter.And(
+                            Builders<Notificacao>.Filter.Eq(n => n.RefUsa, refUsa),
+                            Builders<Notificacao>.Filter.Eq(n => n.Mensagem, mensagem)
+                        );
+            var update = Builders<Notificacao>.Update.Set(n => n.Visualizado, true);
+            var resultado = _colecao.UpdateMany(filtro, update);
 
             if (resultado.ModifiedCount > 0)
             {
