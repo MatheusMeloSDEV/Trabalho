@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmModificaMapa
+    partial class FrmModificaMapa
     {
         /// <summary>
         /// Required designer variable.
@@ -29,370 +29,553 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            insImportador = new TextBox();
-            bsModificaMAPA = new BindingSource(components);
-            label1 = new Label();
-            label2 = new Label();
-            insLPCO = new TextBox();
-            label3 = new Label();
-            insTerminal = new TextBox();
-            label4 = new Label();
-            label5 = new Label();
-            insLI = new TextBox();
-            label6 = new Label();
-            insParametrizacao = new TextBox();
-            label7 = new Label();
-            insCSIOriginal = new TextBox();
-            label8 = new Label();
-            insPendencia = new TextBox();
-            label10 = new Label();
-            insStatusdoProcesso = new TextBox();
-            btnOkMAPA = new Button();
-            insNR = new TextBox();
-            insSR = new TextBox();
-            label9 = new Label();
-            label11 = new Label();
-            dtpPrevisao = new DateTimePicker();
-            dtpDatadeEntrada = new DateTimePicker();
-            label12 = new Label();
-            dtpDatadeInspecao = new DateTimePicker();
-            label13 = new Label();
-            tErro = new System.Windows.Forms.Timer(components);
-            ((System.ComponentModel.ISupportInitialize)bsModificaMAPA).BeginInit();
+            BsModificaMAPA = new BindingSource(components);
+            TErro = new System.Windows.Forms.Timer(components);
+            Label1 = new Label();
+            TXTncm = new TextBox();
+            Label2 = new Label();
+            TXTli = new TextBox();
+            LBLinspecao = new Label();
+            LBLdatadeatracacao = new Label();
+            LBLdatadeembarque = new Label();
+            GroupBox3 = new GroupBox();
+            Label22 = new Label();
+            Label20 = new Label();
+            Label18 = new Label();
+            CBparametrizacaolilpco = new ComboBox();
+            DTPdatadedeferimentolilpco = new DateTimePicker();
+            DTPdataderegistrolilpco = new DateTimePicker();
+            TXTlilpco = new TextBox();
+            Label26 = new Label();
+            Label17 = new Label();
+            TXTimportador = new TextBox();
+            DTPdatadeinspecao = new DateTimePicker();
+            CBamostra = new CheckBox();
+            Button1 = new Button();
+            Label14 = new Label();
+            TXTorigem = new TextBox();
+            BtnAdiciona = new Button();
+            DTPdatadeatracacao = new DateTimePicker();
+            DTPdatadeembarque = new DateTimePicker();
+            Label11 = new Label();
+            Label9 = new Label();
+            TXTsr = new TextBox();
+            TXTnr = new TextBox();
+            Label10 = new Label();
+            TXTstatusdoprocesso = new TextBox();
+            Label7 = new Label();
+            TXTProduto = new TextBox();
+            Label8 = new Label();
+            TXTpendencia = new TextBox();
+            Exportador = new Label();
+            TXTexportador = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)BsModificaMAPA).BeginInit();
+            GroupBox3.SuspendLayout();
             SuspendLayout();
             // 
-            // insImportador
+            // BsModificaMAPA
             // 
-            insImportador.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Importador", true));
-            insImportador.Location = new Point(213, 130);
-            insImportador.Name = "insImportador";
-            insImportador.Size = new Size(137, 23);
-            insImportador.TabIndex = 0;
+            BsModificaMAPA.DataMember = "ListaMapa";
+            BsModificaMAPA.DataSource = typeof(CLUSA.RepositorioMAPA);
             // 
-            // bsModificaMAPA
+            // TErro
             // 
-            bsModificaMAPA.DataSource = typeof(CLUSA.MAPA);
+            TErro.Tick += TErro_Tick;
             // 
-            // label1
+            // Label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(118, 132);
-            label1.Name = "label1";
-            label1.Size = new Size(89, 21);
-            label1.TabIndex = 1;
-            label1.Text = "Importador";
+            Label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label1.AutoSize = true;
+            Label1.Font = new Font("Segoe UI", 12F);
+            Label1.Location = new Point(653, 140);
+            Label1.Name = "Label1";
+            Label1.Size = new Size(46, 21);
+            Label1.TabIndex = 308;
+            Label1.Text = "NCM";
             // 
-            // label2
+            // TXTncm
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(452, 170);
-            label2.Name = "label2";
-            label2.Size = new Size(49, 21);
-            label2.TabIndex = 3;
-            label2.Text = "LPCO";
+            TXTncm.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTncm.DataBindings.Add(new Binding("Text", BsModificaMAPA, "NCM", true));
+            TXTncm.Location = new Point(705, 138);
+            TXTncm.Name = "TXTncm";
+            TXTncm.Size = new Size(198, 23);
+            TXTncm.TabIndex = 307;
             // 
-            // insLPCO
+            // Label2
             // 
-            insLPCO.DataBindings.Add(new Binding("Text", bsModificaMAPA, "LPCO", true));
-            insLPCO.Location = new Point(507, 168);
-            insLPCO.Name = "insLPCO";
-            insLPCO.Size = new Size(195, 23);
-            insLPCO.TabIndex = 2;
+            Label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label2.AutoSize = true;
+            Label2.Font = new Font("Segoe UI", 12F);
+            Label2.Location = new Point(343, 140);
+            Label2.Name = "Label2";
+            Label2.Size = new Size(22, 21);
+            Label2.TabIndex = 306;
+            Label2.Text = "LI";
             // 
-            // label3
+            // TXTli
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(118, 170);
-            label3.Name = "label3";
-            label3.Size = new Size(69, 21);
-            label3.TabIndex = 7;
-            label3.Text = "Terminal";
+            TXTli.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTli.DataBindings.Add(new Binding("Text", BsModificaMAPA, "LI", true));
+            TXTli.Location = new Point(371, 140);
+            TXTli.Name = "TXTli";
+            TXTli.Size = new Size(221, 23);
+            TXTli.TabIndex = 305;
             // 
-            // insTerminal
+            // LBLinspecao
             // 
-            insTerminal.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Terminal", true));
-            insTerminal.Location = new Point(193, 168);
-            insTerminal.Name = "insTerminal";
-            insTerminal.Size = new Size(157, 23);
-            insTerminal.TabIndex = 6;
+            LBLinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LBLinspecao.AutoSize = true;
+            LBLinspecao.Font = new Font("Segoe UI", 11F);
+            LBLinspecao.Location = new Point(435, 299);
+            LBLinspecao.Name = "LBLinspecao";
+            LBLinspecao.Size = new Size(68, 20);
+            LBLinspecao.TabIndex = 304;
+            LBLinspecao.Text = "Inspeção";
             // 
-            // label4
+            // LBLdatadeatracacao
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(546, 259);
-            label4.Name = "label4";
-            label4.Size = new Size(69, 21);
-            label4.TabIndex = 5;
-            label4.Text = "Previsão";
+            LBLdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LBLdatadeatracacao.AutoSize = true;
+            LBLdatadeatracacao.Font = new Font("Segoe UI", 11F);
+            LBLdatadeatracacao.Location = new Point(235, 299);
+            LBLdatadeatracacao.Name = "LBLdatadeatracacao";
+            LBLdatadeatracacao.Size = new Size(133, 20);
+            LBLdatadeatracacao.TabIndex = 303;
+            LBLdatadeatracacao.Text = "Data de Atracação";
             // 
-            // label5
+            // LBLdatadeembarque
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(118, 211);
-            label5.Name = "label5";
-            label5.Size = new Size(22, 21);
-            label5.TabIndex = 15;
-            label5.Text = "LI";
+            LBLdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LBLdatadeembarque.AutoSize = true;
+            LBLdatadeembarque.Font = new Font("Segoe UI", 11F);
+            LBLdatadeembarque.Location = new Point(571, 300);
+            LBLdatadeembarque.Name = "LBLdatadeembarque";
+            LBLdatadeembarque.Size = new Size(134, 20);
+            LBLdatadeembarque.TabIndex = 302;
+            LBLdatadeembarque.Text = "Data de Embarque";
             // 
-            // insLI
+            // GroupBox3
             // 
-            insLI.DataBindings.Add(new Binding("Text", bsModificaMAPA, "LI", true));
-            insLI.Location = new Point(146, 209);
-            insLI.Name = "insLI";
-            insLI.Size = new Size(204, 23);
-            insLI.TabIndex = 14;
+            GroupBox3.Controls.Add(Label22);
+            GroupBox3.Controls.Add(Label20);
+            GroupBox3.Controls.Add(Label18);
+            GroupBox3.Controls.Add(CBparametrizacaolilpco);
+            GroupBox3.Controls.Add(DTPdatadedeferimentolilpco);
+            GroupBox3.Controls.Add(DTPdataderegistrolilpco);
+            GroupBox3.Controls.Add(TXTlilpco);
+            GroupBox3.Controls.Add(Label26);
+            GroupBox3.Location = new Point(81, 200);
+            GroupBox3.Name = "GroupBox3";
+            GroupBox3.Size = new Size(750, 82);
+            GroupBox3.TabIndex = 301;
+            GroupBox3.TabStop = false;
+            GroupBox3.Text = "LPCO";
             // 
-            // label6
+            // Label22
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(193, 259);
-            label6.Name = "label6";
-            label6.Size = new Size(120, 21);
-            label6.TabIndex = 13;
-            label6.Text = "Data de Entrada";
+            Label22.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label22.AutoSize = true;
+            Label22.Font = new Font("Segoe UI", 11F);
+            Label22.Location = new Point(581, 22);
+            Label22.Name = "Label22";
+            Label22.Size = new Size(111, 20);
+            Label22.TabIndex = 146;
+            Label22.Text = "Parametrização";
             // 
-            // insParametrizacao
+            // Label20
             // 
-            insParametrizacao.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Parametrizacao", true));
-            insParametrizacao.Location = new Point(574, 205);
-            insParametrizacao.Name = "insParametrizacao";
-            insParametrizacao.Size = new Size(128, 23);
-            insParametrizacao.TabIndex = 12;
+            Label20.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label20.AutoSize = true;
+            Label20.Font = new Font("Segoe UI", 11F);
+            Label20.Location = new Point(397, 23);
+            Label20.Name = "Label20";
+            Label20.Size = new Size(150, 20);
+            Label20.TabIndex = 145;
+            Label20.Text = "Data de Deferimento";
             // 
-            // label7
+            // Label18
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(452, 132);
-            label7.Name = "label7";
-            label7.Size = new Size(93, 21);
-            label7.TabIndex = 11;
-            label7.Text = "CSI Original";
+            Label18.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label18.AutoSize = true;
+            Label18.Font = new Font("Segoe UI", 11F);
+            Label18.Location = new Point(230, 23);
+            Label18.Name = "Label18";
+            Label18.Size = new Size(121, 20);
+            Label18.TabIndex = 145;
+            Label18.Text = "Data de Registro";
             // 
-            // insCSIOriginal
+            // CBparametrizacaolilpco
             // 
-            insCSIOriginal.DataBindings.Add(new Binding("Text", bsModificaMAPA, "CSIOriginal", true));
-            insCSIOriginal.Location = new Point(551, 130);
-            insCSIOriginal.Name = "insCSIOriginal";
-            insCSIOriginal.Size = new Size(151, 23);
-            insCSIOriginal.TabIndex = 10;
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("SelectedValue", BsModificaMAPA, "ParametrizacaoLPCO", true));
+            CBparametrizacaolilpco.DataBindings.Add(new Binding("SelectedItem", BsModificaMAPA, "ParametrizacaoLPCO", true));
+            CBparametrizacaolilpco.FormattingEnabled = true;
+            CBparametrizacaolilpco.Items.AddRange(new object[] { "Documental", "Conferência Física", "Exame Físico", "Coleta de Amostra" });
+            CBparametrizacaolilpco.Location = new Point(572, 46);
+            CBparametrizacaolilpco.Name = "CBparametrizacaolilpco";
+            CBparametrizacaolilpco.Size = new Size(128, 23);
+            CBparametrizacaolilpco.TabIndex = 101;
             // 
-            // label8
+            // DTPdatadedeferimentolilpco
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(93, 385);
-            label8.Name = "label8";
-            label8.Size = new Size(80, 21);
-            label8.TabIndex = 9;
-            label8.Text = "Pendência";
+            DTPdatadedeferimentolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Text", BsModificaMAPA, "DataDeferimentoLPCO", true));
+            DTPdatadedeferimentolilpco.DataBindings.Add(new Binding("Value", BsModificaMAPA, "DataDeferimentoLPCO", true));
+            DTPdatadedeferimentolilpco.Enabled = false;
+            DTPdatadedeferimentolilpco.Format = DateTimePickerFormat.Short;
+            DTPdatadedeferimentolilpco.Location = new Point(391, 46);
+            DTPdatadedeferimentolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            DTPdatadedeferimentolilpco.Name = "DTPdatadedeferimentolilpco";
+            DTPdatadedeferimentolilpco.Size = new Size(163, 23);
+            DTPdatadedeferimentolilpco.TabIndex = 103;
+            DTPdatadedeferimentolilpco.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
             // 
-            // insPendencia
+            // DTPdataderegistrolilpco
             // 
-            insPendencia.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Pendencia", true));
-            insPendencia.Location = new Point(176, 383);
-            insPendencia.Name = "insPendencia";
-            insPendencia.Size = new Size(266, 23);
-            insPendencia.TabIndex = 8;
+            DTPdataderegistrolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Value", BsModificaMAPA, "DataRegistroLPCO", true));
+            DTPdataderegistrolilpco.DataBindings.Add(new Binding("Text", BsModificaMAPA, "DataRegistroLPCO", true));
+            DTPdataderegistrolilpco.Enabled = false;
+            DTPdataderegistrolilpco.Format = DateTimePickerFormat.Short;
+            DTPdataderegistrolilpco.Location = new Point(209, 46);
+            DTPdataderegistrolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            DTPdataderegistrolilpco.Name = "DTPdataderegistrolilpco";
+            DTPdataderegistrolilpco.Size = new Size(163, 23);
+            DTPdataderegistrolilpco.TabIndex = 100;
+            DTPdataderegistrolilpco.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
             // 
-            // label10
+            // TXTlilpco
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(48, 336);
-            label10.Name = "label10";
-            label10.Size = new Size(140, 21);
-            label10.TabIndex = 17;
-            label10.Text = "Status do Processo";
+            TXTlilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTlilpco.DataBindings.Add(new Binding("Text", BsModificaMAPA, "LPCO", true));
+            TXTlilpco.Location = new Point(68, 35);
+            TXTlilpco.Name = "TXTlilpco";
+            TXTlilpco.ReadOnly = true;
+            TXTlilpco.Size = new Size(120, 23);
+            TXTlilpco.TabIndex = 84;
             // 
-            // insStatusdoProcesso
+            // Label26
             // 
-            insStatusdoProcesso.DataBindings.Add(new Binding("Text", bsModificaMAPA, "StatusDoProcesso", true));
-            insStatusdoProcesso.Location = new Point(194, 336);
-            insStatusdoProcesso.Name = "insStatusdoProcesso";
-            insStatusdoProcesso.Size = new Size(558, 23);
-            insStatusdoProcesso.TabIndex = 16;
+            Label26.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label26.AutoSize = true;
+            Label26.Font = new Font("Segoe UI", 12F);
+            Label26.Location = new Point(34, 37);
+            Label26.Name = "Label26";
+            Label26.Size = new Size(28, 21);
+            Label26.TabIndex = 85;
+            Label26.Text = "N°";
             // 
-            // btnOkMAPA
+            // Label17
             // 
-            btnOkMAPA.Location = new Point(632, 383);
-            btnOkMAPA.Name = "btnOkMAPA";
-            btnOkMAPA.Size = new Size(107, 28);
-            btnOkMAPA.TabIndex = 19;
-            btnOkMAPA.Text = "Ok";
-            btnOkMAPA.UseVisualStyleBackColor = true;
-            btnOkMAPA.Click += button1_Click;
+            Label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label17.AutoSize = true;
+            Label17.Font = new Font("Segoe UI", 12F);
+            Label17.Location = new Point(37, 140);
+            Label17.Name = "Label17";
+            Label17.Size = new Size(89, 21);
+            Label17.TabIndex = 298;
+            Label17.Text = "Importador";
             // 
-            // insNR
+            // TXTimportador
             // 
-            insNR.DataBindings.Add(new Binding("Text", bsModificaMAPA, "NR", true));
-            insNR.Location = new Point(306, 62);
-            insNR.Name = "insNR";
-            insNR.Size = new Size(100, 23);
-            insNR.TabIndex = 20;
+            TXTimportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTimportador.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Importador", true));
+            TXTimportador.Location = new Point(132, 138);
+            TXTimportador.Name = "TXTimportador";
+            TXTimportador.Size = new Size(137, 23);
+            TXTimportador.TabIndex = 297;
             // 
-            // insSR
+            // DTPdatadeinspecao
             // 
-            insSR.DataBindings.Add(new Binding("Text", bsModificaMAPA, "SR", true));
-            insSR.Location = new Point(457, 62);
-            insSR.Name = "insSR";
-            insSR.Size = new Size(100, 23);
-            insSR.TabIndex = 21;
+            DTPdatadeinspecao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DTPdatadeinspecao.Format = DateTimePickerFormat.Short;
+            DTPdatadeinspecao.Location = new Point(402, 323);
+            DTPdatadeinspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            DTPdatadeinspecao.Name = "DTPdatadeinspecao";
+            DTPdatadeinspecao.Size = new Size(135, 23);
+            DTPdatadeinspecao.TabIndex = 296;
+            DTPdatadeinspecao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             // 
-            // label9
+            // CBamostra
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(264, 64);
-            label9.Name = "label9";
-            label9.Size = new Size(38, 21);
-            label9.TabIndex = 22;
-            label9.Text = "N/R";
+            CBamostra.AutoSize = true;
+            CBamostra.Font = new Font("Segoe UI", 12F);
+            CBamostra.Location = new Point(48, 519);
+            CBamostra.Name = "CBamostra";
+            CBamostra.Size = new Size(88, 25);
+            CBamostra.TabIndex = 295;
+            CBamostra.Text = "Amostra";
+            CBamostra.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // Button1
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(416, 64);
-            label11.Name = "label11";
-            label11.Size = new Size(35, 21);
-            label11.TabIndex = 23;
-            label11.Text = "S/R";
+            Button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Button1.Location = new Point(662, 512);
+            Button1.Name = "Button1";
+            Button1.Size = new Size(112, 32);
+            Button1.TabIndex = 294;
+            Button1.Text = "Cancelar";
+            Button1.UseVisualStyleBackColor = true;
+            Button1.Click += BtnCancelar_Click;
             // 
-            // dtpPrevisao
+            // Label14
             // 
-            dtpPrevisao.DataBindings.Add(new Binding("Tag", bsModificaMAPA, "Previsao", true));
-            dtpPrevisao.DataBindings.Add(new Binding("Text", bsModificaMAPA, "Previsao", true));
-            dtpPrevisao.Location = new Point(516, 283);
-            dtpPrevisao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dtpPrevisao.Name = "dtpPrevisao";
-            dtpPrevisao.Size = new Size(135, 23);
-            dtpPrevisao.TabIndex = 24;
-            dtpPrevisao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            Label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label14.AutoSize = true;
+            Label14.Font = new Font("Segoe UI", 12F);
+            Label14.Location = new Point(653, 84);
+            Label14.Name = "Label14";
+            Label14.Size = new Size(63, 21);
+            Label14.TabIndex = 293;
+            Label14.Text = "Origem";
             // 
-            // dtpDatadeEntrada
+            // TXTorigem
             // 
-            dtpDatadeEntrada.DataBindings.Add(new Binding("Tag", bsModificaMAPA, "DataDeEntrada", true));
-            dtpDatadeEntrada.DataBindings.Add(new Binding("Text", bsModificaMAPA, "DataDeEntrada", true));
-            dtpDatadeEntrada.Location = new Point(178, 283);
-            dtpDatadeEntrada.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dtpDatadeEntrada.Name = "dtpDatadeEntrada";
-            dtpDatadeEntrada.Size = new Size(135, 23);
-            dtpDatadeEntrada.TabIndex = 25;
-            dtpDatadeEntrada.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            TXTorigem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTorigem.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Origem", true));
+            TXTorigem.Location = new Point(722, 82);
+            TXTorigem.Name = "TXTorigem";
+            TXTorigem.Size = new Size(181, 23);
+            TXTorigem.TabIndex = 292;
             // 
-            // label12
+            // BtnAdiciona
             // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(452, 207);
-            label12.Name = "label12";
-            label12.Size = new Size(116, 21);
-            label12.TabIndex = 26;
-            label12.Text = "Parametrização";
+            BtnAdiciona.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnAdiciona.Location = new Point(780, 512);
+            BtnAdiciona.Name = "BtnAdiciona";
+            BtnAdiciona.Size = new Size(112, 32);
+            BtnAdiciona.TabIndex = 291;
+            BtnAdiciona.Text = "Ok";
+            BtnAdiciona.UseVisualStyleBackColor = true;
+            BtnAdiciona.Click += BtnEditar_Click;
             // 
-            // dtpDatadeInspecao
+            // DTPdatadeatracacao
             // 
-            dtpDatadeInspecao.DataBindings.Add(new Binding("Text", bsModificaMAPA, "DataDeInspeção", true));
-            dtpDatadeInspecao.DataBindings.Add(new Binding("Tag", bsModificaMAPA, "DataDeInspeção", true));
-            dtpDatadeInspecao.Location = new Point(353, 283);
-            dtpDatadeInspecao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
-            dtpDatadeInspecao.Name = "dtpDatadeInspecao";
-            dtpDatadeInspecao.Size = new Size(135, 23);
-            dtpDatadeInspecao.TabIndex = 28;
-            dtpDatadeInspecao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            DTPdatadeatracacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DTPdatadeatracacao.Format = DateTimePickerFormat.Short;
+            DTPdatadeatracacao.Location = new Point(234, 323);
+            DTPdatadeatracacao.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            DTPdatadeatracacao.Name = "DTPdatadeatracacao";
+            DTPdatadeatracacao.Size = new Size(135, 23);
+            DTPdatadeatracacao.TabIndex = 290;
+            DTPdatadeatracacao.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             // 
-            // label13
+            // DTPdatadeembarque
             // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label13.Location = new Point(360, 259);
-            label13.Name = "label13";
-            label13.Size = new Size(128, 21);
-            label13.TabIndex = 27;
-            label13.Text = "Data de Inspeção";
+            DTPdatadeembarque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DTPdatadeembarque.Format = DateTimePickerFormat.Short;
+            DTPdatadeembarque.Location = new Point(571, 323);
+            DTPdatadeembarque.MinDate = new DateTime(2023, 8, 22, 0, 0, 0, 0);
+            DTPdatadeembarque.Name = "DTPdatadeembarque";
+            DTPdatadeembarque.Size = new Size(135, 23);
+            DTPdatadeembarque.TabIndex = 289;
+            DTPdatadeembarque.Value = new DateTime(2023, 8, 22, 0, 0, 0, 0);
             // 
-            // tErro
+            // Label11
             // 
-            tErro.Tick += tErro_Tick;
+            Label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label11.AutoSize = true;
+            Label11.Font = new Font("Segoe UI", 12F);
+            Label11.Location = new Point(454, 33);
+            Label11.Name = "Label11";
+            Label11.Size = new Size(49, 21);
+            Label11.TabIndex = 288;
+            Label11.Text = "S. Ref";
             // 
-            // frmModificaMapa
+            // Label9
+            // 
+            Label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label9.AutoSize = true;
+            Label9.Font = new Font("Segoe UI", 12F);
+            Label9.Location = new Point(213, 33);
+            Label9.Name = "Label9";
+            Label9.Size = new Size(66, 21);
+            Label9.TabIndex = 287;
+            Label9.Text = "Ref. Usa";
+            // 
+            // TXTsr
+            // 
+            TXTsr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTsr.DataBindings.Add(new Binding("Text", BsModificaMAPA, "SR", true));
+            TXTsr.Location = new Point(509, 33);
+            TXTsr.Name = "TXTsr";
+            TXTsr.Size = new Size(136, 23);
+            TXTsr.TabIndex = 286;
+            // 
+            // TXTnr
+            // 
+            TXTnr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTnr.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Ref_USA", true));
+            TXTnr.Location = new Point(285, 33);
+            TXTnr.Name = "TXTnr";
+            TXTnr.Size = new Size(126, 23);
+            TXTnr.TabIndex = 285;
+            // 
+            // Label10
+            // 
+            Label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label10.AutoSize = true;
+            Label10.Font = new Font("Segoe UI", 12F, FontStyle.Underline);
+            Label10.Location = new Point(46, 371);
+            Label10.Name = "Label10";
+            Label10.Size = new Size(140, 21);
+            Label10.TabIndex = 284;
+            Label10.Text = "Status do Processo";
+            // 
+            // TXTstatusdoprocesso
+            // 
+            TXTstatusdoprocesso.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTstatusdoprocesso.Location = new Point(192, 370);
+            TXTstatusdoprocesso.Multiline = true;
+            TXTstatusdoprocesso.Name = "TXTstatusdoprocesso";
+            TXTstatusdoprocesso.Size = new Size(684, 74);
+            TXTstatusdoprocesso.TabIndex = 283;
+            // 
+            // Label7
+            // 
+            Label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label7.AutoSize = true;
+            Label7.Font = new Font("Segoe UI", 12F);
+            Label7.Location = new Point(342, 84);
+            Label7.Name = "Label7";
+            Label7.Size = new Size(66, 21);
+            Label7.TabIndex = 282;
+            Label7.Text = "Produto";
+            // 
+            // TXTProduto
+            // 
+            TXTProduto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTProduto.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Produto", true));
+            TXTProduto.Location = new Point(414, 82);
+            TXTProduto.Name = "TXTProduto";
+            TXTProduto.Size = new Size(178, 23);
+            TXTProduto.TabIndex = 281;
+            // 
+            // Label8
+            // 
+            Label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Label8.AutoSize = true;
+            Label8.Font = new Font("Segoe UI", 12F);
+            Label8.Location = new Point(94, 463);
+            Label8.Name = "Label8";
+            Label8.Size = new Size(80, 21);
+            Label8.TabIndex = 280;
+            Label8.Text = "Pendência";
+            // 
+            // TXTpendencia
+            // 
+            TXTpendencia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTpendencia.Location = new Point(177, 461);
+            TXTpendencia.Name = "TXTpendencia";
+            TXTpendencia.Size = new Size(671, 23);
+            TXTpendencia.TabIndex = 279;
+            // 
+            // Exportador
+            // 
+            Exportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Exportador.AutoSize = true;
+            Exportador.Font = new Font("Segoe UI", 12F);
+            Exportador.Location = new Point(37, 84);
+            Exportador.Name = "Exportador";
+            Exportador.Size = new Size(86, 21);
+            Exportador.TabIndex = 278;
+            Exportador.Text = "Exportador";
+            // 
+            // TXTexportador
+            // 
+            TXTexportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TXTexportador.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Exportador", true));
+            TXTexportador.Location = new Point(132, 82);
+            TXTexportador.Name = "TXTexportador";
+            TXTexportador.Size = new Size(137, 23);
+            TXTexportador.TabIndex = 277;
+            // 
+            // FrmModificaMapa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(824, 470);
-            Controls.Add(dtpDatadeInspecao);
-            Controls.Add(label13);
-            Controls.Add(label12);
-            Controls.Add(dtpDatadeEntrada);
-            Controls.Add(dtpPrevisao);
-            Controls.Add(label11);
-            Controls.Add(label9);
-            Controls.Add(insSR);
-            Controls.Add(insNR);
-            Controls.Add(btnOkMAPA);
-            Controls.Add(label10);
-            Controls.Add(insStatusdoProcesso);
-            Controls.Add(label5);
-            Controls.Add(insLI);
-            Controls.Add(label6);
-            Controls.Add(insParametrizacao);
-            Controls.Add(label7);
-            Controls.Add(insCSIOriginal);
-            Controls.Add(label8);
-            Controls.Add(insPendencia);
-            Controls.Add(label3);
-            Controls.Add(insTerminal);
-            Controls.Add(label4);
-            Controls.Add(label2);
-            Controls.Add(insLPCO);
-            Controls.Add(label1);
-            Controls.Add(insImportador);
-            Name = "frmModificaMapa";
-            Load += frmModifica_Load;
-            ((System.ComponentModel.ISupportInitialize)bsModificaMAPA).EndInit();
+            ClientSize = new Size(941, 572);
+            ControlBox = false;
+            Controls.Add(Label1);
+            Controls.Add(TXTncm);
+            Controls.Add(Label2);
+            Controls.Add(TXTli);
+            Controls.Add(LBLinspecao);
+            Controls.Add(LBLdatadeatracacao);
+            Controls.Add(LBLdatadeembarque);
+            Controls.Add(GroupBox3);
+            Controls.Add(Label17);
+            Controls.Add(TXTimportador);
+            Controls.Add(DTPdatadeinspecao);
+            Controls.Add(CBamostra);
+            Controls.Add(Button1);
+            Controls.Add(Label14);
+            Controls.Add(TXTorigem);
+            Controls.Add(BtnAdiciona);
+            Controls.Add(DTPdatadeatracacao);
+            Controls.Add(DTPdatadeembarque);
+            Controls.Add(Label11);
+            Controls.Add(Label9);
+            Controls.Add(TXTsr);
+            Controls.Add(TXTnr);
+            Controls.Add(Label10);
+            Controls.Add(TXTstatusdoprocesso);
+            Controls.Add(Label7);
+            Controls.Add(TXTProduto);
+            Controls.Add(Label8);
+            Controls.Add(TXTpendencia);
+            Controls.Add(Exportador);
+            Controls.Add(TXTexportador);
+            Name = "FrmModificaMapa";
+            StartPosition = FormStartPosition.CenterScreen;
+            Load += FrmModifica_Load;
+            ((System.ComponentModel.ISupportInitialize)BsModificaMAPA).EndInit();
+            GroupBox3.ResumeLayout(false);
+            GroupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TextBox insImportador;
-        private Label label1;
-        private Label label2;
-        private TextBox insLPCO;
-        private Label label3;
-        private TextBox insTerminal;
-        private Label label4;
-        private Label label5;
-        private TextBox insLI;
-        private Label label6;
-        private TextBox insParametrizacao;
-        private Label label7;
-        private TextBox insCSIOriginal;
-        private Label label8;
-        private TextBox insPendencia;
-        private Label label10;
-        private TextBox insStatusdoProcesso;
-        private Button btnOkMAPA;
-        private BindingSource bsModificaMAPA;
-        private TextBox insNR;
-        private TextBox insSR;
-        private Label label9;
-        private Label label11;
-        private DateTimePicker dtpPrevisao;
-        private DateTimePicker dtpDatadeEntrada;
-        private Label label12;
-        private DateTimePicker dtpDatadeInspecao;
-        private Label label13;
-        private System.Windows.Forms.Timer tErro;
+        private BindingSource BsModificaMAPA;
+        private System.Windows.Forms.Timer TErro;
+        private Label Label1;
+        private TextBox TXTncm;
+        private Label Label2;
+        private TextBox TXTli;
+        private Label LBLinspecao;
+        private Label LBLdatadeatracacao;
+        private Label LBLdatadeembarque;
+        private GroupBox GroupBox3;
+        private Label Label22;
+        private Label Label20;
+        private Label Label18;
+        private ComboBox CBparametrizacaolilpco;
+        private DateTimePicker DTPdatadedeferimentolilpco;
+        private DateTimePicker DTPdataderegistrolilpco;
+        private TextBox TXTlilpco;
+        private Label Label26;
+        private Label Label17;
+        private TextBox TXTimportador;
+        private DateTimePicker DTPdatadeinspecao;
+        private CheckBox CBamostra;
+        private Button Button1;
+        private Label Label14;
+        private TextBox TXTorigem;
+        private Button BtnAdiciona;
+        private DateTimePicker DTPdatadeatracacao;
+        private DateTimePicker DTPdatadeembarque;
+        private Label Label11;
+        private Label Label9;
+        private TextBox TXTsr;
+        private TextBox TXTnr;
+        private Label Label10;
+        private TextBox TXTstatusdoprocesso;
+        private Label Label7;
+        private TextBox TXTProduto;
+        private Label Label8;
+        private TextBox TXTpendencia;
+        private Label Exportador;
+        private TextBox TXTexportador;
     }
 }

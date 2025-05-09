@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmLogin
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             lblError = new Label();
             check = new PictureBox();
             lblLogado = new Label();
@@ -41,16 +41,20 @@
             tLogado = new System.Windows.Forms.Timer(components);
             tErro = new System.Windows.Forms.Timer(components);
             btnFechar = new Button();
+            ftLua = new PictureBox();
+            ftSol = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)check).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ftLua).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ftSol).BeginInit();
             SuspendLayout();
             // 
             // lblError
             // 
             lblError.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblError.AutoSize = true;
-            lblError.BackColor = SystemColors.Control;
+            lblError.BackColor = Color.Transparent;
             lblError.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblError.ForeColor = Color.IndianRed;
+            lblError.ForeColor = Color.Red;
             lblError.Location = new Point(263, 141);
             lblError.Name = "lblError";
             lblError.Size = new Size(274, 19);
@@ -83,19 +87,22 @@
             // 
             // btnLogin
             // 
-            btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLogin.BackColor = Color.Transparent;
+            btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Location = new Point(370, 292);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(75, 23);
             btnLogin.TabIndex = 22;
             btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = true;
-            btnLogin.Click += btnLogin_Click;
+            btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += BtnLogin_Click;
             // 
             // lblPassword
             // 
             lblPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPassword.AutoSize = true;
+            lblPassword.BackColor = Color.Transparent;
             lblPassword.Location = new Point(274, 241);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(57, 15);
@@ -106,6 +113,7 @@
             // 
             lblUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
             lblUsername.Location = new Point(271, 189);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(60, 15);
@@ -115,6 +123,8 @@
             // txtPassword
             // 
             txtPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtPassword.BackColor = SystemColors.Control;
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
             txtPassword.Location = new Point(334, 237);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
@@ -124,6 +134,8 @@
             // txtUsername
             // 
             txtUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtUsername.BackColor = SystemColors.Control;
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
             txtUsername.Location = new Point(334, 185);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(196, 23);
@@ -131,31 +143,57 @@
             // 
             // tLogado
             // 
-            tLogado.Tick += timer1_Tick;
+            tLogado.Tick += TimerLogado_Tick;
             // 
-            // tErro
-            // 
-            tErro.Tick += tErro_Tick;
             // 
             // btnFechar
             // 
-            btnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnFechar.ForeColor = Color.IndianRed;
+            btnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnFechar.BackColor = Color.Transparent;
+            btnFechar.FlatStyle = FlatStyle.Flat;
+            btnFechar.ForeColor = Color.Black;
             btnFechar.Location = new Point(713, 12);
             btnFechar.Name = "btnFechar";
             btnFechar.Size = new Size(75, 23);
             btnFechar.TabIndex = 26;
             btnFechar.Text = "Fechar";
-            btnFechar.UseVisualStyleBackColor = true;
-            btnFechar.Click += this.btnFechar_Click;
+            btnFechar.UseVisualStyleBackColor = false;
+            btnFechar.Click += BtnFechar_Click;
+            // 
+            // ftLua
+            // 
+            ftLua.Image = (Image)resources.GetObject("ftLua.Image");
+            ftLua.Location = new Point(12, 12);
+            ftLua.Name = "ftLua";
+            ftLua.Size = new Size(43, 42);
+            ftLua.SizeMode = PictureBoxSizeMode.StretchImage;
+            ftLua.TabIndex = 27;
+            ftLua.TabStop = false;
+            ftLua.Click += FtLua_Click;
+            // 
+            // ftSol
+            // 
+            ftSol.BackColor = SystemColors.ControlDarkDark;
+            ftSol.Image = (Image)resources.GetObject("ftSol.Image");
+            ftSol.Location = new Point(12, 12);
+            ftSol.Name = "ftSol";
+            ftSol.Size = new Size(43, 42);
+            ftSol.SizeMode = PictureBoxSizeMode.StretchImage;
+            ftSol.TabIndex = 28;
+            ftSol.TabStop = false;
+            ftSol.Visible = false;
+            ftSol.Click += FtSol_Click;
             // 
             // frmLogin
             // 
             AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
             ControlBox = false;
+            Controls.Add(ftSol);
+            Controls.Add(ftLua);
             Controls.Add(btnFechar);
             Controls.Add(lblError);
             Controls.Add(check);
@@ -165,13 +203,16 @@
             Controls.Add(lblUsername);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "   Login";
-            Load += frmPricipal_Load;
+            TransparencyKey = Color.Transparent;
+            Load += FrmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)check).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ftLua).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ftSol).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -188,5 +229,7 @@
         private System.Windows.Forms.Timer tLogado;
         private System.Windows.Forms.Timer tErro;
         private Button btnFechar;
+        private PictureBox ftLua;
+        private PictureBox ftSol;
     }
 }

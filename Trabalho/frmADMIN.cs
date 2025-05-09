@@ -2,62 +2,81 @@
 
 namespace Trabalho
 {
-    public partial class frmADMIN : Form
+    public partial class FrmAdmin : Form
     {
-        public RepositorioUsers repositorio;
+        public RepositorioUsers repositorio = new();
         public string usuario;
-        public frmADMIN()
+
+        public FrmAdmin()
         {
             InitializeComponent();
-            usuario = frmLogin.instance.logado.Usuario;
+            usuario = FrmLogin.Instance.Logado.Usuario;
+            // repositorio não precisa ser inicializado imediatamente
         }
 
-        public void frmADMIN_Load(object sender, EventArgs e)
+        public void FrmADMIN_Load(object sender, EventArgs e)
         {
             repositorio = new RepositorioUsers();
             BSAdmin.DataSource = repositorio;
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
-        public async void btnAdcionar_Click(object sender, EventArgs e)
+        private async void BtnAdicionar_Click(object sender, EventArgs e)
         {
-            Users users = new Users();
-            frmModificaAdmin form = new frmModificaAdmin();
-            form.user = users;
-            form.ShowDialog();
+            // 1) Cria uma nova instância de Users e passa para o formulário
+            var novoUsuario = new Users();
+            using var form = new FrmModificaAdmin(novoUsuario);
 
-            if (form.DialogResult == DialogResult.OK)
+            // 2) Exibe em modal e só prossegue se o usuário clicar em OK
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                await repositorio.Create(users, usuario);
-                BSAdmin.Add(users);
+                // 3) Persiste no banco
+                await repositorio.CreateAsync(novoUsuario);
+
+                // 4) Recarrega a lista inteira do BindingSource
+                var todos = await repositorio.FindAllAsync();
+                BSAdmin.DataSource = todos;
             }
-            BSAdmin.DataSource = repositorio.FindAll();
         }
 
-        private async void btnExcluir_Click(object sender, EventArgs e)
+        private async void BtnExcluir_Click(object sender, EventArgs e)
         {
-            await repositorio.Delete(BSAdmin.Current as Users, usuario);
+            if (BSAdmin.Current is not Users currentUser)
+            {
+                throw new InvalidOperationException("Não foi possível obter o usuário atual.");
+            }
+
+            await repositorio.DeleteAsync(currentUser);
             BSAdmin.Remove(BSAdmin.Current as Users);
             BSAdmin.ResetBindings(false);
-            BSAdmin.DataSource = repositorio.FindAll();
+            BSAdmin.DataSource = repositorio.FindAllAsync();
         }
 
-        private async void btnEditar_Click(object sender, EventArgs e)
+        private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            frmModificaAdmin frm = new frmModificaAdmin();
-            frm.user = BSAdmin.Current as Users;
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
+            // 1) Obtém o usuário selecionado no BindingSource
+            if (BSAdmin.Current is not Users usuarioSelecionado)
             {
-                await repositorio.Udpate(frm.user, usuario);
-                BSAdmin.ResetBindings(false);
+                MessageBox.Show("Selecione um usuário para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            BSAdmin.DataSource = repositorio.FindAll();
-        }
 
-        private void frmADMIN_FormClosed(object sender, FormClosedEventArgs e)
+            // 2) Passa a instância existente para o formulário
+            using var form = new FrmModificaAdmin(usuarioSelecionado);
+
+            // 3) Se o usuário clicou em OK, atualiza
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                await repositorio.UpdateAsync(usuarioSelecionado);
+
+                // 4) Recarrega a lista inteira do BindingSource
+                var todos = await repositorio.FindAllAsync();
+                BSAdmin.DataSource = todos;
+            }
+        }
+        private void FrmADMIN_FormClosed(object sender, FormClosedEventArgs e)
         {
-            repositorio = null;
+            repositorio = new();
         }
     }
 }

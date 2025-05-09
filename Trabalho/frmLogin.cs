@@ -1,105 +1,173 @@
 ﻿using CLUSA;
-using Microsoft.VisualBasic.ApplicationServices;
-
 
 namespace Trabalho
 {
-    public partial class frmLogin : Form
+    public partial class FrmLogin : Form
     {
-        private RepositorioUsers repositorio;
-        frmLogin principal;
-        frmMapa mapa;
-        frmADMIN admin;
-        frmDecex decex;
-        frmMenu menu;
-        public static frmLogin instance;
-        public Logado logado;
-        public frmLogin()
+        private RepositorioUsers _repositorio;
+        public static FrmLogin Instance { get; private set; } = null!;
+        public Logado Logado { get; private set; } = null!;
+        public bool Escuro { get; private set; } = false;
+
+        public FrmLogin()
         {
             InitializeComponent();
-            instance = this;
-        }
-        private void frmPricipal_Load(object sender, EventArgs e)
-        {
-            repositorio = new RepositorioUsers();
+            Instance = this;
+            _repositorio = new RepositorioUsers();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            _repositorio = new RepositorioUsers();
+        }
 
-            Users users = new Users();
-            users.Username = txtUsername.Text;
-            users.Password = txtPassword.Text;
+        private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            var user = new Users
+            {
+                Username = txtUsername.Text,
+                Password = txtPassword.Text
+            };
 
             btnLogin.Visible = false;
+
             try
             {
-                logado = repositorio.Login(users);
+                Logado = _repositorio.Login(user);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnLogin.Visible = true;
+                return;
             }
-            
-            if (logado.log)
+
+            if (Logado.log)
             {
-                lblPassword.Visible = false;
-                txtPassword.Visible = false;
-                lblUsername.Visible = false;
-                txtUsername.Visible = false;
-                btnLogin.Visible = false;
-                lblError.Visible = false;
-
-
-                tLogado.Interval = 3000;
-                tLogado.Tick += new System.EventHandler(this.timer1_Tick);
-                check.Visible = true;
-                lblLogado.Visible = true;
-                tLogado.Start();
-
-                frmMenu frm = new frmMenu();
-                frm.ShowDialog();
-
-                if (frm.DialogResult == DialogResult.OK)
-                {
-                    this.Show();
-                    txtPassword.Text = "";
-                    txtUsername.Text = "";
-                    lblPassword.Visible = true;
-                    txtPassword.Visible = true;
-                    lblUsername.Visible = true;
-                    txtUsername.Visible = true;
-                    btnLogin.Visible = true;
-                    
-                }
+                HandleSuccessfulLogin();
             }
             else
             {
-                tErro.Interval = 3000;
-                tErro.Tick += new System.EventHandler(this.tErro_Tick);
-                lblError.Visible = true;
-                btnLogin.Visible = true;
-                tErro.Start();
+                HandleLoginError();
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void HandleSuccessfulLogin()
         {
+            HideLoginControls();
+            ShowLoginFeedback();
+
+            var menuForm = new FrmMenu();
+            menuForm.ShowDialog();
+
+            if (menuForm.DialogResult == DialogResult.OK)
+            {
+                ShowLoginScreen();
+            }
+        }
+
+        private void HandleLoginError()
+        {
+            lblError.Visible = true;
+            btnLogin.Visible = true;
+
+            tErro.Interval = 3000;
+            tErro.Tick += (s, e) =>
+            {
+                tErro.Stop();
+                lblError.Visible = false;
+            };
+            tErro.Start();
+        }
+
+        private void HideLoginControls()
+        {
+            lblPassword.Visible = false;
+            txtPassword.Visible = false;
+            lblUsername.Visible = false;
+            txtUsername.Visible = false;
+            btnLogin.Visible = false;
+            lblError.Visible = false;
+        }
+
+        private void ShowLoginFeedback()
+        {
+            check.Visible = true;
+            lblLogado.Visible = true;
+
+            tLogado.Interval = 3000;
+            tLogado.Tick += TimerLogado_Tick;
+            tLogado.Start();
+        }
+
+        private void ShowLoginScreen()
+        {
+            Show();
+            txtPassword.Clear();
+            txtUsername.Clear();
+
+            lblPassword.Visible = true;
+            txtPassword.Visible = true;
+            lblUsername.Visible = true;
+            txtUsername.Visible = true;
+            btnLogin.Visible = true;
+        }
+
+        private void TimerLogado_Tick(object? sender, EventArgs e)
+        {
+            if (sender == null)
+            {
+                // Lide com o caso em que 'sender' é nulo, se necessário.
+                return;
+            }
+
             tLogado.Stop();
             check.Visible = false;
             lblLogado.Visible = false;
             this.Hide();
         }
-
-        private void tErro_Tick(object sender, EventArgs e)
+        private void BtnFechar_Click(object sender, EventArgs e)
         {
-            tErro.Stop();
-            lblError.Visible = false;
-
+            Application.Exit();
         }
-        private void btnFechar_Click(object sender, EventArgs e)
+
+        private void FtLua_Click(object sender, EventArgs e)
         {
-            this.Close();
+            ApplyDarkMode();
+        }
+
+        private void FtSol_Click(object sender, EventArgs e)
+        {
+            ApplyLightMode();
+        }
+
+        private void ApplyDarkMode()
+        {
+            ftLua.Visible = false;
+            ftSol.Visible = true;
+
+            SetThemeColors(SystemColors.ControlDarkDark, SystemColors.ControlDark);
+            Escuro = true;
+        }
+
+        private void ApplyLightMode()
+        {
+            ftSol.Visible = false;
+            ftLua.Visible = true;
+
+            SetThemeColors(SystemColors.Control, SystemColors.Control);
+            Escuro = false;
+        }
+
+        private void SetThemeColors(Color backgroundColor, Color inputBackgroundColor)
+        {
+            BackColor = backgroundColor;
+            lblError.BackColor = backgroundColor;
+            txtPassword.BackColor = inputBackgroundColor;
+            txtUsername.BackColor = inputBackgroundColor;
+            btnFechar.BackColor = inputBackgroundColor;
+            btnLogin.BackColor = inputBackgroundColor;
         }
     }
 }

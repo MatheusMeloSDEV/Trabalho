@@ -1,70 +1,96 @@
 ﻿using CLUSA;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Trabalho
 {
-    public partial class frmModificaAdmin : Form
+    public partial class FrmModificaAdmin : Form
     {
-        public Users user;
-        public bool block = false;
-        public frmModificaAdmin()
+        private readonly Users _user;
+        private readonly Timer _errorTimer;
+
+        public FrmModificaAdmin(Users user)
         {
             InitializeComponent();
+
+            _user = user ?? throw new ArgumentNullException(nameof(user));
+
+            // Configura o Timer de erro
+            _errorTimer = new Timer { Interval = 3000 };
+            _errorTimer.Tick += ErrorTimer_Tick;
+
+            // Vincula os eventos
+            this.Load += FrmModificaAdmin_Load;
+            btnEnviar.Click += BtnEnviar_Click;
         }
 
-        public void frmModificaAdmin_Load(object sender, EventArgs e)
+        private void FrmModificaAdmin_Load(object sender, EventArgs e)
         {
-            BsModificaAdmin.DataSource = user;
+            // Ícone
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+            // Popula os controles com os valores atuais
+            txtUsername.Text = _user.Username;
+            txtPassword.Text = _user.Password;
+            cbAdmin.Checked = _user.Admin;
         }
 
-        public void btnEnviar_Click(object sender, EventArgs e)
+        private void BtnEnviar_Click(object sender, EventArgs e)
         {
-            if (!check())
+            if (!ValidateInputs())
             {
-                user.Username = txtUsername.Text;
-                user.Password = txtPassword.Text;
-                user.Admin = cbAdmin.Checked;
+                // Se passou na validação, atualiza o objeto e fecha com OK
+                _user.Username = txtUsername.Text.Trim();
+                _user.Password = txtPassword.Text;
+                _user.Admin = cbAdmin.Checked;
                 this.DialogResult = DialogResult.OK;
             }
         }
-        public bool check()
+
+        /// <summary>
+        /// Verifica se username e senha estão preenchidos.
+        /// Destaca o fundo em vermelho e exibe mensagem caso falte.
+        /// </summary>
+        private bool ValidateInputs()
         {
-            if (txtPassword.Text == "")
+            bool hasError = false;
+
+            // Restaura cores e para qualquer timer anterior
+            txtUsername.BackColor = Color.White;
+            txtPassword.BackColor = Color.White;
+            _errorTimer.Stop();
+
+            // Verifica cada campo
+            if (string.IsNullOrWhiteSpace(txtUsername.Text))
             {
-                tErro.Interval = 3000;
-                tErro.Tick += new System.EventHandler(this.tErro_Tick);
-                txtPassword.BackColor = Color.MistyRose;
-                tErro.Start();
-                block = true;
-            }
-            if (txtUsername.Text == "")
-            {
-                tErro.Interval = 3000;
-                tErro.Tick += new System.EventHandler(this.tErro_Tick);
                 txtUsername.BackColor = Color.MistyRose;
-                tErro.Start();
-                block = true;
+                hasError = true;
             }
-            if (block)
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Preencha todos os dados.");
+                txtPassword.BackColor = Color.MistyRose;
+                hasError = true;
             }
-            return block;
+
+            if (hasError)
+            {
+                MessageBox.Show("Preencha todos os dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                _errorTimer.Start();
+            }
+
+            return hasError;
         }
 
-        private void tErro_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// Evento do timer: restaura o fundo branco após o intervalo de erro.
+        /// </summary>
+        private void ErrorTimer_Tick(object sender, EventArgs e)
         {
-            txtPassword.BackColor = Color.White;
             txtUsername.BackColor = Color.White;
-            tErro.Stop();
+            txtPassword.BackColor = Color.White;
+            _errorTimer.Stop();
         }
     }
 }

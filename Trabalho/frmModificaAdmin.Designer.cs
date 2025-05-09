@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmModificaAdmin
+    partial class FrmModificaAdmin 
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModificaAdmin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmModificaAdmin));
             BsModificaAdmin = new BindingSource(components);
             btnEnviar = new Button();
             txtPassword = new TextBox();
@@ -50,7 +50,7 @@
             resources.ApplyResources(btnEnviar, "btnEnviar");
             btnEnviar.Name = "btnEnviar";
             btnEnviar.UseVisualStyleBackColor = true;
-            btnEnviar.Click += btnEnviar_Click;
+            btnEnviar.Click += BtnEnviar_Click;
             // 
             // txtPassword
             // 
@@ -89,7 +89,6 @@
             // 
             // tErro
             // 
-            tErro.Tick += tErro_Tick;
             // 
             // frmModificaAdmin
             // 
@@ -102,7 +101,7 @@
             Controls.Add(txtPassword);
             Controls.Add(btnEnviar);
             Name = "frmModificaAdmin";
-            Load += frmModificaAdmin_Load;
+            Load += FrmModificaAdmin_Load;
             ((System.ComponentModel.ISupportInitialize)BsModificaAdmin).EndInit();
             ResumeLayout(false);
             PerformLayout();

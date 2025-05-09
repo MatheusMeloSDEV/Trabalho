@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class frmADMIN
+    partial class FrmAdmin
     {
         /// <summary>
         /// Required designer variable.
@@ -50,7 +50,7 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -125,7 +125,7 @@
             btnAdcionar.TabIndex = 4;
             btnAdcionar.Text = "Adicionar";
             btnAdcionar.UseVisualStyleBackColor = true;
-            btnAdcionar.Click += btnAdcionar_Click;
+            btnAdcionar.Click += BtnAdicionar_Click;
             // 
             // btnExcluir
             // 
@@ -136,7 +136,7 @@
             btnExcluir.TabIndex = 5;
             btnExcluir.Text = "Excluir";
             btnExcluir.UseVisualStyleBackColor = true;
-            btnExcluir.Click += btnExcluir_Click;
+            btnExcluir.Click += BtnExcluir_Click;
             // 
             // btnEditar
             // 
@@ -147,7 +147,7 @@
             btnEditar.TabIndex = 6;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
-            btnEditar.Click += btnEditar_Click;
+            btnEditar.Click += BtnEditar_Click;
             // 
             // frmADMIN
             // 
@@ -161,8 +161,9 @@
             Controls.Add(dataGridView1);
             Name = "frmADMIN";
             Text = "ADMIN";
-            FormClosed += frmADMIN_FormClosed;
-            Load += frmADMIN_Load;
+            WindowState = FormWindowState.Maximized;
+            FormClosed += FrmADMIN_FormClosed;
+            Load += FrmADMIN_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)BSAdmin).EndInit();
             ResumeLayout(false);

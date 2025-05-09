@@ -1,10 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace CLUSA
 {
@@ -13,13 +8,87 @@ namespace CLUSA
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
-        public int NR { get; set; } = 0;
-        public int SR { get; set; } = 0;
-        public string Importador { get; set; } = string.Empty;
-        public string Previsao { get; set; } = string.Empty;
-        public string Terminal { get; set; } = string.Empty;
-        
 
+        //Não Aparecem
+        public bool TDecex { get; set; } = false;
+        public bool TAnvisa { get; set; } = false;
+        public bool TMapa { get; set; } = false;
+        public bool TImetro { get; set; } = false;
+        public bool TIbama { get; set; } = false;
+        public bool PossuiEmbarque { get; set; } = false;
+        public string VencimentoFreeTime { get; set; } = string.Empty;
+        public string VencimentoFMA { get; set; } = string.Empty;
+        //
+
+        public string Ref_USA { get; set; } = string.Empty;
+        public string Importador { get; set; } = string.Empty;
+        public string SR { get; set; } = string.Empty;
+        public string Exportador { get; set; } = string.Empty;
+        public string Produto { get; set; } = string.Empty;
+        public string Marca { get; set; } = string.Empty;
+        public string Navio { get; set; } = string.Empty; //Implementar
+        public string PortoDestino { get; set; } = string.Empty;
+        public string Ordem { get; set; } = string.Empty;
+        public string FLO { get; set; } = string.Empty;
+        public int FreeTime { get; set; } = 0;
+        public string BL { get; set; } = string.Empty;
+        public string AgenteDeCarga { get; set; } = string.Empty;
+
+        //public string LI_LPCO { get; set; } = string.Empty;
+        public string LI { get; set; } = string.Empty;
+        public string LPCO { get; set; } = string.Empty;
+        public DateTime? DataRegistroLPCO { get; set; } = (DateTime?)null;
+        public bool CheckDataRegistroLPCO { get; set; } = false;
+        public DateTime? DataDeferimentoLPCO { get; set; } = (DateTime?)null;
+        public bool CheckDataDeferimentoLPCO { get; set; } = false;
+        public string ParametrizacaoLPCO { get; set; } = string.Empty;
+
+
+        public string DI { get; set; } = string.Empty;
+        public DateTime? DataRegistroDI { get; set; } = (DateTime?)null;
+        public bool CheckDataRegistroDI { get; set; } = false;
+        public DateTime? DataDesembaracoDI { get; set; } = (DateTime?)null;
+        public bool CheckDataDesembaracoDI { get; set; } = false;
+        public DateTime? DataCarregamentoDI { get; set; } = (DateTime?)null;
+        public bool CheckDataCarregamentoDI { get; set; } = false;
+        public string ParametrizacaoDI { get; set; } = string.Empty;
+
+
+        public DateTime? DataDeAtracacao { get; set; } = (DateTime?)null;
+        public bool CheckDataDeAtracacao { get; set; } = false;
+        public DateTime? Inspecao { get; set; } = (DateTime?)null;
+        public bool CheckInspecao { get; set; } = false;
+        public DateTime? DataEmbarque { get; set; } = (DateTime?)null;
+        public bool CheckDataEmbarque { get; set; } = false;
+
+        public DateTime? DataRecebOriginais { get; set; } = (DateTime?)null;
+        public bool CheckDataRecebOriginais { get; set; } = false;
+        public string FormaRecOriginais { get; set; } = string.Empty; // Seletor - DHL, UPS,Correio, Fedex, Daytona
+        public string[] DocRecebidos { get; set; } = Array.Empty<string>(); // Seletor Varios -  BL, Fatura, Packing List, CO, Fito, CSI, CA, CF (String Concat)
+
+        public bool Amostra { get; set; } = false;
+        public bool Desovado { get; set; } = false;
+        public string Pendencia { get; set; } = string.Empty;
         public string StatusDoProcesso { get; set; } = string.Empty;
+
+
+        public string NCM { get; set; } = string.Empty;
+        public string Origem { get; set; } = string.Empty;
+        public DateTime? InspecaoMapa { get; set; } = (DateTime?)null;
+        public bool CheckInspecaoMapa { get; set; } = false;
+        public DateTime? InspecaoAnvisa { get; set; } = (DateTime?)null;
+        public bool CheckInspecaoAnvisa { get; set; } = false;
+        public DateTime? InspecaoDecex { get; set; } = (DateTime?)null;
+        public bool CheckInspecaoDecex { get; set; } = false;
+        public DateTime? InspecaoInmetro { get; set; } = (DateTime?)null;
+        public bool CheckInspecaoInmetro { get; set; } = false;
+        public DateTime? InspecaoIbama { get; set; } = (DateTime?)null;
+        public bool CheckInspecaoIbama { get; set; } = false;
+
+
+        //Implementar - Calculo Vencimento FreeTime = Data de Atracação + FreeTime
+        //Implementar - Calculo Vencimento FMA = Data de Atracação + 85 dias
+        //Implementar - Status / Conclusão - Verde, Atracado - Laranja, Esperado - Amarelo, Aguardando Embarque - Branco
+
     }
 }

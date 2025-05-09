@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class Form1
+    partial class frmRecibo
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            bindingSource1 = new BindingSource(components);
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
-            SuspendLayout();
-            // 
-            // Form1
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "Form1";
-            Text = "Form1";
-            Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "frmRecibo";
         }
 
         #endregion
-
-        private BindingSource bindingSource1;
     }
 }

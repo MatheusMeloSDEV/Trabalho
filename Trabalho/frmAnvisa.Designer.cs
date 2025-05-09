@@ -1,169 +1,212 @@
-﻿namespace Trabalho
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using System.Reflection;
+
+namespace Trabalho
 {
-    partial class frmAnvisa
+    partial class FrmAnvisa
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        // BindingSource
+        private BindingSource BsAnvisa;
+
+        // ToolStrip e itens
+        private ToolStrip toolStrip1;
+        private ToolStripButton BtnEditar;
+        private ToolStripButton BtnCancelar;
+        private ToolStripButton BtnPesquisar;
+        private ToolStripButton BtnReload;
+        private ToolStripTextBox TxtPesquisar;
+        private ToolStripComboBox CmbPesquisar;
+
+        // DataGridView
+        private DataGridView dataGridView1;
+
         /// <summary>
-        /// Clean up any resources being used.
+        /// Liberar recursos usados.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true se gerenciado, senão false</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
+                BsAnvisa.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Método gerado pelo designer para inicializar componentes.
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnvisa));
-            dataGridView1 = new DataGridView();
-            toolStrip1 = new ToolStrip();
-            btnEditar = new ToolStripButton();
-            btnCancelar = new ToolStripButton();
-            btnPesquisar = new ToolStripButton();
-            txtPesquisar = new ToolStripTextBox();
-            CmbPesquisar = new ToolStripComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            toolStrip1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToResizeColumns = false;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Location = new Point(12, 41);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(776, 397);
-            dataGridView1.TabIndex = 2;
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.AutoSize = false;
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnEditar, btnCancelar, btnPesquisar, txtPesquisar, CmbPesquisar });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.RenderMode = ToolStripRenderMode.System;
-            toolStrip1.Size = new Size(800, 38);
-            toolStrip1.TabIndex = 10;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // btnEditar
-            // 
-            btnEditar.AutoSize = false;
-            btnEditar.BackColor = Color.MediumTurquoise;
-            btnEditar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnEditar.Image = (Image)resources.GetObject("btnEditar.Image");
-            btnEditar.ImageTransparentColor = Color.Magenta;
-            btnEditar.Margin = new Padding(5, 4, 0, 2);
-            btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(62, 32);
-            btnEditar.Text = "Editar";
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Alignment = ToolStripItemAlignment.Right;
-            btnCancelar.BackgroundImage = (Image)resources.GetObject("btnCancelar.BackgroundImage");
-            btnCancelar.BackgroundImageLayout = ImageLayout.Zoom;
-            btnCancelar.DisplayStyle = ToolStripItemDisplayStyle.None;
-            btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
-            btnCancelar.ImageTransparentColor = Color.Magenta;
-            btnCancelar.Margin = new Padding(0, 4, 0, 2);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(23, 32);
-            btnCancelar.Text = "toolStripButton2";
-            // 
-            // btnPesquisar
-            // 
-            btnPesquisar.Alignment = ToolStripItemAlignment.Right;
-            btnPesquisar.BackgroundImage = (Image)resources.GetObject("btnPesquisar.BackgroundImage");
-            btnPesquisar.BackgroundImageLayout = ImageLayout.Zoom;
-            btnPesquisar.DisplayStyle = ToolStripItemDisplayStyle.None;
-            btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
-            btnPesquisar.ImageTransparentColor = Color.Magenta;
-            btnPesquisar.Margin = new Padding(0, 4, 0, 2);
-            btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(23, 32);
-            btnPesquisar.Text = "toolStripButton1";
-            // 
-            // txtPesquisar
-            // 
-            txtPesquisar.Alignment = ToolStripItemAlignment.Right;
-            txtPesquisar.Margin = new Padding(0, 4, 3, 0);
-            txtPesquisar.Name = "txtPesquisar";
-            txtPesquisar.Size = new Size(250, 34);
-            // 
-            // CmbPesquisar
-            // 
-            CmbPesquisar.Alignment = ToolStripItemAlignment.Right;
-            CmbPesquisar.AutoSize = false;
-            CmbPesquisar.Items.AddRange(new object[] { "Importador", "Navio", "Terminal", "Armazem", "Anuete" });
-            CmbPesquisar.Margin = new Padding(1, 5, 5, 0);
-            CmbPesquisar.Name = "CmbPesquisar";
-            CmbPesquisar.Size = new Size(121, 23);
-            // 
-            // frmAnvisa
-            // 
+            components = new System.ComponentModel.Container();
+
+            // Inicializa o BindingSource
+            BsAnvisa = new BindingSource(components);
+
+            #region ToolStrip Config
+
+            toolStrip1 = new ToolStrip
+            {
+                GripStyle = ToolStripGripStyle.Hidden,
+                RenderMode = ToolStripRenderMode.Professional,
+                BackColor = Color.WhiteSmoke,
+                AutoSize = false,
+                Height = 40,
+                Padding = new Padding(5, 5, 5, 5)
+            };
+
+            Font defaultFont = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            BtnEditar = new ToolStripButton
+            {
+                Text = "Editar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnEditar.Click += BtnEditar_Click;
+
+            BtnCancelar = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Cancelar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnCancelar.Click += BtnCancelar_Click;
+
+            BtnReload = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Recarregar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnReload.Click += BtnReload_Click;
+
+            BtnPesquisar = new ToolStripButton
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Text = "Pesquisar",
+                Font = defaultFont,
+                DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit
+            };
+            BtnPesquisar.Click += BtnPesquisar_Click;
+
+            CmbPesquisar = new ToolStripComboBox
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Font = defaultFont,
+                Size = new Size(150, 25),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            CmbPesquisar.SelectedIndexChanged += CmbPesquisar_SelectedIndexChanged;
+
+            TxtPesquisar = new ToolStripTextBox
+            {
+                Alignment = ToolStripItemAlignment.Right,
+                Font = defaultFont,
+                Size = new Size(200, 25),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            ToolStripSeparator ToolStripRight = new ToolStripSeparator
+            {
+                Alignment = ToolStripItemAlignment.Right,
+            };
+            ToolStripSeparator ToolStripRight1 = new ToolStripSeparator
+            {
+                Alignment = ToolStripItemAlignment.Right,
+            };
+
+            toolStrip1.Items.Add(BtnEditar);
+            toolStrip1.Items.Add(BtnCancelar);
+            toolStrip1.Items.Add(ToolStripRight1);
+            toolStrip1.Items.Add(BtnReload);
+            toolStrip1.Items.Add(ToolStripRight);
+            toolStrip1.Items.Add(BtnPesquisar);
+            toolStrip1.Items.Add(CmbPesquisar);
+            toolStrip1.Items.Add(TxtPesquisar);
+
+            #endregion
+
+            #region DataGridView Config
+
+            dataGridView1 = new DataGridView
+            {
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                AutoGenerateColumns = false,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                EnableHeadersVisualStyles = false,
+                Location = new Point(12, 50),
+                Name = "dataGridView1",
+                ReadOnly = true,
+                RowHeadersVisible = false,
+                RowTemplate = { Height = 25 },
+                Size = new Size(776, 388),
+                BorderStyle = BorderStyle.FixedSingle,
+                BackgroundColor = Color.White,
+            };
+
+            dataGridView1.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(50, 50, 50),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                WrapMode = DataGridViewTriState.True
+            };
+
+            dataGridView1.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Font = new Font("Segoe UI", 10),
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                SelectionBackColor = Color.LightBlue,
+                SelectionForeColor = Color.Black,
+                Alignment = DataGridViewContentAlignment.MiddleLeft
+            };
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.WhiteSmoke
+            };
+
+            #endregion
+
+            #region Form Config
+
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(toolStrip1);
+            ControlBox = false;
             Controls.Add(dataGridView1);
-            Name = "frmAnvisa";
-            Text = "frmAnvisa";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            Controls.Add(toolStrip1);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FrmAnvisa";
+            Text = "Planilha ANVISA";
+            WindowState = FormWindowState.Maximized;
+            Load += FrmAnvisa_Load;
+
+            #endregion
+
+            ((System.ComponentModel.ISupportInitialize)BsAnvisa).EndInit(); // Usando BsAnvisa corretamente
             ResumeLayout(false);
         }
 
-        #endregion
-
-        private DataGridView dataGridView1;
-        private ToolStrip toolStrip1;
-        private ToolStripButton btnEditar;
-        private ToolStripButton btnCancelar;
-        private ToolStripButton btnPesquisar;
-        private ToolStripTextBox txtPesquisar;
-        private ToolStripComboBox CmbPesquisar;
     }
 }

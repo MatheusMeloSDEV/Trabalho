@@ -1,6 +1,10 @@
-﻿namespace Trabalho
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Trabalho
 {
-    partial class frmMenu
+    partial class FrmMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -23,114 +27,207 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Required method for Designer support - do not modify the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            menuStrip1 = new MenuStrip();
-            menuToolStripMenuItem = new ToolStripMenuItem();
-            maximizarToolStripMenuItem = new ToolStripMenuItem();
-            sairToolStripMenuItem = new ToolStripMenuItem();
-            planilhasToolStripMenuItem = new ToolStripMenuItem();
-            mAPAToolStripMenuItem = new ToolStripMenuItem();
-            decexToolStripMenuItem = new ToolStripMenuItem();
-            aDMINToolStripMenuItem = new ToolStripMenuItem();
-            tLiberaSaida = new System.Windows.Forms.Timer(components);
-            menuStrip1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, planilhasToolStripMenuItem, aDMINToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // menuToolStripMenuItem
-            // 
-            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { maximizarToolStripMenuItem, sairToolStripMenuItem });
-            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            menuToolStripMenuItem.Size = new Size(50, 20);
-            menuToolStripMenuItem.Text = "Menu";
-            // 
-            // maximizarToolStripMenuItem
-            // 
-            maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
-            maximizarToolStripMenuItem.Size = new Size(129, 22);
-            maximizarToolStripMenuItem.Text = "Maximizar";
-            // 
-            // sairToolStripMenuItem
-            // 
-            sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            sairToolStripMenuItem.Size = new Size(129, 22);
-            sairToolStripMenuItem.Text = "Sair";
-            sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
-            // 
-            // planilhasToolStripMenuItem
-            // 
-            planilhasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mAPAToolStripMenuItem, decexToolStripMenuItem });
-            planilhasToolStripMenuItem.Name = "planilhasToolStripMenuItem";
-            planilhasToolStripMenuItem.Size = new Size(66, 20);
-            planilhasToolStripMenuItem.Text = "Planilhas";
-            // 
-            // mAPAToolStripMenuItem
-            // 
-            mAPAToolStripMenuItem.Name = "mAPAToolStripMenuItem";
-            mAPAToolStripMenuItem.Size = new Size(107, 22);
-            mAPAToolStripMenuItem.Text = "MAPA";
-            mAPAToolStripMenuItem.Click += mAPAToolStripMenuItem_Click;
-            // 
-            // decexToolStripMenuItem
-            // 
-            decexToolStripMenuItem.Name = "decexToolStripMenuItem";
-            decexToolStripMenuItem.Size = new Size(107, 22);
-            decexToolStripMenuItem.Text = "Decex";
-            decexToolStripMenuItem.Click += decexToolStripMenuItem_Click;
-            // 
-            // aDMINToolStripMenuItem
-            // 
-            aDMINToolStripMenuItem.Name = "aDMINToolStripMenuItem";
-            aDMINToolStripMenuItem.Size = new Size(58, 20);
-            aDMINToolStripMenuItem.Text = "ADMIN";
-            aDMINToolStripMenuItem.Click += aDMINToolStripMenuItem_Click;
-            // 
-            // tLiberaSaida
-            // 
-            tLiberaSaida.Tick += tLiberaSaida_Tick;
-            // 
-            // frmMenu
-            // 
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenu));
+
+            // MenuStrip
+            MSnotificacoes = new MenuStrip
+            {
+                BackColor = SystemColors.Control,
+                Location = new Point(0, 0),
+                Name = "MSnotificacoes",
+                Size = new Size(878, 24),
+                TabIndex = 1,
+                Text = "MSnotificacoes"
+            };
+
+            // Notificações
+            MenuItemNotifications = new ToolStripMenuItem
+            {
+                Name = "MenuItemNotifications",
+                Size = new Size(101, 20),
+                Text = "Notificações",
+                TextImageRelation = TextImageRelation.TextBeforeImage
+            };
+
+            // Menu principal
+            MenuItemMain = new ToolStripMenuItem
+            {
+                Name = "MenuItemMain",
+                Size = new Size(50, 20),
+                Text = "Menu"
+            };
+            MenuItemMain.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                MenuItemHome = new ToolStripMenuItem
+                {
+                    Name = "MenuItemHome",
+                    Size = new Size(129, 22),
+                    Text = "Início"
+                },
+                MenuItemMaximize = new ToolStripMenuItem
+                {
+                    Name = "MenuItemMaximize",
+                    Size = new Size(129, 22),
+                    Text = "Maximizar"
+                },
+                MenuItemExit = new ToolStripMenuItem
+                {
+                    Name = "MenuItemExit",
+                    Size = new Size(129, 22),
+                    Text = "Sair"
+                }
+            });
+
+            MenuItemHome.Click += MenuItemHome_Click;
+            MenuItemMaximize.Click += MenuItemMaximize_Click;
+            MenuItemExit.Click += MenuItemExit_Click;
+
+            // Planilhas
+            MenuItemSheets = new ToolStripMenuItem
+            {
+                Name = "MenuItemSheets",
+                Size = new Size(66, 20),
+                Text = "Planilhas"
+            };
+            MenuItemSheets.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                MenuItemProcess = new ToolStripMenuItem
+                {
+                    Name = "MenuItemProcess",
+                    Size = new Size(121, 22),
+                    Text = "Processo"
+                },
+                MenuItemMap = new ToolStripMenuItem
+                {
+                    Name = "MenuItemMap",
+                    Size = new Size(121, 22),
+                    Text = "Mapa"
+                },
+                MenuItemAnvisa = new ToolStripMenuItem
+                {
+                    Name = "MenuItemAnvisa",
+                    Size = new Size(121, 22),
+                    Text = "Anvisa"
+                },
+                MenuItemDecex = new ToolStripMenuItem
+                {
+                    Name = "MenuItemDecex",
+                    Size = new Size(121, 22),
+                    Text = "Decex"
+                },
+                MenuItemIbama = new ToolStripMenuItem
+                {
+                    Name = "MenuItemIbama",
+                    Size = new Size(121, 22),
+                    Text = "Ibama"
+                },
+                MenuItemImetro = new ToolStripMenuItem
+                {
+                    Name = "MenuItemImetro",
+                    Size = new Size(121, 22),
+                    Text = "Imetro"
+                }
+            });
+
+            MenuItemProcess.Click += MenuItemProcess_Click;
+            MenuItemMap.Click += MenuItemMap_Click;
+            MenuItemAnvisa.Click += MenuItemAnvisa_Click;
+            MenuItemDecex.Click += MenuItemDecex_Click;
+            MenuItemIbama.Click += MenuItemIbama_Click;
+            MenuItemImetro.Click += MenuItemImetro_Click;
+
+            // Administrador
+            MenuItemAdmin = new ToolStripMenuItem
+            {
+                Name = "MenuItemAdmin",
+                Size = new Size(95, 20),
+                Text = "Administrador"
+            };
+            MenuItemAdmin.Click += MenuItemAdmin_Click;
+
+            MenuItemFinanceiro = new ToolStripMenuItem
+            {
+                Name = "MenuItemFinanceiro",
+                Size = new Size(95, 20),
+                Text = "Financeiro"
+            };
+            MenuItemFinanceiro.Click += MenuItemFinanceiro_Click;
+
+            // Adicionar itens ao MenuStrip
+            MSnotificacoes.Items.AddRange(new ToolStripItem[]
+            {
+                MenuItemNotifications,
+                MenuItemMain,
+                MenuItemSheets,
+                MenuItemAdmin,
+                MenuItemFinanceiro
+            });
+
+            // Timer
+            timerReleaseExit = new System.Windows.Forms.Timer(components)
+            {
+                Interval = 1000 // Exemplo de intervalo, ajuste conforme necessário
+            };
+            timerReleaseExit.Tick += TimerReleaseExit_Tick;
+
+            // TabControl
+            TCabas = new TabControl
+            {
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Location = new Point(160, 68),
+                Name = "TCabas",
+                SelectedIndex = 0,
+                Size = new Size(528, 323),
+                SizeMode = TabSizeMode.FillToRight,
+                TabIndex = 5
+            };
+
+            // Configuração do Formulário
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(878, 448);
             ControlBox = false;
-            Controls.Add(menuStrip1);
+            Controls.Add(TCabas);
+            Controls.Add(MSnotificacoes);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
-            MainMenuStrip = menuStrip1;
+            MainMenuStrip = MSnotificacoes;
+            MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmMenu";
+            Name = "FrmMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Área de trabalho";
-            Load += frmMenu_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            WindowState = FormWindowState.Maximized;
+
+            MSnotificacoes.ResumeLayout(false);
+            MSnotificacoes.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem menuToolStripMenuItem;
-        private ToolStripMenuItem maximizarToolStripMenuItem;
-        private ToolStripMenuItem sairToolStripMenuItem;
-        private ToolStripMenuItem planilhasToolStripMenuItem;
-        private ToolStripMenuItem mAPAToolStripMenuItem;
-        private ToolStripMenuItem decexToolStripMenuItem;
-        private ToolStripMenuItem aDMINToolStripMenuItem;
-        private System.Windows.Forms.Timer tLiberaSaida;
+        private MenuStrip MSnotificacoes;
+        private ToolStripMenuItem MenuItemNotifications;
+        private ToolStripMenuItem MenuItemMain;
+        private ToolStripMenuItem MenuItemHome;
+        private ToolStripMenuItem MenuItemMaximize;
+        private ToolStripMenuItem MenuItemExit;
+        private ToolStripMenuItem MenuItemSheets;
+        private ToolStripMenuItem MenuItemProcess;
+        private ToolStripMenuItem MenuItemMap;
+        private ToolStripMenuItem MenuItemAnvisa;
+        private ToolStripMenuItem MenuItemDecex;
+        private ToolStripMenuItem MenuItemIbama;
+        private ToolStripMenuItem MenuItemImetro;
+        private ToolStripMenuItem MenuItemAdmin;
+        private ToolStripMenuItem MenuItemFinanceiro;
+        private System.Windows.Forms.Timer timerReleaseExit;
+        private TabControl TCabas;
     }
 }
