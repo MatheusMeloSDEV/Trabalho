@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;            // Timer vem daqui
+using System.Windows.Forms;
 using CLUSA;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -58,7 +58,7 @@ namespace Trabalho
             TCabas.Visible = false;   // se quiser só mostrar após o CarregarDados
         }
 
-        private void TimerReleaseExit_Tick(object sender, EventArgs e)
+        private void TimerReleaseExit_Tick(object? sender, EventArgs e)
         {
             timerReleaseExit.Stop();
             MenuItemExit.Enabled = true;
@@ -285,6 +285,8 @@ namespace Trabalho
         }
         private void MenuItemMaximize_Click(object sender, EventArgs e)
             => this.WindowState = FormWindowState.Maximized;
+        private void MenuItemMinimize_Click(object sender, EventArgs e)
+            => this.WindowState = FormWindowState.Minimized;
         private void MenuItemMap_Click(object sender, EventArgs e)
             => ShowSingleFormOfType<FrmMapa>();
         private void MenuItemAnvisa_Click(object sender, EventArgs e)
