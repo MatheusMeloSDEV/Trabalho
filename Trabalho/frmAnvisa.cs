@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using System.Windows.Forms;
 using static Trabalho.FrmProcesso;
 
 namespace Trabalho
@@ -100,6 +101,15 @@ namespace Trabalho
             // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
 
+            // Configuração básica
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
             // ——————————————————————
             // 1) Colunas principais (texto)
             // ——————————————————————
@@ -155,18 +165,6 @@ namespace Trabalho
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "LI",
-                HeaderText = "LI",
-                Name = "ColunaLI"
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "LPCO",
-                HeaderText = "LPCO",
-                Name = "ColunaLPCO"
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
                 DataPropertyName = "Pendencia",
                 HeaderText = "Pendência",
                 Name = "ColunaPendencia"
@@ -178,14 +176,14 @@ namespace Trabalho
                 Name = "ColunaStatusDoProcesso"
             });
 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-
             foreach (DataGridViewColumn coluna in dataGridView1.Columns)
             {
-                coluna.MinimumWidth = 100;
                 coluna.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                coluna.DefaultCellStyle.ForeColor = Color.Black;
+                coluna.DefaultCellStyle.BackColor = Color.White;
+                coluna.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+                coluna.DefaultCellStyle.SelectionForeColor = Color.Black;
+                coluna.MinimumWidth = 100;
             }
         }
 
@@ -304,7 +302,7 @@ namespace Trabalho
                 return;
             }
 
-            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual };
+            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual, Visualização = false, Modo = "Editar" };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
@@ -323,30 +321,21 @@ namespace Trabalho
         }
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (BsAnvisa.Current is not Anvisa anvisaSelecionado)
             {
-                var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                var valorCelula = cell.Value?.ToString();
-                var dataPropertyName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
-
-                if (!string.IsNullOrEmpty(dataPropertyName))
-                {
-                    if (valorCelula != null)
-                    {
-                        BsAnvisa.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
-                    }
-                    else
-                    {
-                        // Tratar o caso de valorCelula nulo.
-                        // Por exemplo, não chamar o método ou usar um valor padrão.
-                        MessageBox.Show("Não há valor para pesquisa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("DataPropertyName não definido para esta coluna.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+            using var frm = new FrmModificaAnvisa { anvisa = anvisaSelecionado, Visualização = true, Modo = "Visualizar" };
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                BsAnvisa.ResetBindings(false);
+            }
+
+            BsAnvisa.DataSource = _repositorio.FindAll();
         }
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {

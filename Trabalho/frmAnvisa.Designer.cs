@@ -178,6 +178,7 @@ namespace Trabalho
                 Alignment = DataGridViewContentAlignment.MiddleLeft
             };
 
+            dataGridView1.CellDoubleClick += DataGridView1_CellDoubleClick;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dataGridView1.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle

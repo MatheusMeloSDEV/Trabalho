@@ -25,7 +25,7 @@
             // panelFaturamento
             // 
             panelFaturamento.Dock = DockStyle.Left;
-            panelFaturamento.Width = 380;
+            panelFaturamento.Width = this.Width / 2;
             panelFaturamento.AutoScroll = true;
             panelFaturamento.BorderStyle = BorderStyle.FixedSingle;
             panelFaturamento.Name = "panelFaturamento";
@@ -36,6 +36,7 @@
             // 
             panelRecibo.Dock = DockStyle.Fill;
             panelRecibo.AutoScroll = true;
+            panelRecibo.Width = this.Width / 2;
             panelRecibo.BorderStyle = BorderStyle.FixedSingle;
             panelRecibo.Name = "panelRecibo";
             panelRecibo.TabIndex = 1;

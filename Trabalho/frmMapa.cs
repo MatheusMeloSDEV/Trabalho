@@ -69,6 +69,15 @@ namespace Trabalho
             // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
 
+            // Configuração básica
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
             // ——————————————————————
             // 1) Colunas principais (texto)
             // ——————————————————————
@@ -112,113 +121,15 @@ namespace Trabalho
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Terminal",
-                HeaderText = "Terminal",
-                Name = "ColunaTerminal"
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
                 DataPropertyName = "Produto",
                 HeaderText = "Produto",
                 Name = "ColunaProduto"
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Origem",
-                HeaderText = "Origem",
-                Name = "ColunaOrigem"
-            });
-
-            // ——————————————————————
-            // 2) Booleanos (invisíveis por padrão)
-            // ——————————————————————
-            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "TEmbarque",
-                HeaderText = "Tem Embarque",
-                Name = "ColunaTEmbarque",
-                Visible = false
-            });
-
-            // ——————————————————————
-            // 3) Datas com formatação dd/MM/yyyy
-            // ——————————————————————
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataDeAtracacao",
-                HeaderText = "Data de Atracação",
-                Name = "ColunaDataDeAtracacao",
-                DefaultCellStyle = { Format = "dd/MM/yyyy" }
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataEmbarque",
-                HeaderText = "Data de Embarque",
-                Name = "ColunaDataEmbarque",
-                DefaultCellStyle = { Format = "dd/MM/yyyy" }
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Inspecao",
-                HeaderText = "Inspeção",
-                Name = "ColunaInspecao",
-                DefaultCellStyle = { Format = "dd/MM/yyyy" }
-            });
-
-            // ——————————————————————
-            // 4) Mais texto livre
-            // ——————————————————————
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
                 DataPropertyName = "NCM",
                 HeaderText = "NCM",
                 Name = "ColunaNCM"
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "LI",
-                HeaderText = "LI",
-                Name = "ColunaLI"
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "LPCO",
-                HeaderText = "LPCO",
-                Name = "ColunaLPCO"
-            });
-
-            // ——————————————————————
-            // 5) Datas LPCO
-            // ——————————————————————
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataRegistroLPCO",
-                HeaderText = "Data Registro LPCO",
-                Name = "ColunaDataRegistroLPCO",
-                DefaultCellStyle = { Format = "dd/MM/yyyy" }
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataDeferimentoLPCO",
-                HeaderText = "Data Deferimento LPCO",
-                Name = "ColunaDataDeferimentoLPCO",
-                DefaultCellStyle = { Format = "dd/MM/yyyy" }
-            });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "ParametrizacaoLPCO",
-                HeaderText = "Parametrização LPCO",
-                Name = "ColunaParametrizacaoLPCO"
-            });
-
-            // ——————————————————————
-            // 6) Outros booleanos e status
-            // ——————————————————————
-            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn
-            {
-                DataPropertyName = "Amostra",
-                HeaderText = "Amostra",
-                Name = "ColunaAmostra"
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -233,17 +144,14 @@ namespace Trabalho
                 Name = "ColunaStatusDoProcesso"
             });
 
-            // ——————————————————————
-            // 7) Ajustes gerais de layout
-            // ——————————————————————
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-
             foreach (DataGridViewColumn coluna in dataGridView1.Columns)
             {
-                coluna.MinimumWidth = 100;
                 coluna.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                coluna.DefaultCellStyle.ForeColor = Color.Black;
+                coluna.DefaultCellStyle.BackColor = Color.White;
+                coluna.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+                coluna.DefaultCellStyle.SelectionForeColor = Color.Black;
+                coluna.MinimumWidth = 100;
             }
         }
         private void ImagensBotoes()
@@ -385,7 +293,7 @@ namespace Trabalho
                 return;
             }
 
-            var frm = new FrmModificaMapa { mapa = mapaAtual };
+            var frm = new FrmModificaMapa { mapa = mapaAtual, Visualização = false, Modo = "Editar" };
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
@@ -404,30 +312,21 @@ namespace Trabalho
         }
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (BSmapa.Current is not MAPA mapaSelecionado)
             {
-                var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                var valorCelula = cell.Value?.ToString();
-                var dataPropertyName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
-
-                if (!string.IsNullOrEmpty(dataPropertyName))
-                {
-                    if (valorCelula != null)
-                    {
-                        BSmapa.DataSource = _repositorio.Find(dataPropertyName, valorCelula);
-                    }
-                    else
-                    {
-                        // Tratar o caso de valorCelula nulo.
-                        // Por exemplo, não chamar o método ou usar um valor padrão.
-                        MessageBox.Show("Não há valor para pesquisa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("DataPropertyName não definido para esta coluna.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+            using var frm = new FrmModificaMapa { mapa = mapaSelecionado, Visualização = true, Modo = "Visualizar" };
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                BSmapa.ResetBindings(false);
+            }
+
+            BSmapa.DataSource = _repositorio.FindAll();
         }
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {

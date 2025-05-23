@@ -16,12 +16,16 @@ namespace Trabalho
         private readonly string _databaseName = "Trabalho";
         private readonly IMongoCollection<BsonDocument> _processoCollection;
         private readonly RepositorioNotificacao _notificacaoRepo;
+        private Logado _logadoUsuario;
         // Mantém instâncias únicas dos formulários filhos
-            private readonly Dictionary<Type, Form> _forms = new();
+        private readonly Dictionary<Type, Form> _forms = new();
+        private bool _logoutPeloMenu = false;
 
-        public FrmMenu()
+        public FrmMenu(Logado logadoUsuario)
         {
             InitializeComponent();
+
+            _logadoUsuario = logadoUsuario ?? throw new ArgumentNullException(nameof(logadoUsuario));
 
             this.Shown += FrmMenu_Shown;
             // Inicializa e dispara o timer para habilitar o Exit após 3s
@@ -30,7 +34,8 @@ namespace Trabalho
             MenuItemExit.Enabled = false;
             timerReleaseExit.Start();
 
-            if (FrmLogin.Instance.Logado.admin == false)
+
+            if (!_logadoUsuario.admin)
             {
                 MenuItemAdmin.Visible = false;
             }
@@ -79,7 +84,7 @@ namespace Trabalho
                     .Find(FilterDefinition<BsonDocument>.Empty)
                     .ToListAsync();
 
-                MontarTabProcessos(processos);
+                MontarTabsProcessos(processos);
                 GerarNotificacoes(processos);
                 AtualizarNotificacoes();
             }
@@ -93,30 +98,61 @@ namespace Trabalho
                 Cursor = Cursors.Default;
             }
         }
-
-        private void MontarTabProcessos(List<BsonDocument> processos)
+        private void MontarTabsProcessos(List<BsonDocument> processos)
         {
-            var tabPage = TCabas.TabPages["DataDeAtracacao"];
+            MontarTabDataDeAtracacao(processos);
+            MontarTabOrgaoAnuentes(processos);
+            MontarTabFinalizados(processos);
+        }
+        private TabPage GetOrCreateTab(string name, string title)
+        {
+            var tabPage = TCabas.TabPages[name];
             if (tabPage == null)
             {
-                tabPage = new TabPage("Data de Atracação") { Name = "DataDeAtracacao" };
+                tabPage = new TabPage(title) { Name = name };
                 TCabas.TabPages.Add(tabPage);
             }
-            tabPage.Controls.Clear();
+            return tabPage;
+        }
 
-            var table = new TableLayoutPanel
+        private TableLayoutPanel CriarTabela()
+        {
+            return new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 AutoSize = true,
                 ColumnCount = 1
             };
+        }
+
+        private Label CriarLabel(string texto)
+        {
+            return new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10F),
+                Margin = new Padding(5),
+                Text = texto
+            };
+        }
+        private bool EhFinalizado(BsonDocument p)
+        {
+            return p.Contains("DataCarregamentoDI") && p["DataCarregamentoDI"] != BsonNull.Value && !string.IsNullOrEmpty(p["DataCarregamentoDI"].ToString());
+        }
+        private void MontarTabDataDeAtracacao(List<BsonDocument> processos)
+        {
+            var tabPage = GetOrCreateTab("DataDeAtracacao", "Data de Atracação");
+            tabPage.Controls.Clear();
+
+            var table = CriarTabela();
 
             foreach (var p in processos)
             {
+                if (EhFinalizado(p)) continue; // pula se for finalizado
+
                 var refUsa = p.GetValue("Ref_USA", BsonNull.Value).ToString();
                 var sr = p.GetValue("SR", BsonNull.Value).ToString();
 
-                // extrai BsonDateTime se existir, senão tenta converter string
                 DateTime dt;
                 var bval = p.GetValue("DataDeAtracacao", BsonNull.Value);
                 if (bval.IsValidDateTime)
@@ -124,29 +160,84 @@ namespace Trabalho
                 else if (!DateTime.TryParse(bval.ToString(), out dt))
                     dt = DateTime.MinValue;
 
-                var dataFmt = dt != DateTime.MinValue
-                    ? dt.ToString("dd/MM/yyyy")
-                    : "N/A";
+                var dataFmt = dt != DateTime.MinValue ? dt.ToString("dd/MM/yyyy") : "N/A";
+                var dias = dt != DateTime.MinValue ? (dt.Date - DateTime.Today).Days : 0;
+                var restantes = dt != DateTime.MinValue ? $"{dias} dia(s)" : "";
 
-                var dias = dt != DateTime.MinValue
-                    ? (dt.Date - DateTime.Today).Days
-                    : 0;
-                var restantes = dt != DateTime.MinValue
-                    ? $"{dias} dia(s)"
-                    : "";
-
-                var lbl = new Label
-                {
-                    AutoSize = true,
-                    Font = new Font("Segoe UI", 10F),
-                    Margin = new Padding(5),
-                    Text = $"{refUsa} — {sr} — {dataFmt} — {restantes}"
-                };
-                table.Controls.Add(lbl);
+                table.Controls.Add(CriarLabel($"{refUsa} — {sr} — {dataFmt} — {restantes}"));
             }
 
             tabPage.Controls.Add(table);
         }
+        private void MontarTabOrgaoAnuentes(List<BsonDocument> processos)
+        {
+            var tabPage = GetOrCreateTab("OrgaoAnuentes", "Órgãos Anuentes");
+            tabPage.Controls.Clear();
+
+            var table = CriarTabela();
+
+            foreach (var p in processos)
+            {
+                if (EhFinalizado(p)) continue;
+
+                var refUsa = p.GetValue("Ref_USA", BsonNull.Value).ToString();
+                var importador = p.GetValue("Importador", BsonNull.Value).ToString();
+
+                var orgaos = new Dictionary<string, string>
+                {
+                    { "TMapa", "MAPA" },
+                    { "TDecex", "DECEX" },
+                    { "TAnvisa", "ANVISA" },
+                    { "TIbama", "IBAMA" },
+                    { "TInmetro", "INMETRO" }
+                };
+
+                foreach (var kvp in orgaos)
+                {
+                    if (p.TryGetValue(kvp.Key, out var valor) && valor.IsBoolean && valor.AsBoolean)
+                    {
+                        table.Controls.Add(CriarLabel($"{refUsa} — {importador} — {kvp.Value}"));
+                    }
+                }
+            }
+
+            tabPage.Controls.Add(table);
+        }
+
+
+        private void MontarTabFinalizados(List<BsonDocument> processos)
+        {
+            var tabPage = GetOrCreateTab("Finalizados", "Finalizados");
+            tabPage.Controls.Clear();
+
+            var table = CriarTabela();
+
+            foreach (var p in processos)
+            {
+                if (!EhFinalizado(p)) continue;
+
+                var refUsa = p.GetValue("Ref_USA", BsonNull.Value).ToString();
+
+                string dataFormatada = "N/A";
+                if (p.TryGetValue("DataCarregamentoDI", out var dataVal))
+                {
+                    if (dataVal.IsValidDateTime)
+                    {
+                        var dt = dataVal.ToUniversalTime().ToLocalTime();
+                        dataFormatada = dt.ToString("dd/MM/yyyy");
+                    }
+                    else if (DateTime.TryParse(dataVal.ToString(), out var dtParsed))
+                    {
+                        dataFormatada = dtParsed.ToString("dd/MM/yyyy");
+                    }
+                }
+
+                table.Controls.Add(CriarLabel($"{refUsa} — Finalizado em: {dataFormatada}"));
+            }
+
+            tabPage.Controls.Add(table);
+        }
+
 
         private void GerarNotificacoes(List<BsonDocument> processos)
         {
@@ -203,6 +294,13 @@ namespace Trabalho
             MenuItemNotifications.DropDownItems.Clear();
 
             var pendentes = _notificacaoRepo.ObterNotificacoesNaoVisualizadas();
+
+            // Atualiza o texto do menu com a contagem
+            int qtd = pendentes.Count;
+            MenuItemNotifications.Text = qtd > 0
+                ? $"Notificações ({qtd})"
+                : "Notificações";
+
             if (!pendentes.Any())
             {
                 MenuItemNotifications.DropDownItems.Add(new ToolStripMenuItem
@@ -218,7 +316,7 @@ namespace Trabalho
                 var item = new ToolStripMenuItem
                 {
                     Text = notif.Mensagem ?? "",
-                    Tag = notif.RefUsa  // pode ser string vazia, mas Tag aceita
+                    Tag = notif.RefUsa
                 };
                 item.MouseDown += (sender, e) =>
                 {
@@ -246,17 +344,32 @@ namespace Trabalho
             }
         }
 
+        private void FrmMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!_logoutPeloMenu && e.CloseReason == CloseReason.UserClosing)
+            {
+                // Usuário clicou no X: fecha tudo mesmo
+                Application.Exit(); // encerra a aplicação inteira
+            }
+            else if (_logoutPeloMenu)
+            {
+                // Logout via menu: deixa fechar normalmente e volta para o login
+                this.DialogResult = DialogResult.OK;
+            }
+        }
+
+        private void MenuItemExit_Click(object sender, EventArgs e)
+        {
+            _logoutPeloMenu = true; // sinaliza que é logout via menu
+            new FrmLogin().Show();
+            this.Close();
+        }
         // exemplos de handlers de menu
         private void MenuItemHome_Click(object sender, EventArgs e)
         {
             TCabas.Visible = true;
             foreach (var f in MdiChildren) f.Close();
             _ = CarregarDadosProcessos();
-        }
-        private void MenuItemExit_Click(object sender, EventArgs e)
-        {
-            new FrmLogin().Show();
-            this.Close();
         }
         private T ShowSingleFormOfType<T>() where T : Form, new()
         {
@@ -285,6 +398,8 @@ namespace Trabalho
         }
         private void MenuItemMaximize_Click(object sender, EventArgs e)
             => this.WindowState = FormWindowState.Maximized;
+        private void MenuItemMinimize_Click(Object sender, EventArgs e)
+            => this.WindowState = FormWindowState.Minimized;
         private void MenuItemMap_Click(object sender, EventArgs e)
             => ShowSingleFormOfType<FrmMapa>();
         private void MenuItemAnvisa_Click(object sender, EventArgs e)

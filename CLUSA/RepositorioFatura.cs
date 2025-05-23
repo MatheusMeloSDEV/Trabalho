@@ -96,7 +96,6 @@ namespace CLUSA
                 .Set(f => f.DarfAnvisaP, fatura.DarfAnvisaP)
                 .Set(f => f.MotoboyN, fatura.MotoboyN)
                 .Set(f => f.MotoboyP, fatura.MotoboyP)
-                .Set(f => f.LiN, fatura.LiN)
                 .Set(f => f.LiP, fatura.LiP)
                 .Set(f => f.Expediente, fatura.Expediente)
                 .Set(f => f.DespesasDesembaracoN, fatura.DespesasDesembaracoN)

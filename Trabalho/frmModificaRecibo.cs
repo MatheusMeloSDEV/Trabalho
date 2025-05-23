@@ -18,6 +18,7 @@ namespace Trabalho
         public Recibo ReciboAtual { get; set; }
         public frmModificaRecibo(Recibo recibo)
         {
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             InitializeComponent();
             ReciboAtual = recibo;
             _repositorio = new();

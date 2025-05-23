@@ -53,12 +53,21 @@ namespace Trabalho
             }
         }
 
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            if (Instance == this)
+            {
+                Instance = null!;
+            }
+        }
+
         private void HandleSuccessfulLogin()
         {
             HideLoginControls();
             ShowLoginFeedback();
 
-            var menuForm = new FrmMenu();
+            var menuForm = new FrmMenu(Logado);
             menuForm.ShowDialog();
 
             if (menuForm.DialogResult == DialogResult.OK)

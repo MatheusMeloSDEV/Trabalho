@@ -18,7 +18,6 @@ namespace CLUSA
             DI = processo.DI;
             DataDesembaracoDI = processo.DataDesembaracoDI;
             DAtaDI = processo.DataRegistroDI;
-            LiN = processo.LI;
         }
 
         [BsonId]
@@ -68,7 +67,6 @@ namespace CLUSA
         public decimal DarfAnvisaP { get; set; } = 0;
         public string MotoboyN { get; set; } = string.Empty;
         public decimal MotoboyP { get; set; } = 0;
-        public string LiN { get; set; } = string.Empty;
         public decimal LiP { get; set; } = 0;
         public decimal Expediente { get; set; } = 0;
         public string DespesasDesembaracoN { get; set; } = string.Empty;
