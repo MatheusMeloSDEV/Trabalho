@@ -214,7 +214,5 @@ namespace Trabalho
             ((System.ComponentModel.ISupportInitialize)BsImetro).EndInit();
             ResumeLayout(false);
         }
-        private ToolStripSeparator ToolStripRight1;
-        private ToolStripSeparator ToolStripRight;
     }
 }

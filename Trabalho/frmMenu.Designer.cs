@@ -79,7 +79,7 @@ namespace Trabalho
                 {
                     Name = "MenuItemMinimize",
                     Size = new Size(129, 22),
-                    Text = "Minimizar"
+                    Text = "Minimizar",
                 },
                 MenuItemExit = new ToolStripMenuItem
                 {
@@ -93,6 +93,7 @@ namespace Trabalho
             MenuItemHome.Click += MenuItemHome_Click;
             MenuItemMaximize.Click += MenuItemMaximize_Click;
             MenuItemExit.Click += MenuItemExit_Click;
+            MenuItemMinimize.Click += MenuItemMinimize_Click;
 
             // Planilhas
             MenuItemSheets = new ToolStripMenuItem
