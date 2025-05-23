@@ -21,6 +21,7 @@ namespace Trabalho
 
         public frmModificaFatura(Fatura fatura)
         {
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             _repositorio = new();
             InitializeComponent();
             bindingSource1.DataSource = fatura;
@@ -236,7 +237,6 @@ namespace Trabalho
                 FaturaAtual.DarfAnvisaP = ParseCurrency(txtDarfAnvisaP);
                 FaturaAtual.MotoboyN = txtMotoboyN.Text;
                 FaturaAtual.MotoboyP = ParseCurrency(txtMotoboyP);
-                FaturaAtual.LiN = txtLiN.Text;
                 FaturaAtual.LiP = ParseCurrency(txtLiP);
                 FaturaAtual.DespesasDesembaracoN = txtDespesasDesembaracoN.Text;
                 FaturaAtual.DespesasDesembaracoP = ParseCurrency(txtDespesasDesembaracoP);

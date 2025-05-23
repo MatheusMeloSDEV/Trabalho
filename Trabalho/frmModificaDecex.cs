@@ -6,6 +6,9 @@ namespace Trabalho
     public partial class FrmModificaDecex : Form
     {
         public Decex decex;
+        public string? Modo;
+        public bool Visualização;
+        private List<LiInfo> listaLis = new List<LiInfo>();
         public FrmModificaDecex()
         {
             InitializeComponent();
@@ -14,20 +17,47 @@ namespace Trabalho
 
         private void FrmModificaDecex_Load(object sender, EventArgs e)
         {
+            if (Modo == "Editar") { TXTnr.Enabled = false; }
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             InicializarDateTimePickersComCheckbox();
             CarregarDateTimePickers(decex);
             bsModificaDecex.DataSource = decex;
+            CarregarLis(decex);
+            if (Visualização) SetCamposSomenteLeitura(this);
         }
         private DateTime? GetDateIfChecked(DateTimePicker dtp)
             => dtp.Checked ? (DateTime?)dtp.Value : null;
+        private void SetCamposSomenteLeitura(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                switch (control)
+                {
+                    case TextBox textBox:
+                        textBox.ReadOnly = true;
+                        break;
+
+                    case DateTimePicker:
+                    case CheckBox:
+                    case ComboBox:
+                    case NumericUpDown:
+                    case CheckedListBox:
+                        control.Enabled = false;
+                        break;
+                }
+
+                // Recursivamente trata controles compostos (GroupBox, Panel, etc.)
+                if (control.HasChildren)
+                {
+                    SetCamposSomenteLeitura(control);
+                }
+            }
+        }
         private void CarregarDateTimePickers(Decex p)
         {
             // Mapeamento de cada DTP ao par (data, flag)
             var mapeamento = new Dictionary<DateTimePicker, (DateTime? data, bool has)>()
             {
-                { DTPdataderegistrolilpco,    (p.DataRegistroLPCO,      p.CheckDataRegistroLPCO) },
-                { DTPdatadedeferimentolilpco, (p.DataDeferimentoLPCO,   p.CheckDataDeferimentoLPCO) },
                 { DTPdatadeinspecao,          (p.InspecaoDecex,       p.CheckInspecaoDecex) },
                 { DTPdatadeatracacao,         (p.DataDeAtracacao,       p.CheckDataDeAtracacao) },
                 { DTPdatadeembarque,          (p.DataEmbarque,          p.CheckDataEmbarque) },
@@ -97,14 +127,96 @@ namespace Trabalho
                 propCheck.SetValue(decex, picker.Checked);
             }
         }
+        public void CarregarLis(Decex decex)
+        {
+            if (decex?.Li != null)
+            {
+                // Carrega apenas as LIs que possuem "DECEX" nos órgãos anuentes
+                listaLis = decex.Li
+                    .Where(li => li.OrgaosAnuentes != null && li.OrgaosAnuentes.Contains("DECEX"))
+                    .ToList();
+                AtualizarPainelLi();
+            }
+        }
+        private void AtualizarPainelLi()
+        {
+            flpLis.Controls.Clear();
+            flpLis.FlowDirection = FlowDirection.LeftToRight;
+            flpLis.WrapContents = true;
+            flpLis.AutoScroll = true;
+
+            int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
+            int panelHeight = 40;
+
+            foreach (var li in listaLis)
+            {
+                var panel = new Panel
+                {
+                    Size = new Size(panelWidth, panelHeight),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Margin = new Padding(2)
+                };
+
+                var lbl = new Label
+                {
+                    Text = $"LI: {li.Numero}",
+                    AutoSize = true,
+                    Location = new Point(5, 10)
+                };
+
+                var btnVisualizar = new Button();
+                if (Visualização)
+                {
+                    btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) =>
+                    {
+                        var formVis = new frmLi(
+                            li.Numero,
+                            li.OrgaosAnuentes,
+                            li.LPCO,
+                            li.DataRegistroLPCO,
+                            li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO,
+                            li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: true);
+                        // Define owner para permitir remoção e fechamento correto
+                        formVis.Owner = this;
+                        formVis.ShowDialog(this);
+                    };
+                }
+                else
+                {
+                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) =>
+                    {
+                        var formVis = new frmLi(
+                            li.Numero,
+                            li.OrgaosAnuentes,
+                            li.LPCO,
+                            li.DataRegistroLPCO,
+                            li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO,
+                            li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: false);
+                        // Define owner para permitir remoção e fechamento correto
+                        formVis.Owner = this;
+                        formVis.ShowDialog(this);
+                    };
+                }
+
+                panel.Controls.Add(lbl);
+                panel.Controls.Add(btnVisualizar);
+                flpLis.Controls.Add(panel);
+            }
+        }
 
         private void InicializarDateTimePickersComCheckbox()
         {
             // Liste aqui todos os seus DateTimePickers que devem ter checkbox interno
             var dtps = new[]
             {
-            DTPdataderegistrolilpco,
-            DTPdatadedeferimentolilpco,
             DTPdatadeinspecao,
             DTPdatadeatracacao,
             DTPdatadeembarque
@@ -138,38 +250,14 @@ namespace Trabalho
             decex.Exportador = TXTexportador.Text;
             decex.Produto = TXTProduto.Text;
             decex.Origem = TXTorigem.Text;
-            decex.LI = TXTli.Text;
+            decex.Navio = TXTNavio.Text;
+            decex.Li = listaLis;
             decex.NCM = TXTncm.Text;
-
-            decex.LPCO = TXTlilpco.Text;
-            decex.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
 
             decex.StatusDoProcesso = TXTstatusdoprocesso.Text;
             decex.Pendencia = TXTpendencia.Text;
             decex.Amostra = CBamostra.Checked;
 
-            // Registro LPCO
-            if (DTPdataderegistrolilpco.Checked)
-            {
-                decex.DataRegistroLPCO = DTPdataderegistrolilpco.Value;
-                decex.CheckDataRegistroLPCO = true;
-            }
-            else
-            {
-                decex.DataRegistroLPCO = default; // ou DateTime.MinValue
-                decex.CheckDataRegistroLPCO = false;
-            }
-            // Deferimento LPCO
-            if (DTPdatadedeferimentolilpco.Checked)
-            {
-                decex.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value;
-                decex.CheckDataDeferimentoLPCO = true;
-            }
-            else
-            {
-                decex.DataDeferimentoLPCO = default;
-                decex.CheckDataDeferimentoLPCO = false;
-            }
             // Inspeção
             if (DTPdatadeinspecao.Checked)
             {
@@ -205,7 +293,20 @@ namespace Trabalho
                 decex.DataEmbarque = default;
                 decex.CheckDataEmbarque = false;
             }
-            this.DialogResult = DialogResult.OK;
+            DialogResult confirmResult;
+            if (Modo == "Editar")
+            {
+                confirmResult = MessageBox.Show(
+                    $"Tem certeza de que deseja editar o processo {decex.Ref_USA}?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (confirmResult == DialogResult.Yes) { DialogResult = DialogResult.OK; }
+            }
+            else
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private void CbEmbarque_CheckedChanged(object sender, EventArgs e)

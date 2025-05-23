@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Trabalho
@@ -6,6 +7,9 @@ namespace Trabalho
     public partial class FrmModificaAnvisa : Form
     {
         public Anvisa anvisa;
+        public string? Modo;
+        public bool Visualização;
+        private List<LiInfo> listaLis = new List<LiInfo>();
 
         public FrmModificaAnvisa()
         {
@@ -15,20 +19,47 @@ namespace Trabalho
 
         public void FrmModificaAnvisa_Load(object sender, EventArgs e)
         {
+            if (Modo == "Editar") { TXTnr.Enabled = false; }
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             BsModificaAnvisa.DataSource = anvisa;
             InicializarDateTimePickersComCheckbox();
             CarregarDateTimePickers(anvisa);
+            CarregarLis(anvisa);
+            if (Visualização) SetCamposSomenteLeitura(this);
         }
         private DateTime? GetDateIfChecked(DateTimePicker dtp)
             => dtp.Checked ? (DateTime?)dtp.Value : null;
+        private void SetCamposSomenteLeitura(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                switch (control)
+                {
+                    case TextBox textBox:
+                        textBox.ReadOnly = true;
+                        break;
+
+                    case DateTimePicker:
+                    case CheckBox:
+                    case ComboBox:
+                    case NumericUpDown:
+                    case CheckedListBox:
+                        control.Enabled = false;
+                        break;
+                }
+
+                // Recursivamente trata controles compostos (GroupBox, Panel, etc.)
+                if (control.HasChildren)
+                {
+                    SetCamposSomenteLeitura(control);
+                }
+            }
+        }
         private void CarregarDateTimePickers(Anvisa p)
         {
             // Mapeamento de cada DTP ao par (data, flag)
             var mapeamento = new Dictionary<DateTimePicker, (DateTime? data, bool has)>()
             {
-                { DTPdataderegistrolilpco,    (p.DataRegistroLPCO,      p.CheckDataRegistroLPCO) },
-                { DTPdatadedeferimentolilpco, (p.DataDeferimentoLPCO,   p.CheckDataDeferimentoLPCO) },
                 { DTPdatadeinspecao,          (p.InspecaoAnvisa,        p.CheckInspecaoAnvisa) },
                 { DTPdatadeatracacao,         (p.DataDeAtracacao,       p.CheckDataDeAtracacao) },
                 { DTPdatadeembarque,          (p.DataEmbarque,          p.CheckDataEmbarque) },
@@ -58,6 +89,90 @@ namespace Trabalho
                 }
             }
         }
+        public void CarregarLis(Anvisa anvisa)
+        {
+            if (anvisa?.Li != null)
+            {
+                // Carrega apenas as LIs que possuem "DECEX" nos órgãos anuentes
+                listaLis = anvisa.Li
+                    .Where(li => li.OrgaosAnuentes != null && li.OrgaosAnuentes.Contains("ANVISA"))
+                    .ToList();
+                AtualizarPainelLi();
+            }
+        }
+        private void AtualizarPainelLi()
+        {
+            flpLis.Controls.Clear();
+            flpLis.FlowDirection = FlowDirection.LeftToRight;
+            flpLis.WrapContents = true;
+            flpLis.AutoScroll = true;
+
+            int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
+            int panelHeight = 40;
+
+            foreach (var li in listaLis)
+            {
+                var panel = new Panel
+                {
+                    Size = new Size(panelWidth, panelHeight),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Margin = new Padding(2)
+                };
+
+                var lbl = new Label
+                {
+                    Text = $"LI: {li.Numero}",
+                    AutoSize = true,
+                    Location = new Point(5, 10)
+                };
+                var btnVisualizar = new Button();
+                if (Visualização)
+                {
+                    btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) =>
+                    {
+                        var formVis = new frmLi(
+                            li.Numero,
+                            li.OrgaosAnuentes,
+                            li.LPCO,
+                            li.DataRegistroLPCO,
+                            li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO,
+                            li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: true);
+                        // Define owner para permitir remoção e fechamento correto
+                        formVis.Owner = this;
+                        formVis.ShowDialog(this);
+                    };
+                }
+                else
+                {
+                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) =>
+                    {
+                        var formVis = new frmLi(
+                            li.Numero,
+                            li.OrgaosAnuentes,
+                            li.LPCO,
+                            li.DataRegistroLPCO,
+                            li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO,
+                            li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: false);
+                        // Define owner para permitir remoção e fechamento correto
+                        formVis.Owner = this;
+                        formVis.ShowDialog(this);
+                    };
+                }
+
+                panel.Controls.Add(lbl);
+                panel.Controls.Add(btnVisualizar);
+                flpLis.Controls.Add(panel);
+            }
+        }
+
         private void DateTimePicker_OnValueChanged(object? sender, EventArgs e)
         {
             // 1) Garante que sender é um DateTimePicker não-nulo
@@ -105,8 +220,6 @@ namespace Trabalho
             // Liste aqui todos os seus DateTimePickers que devem ter checkbox interno
             var dtps = new[]
             {
-                DTPdataderegistrolilpco,
-                DTPdatadedeferimentolilpco,
                 DTPdatadeinspecao,
                 DTPdatadeatracacao,
                 DTPdatadeembarque
@@ -139,36 +252,13 @@ namespace Trabalho
             anvisa.Exportador = TXTexportador.Text;
             anvisa.Produto = TXTProduto.Text;
             anvisa.Origem = TXTorigem.Text;
-            anvisa.LI = TXTli.Text;
+            anvisa.Navio = TXTNavio.Text;
+            anvisa.Li = listaLis;
             anvisa.NCM = TXTncm.Text;
-            anvisa.LPCO = TXTlilpco.Text;
-            anvisa.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
             anvisa.StatusDoProcesso = TXTstatusdoprocesso.Text;
             anvisa.Pendencia = TXTpendencia.Text;
             anvisa.Amostra = CBamostra.Checked;
 
-            // Registro LPCO
-            if (DTPdataderegistrolilpco.Checked)
-            {
-                anvisa.DataRegistroLPCO = DTPdataderegistrolilpco.Value;
-                anvisa.CheckDataRegistroLPCO = true;
-            }
-            else
-            {
-                anvisa.DataRegistroLPCO = default; // ou DateTime.MinValue
-                anvisa.CheckDataRegistroLPCO = false;
-            }
-            // Deferimento LPCO
-            if (DTPdatadedeferimentolilpco.Checked)
-            {
-                anvisa.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value;
-                anvisa.CheckDataDeferimentoLPCO = true;
-            }
-            else
-            {
-                anvisa.DataDeferimentoLPCO = default;
-                anvisa.CheckDataDeferimentoLPCO = false;
-            }
             // Inspeção
             if (DTPdatadeinspecao.Checked)
             {
@@ -205,7 +295,20 @@ namespace Trabalho
                 anvisa.CheckDataEmbarque = false;
             }
 
-            this.DialogResult = DialogResult.OK;
+            DialogResult confirmResult;
+            if (Modo == "Editar")
+            {
+                confirmResult = MessageBox.Show(
+                    $"Tem certeza de que deseja editar o processo {anvisa.Ref_USA}?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (confirmResult == DialogResult.Yes) { DialogResult = DialogResult.OK; }
+            }
+            else
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private void CbEmbarque_CheckedChanged(object sender, EventArgs e)

@@ -104,9 +104,7 @@
             label49 = new Label();
             label50 = new Label();
             txtLiP = new TextBox();
-            txtLiN = new TextBox();
             label51 = new Label();
-            label52 = new Label();
             label53 = new Label();
             txtMotoboyP = new TextBox();
             txtMotoboyN = new TextBox();
@@ -772,9 +770,7 @@
             groupBox5.Controls.Add(label49);
             groupBox5.Controls.Add(label50);
             groupBox5.Controls.Add(txtLiP);
-            groupBox5.Controls.Add(txtLiN);
             groupBox5.Controls.Add(label51);
-            groupBox5.Controls.Add(label52);
             groupBox5.Controls.Add(label53);
             groupBox5.Controls.Add(txtMotoboyP);
             groupBox5.Controls.Add(txtMotoboyN);
@@ -826,7 +822,7 @@
             // txtHDP
             // 
             txtHDP.DataBindings.Add(new Binding("Text", bindingSource1, "HD", true));
-            txtHDP.Location = new Point(857, 99);
+            txtHDP.Location = new Point(868, 74);
             txtHDP.Name = "txtHDP";
             txtHDP.Size = new Size(100, 23);
             txtHDP.TabIndex = 73;
@@ -835,25 +831,27 @@
             // label64
             // 
             label64.AutoSize = true;
-            label64.Location = new Point(814, 102);
+            label64.Font = new Font("Segoe UI", 8F);
+            label64.Location = new Point(825, 77);
             label64.Name = "label64";
-            label64.Size = new Size(37, 15);
+            label64.Size = new Size(35, 13);
             label64.TabIndex = 42;
             label64.Text = "Preço";
             // 
             // label65
             // 
             label65.AutoSize = true;
-            label65.Location = new Point(895, 81);
+            label65.Font = new Font("Segoe UI", 8F);
+            label65.Location = new Point(906, 58);
             label65.Name = "label65";
-            label65.Size = new Size(24, 15);
+            label65.Size = new Size(23, 13);
             label65.TabIndex = 71;
             label65.Text = "HD";
             // 
             // txtCartorioP
             // 
             txtCartorioP.DataBindings.Add(new Binding("Text", bindingSource1, "Cartorio", true));
-            txtCartorioP.Location = new Point(857, 143);
+            txtCartorioP.Location = new Point(868, 116);
             txtCartorioP.Name = "txtCartorioP";
             txtCartorioP.Size = new Size(100, 23);
             txtCartorioP.TabIndex = 70;
@@ -862,25 +860,27 @@
             // label62
             // 
             label62.AutoSize = true;
-            label62.Location = new Point(814, 146);
+            label62.Font = new Font("Segoe UI", 8F);
+            label62.Location = new Point(825, 119);
             label62.Name = "label62";
-            label62.Size = new Size(37, 15);
+            label62.Size = new Size(35, 13);
             label62.TabIndex = 43;
             label62.Text = "Preço";
             // 
             // label63
             // 
             label63.AutoSize = true;
-            label63.Location = new Point(882, 125);
+            label63.Font = new Font("Segoe UI", 8F);
+            label63.Location = new Point(894, 100);
             label63.Name = "label63";
-            label63.Size = new Size(50, 15);
+            label63.Size = new Size(49, 13);
             label63.TabIndex = 68;
             label63.Text = "Cartório";
             // 
             // txtExpedienteP
             // 
             txtExpedienteP.DataBindings.Add(new Binding("Text", bindingSource1, "Expediente", true));
-            txtExpedienteP.Location = new Point(857, 55);
+            txtExpedienteP.Location = new Point(868, 32);
             txtExpedienteP.Name = "txtExpedienteP";
             txtExpedienteP.Size = new Size(100, 23);
             txtExpedienteP.TabIndex = 41;
@@ -889,25 +889,27 @@
             // label60
             // 
             label60.AutoSize = true;
-            label60.Location = new Point(814, 58);
+            label60.Font = new Font("Segoe UI", 8F);
+            label60.Location = new Point(825, 35);
             label60.Name = "label60";
-            label60.Size = new Size(37, 15);
+            label60.Size = new Size(35, 13);
             label60.TabIndex = 66;
             label60.Text = "Preço";
             // 
             // label61
             // 
             label61.AutoSize = true;
-            label61.Location = new Point(875, 37);
+            label61.Font = new Font("Segoe UI", 8F);
+            label61.Location = new Point(886, 16);
             label61.Name = "label61";
-            label61.Size = new Size(64, 15);
+            label61.Size = new Size(64, 13);
             label61.TabIndex = 65;
             label61.Text = "Expediente";
             // 
             // txtDespesasDesembaracoP
             // 
             txtDespesasDesembaracoP.DataBindings.Add(new Binding("Text", bindingSource1, "DespesasDesembaracoP", true));
-            txtDespesasDesembaracoP.Location = new Point(680, 155);
+            txtDespesasDesembaracoP.Location = new Point(611, 158);
             txtDespesasDesembaracoP.Name = "txtDespesasDesembaracoP";
             txtDespesasDesembaracoP.Size = new Size(100, 23);
             txtDespesasDesembaracoP.TabIndex = 40;
@@ -916,7 +918,7 @@
             // txtDespesasDesembaracoN
             // 
             txtDespesasDesembaracoN.DataBindings.Add(new Binding("Text", bindingSource1, "DespesasDesembaracoN", true));
-            txtDespesasDesembaracoN.Location = new Point(680, 126);
+            txtDespesasDesembaracoN.Location = new Point(611, 129);
             txtDespesasDesembaracoN.Name = "txtDespesasDesembaracoN";
             txtDespesasDesembaracoN.Size = new Size(100, 23);
             txtDespesasDesembaracoN.TabIndex = 39;
@@ -924,7 +926,7 @@
             // label48
             // 
             label48.AutoSize = true;
-            label48.Location = new Point(637, 158);
+            label48.Location = new Point(568, 161);
             label48.Name = "label48";
             label48.Size = new Size(37, 15);
             label48.TabIndex = 62;
@@ -933,7 +935,7 @@
             // label49
             // 
             label49.AutoSize = true;
-            label49.Location = new Point(653, 129);
+            label49.Location = new Point(584, 132);
             label49.Name = "label49";
             label49.Size = new Size(21, 15);
             label49.TabIndex = 61;
@@ -942,7 +944,7 @@
             // label50
             // 
             label50.AutoSize = true;
-            label50.Location = new Point(665, 108);
+            label50.Location = new Point(596, 111);
             label50.Name = "label50";
             label50.Size = new Size(130, 15);
             label50.TabIndex = 60;
@@ -951,51 +953,36 @@
             // txtLiP
             // 
             txtLiP.DataBindings.Add(new Binding("Text", bindingSource1, "LiP", true));
-            txtLiP.Location = new Point(531, 155);
+            txtLiP.Location = new Point(868, 158);
             txtLiP.Name = "txtLiP";
             txtLiP.Size = new Size(100, 23);
             txtLiP.TabIndex = 38;
             txtLiP.TextChanged += AplicarMascaraMoeda;
             // 
-            // txtLiN
-            // 
-            txtLiN.DataBindings.Add(new Binding("Text", bindingSource1, "LiN", true));
-            txtLiN.Location = new Point(531, 126);
-            txtLiN.Name = "txtLiN";
-            txtLiN.Size = new Size(100, 23);
-            txtLiN.TabIndex = 37;
-            // 
             // label51
             // 
             label51.AutoSize = true;
-            label51.Location = new Point(488, 158);
+            label51.Font = new Font("Segoe UI", 8F);
+            label51.Location = new Point(825, 161);
             label51.Name = "label51";
-            label51.Size = new Size(37, 15);
+            label51.Size = new Size(35, 13);
             label51.TabIndex = 57;
             label51.Text = "Preço";
-            // 
-            // label52
-            // 
-            label52.AutoSize = true;
-            label52.Location = new Point(504, 129);
-            label52.Name = "label52";
-            label52.Size = new Size(21, 15);
-            label52.TabIndex = 56;
-            label52.Text = "Nº";
             // 
             // label53
             // 
             label53.AutoSize = true;
-            label53.Location = new Point(573, 108);
+            label53.Font = new Font("Segoe UI", 8F);
+            label53.Location = new Point(910, 142);
             label53.Name = "label53";
-            label53.Size = new Size(16, 15);
+            label53.Size = new Size(15, 13);
             label53.TabIndex = 55;
-            label53.Text = "Li";
+            label53.Text = "LI";
             // 
             // txtMotoboyP
             // 
             txtMotoboyP.DataBindings.Add(new Binding("Text", bindingSource1, "MotoboyP", true));
-            txtMotoboyP.Location = new Point(382, 155);
+            txtMotoboyP.Location = new Point(462, 158);
             txtMotoboyP.Name = "txtMotoboyP";
             txtMotoboyP.Size = new Size(100, 23);
             txtMotoboyP.TabIndex = 36;
@@ -1004,7 +991,7 @@
             // txtMotoboyN
             // 
             txtMotoboyN.DataBindings.Add(new Binding("Text", bindingSource1, "MotoboyN", true));
-            txtMotoboyN.Location = new Point(382, 126);
+            txtMotoboyN.Location = new Point(462, 129);
             txtMotoboyN.Name = "txtMotoboyN";
             txtMotoboyN.Size = new Size(100, 23);
             txtMotoboyN.TabIndex = 35;
@@ -1012,7 +999,7 @@
             // label54
             // 
             label54.AutoSize = true;
-            label54.Location = new Point(339, 158);
+            label54.Location = new Point(419, 161);
             label54.Name = "label54";
             label54.Size = new Size(37, 15);
             label54.TabIndex = 36;
@@ -1021,7 +1008,7 @@
             // label55
             // 
             label55.AutoSize = true;
-            label55.Location = new Point(355, 129);
+            label55.Location = new Point(435, 132);
             label55.Name = "label55";
             label55.Size = new Size(21, 15);
             label55.TabIndex = 51;
@@ -1030,7 +1017,7 @@
             // label56
             // 
             label56.AutoSize = true;
-            label56.Location = new Point(404, 108);
+            label56.Location = new Point(484, 111);
             label56.Name = "label56";
             label56.Size = new Size(56, 15);
             label56.TabIndex = 50;
@@ -1039,7 +1026,7 @@
             // txtDarfAnvisaP
             // 
             txtDarfAnvisaP.DataBindings.Add(new Binding("Text", bindingSource1, "DarfAnvisaP", true));
-            txtDarfAnvisaP.Location = new Point(232, 155);
+            txtDarfAnvisaP.Location = new Point(312, 158);
             txtDarfAnvisaP.Name = "txtDarfAnvisaP";
             txtDarfAnvisaP.Size = new Size(100, 23);
             txtDarfAnvisaP.TabIndex = 34;
@@ -1048,7 +1035,7 @@
             // txtDarfAnvisaN
             // 
             txtDarfAnvisaN.DataBindings.Add(new Binding("Text", bindingSource1, "DarfAnvisaN", true));
-            txtDarfAnvisaN.Location = new Point(232, 126);
+            txtDarfAnvisaN.Location = new Point(312, 129);
             txtDarfAnvisaN.Name = "txtDarfAnvisaN";
             txtDarfAnvisaN.Size = new Size(100, 23);
             txtDarfAnvisaN.TabIndex = 33;
@@ -1056,7 +1043,7 @@
             // label57
             // 
             label57.AutoSize = true;
-            label57.Location = new Point(189, 158);
+            label57.Location = new Point(269, 161);
             label57.Name = "label57";
             label57.Size = new Size(37, 15);
             label57.TabIndex = 47;
@@ -1065,7 +1052,7 @@
             // label58
             // 
             label58.AutoSize = true;
-            label58.Location = new Point(205, 129);
+            label58.Location = new Point(285, 132);
             label58.Name = "label58";
             label58.Size = new Size(21, 15);
             label58.TabIndex = 46;
@@ -1074,7 +1061,7 @@
             // label59
             // 
             label59.AutoSize = true;
-            label59.Location = new Point(249, 108);
+            label59.Location = new Point(329, 111);
             label59.Name = "label59";
             label59.Size = new Size(67, 15);
             label59.TabIndex = 45;
@@ -1083,7 +1070,7 @@
             // txtEncaminhamentoAmostrasP
             // 
             txtEncaminhamentoAmostrasP.DataBindings.Add(new Binding("Text", bindingSource1, "EncaminhamentoAmostrasP", true));
-            txtEncaminhamentoAmostrasP.Location = new Point(83, 155);
+            txtEncaminhamentoAmostrasP.Location = new Point(163, 158);
             txtEncaminhamentoAmostrasP.Name = "txtEncaminhamentoAmostrasP";
             txtEncaminhamentoAmostrasP.Size = new Size(100, 23);
             txtEncaminhamentoAmostrasP.TabIndex = 32;
@@ -1092,7 +1079,7 @@
             // txtEncaminhamentoAmostrasN
             // 
             txtEncaminhamentoAmostrasN.DataBindings.Add(new Binding("Text", bindingSource1, "EncaminhamentoAmostrasN", true));
-            txtEncaminhamentoAmostrasN.Location = new Point(83, 126);
+            txtEncaminhamentoAmostrasN.Location = new Point(163, 129);
             txtEncaminhamentoAmostrasN.Name = "txtEncaminhamentoAmostrasN";
             txtEncaminhamentoAmostrasN.Size = new Size(100, 23);
             txtEncaminhamentoAmostrasN.TabIndex = 31;
@@ -1100,7 +1087,7 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(40, 158);
+            label39.Location = new Point(120, 161);
             label39.Name = "label39";
             label39.Size = new Size(37, 15);
             label39.TabIndex = 42;
@@ -1109,7 +1096,7 @@
             // label40
             // 
             label40.AutoSize = true;
-            label40.Location = new Point(56, 129);
+            label40.Location = new Point(136, 132);
             label40.Name = "label40";
             label40.Size = new Size(21, 15);
             label40.TabIndex = 41;
@@ -1118,7 +1105,7 @@
             // label41
             // 
             label41.AutoSize = true;
-            label41.Location = new Point(56, 108);
+            label41.Location = new Point(136, 111);
             label41.Name = "label41";
             label41.Size = new Size(154, 15);
             label41.TabIndex = 40;
@@ -1166,7 +1153,7 @@
             label44.Name = "label44";
             label44.Size = new Size(134, 15);
             label44.TabIndex = 35;
-            label44.Text = "Expediente Li Cancelada";
+            label44.Text = "Expediente LI Cancelada";
             // 
             // txtLiCanceladaP
             // 
@@ -1210,7 +1197,7 @@
             label47.Name = "label47";
             label47.Size = new Size(132, 15);
             label47.TabIndex = 30;
-            label47.Text = "Li Cancelada/Indeferida";
+            label47.Text = "LI Cancelada/Indeferida";
             // 
             // txtGRUAnvisaP
             // 
@@ -1546,7 +1533,9 @@
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
+            MaximizeBox = false;
             Name = "frmModificaFatura";
+            Text = "Fatura";
             Load += frmModificaFatura_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -1662,9 +1651,7 @@
         private Label label49;
         private Label label50;
         private TextBox txtLiP;
-        private TextBox txtLiN;
         private Label label51;
-        private Label label52;
         private Label label53;
         private TextBox txtMotoboyP;
         private TextBox txtMotoboyN;
