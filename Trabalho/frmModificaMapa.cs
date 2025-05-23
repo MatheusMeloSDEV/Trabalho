@@ -1,11 +1,16 @@
 ﻿using CLUSA;
+using iText.Forms.Xfdf;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Trabalho
 {
     public partial class FrmModificaMapa : Form
     {
         public MAPA mapa;
-
+        public string? Modo;
+        public bool Visualização;
+        private List<LiInfo> listaLis = new List<LiInfo>();
         public FrmModificaMapa()
         {
             InitializeComponent();
@@ -14,20 +19,47 @@ namespace Trabalho
 
         public void FrmModifica_Load(object sender, EventArgs e)
         {
+            if (Modo == "Editar") { TXTnr.Enabled = false; }
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             BsModificaMAPA.DataSource = mapa;
             InicializarDateTimePickersComCheckbox();
             CarregarDateTimePickers(mapa);
+            CarregarLis(mapa);
+            if (Visualização) SetCamposSomenteLeitura(this);
         }
         private DateTime? GetDateIfChecked(DateTimePicker dtp)
             => dtp.Checked ? (DateTime?)dtp.Value : null;
+        private void SetCamposSomenteLeitura(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                switch (control)
+                {
+                    case TextBox textBox:
+                        textBox.ReadOnly = true;
+                        break;
+
+                    case DateTimePicker:
+                    case CheckBox:
+                    case ComboBox:
+                    case NumericUpDown:
+                    case CheckedListBox:
+                        control.Enabled = false;
+                        break;
+                }
+
+                // Recursivamente trata controles compostos (GroupBox, Panel, etc.)
+                if (control.HasChildren)
+                {
+                    SetCamposSomenteLeitura(control);
+                }
+            }
+        }
         private void CarregarDateTimePickers(MAPA p)
         {
             // Mapeamento de cada DTP ao par (data, flag)
             var mapeamento = new Dictionary<DateTimePicker, (DateTime? data, bool has)>()
             {
-                { DTPdataderegistrolilpco,    (p.DataRegistroLPCO,      p.CheckDataRegistroLPCO) },
-                { DTPdatadedeferimentolilpco, (p.DataDeferimentoLPCO,   p.CheckDataDeferimentoLPCO) },
                 { DTPdatadeinspecao,          (p.InspecaoMapa,          p.CheckInspecaoMapa) },
                 { DTPdatadeatracacao,         (p.DataDeAtracacao,       p.CheckDataDeAtracacao) },
                 { DTPdatadeembarque,          (p.DataEmbarque,          p.CheckDataEmbarque) },
@@ -55,6 +87,89 @@ namespace Trabalho
                     dtp.Format = DateTimePickerFormat.Custom;
                     dtp.CustomFormat = " -";
                 }
+            }
+        }
+        public void CarregarLis(MAPA mapa)
+        {
+            if (mapa?.Li != null)
+            {
+                // Carrega apenas as LIs que possuem "DECEX" nos órgãos anuentes
+                listaLis = mapa.Li
+                    .Where(li => li.OrgaosAnuentes != null && li.OrgaosAnuentes.Contains("MAPA"))
+                    .ToList();
+                AtualizarPainelLi();
+            }
+        }
+        private void AtualizarPainelLi()
+        {
+            flpLis.Controls.Clear();
+            flpLis.FlowDirection = FlowDirection.LeftToRight;
+            flpLis.WrapContents = true;
+            flpLis.AutoScroll = true;
+
+            int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
+            int panelHeight = 40;
+
+            foreach (var li in listaLis)
+            {
+                var panel = new Panel
+                {
+                    Size = new Size(panelWidth, panelHeight),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Margin = new Padding(2)
+                };
+
+                var lbl = new Label
+                {
+                    Text = $"LI: {li.Numero}",
+                    AutoSize = true,
+                    Location = new Point(5, 10)
+                };
+                var btnVisualizar = new Button();
+                if (Visualização)
+                {
+                    btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) =>
+                    {
+                        var formVis = new frmLi(
+                            li.Numero,
+                            li.OrgaosAnuentes,
+                            li.LPCO,
+                            li.DataRegistroLPCO,
+                            li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO,
+                            li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: true);
+                        // Define owner para permitir remoção e fechamento correto
+                        formVis.Owner = this;
+                        formVis.ShowDialog(this);
+                    };
+                }
+                else
+                {
+                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) =>
+                    {
+                        var formVis = new frmLi(
+                            li.Numero,
+                            li.OrgaosAnuentes,
+                            li.LPCO,
+                            li.DataRegistroLPCO,
+                            li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO,
+                            li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: false);
+                        // Define owner para permitir remoção e fechamento correto
+                        formVis.Owner = this;
+                        formVis.ShowDialog(this);
+                    };
+                }
+
+                panel.Controls.Add(lbl);
+                panel.Controls.Add(btnVisualizar);
+                flpLis.Controls.Add(panel);
             }
         }
         private void DateTimePicker_OnValueChanged(object? sender, EventArgs e)
@@ -103,8 +218,6 @@ namespace Trabalho
             // Liste aqui todos os seus DateTimePickers que devem ter checkbox interno
             var dtps = new[]
             {
-            DTPdataderegistrolilpco,
-            DTPdatadedeferimentolilpco,
             DTPdatadeinspecao,
             DTPdatadeatracacao,
             DTPdatadeembarque
@@ -136,36 +249,13 @@ namespace Trabalho
             mapa.Exportador = TXTexportador.Text;
             mapa.Produto = TXTProduto.Text;
             mapa.Origem = TXTorigem.Text;
-            mapa.LI = TXTli.Text;
+            mapa.Navio = TXTNavio.Text;
+            mapa.Li = listaLis;
             mapa.NCM = TXTncm.Text;
-            mapa.LPCO = TXTlilpco.Text;
-            mapa.ParametrizacaoLPCO = CBparametrizacaolilpco.Text;
             mapa.StatusDoProcesso = TXTstatusdoprocesso.Text;
             mapa.Pendencia = TXTpendencia.Text;
             mapa.Amostra = CBamostra.Checked;
 
-            // Registro LPCO
-            if (DTPdataderegistrolilpco.Checked)
-            {
-                mapa.DataRegistroLPCO = DTPdataderegistrolilpco.Value;
-                mapa.CheckDataRegistroLPCO = true;
-            }
-            else
-            {
-                mapa.DataRegistroLPCO = default; // ou DateTime.MinValue
-                mapa.CheckDataRegistroLPCO = false;
-            }
-            // Deferimento LPCO
-            if (DTPdatadedeferimentolilpco.Checked)
-            {
-                mapa.DataDeferimentoLPCO = DTPdatadedeferimentolilpco.Value;
-                mapa.CheckDataDeferimentoLPCO = true;
-            }
-            else
-            {
-                mapa.DataDeferimentoLPCO = default;
-                mapa.CheckDataDeferimentoLPCO = false;
-            }
             // Inspeção
             if (DTPdatadeinspecao.Checked)
             {
@@ -202,9 +292,20 @@ namespace Trabalho
                 mapa.CheckDataEmbarque = false;
             }
 
-
-
-            this.DialogResult = DialogResult.OK;
+            DialogResult confirmResult;
+            if (Modo == "Editar")
+            {
+                confirmResult = MessageBox.Show(
+                    $"Tem certeza de que deseja editar o processo {mapa.Ref_USA}?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (confirmResult == DialogResult.Yes) { DialogResult = DialogResult.OK; }
+            }
+            else
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private void CbEmbarque_CheckedChanged(object sender, EventArgs e)

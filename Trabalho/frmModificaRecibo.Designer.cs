@@ -330,8 +330,9 @@
             Controls.Add(label2);
             Controls.Add(btnSalvar);
             Controls.Add(label1);
+            MaximizeBox = false;
             Name = "frmModificaRecibo";
-            Text = "frmModificaRecibo";
+            Text = "Recibo";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);

@@ -67,7 +67,7 @@ namespace Trabalho
                 {
                     Name = "MenuItemHome",
                     Size = new Size(129, 22),
-                    Text = "Início"
+                    Text = "Processos em andamento"
                 },
                 MenuItemMaximize = new ToolStripMenuItem
                 {
@@ -89,6 +89,7 @@ namespace Trabalho
                 }
             });
 
+            MenuItemMinimize.Click += MenuItemMinimize_Click;
             MenuItemHome.Click += MenuItemHome_Click;
             MenuItemMaximize.Click += MenuItemMaximize_Click;
             MenuItemExit.Click += MenuItemExit_Click;
@@ -198,18 +199,19 @@ namespace Trabalho
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 448);
-            ControlBox = false;
+            ControlBox = true;
             Controls.Add(TCabas);
             Controls.Add(MSnotificacoes);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
-            MainMenuStrip = MSnotificacoes;
-            MaximizeBox = false;
-            MinimizeBox = false;
+            MainMenuStrip = MSnotificacoes; 
+            MaximizeBox = true;
+            MinimizeBox = true;
             Name = "FrmMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Área de trabalho";
             WindowState = FormWindowState.Maximized;
+            FormClosing += FrmMenu_FormClosing;
 
             MSnotificacoes.ResumeLayout(false);
             MSnotificacoes.PerformLayout();

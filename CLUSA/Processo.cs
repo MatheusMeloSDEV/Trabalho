@@ -35,14 +35,7 @@ namespace CLUSA
         public string AgenteDeCarga { get; set; } = string.Empty;
 
         //public string LI_LPCO { get; set; } = string.Empty;
-        public string LI { get; set; } = string.Empty;
-        public string LPCO { get; set; } = string.Empty;
-        public DateTime? DataRegistroLPCO { get; set; } = (DateTime?)null;
-        public bool CheckDataRegistroLPCO { get; set; } = false;
-        public DateTime? DataDeferimentoLPCO { get; set; } = (DateTime?)null;
-        public bool CheckDataDeferimentoLPCO { get; set; } = false;
-        public string ParametrizacaoLPCO { get; set; } = string.Empty;
-
+        public List<LiInfo> Li { get; set; } = new List<LiInfo>();
 
         public string DI { get; set; } = string.Empty;
         public DateTime? DataRegistroDI { get; set; } = (DateTime?)null;
