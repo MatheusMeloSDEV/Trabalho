@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Trabalho
 {
-    public partial class FrmModificaProcesso : Form
+    public partial class FrmModificaProcesso : Form, ILiHandler
     {
         public Processo processo;
         public string? Modo;
@@ -198,17 +198,34 @@ namespace Trabalho
                 dtp.MouseUp += (s, e2) => DateTimePicker_OnValueChanged(s, null);
             }
         }
-        public void AdicionarLi(string numeroLi, List<string> orgaos, string lpco, DateTime? dataReg, bool chkReg, DateTime? dataDef, bool chkDef, string param)
+        public bool ContainsLi(string numeroLi)
         {
-            if (listaLis.Any(li => li.Numero == numeroLi))
-            {
-                MessageBox.Show("LI já adicionada.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }   
-            var nova = new LiInfo(numeroLi, orgaos, lpco, dataReg, chkReg, dataDef, chkDef, param);
-            listaLis.Add(nova);
+            return listaLis.Any(li => li.Numero == numeroLi);
+        }
+
+        public void AdicionarLi(LiInfo li)
+        {
+            listaLis.Add(li);
             AtualizarPainelLi();
         }
+
+        public void AtualizarLi(string numeroLi, LiInfo liAtualizada)
+        {
+            var existente = listaLis.FirstOrDefault(li => li.Numero == numeroLi);
+            if (existente != null)
+            {
+                existente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
+                existente.LPCO = liAtualizada.LPCO;
+                existente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
+                existente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
+                existente.DataDeferimentoLPCO = liAtualizada.DataDeferimentoLPCO;
+                existente.CheckDataDeferimentoLPCO = liAtualizada.CheckDataDeferimentoLPCO;
+                existente.ParametrizacaoLPCO = liAtualizada.ParametrizacaoLPCO;
+
+                AtualizarPainelLi();
+            }
+        }
+
         public void RemoverLi(string numeroLi)
         {
             var li = listaLis.FirstOrDefault(x => x.Numero == numeroLi);
@@ -218,20 +235,69 @@ namespace Trabalho
                 AtualizarPainelLi();
             }
         }
-        public void AtualizarLi(string numeroLi, LiInfo liAtualizada)
+        private void AtualizarPainelLi()
         {
-            var liExistente = listaLis.FirstOrDefault(li => li.Numero == numeroLi);
-            if (liExistente != null)
-            {
-                liExistente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
-                liExistente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
-                liExistente.LPCO = liAtualizada.LPCO;
-                liExistente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
-                liExistente.DataDeferimentoLPCO = liAtualizada.DataDeferimentoLPCO;
-                liExistente.CheckDataDeferimentoLPCO = liAtualizada.CheckDataDeferimentoLPCO;
-                liExistente.ParametrizacaoLPCO = liAtualizada.ParametrizacaoLPCO;
+            flpLis.Controls.Clear();
+            flpLis.FlowDirection = FlowDirection.LeftToRight;
+            flpLis.WrapContents = true;
+            flpLis.AutoScroll = true;
 
-                AtualizarPainelLi();
+            int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
+            int panelHeight = 40;
+
+            foreach (var li in listaLis.Where(li => li.OrgaosAnuentes?.Contains("INMETRO") == true))
+            {
+                var panel = new Panel
+                {
+                    Size = new Size(panelWidth, panelHeight),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Margin = new Padding(2)
+                };
+
+                var lbl = new Label
+                {
+                    Text = $"LI: {li.Numero}",
+                    AutoSize = true,
+                    Location = new Point(5, 10)
+                };
+
+                var btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                btnVisualizar.Click += (s, e) =>
+                {
+                    var formVis = new frmLi(
+                        li.Numero,
+                        li.OrgaosAnuentes,
+                        li.LPCO,
+                        li.DataRegistroLPCO,
+                        li.CheckDataRegistroLPCO,
+                        li.DataDeferimentoLPCO,
+                        li.CheckDataDeferimentoLPCO,
+                        li.ParametrizacaoLPCO,
+                        somenteVisualizacao: true);
+                    // Define owner para permitir remoção e fechamento correto
+                    formVis.Owner = this;
+                    formVis.ShowDialog(this);
+                };
+                if (!Visualização)
+                {
+                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                    btnVisualizar.Click += (s, e) => {
+                        // abre frmLi em modo editável
+                        var frm = new frmLi(
+                            li.Numero, li.OrgaosAnuentes, li.LPCO,
+                            li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
+                            li.ParametrizacaoLPCO,
+                            somenteVisualizacao: false  // <-- deixa editar
+                        );
+                        frm.Owner = this;
+                        frm.ShowDialog(this);
+                    };
+                }
+
+                panel.Controls.Add(lbl);
+                panel.Controls.Add(btnVisualizar);
+                flpLis.Controls.Add(panel);
             }
         }
         private void btnAdicionarLi_Click(object sender, EventArgs e)
@@ -246,59 +312,6 @@ namespace Trabalho
             {
                 listaLis = processo.Li.ToList();
                 AtualizarPainelLi();
-            }
-        }
-        private void AtualizarPainelLi()
-        {
-            flpLis.Controls.Clear();
-            int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
-            int panelHeight = 40;   
-            foreach (var li in listaLis)
-            {
-                var panel = new Panel { Size = new Size(panelWidth, panelHeight), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(2) };
-                var lbl = new Label { Text = $"LI: {li.Numero}", AutoSize = true, Location = new Point(5, 10) };
-                var btnVisualizar = new Button();
-                if (Visualização)
-                {
-                    btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                    btnVisualizar.Click += (s, e) =>
-                    {
-                        var formVis = new frmLi(
-                            li.Numero,
-                            li.OrgaosAnuentes,
-                            li.LPCO,
-                            li.DataRegistroLPCO,
-                            li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO,
-                            li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: true);
-                        // Define owner para permitir remoção e fechamento correto
-                        formVis.Owner = this;
-                        formVis.ShowDialog(this);
-                    };
-                }
-                else
-                {
-                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                    btnVisualizar.Click += (s, e) =>
-                    {
-                        var formVis = new frmLi(
-                            li.Numero,
-                            li.OrgaosAnuentes,
-                            li.LPCO,
-                            li.DataRegistroLPCO,
-                            li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO,
-                            li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: false);
-                        // Define owner para permitir remoção e fechamento correto
-                        formVis.Owner = this;
-                        formVis.ShowDialog(this);
-                    };
-                }
-                panel.Controls.Add(lbl); panel.Controls.Add(btnVisualizar); flpLis.Controls.Add(panel);
             }
         }
 

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Trabalho
 {
-    public partial class FrmModificaInmetro : Form
+    public partial class FrmModificaInmetro : Form, ILiHandler
     {
         public Inmetro _inmetro;
         public string? Modo;
@@ -87,14 +87,48 @@ namespace Trabalho
                 }
             }
         }
+        public bool ContainsLi(string numeroLi)
+        {
+            return listaLis.Any(li => li.Numero == numeroLi);
+        }
+
+        public void AdicionarLi(LiInfo li)
+        {
+            listaLis.Add(li);
+            AtualizarPainelLi();
+        }
+
+        public void AtualizarLi(string numeroLi, LiInfo liAtualizada)
+        {
+            var existente = listaLis.FirstOrDefault(li => li.Numero == numeroLi);
+            if (existente != null)
+            {
+                existente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
+                existente.LPCO = liAtualizada.LPCO;
+                existente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
+                existente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
+                existente.DataDeferimentoLPCO = liAtualizada.DataDeferimentoLPCO;
+                existente.CheckDataDeferimentoLPCO = liAtualizada.CheckDataDeferimentoLPCO;
+                existente.ParametrizacaoLPCO = liAtualizada.ParametrizacaoLPCO;
+
+                AtualizarPainelLi();
+            }
+        }
+
+        public void RemoverLi(string numeroLi)
+        {
+            var li = listaLis.FirstOrDefault(x => x.Numero == numeroLi);
+            if (li != null)
+            {
+                listaLis.Remove(li);
+                AtualizarPainelLi();
+            }
+        }
         public void CarregarLis(Inmetro inmetro)
         {
             if (inmetro?.Li != null)
             {
-                // Carrega apenas as LIs que possuem "DECEX" nos órgãos anuentes
-                listaLis = inmetro.Li
-                    .Where(li => li.OrgaosAnuentes != null && li.OrgaosAnuentes.Contains("INMETRO"))
-                    .ToList();
+                listaLis = inmetro.Li.ToList();
                 AtualizarPainelLi();
             }
         }
@@ -108,7 +142,7 @@ namespace Trabalho
             int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
             int panelHeight = 40;
 
-            foreach (var li in listaLis)
+            foreach (var li in listaLis.Where(li => li.OrgaosAnuentes?.Contains("INMETRO") == true))
             {
                 var panel = new Panel
                 {
@@ -124,11 +158,8 @@ namespace Trabalho
                     Location = new Point(5, 10)
                 };
 
-                var btnVisualizar = new Button();
-                if (Visualização)
-                {
-                    btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                    btnVisualizar.Click += (s, e) =>
+                var btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                btnVisualizar.Click += (s, e) =>
                     {
                         var formVis = new frmLi(
                             li.Numero,
@@ -144,25 +175,20 @@ namespace Trabalho
                         formVis.Owner = this;
                         formVis.ShowDialog(this);
                     };
-                }
-                else
+                if (!Visualização)
                 {
                     btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                    btnVisualizar.Click += (s, e) =>
-                    {
-                        var formVis = new frmLi(
-                            li.Numero,
-                            li.OrgaosAnuentes,
-                            li.LPCO,
-                            li.DataRegistroLPCO,
-                            li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO,
-                            li.CheckDataDeferimentoLPCO,
+                    btnVisualizar.Click += (s, e) => {
+                        // abre frmLi em modo editável
+                        var frm = new frmLi(
+                            li.Numero, li.OrgaosAnuentes, li.LPCO,
+                            li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
+                            li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
                             li.ParametrizacaoLPCO,
-                            somenteVisualizacao: false);
-                        // Define owner para permitir remoção e fechamento correto
-                        formVis.Owner = this;
-                        formVis.ShowDialog(this);
+                            somenteVisualizacao: false  // <-- deixa editar
+                        );
+                        frm.Owner = this;
+                        frm.ShowDialog(this);
                     };
                 }
 
