@@ -2,6 +2,7 @@
 using Aspose.Cells.Drawing;
 using CLUSA;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Trabalho
 {
@@ -77,28 +78,10 @@ namespace Trabalho
                 btnCancelar.Click += (s, e) =>
                 {
                     var resp = MessageBox.Show($"Remover LI {_numeroLi}?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resp == DialogResult.Yes && Owner is FrmModificaProcesso menu)
+                    if (resp == DialogResult.Yes && Owner is ILiHandler handler)
                     {
                         btnOK.Enabled = false;
-                        menu.RemoverLi(_numeroLi);
-                        this.Close();
-                    }
-                };
-            }
-            else
-            {
-                btnOK.Text = "Editar";
-                btnCancelar.Text = "Remover";
-
-                // Altera btnCancelar para remover LI
-                btnCancelar.Click -= btnCancelar_Click;
-                btnCancelar.Click += (s, e) =>
-                {
-                    var resp = MessageBox.Show($"Remover LI {_numeroLi}?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resp == DialogResult.Yes && Owner is FrmModificaProcesso menu)
-                    {
-                        btnOK.Enabled = false;
-                        menu.RemoverLi(_numeroLi);
+                        handler.RemoverLi(_numeroLi);
                         this.Close();
                     }
                 };
@@ -210,29 +193,28 @@ namespace Trabalho
             if (cbIbama.Checked) orgaosSelecionados.Add("IBAMA");
             if (cbInmetro.Checked) orgaosSelecionados.Add("INMETRO");
 
-            var lpco = TXTlilpco.Text.Trim();
+            var lpco = TXTlilpco.Text.Trim(); 
             var dataReg = DTPdataderegistrolilpco.Checked ? DTPdataderegistrolilpco.Value : (DateTime?)null;
             var chkReg = DTPdataderegistrolilpco.Checked;
             var dataDef = DTPdatadedeferimentolilpco.Checked ? DTPdatadedeferimentolilpco.Value : (DateTime?)null;
             var chkDef = DTPdatadedeferimentolilpco.Checked;
-            var param = CBparametrizacaolilpco.Text;
+            var param = CBparametrizacaolilpco.Text.Trim();
 
-            var novaLi = new LiInfo(numeroLi, orgaosSelecionados,lpco, dataReg, chkReg, dataDef, chkDef, param);
+            var novaLi = new LiInfo(numeroLi, orgaosSelecionados, lpco, dataReg, chkReg, dataDef, chkDef, param);
 
-            if (Owner is FrmModificaProcesso menu)
+            if (Owner is ILiHandler handler)
             {
-                // Se já existe, atualiza. Se não, adiciona.
-                if (menu.listaLis.Any(li => li.Numero == numeroLi))
+                // Se já existe, atualiza; se não, adiciona
+                if (handler.ContainsLi(numeroLi))
                 {
-                    menu.AtualizarLi(numeroLi, novaLi);
+                    handler.AtualizarLi(numeroLi, novaLi);
                     MessageBox.Show("LI atualizada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    menu.AdicionarLi(numeroLi, orgaosSelecionados, lpco, dataReg, chkReg, dataDef, chkDef, param);
+                    handler.AdicionarLi(novaLi);
                     MessageBox.Show("LI adicionada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
                 this.Close();
             }
         }
