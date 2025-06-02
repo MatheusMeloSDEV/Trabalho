@@ -29,7 +29,7 @@ namespace Trabalho
                 ReciboAtual = await FindReciboAsync();
                 if (ReciboAtual is not null)
                 {
-                    lblInfo.Text += $"\nNavio: {ReciboAtual.Navio}";
+                    lblInfo.Text += $"\nVeículo: {ReciboAtual.Veiculo}";
                     btnEditar.Enabled = true;      // habilita somente com objeto válido
                 }
             };

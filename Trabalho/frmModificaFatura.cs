@@ -17,6 +17,8 @@ namespace Trabalho
         private string[] nomesDocumentos = Array.Empty<string>();
         private string[] numerosDocumentos = Array.Empty<string>();
 
+        List<Agencia> Agencias = new List<Agencia>();
+
         private Button btnAddDoc = null!;
 
         public frmModificaFatura(Fatura fatura)
@@ -24,6 +26,9 @@ namespace Trabalho
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             _repositorio = new();
             InitializeComponent();
+            Agencias = fatura.Agencias;
+            foreach (var ag in Agencias)
+                AdicionarPainelAgencia(ag.Numero, ag.Custo);
             bindingSource1.DataSource = fatura;
             FaturaAtual = fatura;
             InicializarControlesDocumentos();
@@ -176,6 +181,66 @@ namespace Trabalho
                 flpDocumentos.Controls.Add(docBtn);
             }
         }
+        private void AdicionarPainelAgencia(string numero, decimal custo)
+        {
+            var panel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Padding = new Padding(5),
+                Margin = new Padding(3),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            var lbl = new Label
+            {
+                Text = $"{numero} - R$ {custo:F2}",
+                AutoSize = true,
+                Margin = new Padding(0, 10, 6, 0)
+            };
+
+            var btnRemover = new Button
+            {
+                Text = "x",
+                Size = new Size(25, 25),
+                BackColor = Color.LightCoral,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Margin = new Padding(0, 4, 0, 0)
+            };
+            btnRemover.FlatAppearance.BorderSize = 0;
+
+            btnRemover.Click += (s, e) =>
+            {
+                flowLayoutPanel1.Controls.Remove(panel);
+                Agencias.RemoveAll(a => a.Numero == numero && a.Custo == custo);
+            };
+
+            var innerFlow = new FlowLayoutPanel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false
+            };
+
+            innerFlow.Controls.Add(lbl);
+            innerFlow.Controls.Add(btnRemover);
+            panel.Controls.Add(innerFlow);
+            flowLayoutPanel1.Controls.Add(panel);
+        }
+
+        private void btnAdicionarAgencia_Click(object sender, EventArgs e)
+        {
+            using var frm = new DetalhesAgencia();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                var nova = (frm.NumeroAgencia, frm.PrecoCusto);
+                Agencias.Add(new Agencia { Numero = nova.NumeroAgencia, Custo = nova.PrecoCusto });
+                AdicionarPainelAgencia(nova.NumeroAgencia, nova.PrecoCusto);
+            }
+        }
+
         private async void btnSalvar_Click(object sender, EventArgs e)
         {
             try
@@ -212,11 +277,7 @@ namespace Trabalho
                 FaturaAtual.MULTA_LI = ParseCurrency(txtMultaLI);
                 FaturaAtual.ICMS = ParseCurrency(txtICMS);
 
-                // Despesas Portuárias
-                FaturaAtual.AgenciaN = txtAgencia1N.Text;
-                FaturaAtual.AgenciaP = ParseCurrency(txtAgencia1P);
-                FaturaAtual.AgenciaN1 = txtAgencia2N.Text;
-                FaturaAtual.AgenciaP1 = ParseCurrency(txtAgencia2P);
+                FaturaAtual.Agencias = Agencias;
                 FaturaAtual.ArmazenagemN = txtArmazenagemN.Text;
                 FaturaAtual.ArmazenagemP = ParseCurrency(txtArmazenagemP);
 
@@ -296,8 +357,6 @@ namespace Trabalho
                 + Parse(txtCONFINS.Text)
                 + Parse(txtMultaLI.Text)
                 + Parse(txtICMS.Text)
-                + Parse(txtAgencia1P.Text)
-                + Parse(txtAgencia2P.Text)
                 + Parse(txtArmazenagemP.Text)
                 + Parse(txtFreteMaritimoP.Text)
                 + Parse(txtMarinhaMercanteP.Text)
@@ -328,10 +387,16 @@ namespace Trabalho
             decimal saldo = subTotal - adiantamento;
             txtSaldo.Text = saldo.ToString("C", culture);
 
-            // Verificação final: se negativo -> S/FAVOR, se positivo -> N/FAVOR
-            txtTipoFinalizacao.Text = saldo < 0 ? "S/FAVOR" : "N/FAVOR";
-
-            btnOK.Enabled = true;
+            if (saldo < 0)
+            {
+                txtTipoFinalizacao.Text = "S/FAVOR";
+                txtTipoFinalizacao.BackColor = Color.Red;
+            }
+            else
+            {
+                txtTipoFinalizacao.Text = "N/FAVOR";
+                txtTipoFinalizacao.BackColor = Color.Lime;
+            }
         }
 
         private void frmModificaFatura_Load(object sender, EventArgs e)
@@ -430,5 +495,6 @@ namespace Trabalho
         {
 
         }
+
     }
 }

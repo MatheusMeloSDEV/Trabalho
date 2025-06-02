@@ -30,9 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             groupBox1 = new GroupBox();
-            txtCIF = new TextBox();
+            txtFLO = new TextBox();
             bindingSource1 = new BindingSource(components);
-            label67 = new Label();
+            label21 = new Label();
             txtValRecebidos = new TextBox();
             dtpDataRecebimento = new DateTimePicker();
             label66 = new Label();
@@ -69,21 +69,14 @@
             label13 = new Label();
             txtDI = new TextBox();
             groupBox3 = new GroupBox();
+            btnAdicionarAgencia = new Button();
+            lblAgencias = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             txtArmazenagemP = new TextBox();
             txtArmazenagemN = new TextBox();
             label27 = new Label();
             label28 = new Label();
             label29 = new Label();
-            txtAgencia2P = new TextBox();
-            txtAgencia2N = new TextBox();
-            label24 = new Label();
-            label25 = new Label();
-            label26 = new Label();
-            txtAgencia1P = new TextBox();
-            txtAgencia1N = new TextBox();
-            label23 = new Label();
-            label22 = new Label();
-            label21 = new Label();
             btnOK = new Button();
             label1 = new Label();
             groupBox4 = new GroupBox();
@@ -165,6 +158,8 @@
             txtTipoFinalizacao = new TextBox();
             label78 = new Label();
             btnCalcularTotal = new Button();
+            txtEndereco = new TextBox();
+            label22 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             groupBox2.SuspendLayout();
@@ -175,8 +170,10 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(txtCIF);
-            groupBox1.Controls.Add(label67);
+            groupBox1.Controls.Add(txtEndereco);
+            groupBox1.Controls.Add(label22);
+            groupBox1.Controls.Add(txtFLO);
+            groupBox1.Controls.Add(label21);
             groupBox1.Controls.Add(txtValRecebidos);
             groupBox1.Controls.Add(dtpDataRecebimento);
             groupBox1.Controls.Add(label66);
@@ -200,33 +197,33 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Dados Principais";
             // 
-            // txtCIF
+            // txtFLO
             // 
-            txtCIF.DataBindings.Add(new Binding("Text", bindingSource1, "Valorcif", true));
-            txtCIF.Location = new Point(747, 66);
-            txtCIF.Name = "txtCIF";
-            txtCIF.Size = new Size(100, 23);
-            txtCIF.TabIndex = 3;
-            txtCIF.TextChanged += AplicarMascaraMoeda;
+            txtFLO.DataBindings.Add(new Binding("Text", bindingSource1, "FLO", true));
+            txtFLO.Location = new Point(519, 66);
+            txtFLO.Name = "txtFLO";
+            txtFLO.ReadOnly = true;
+            txtFLO.Size = new Size(100, 23);
+            txtFLO.TabIndex = 16;
             // 
             // bindingSource1
             // 
             bindingSource1.DataMember = "ListaFatura";
             bindingSource1.DataSource = typeof(CLUSA.RepositorioFatura);
             // 
-            // label67
+            // label21
             // 
-            label67.AutoSize = true;
-            label67.Location = new Point(682, 69);
-            label67.Name = "label67";
-            label67.Size = new Size(59, 15);
-            label67.TabIndex = 37;
-            label67.Text = "Valor C.I.F";
+            label21.AutoSize = true;
+            label21.Location = new Point(485, 69);
+            label21.Name = "label21";
+            label21.Size = new Size(28, 15);
+            label21.TabIndex = 17;
+            label21.Text = "FLO";
             // 
             // txtValRecebidos
             // 
             txtValRecebidos.DataBindings.Add(new Binding("Text", bindingSource1, "ValRecebidos", true));
-            txtValRecebidos.Location = new Point(576, 66);
+            txtValRecebidos.Location = new Point(732, 66);
             txtValRecebidos.Name = "txtValRecebidos";
             txtValRecebidos.Size = new Size(100, 23);
             txtValRecebidos.TabIndex = 2;
@@ -252,7 +249,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(469, 69);
+            label11.Location = new Point(625, 69);
             label11.Name = "label11";
             label11.Size = new Size(101, 15);
             label11.TabIndex = 14;
@@ -279,7 +276,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(149, 69);
+            label9.Location = new Point(165, 69);
             label9.Name = "label9";
             label9.Size = new Size(67, 15);
             label9.TabIndex = 10;
@@ -288,7 +285,7 @@
             // txtMercadoria
             // 
             txtMercadoria.DataBindings.Add(new Binding("Text", bindingSource1, "Mercadoria", true));
-            txtMercadoria.Location = new Point(222, 66);
+            txtMercadoria.Location = new Point(238, 66);
             txtMercadoria.Name = "txtMercadoria";
             txtMercadoria.ReadOnly = true;
             txtMercadoria.Size = new Size(241, 23);
@@ -297,7 +294,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(529, 30);
+            label8.Location = new Point(665, 30);
             label8.Name = "label8";
             label8.Size = new Size(69, 15);
             label8.TabIndex = 8;
@@ -306,7 +303,7 @@
             // txtQuantidade
             // 
             txtQuantidade.DataBindings.Add(new Binding("Text", bindingSource1, "Quantidade", true));
-            txtQuantidade.Location = new Point(604, 27);
+            txtQuantidade.Location = new Point(740, 27);
             txtQuantidade.Name = "txtQuantidade";
             txtQuantidade.Size = new Size(100, 23);
             txtQuantidade.TabIndex = 1;
@@ -314,7 +311,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(366, 30);
+            label7.Location = new Point(515, 30);
             label7.Name = "label7";
             label7.Size = new Size(40, 15);
             label7.TabIndex = 6;
@@ -323,7 +320,7 @@
             // txtMarca
             // 
             txtMarca.DataBindings.Add(new Binding("Text", bindingSource1, "Marca", true));
-            txtMarca.Location = new Point(410, 27);
+            txtMarca.Location = new Point(559, 27);
             txtMarca.Name = "txtMarca";
             txtMarca.ReadOnly = true;
             txtMarca.Size = new Size(100, 23);
@@ -350,16 +347,16 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(216, 30);
+            label5.Location = new Point(184, 30);
             label5.Name = "label5";
-            label5.Size = new Size(38, 15);
+            label5.Size = new Size(45, 15);
             label5.TabIndex = 1;
-            label5.Text = "Navio";
+            label5.Text = "Veículo";
             // 
             // txtNavio
             // 
-            txtNavio.DataBindings.Add(new Binding("Text", bindingSource1, "Navio", true));
-            txtNavio.Location = new Point(260, 27);
+            txtNavio.DataBindings.Add(new Binding("Text", bindingSource1, "Veiculo", true));
+            txtNavio.Location = new Point(235, 27);
             txtNavio.Name = "txtNavio";
             txtNavio.ReadOnly = true;
             txtNavio.Size = new Size(100, 23);
@@ -557,21 +554,14 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(btnAdicionarAgencia);
+            groupBox3.Controls.Add(lblAgencias);
+            groupBox3.Controls.Add(flowLayoutPanel1);
             groupBox3.Controls.Add(txtArmazenagemP);
             groupBox3.Controls.Add(txtArmazenagemN);
             groupBox3.Controls.Add(label27);
             groupBox3.Controls.Add(label28);
             groupBox3.Controls.Add(label29);
-            groupBox3.Controls.Add(txtAgencia2P);
-            groupBox3.Controls.Add(txtAgencia2N);
-            groupBox3.Controls.Add(label24);
-            groupBox3.Controls.Add(label25);
-            groupBox3.Controls.Add(label26);
-            groupBox3.Controls.Add(txtAgencia1P);
-            groupBox3.Controls.Add(txtAgencia1N);
-            groupBox3.Controls.Add(label23);
-            groupBox3.Controls.Add(label22);
-            groupBox3.Controls.Add(label21);
             groupBox3.Location = new Point(12, 345);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(997, 108);
@@ -579,10 +569,37 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Despesas Portuárias";
             // 
+            // btnAdicionarAgencia
+            // 
+            btnAdicionarAgencia.Font = new Font("Segoe UI", 8F);
+            btnAdicionarAgencia.Location = new Point(67, 16);
+            btnAdicionarAgencia.Name = "btnAdicionarAgencia";
+            btnAdicionarAgencia.Size = new Size(20, 20);
+            btnAdicionarAgencia.TabIndex = 382;
+            btnAdicionarAgencia.Text = "+";
+            btnAdicionarAgencia.UseVisualStyleBackColor = true;
+            btnAdicionarAgencia.Click += btnAdicionarAgencia_Click;
+            // 
+            // lblAgencias
+            // 
+            lblAgencias.AutoSize = true;
+            lblAgencias.Location = new Point(6, 19);
+            lblAgencias.Name = "lblAgencias";
+            lblAgencias.Size = new Size(55, 15);
+            lblAgencias.TabIndex = 22;
+            lblAgencias.Text = "Agências";
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(6, 37);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(819, 65);
+            flowLayoutPanel1.TabIndex = 21;
+            // 
             // txtArmazenagemP
             // 
             txtArmazenagemP.DataBindings.Add(new Binding("Text", bindingSource1, "ArmazenagemP", true));
-            txtArmazenagemP.Location = new Point(612, 66);
+            txtArmazenagemP.Location = new Point(874, 66);
             txtArmazenagemP.Name = "txtArmazenagemP";
             txtArmazenagemP.Size = new Size(100, 23);
             txtArmazenagemP.TabIndex = 20;
@@ -591,7 +608,7 @@
             // txtArmazenagemN
             // 
             txtArmazenagemN.DataBindings.Add(new Binding("Text", bindingSource1, "ArmazenagemN", true));
-            txtArmazenagemN.Location = new Point(612, 37);
+            txtArmazenagemN.Location = new Point(874, 37);
             txtArmazenagemN.Name = "txtArmazenagemN";
             txtArmazenagemN.Size = new Size(100, 23);
             txtArmazenagemN.TabIndex = 19;
@@ -599,7 +616,7 @@
             // label27
             // 
             label27.AutoSize = true;
-            label27.Location = new Point(569, 69);
+            label27.Location = new Point(831, 69);
             label27.Name = "label27";
             label27.Size = new Size(37, 15);
             label27.TabIndex = 20;
@@ -608,7 +625,7 @@
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new Point(585, 40);
+            label28.Location = new Point(847, 40);
             label28.Name = "label28";
             label28.Size = new Size(21, 15);
             label28.TabIndex = 17;
@@ -617,99 +634,11 @@
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new Point(620, 19);
+            label29.Location = new Point(882, 19);
             label29.Name = "label29";
             label29.Size = new Size(84, 15);
             label29.TabIndex = 10;
             label29.Text = "Armazenagem";
-            // 
-            // txtAgencia2P
-            // 
-            txtAgencia2P.DataBindings.Add(new Binding("Text", bindingSource1, "AgenciaP1", true));
-            txtAgencia2P.Location = new Point(435, 66);
-            txtAgencia2P.Name = "txtAgencia2P";
-            txtAgencia2P.Size = new Size(100, 23);
-            txtAgencia2P.TabIndex = 18;
-            txtAgencia2P.TextChanged += AplicarMascaraMoeda;
-            // 
-            // txtAgencia2N
-            // 
-            txtAgencia2N.DataBindings.Add(new Binding("Text", bindingSource1, "AgenciaN1", true));
-            txtAgencia2N.Location = new Point(435, 37);
-            txtAgencia2N.Name = "txtAgencia2N";
-            txtAgencia2N.Size = new Size(100, 23);
-            txtAgencia2N.TabIndex = 17;
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Location = new Point(392, 69);
-            label24.Name = "label24";
-            label24.Size = new Size(37, 15);
-            label24.TabIndex = 7;
-            label24.Text = "Preço";
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Location = new Point(408, 40);
-            label25.Name = "label25";
-            label25.Size = new Size(21, 15);
-            label25.TabIndex = 6;
-            label25.Text = "Nº";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Location = new Point(460, 19);
-            label26.Name = "label26";
-            label26.Size = new Size(50, 15);
-            label26.TabIndex = 5;
-            label26.Text = "Agência";
-            // 
-            // txtAgencia1P
-            // 
-            txtAgencia1P.DataBindings.Add(new Binding("Text", bindingSource1, "AgenciaP", true));
-            txtAgencia1P.Location = new Point(254, 66);
-            txtAgencia1P.Name = "txtAgencia1P";
-            txtAgencia1P.Size = new Size(100, 23);
-            txtAgencia1P.TabIndex = 16;
-            txtAgencia1P.TextChanged += AplicarMascaraMoeda;
-            // 
-            // txtAgencia1N
-            // 
-            txtAgencia1N.DataBindings.Add(new Binding("Text", bindingSource1, "AgenciaN", true));
-            txtAgencia1N.Location = new Point(254, 37);
-            txtAgencia1N.Name = "txtAgencia1N";
-            txtAgencia1N.Size = new Size(100, 23);
-            txtAgencia1N.TabIndex = 15;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new Point(211, 69);
-            label23.Name = "label23";
-            label23.Size = new Size(37, 15);
-            label23.TabIndex = 2;
-            label23.Text = "Preço";
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new Point(227, 40);
-            label22.Name = "label22";
-            label22.Size = new Size(21, 15);
-            label22.TabIndex = 1;
-            label22.Text = "Nº";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Location = new Point(279, 19);
-            label21.Name = "label21";
-            label21.Size = new Size(50, 15);
-            label21.TabIndex = 0;
-            label21.Text = "Agência";
             // 
             // btnOK
             // 
@@ -1334,7 +1263,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(244, 22);
+            label2.Location = new Point(234, 22);
             label2.Name = "label2";
             label2.Size = new Size(38, 15);
             label2.TabIndex = 6;
@@ -1343,7 +1272,7 @@
             // txtN_Ref
             // 
             txtN_Ref.DataBindings.Add(new Binding("Text", bindingSource1, "Ref_USA", true));
-            txtN_Ref.Location = new Point(288, 19);
+            txtN_Ref.Location = new Point(278, 19);
             txtN_Ref.Name = "txtN_Ref";
             txtN_Ref.ReadOnly = true;
             txtN_Ref.Size = new Size(100, 23);
@@ -1352,7 +1281,7 @@
             // txtS_Ref
             // 
             txtS_Ref.DataBindings.Add(new Binding("Text", bindingSource1, "SR", true));
-            txtS_Ref.Location = new Point(463, 19);
+            txtS_Ref.Location = new Point(453, 19);
             txtS_Ref.Name = "txtS_Ref";
             txtS_Ref.ReadOnly = true;
             txtS_Ref.Size = new Size(100, 23);
@@ -1361,7 +1290,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(419, 22);
+            label3.Location = new Point(409, 22);
             label3.Name = "label3";
             label3.Size = new Size(35, 15);
             label3.TabIndex = 8;
@@ -1370,7 +1299,7 @@
             // txtImportador
             // 
             txtImportador.DataBindings.Add(new Binding("Text", bindingSource1, "Importador", true));
-            txtImportador.Location = new Point(666, 19);
+            txtImportador.Location = new Point(656, 19);
             txtImportador.Name = "txtImportador";
             txtImportador.ReadOnly = true;
             txtImportador.Size = new Size(131, 23);
@@ -1379,7 +1308,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(593, 22);
+            label4.Location = new Point(583, 22);
             label4.Name = "label4";
             label4.Size = new Size(67, 15);
             label4.TabIndex = 10;
@@ -1388,6 +1317,7 @@
             // txtSaldo
             // 
             txtSaldo.DataBindings.Add(new Binding("Text", bindingSource1, "Saldo", true));
+            txtSaldo.ForeColor = SystemColors.WindowText;
             txtSaldo.Location = new Point(623, 756);
             txtSaldo.Name = "txtSaldo";
             txtSaldo.ReadOnly = true;
@@ -1406,6 +1336,7 @@
             // txtAdiantamento
             // 
             txtAdiantamento.DataBindings.Add(new Binding("Text", bindingSource1, "Adiantamento", true));
+            txtAdiantamento.ForeColor = SystemColors.WindowText;
             txtAdiantamento.Location = new Point(474, 756);
             txtAdiantamento.Name = "txtAdiantamento";
             txtAdiantamento.ReadOnly = true;
@@ -1424,6 +1355,7 @@
             // txtSubTotal
             // 
             txtSubTotal.DataBindings.Add(new Binding("Text", bindingSource1, "SubTotal", true));
+            txtSubTotal.ForeColor = SystemColors.WindowText;
             txtSubTotal.Location = new Point(325, 756);
             txtSubTotal.Name = "txtSubTotal";
             txtSubTotal.ReadOnly = true;
@@ -1460,6 +1392,7 @@
             // txtTotalDespesas
             // 
             txtTotalDespesas.DataBindings.Add(new Binding("Text", bindingSource1, "TotalDespesas", true));
+            txtTotalDespesas.ForeColor = SystemColors.WindowText;
             txtTotalDespesas.Location = new Point(26, 756);
             txtTotalDespesas.Name = "txtTotalDespesas";
             txtTotalDespesas.ReadOnly = true;
@@ -1477,7 +1410,6 @@
             // 
             // txtTipoFinalizacao
             // 
-            txtTipoFinalizacao.DataBindings.Add(new Binding("Text", bindingSource1, "TipoFinalizacao", true));
             txtTipoFinalizacao.Location = new Point(778, 756);
             txtTipoFinalizacao.Name = "txtTipoFinalizacao";
             txtTipoFinalizacao.ReadOnly = true;
@@ -1503,6 +1435,23 @@
             btnCalcularTotal.Text = "Calcular";
             btnCalcularTotal.UseVisualStyleBackColor = true;
             btnCalcularTotal.Click += btnCalcularTotal_Click;
+            // 
+            // txtEndereco
+            // 
+            txtEndereco.DataBindings.Add(new Binding("Text", bindingSource1, "Endereco_Importador", true));
+            txtEndereco.Location = new Point(381, 27);
+            txtEndereco.Name = "txtEndereco";
+            txtEndereco.Size = new Size(132, 23);
+            txtEndereco.TabIndex = 18;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(341, 30);
+            label22.Name = "label22";
+            label22.Size = new Size(34, 15);
+            label22.TabIndex = 19;
+            label22.Text = "CNPJ";
             // 
             // frmModificaFatura
             // 
@@ -1596,16 +1545,6 @@
         private Label label27;
         private Label label28;
         private Label label29;
-        private TextBox txtAgencia2P;
-        private TextBox txtAgencia2N;
-        private Label label24;
-        private Label label25;
-        private Label label26;
-        private TextBox txtAgencia1P;
-        private TextBox txtAgencia1N;
-        private Label label23;
-        private Label label22;
-        private Label label21;
         private TextBox txtEncaminhamentoAmostrasP;
         private TextBox txtEncaminhamentoAmostrasN;
         private Label label39;
@@ -1687,8 +1626,13 @@
         private TextBox txtImpostoImportacao;
         private TextBox txtValRecebidos;
         private TextBox txtCONFINS;
-        private TextBox txtCIF;
-        private Label label67;
         private BindingSource bindingSource1;
+        private Label lblAgencias;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button btnAdicionarAgencia;
+        private TextBox txtFLO;
+        private Label label21;
+        private TextBox txtEndereco;
+        private Label label22;
     }
 }

@@ -16,8 +16,9 @@ namespace CLUSA
         public bool TImetro { get; set; } = false;
         public bool TIbama { get; set; } = false;
         public bool PossuiEmbarque { get; set; } = false;
-        public string VencimentoFreeTime { get; set; } = string.Empty;
-        public string VencimentoFMA { get; set; } = string.Empty;
+        public DateTime? VencimentoFreeTime { get; set; } = (DateTime?)null;
+        public DateTime? VencimentoFMA { get; set; } = (DateTime?)null;
+        public DateTime? VencimentoLI_LPCO { get; set; } = (DateTime?)null;
         //
 
         public string Ref_USA { get; set; } = string.Empty;
@@ -26,13 +27,12 @@ namespace CLUSA
         public string Exportador { get; set; } = string.Empty;
         public string Produto { get; set; } = string.Empty;
         public string Marca { get; set; } = string.Empty;
-        public string Navio { get; set; } = string.Empty; //Implementar
+        public string Veiculo { get; set; } = string.Empty; //Implementar
         public string PortoDestino { get; set; } = string.Empty;
-        public string Ordem { get; set; } = string.Empty;
         public string FLO { get; set; } = string.Empty;
         public int FreeTime { get; set; } = 0;
-        public string BL { get; set; } = string.Empty;
-        public string AgenteDeCarga { get; set; } = string.Empty;
+        public string Conhecimento { get; set; } = string.Empty;
+        public string Armador { get; set; } = string.Empty;
 
         //public string LI_LPCO { get; set; } = string.Empty;
         public List<LiInfo> Li { get; set; } = new List<LiInfo>();
@@ -44,6 +44,8 @@ namespace CLUSA
         public bool CheckDataDesembaracoDI { get; set; } = false;
         public DateTime? DataCarregamentoDI { get; set; } = (DateTime?)null;
         public bool CheckDataCarregamentoDI { get; set; } = false;
+        public DateTime? DataMinutaDI { get; set; } = (DateTime?)null;
+        public bool CheckDataMinutaDI { get; set; } = false;
         public string ParametrizacaoDI { get; set; } = string.Empty;
 
 
@@ -64,8 +66,6 @@ namespace CLUSA
         public string Pendencia { get; set; } = string.Empty;
         public string StatusDoProcesso { get; set; } = string.Empty;
 
-
-        public string NCM { get; set; } = string.Empty;
         public string Origem { get; set; } = string.Empty;
         public DateTime? InspecaoMapa { get; set; } = (DateTime?)null;
         public bool CheckInspecaoMapa { get; set; } = false;

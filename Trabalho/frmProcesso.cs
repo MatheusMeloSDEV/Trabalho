@@ -126,9 +126,9 @@ namespace Trabalho
             // Navio
             DataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Navio",
-                HeaderText = "Navio",
-                Name = "ColunaNavio",
+                DataPropertyName = "Veiculo",
+                HeaderText = "Veículo",
+                Name = "ColunaVeiculo",
                 FillWeight = 80
             });
 

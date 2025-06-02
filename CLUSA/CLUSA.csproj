@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Agencias.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="VBIDE">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>3</VersionMinor>

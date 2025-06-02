@@ -56,8 +56,6 @@
             TXTexportador = new TextBox();
             label2 = new Label();
             TXTNavio = new TextBox();
-            Label1 = new Label();
-            TXTncm = new TextBox();
             Label17 = new Label();
             TXTimportador = new TextBox();
             groupBox1 = new GroupBox();
@@ -317,7 +315,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(619, 117);
+            label2.Location = new Point(500, 113);
             label2.Name = "label2";
             label2.Size = new Size(51, 21);
             label2.TabIndex = 389;
@@ -327,36 +325,17 @@
             // 
             TXTNavio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTNavio.DataBindings.Add(new Binding("Text", bsModificaDecex, "Navio", true));
-            TXTNavio.Location = new Point(676, 117);
+            TXTNavio.Location = new Point(557, 113);
             TXTNavio.Name = "TXTNavio";
             TXTNavio.Size = new Size(136, 23);
             TXTNavio.TabIndex = 388;
-            // 
-            // Label1
-            // 
-            Label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Label1.AutoSize = true;
-            Label1.Font = new Font("Segoe UI", 12F);
-            Label1.Location = new Point(396, 119);
-            Label1.Name = "Label1";
-            Label1.Size = new Size(46, 21);
-            Label1.TabIndex = 387;
-            Label1.Text = "NCM";
-            // 
-            // TXTncm
-            // 
-            TXTncm.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTncm.Location = new Point(448, 117);
-            TXTncm.Name = "TXTncm";
-            TXTncm.Size = new Size(136, 23);
-            TXTncm.TabIndex = 386;
             // 
             // Label17
             // 
             Label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Label17.AutoSize = true;
             Label17.Font = new Font("Segoe UI", 12F);
-            Label17.Location = new Point(129, 119);
+            Label17.Location = new Point(247, 117);
             Label17.Name = "Label17";
             Label17.Size = new Size(89, 21);
             Label17.TabIndex = 385;
@@ -365,7 +344,7 @@
             // TXTimportador
             // 
             TXTimportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTimportador.Location = new Point(224, 117);
+            TXTimportador.Location = new Point(342, 115);
             TXTimportador.Name = "TXTimportador";
             TXTimportador.Size = new Size(126, 23);
             TXTimportador.TabIndex = 384;
@@ -388,8 +367,6 @@
             Controls.Add(groupBox1);
             Controls.Add(label2);
             Controls.Add(TXTNavio);
-            Controls.Add(Label1);
-            Controls.Add(TXTncm);
             Controls.Add(Label17);
             Controls.Add(TXTimportador);
             Controls.Add(LBLinspecao);
@@ -454,8 +431,6 @@
         private TextBox TXTexportador;
         private Label label2;
         private TextBox TXTNavio;
-        private Label Label1;
-        private TextBox TXTncm;
         private Label Label17;
         private TextBox TXTimportador;
         private GroupBox groupBox1;

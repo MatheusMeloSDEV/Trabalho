@@ -34,94 +34,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblDocumento = new System.Windows.Forms.Label();
-            this.lblNumero = new System.Windows.Forms.Label();
-            this.cboDocumento = new System.Windows.Forms.ComboBox();
-            this.txtNumero = new System.Windows.Forms.TextBox();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblDocumento = new Label();
+            lblNumero = new Label();
+            cboDocumento = new ComboBox();
+            txtNumero = new TextBox();
+            btnOK = new Button();
+            btnCancelar = new Button();
+            SuspendLayout();
             // 
             // lblDocumento
             // 
-            this.lblDocumento.AutoSize = true;
-            this.lblDocumento.Location = new System.Drawing.Point(20, 20);
-            this.lblDocumento.Name = "lblDocumento";
-            this.lblDocumento.Size = new System.Drawing.Size(110, 15);
-            this.lblDocumento.TabIndex = 0;
-            this.lblDocumento.Text = "Nome do Doc.:";
-            // 
-            // cboDocumento
-            // 
-            this.cboDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboDocumento.FormattingEnabled = true;
-            this.cboDocumento.Items.AddRange(new object[] {
-            "DI",
-            "B/L",
-            "Fatura",
-            "Pack List",
-            "Cert. de Origem",
-            "Cert. Sanitário"});
-            this.cboDocumento.Location = new System.Drawing.Point(140, 17);
-            this.cboDocumento.Name = "cboDocumento";
-            this.cboDocumento.Size = new System.Drawing.Size(200, 23);
-            this.cboDocumento.TabIndex = 1;
+            lblDocumento.AutoSize = true;
+            lblDocumento.Location = new Point(20, 20);
+            lblDocumento.Name = "lblDocumento";
+            lblDocumento.Size = new Size(87, 15);
+            lblDocumento.TabIndex = 0;
+            lblDocumento.Text = "Nome do Doc.:";
             // 
             // lblNumero
             // 
-            this.lblNumero.AutoSize = true;
-            this.lblNumero.Location = new System.Drawing.Point(20, 60);
-            this.lblNumero.Name = "lblNumero";
-            this.lblNumero.Size = new System.Drawing.Size(114, 15);
-            this.lblNumero.TabIndex = 2;
-            this.lblNumero.Text = "Número de Doc.:";
+            lblNumero.AutoSize = true;
+            lblNumero.Location = new Point(20, 60);
+            lblNumero.Name = "lblNumero";
+            lblNumero.Size = new Size(97, 15);
+            lblNumero.TabIndex = 2;
+            lblNumero.Text = "Número de Doc.:";
+            // 
+            // cboDocumento
+            // 
+            cboDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboDocumento.FormattingEnabled = true;
+            cboDocumento.Items.AddRange(new object[] { "DI", "B/L", "Fatura", "Pack List", "Cert. de Origem", "Cert. Sanitário", "Cert. Análise" });
+            cboDocumento.Location = new Point(140, 17);
+            cboDocumento.Name = "cboDocumento";
+            cboDocumento.Size = new Size(200, 23);
+            cboDocumento.TabIndex = 1;
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(140, 57);
-            this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(200, 23);
-            this.txtNumero.TabIndex = 3;
+            txtNumero.Location = new Point(140, 57);
+            txtNumero.Name = "txtNumero";
+            txtNumero.Size = new Size(200, 23);
+            txtNumero.TabIndex = 3;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(140, 100);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(90, 30);
-            this.btnOK.TabIndex = 4;
-            this.btnOK.Text = "Salvar";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            btnOK.Location = new Point(140, 100);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(90, 30);
+            btnOK.TabIndex = 4;
+            btnOK.Text = "Salvar";
+            btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += btnOK_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(250, 100);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(90, 30);
-            this.btnCancelar.TabIndex = 5;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(250, 100);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(90, 30);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
-            // FrmDocumento
+            // frmDocumento
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 150);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.txtNumero);
-            this.Controls.Add(this.lblNumero);
-            this.Controls.Add(this.cboDocumento);
-            this.Controls.Add(this.lblDocumento);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FrmDocumento";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Novo Documento";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(380, 150);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnOK);
+            Controls.Add(txtNumero);
+            Controls.Add(lblNumero);
+            Controls.Add(cboDocumento);
+            Controls.Add(lblDocumento);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "frmDocumento";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Novo Documento";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

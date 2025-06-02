@@ -11,7 +11,7 @@ namespace CLUSA
             SR = processo.SR;
             Importador = processo.Importador;
             Exportador = processo.Exportador;
-            Navio = processo.Navio;
+            Veiculo = processo.Veiculo;
             Mercadoria = processo.Produto;
         }
         [BsonId]
@@ -22,9 +22,9 @@ namespace CLUSA
         public string Importador { get; set; } = string.Empty;
         public string Exportador { get; set; } = string.Empty;
         public string Endereco_Importador { get; set; } = string.Empty;
-        public string Navio { get; set; } = string.Empty;
+        public string Veiculo { get; set; } = string.Empty;
         public string Mercadoria { get; set; } = string.Empty;
-        public decimal EmissaoLicenciamento { get; set; } = 0;
+        public decimal EmissaoLicenca { get; set; } = 0;
         public decimal Expediente { get; set; } = 0;
         public decimal HonorariosDespachante { get; set; } = 0;
         public decimal Total { get; set; } = 0;

@@ -50,6 +50,10 @@
             DTPdataderegistrolilpco = new DateTimePicker();
             TXTlilpco = new TextBox();
             Label26 = new Label();
+            TxtNCM = new TextBox();
+            label1 = new Label();
+            dtpDataRegistroLI = new DateTimePicker();
+            label2 = new Label();
             groupBox1.SuspendLayout();
             GroupBox3.SuspendLayout();
             SuspendLayout();
@@ -65,20 +69,20 @@
             // 
             // btnOK
             // 
-            btnOK.Location = new Point(195, 271);
+            btnOK.Location = new Point(195, 318);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(90, 30);
-            btnOK.TabIndex = 4;
+            btnOK.TabIndex = 7;
             btnOK.Text = "Salvar";
             btnOK.UseVisualStyleBackColor = true;
             btnOK.Click += btnOK_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(305, 271);
+            btnCancelar.Location = new Point(305, 318);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(90, 30);
-            btnCancelar.TabIndex = 5;
+            btnCancelar.TabIndex = 8;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
@@ -90,10 +94,10 @@
             groupBox1.Controls.Add(cbDecex);
             groupBox1.Controls.Add(cbAnvisa);
             groupBox1.Controls.Add(cbMapa);
-            groupBox1.Location = new Point(12, 208);
+            groupBox1.Location = new Point(12, 255);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(383, 56);
-            groupBox1.TabIndex = 6;
+            groupBox1.TabIndex = 20;
             groupBox1.TabStop = false;
             groupBox1.Text = "Órgãos Anuentes";
             // 
@@ -152,7 +156,7 @@
             TxtLi.Location = new Point(84, 17);
             TxtLi.Name = "TxtLi";
             TxtLi.Size = new Size(311, 23);
-            TxtLi.TabIndex = 7;
+            TxtLi.TabIndex = 1;
             // 
             // GroupBox3
             // 
@@ -164,10 +168,10 @@
             GroupBox3.Controls.Add(DTPdataderegistrolilpco);
             GroupBox3.Controls.Add(TXTlilpco);
             GroupBox3.Controls.Add(Label26);
-            GroupBox3.Location = new Point(12, 57);
+            GroupBox3.Location = new Point(12, 104);
             GroupBox3.Name = "GroupBox3";
             GroupBox3.Size = new Size(383, 145);
-            GroupBox3.TabIndex = 375;
+            GroupBox3.TabIndex = 3;
             GroupBox3.TabStop = false;
             GroupBox3.Text = "LPCO";
             // 
@@ -175,10 +179,10 @@
             // 
             Label22.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Label22.AutoSize = true;
-            Label22.Font = new Font("Segoe UI", 11F);
-            Label22.Location = new Point(41, 84);
+            Label22.Font = new Font("Segoe UI", 8.25F);
+            Label22.Location = new Point(52, 91);
             Label22.Name = "Label22";
-            Label22.Size = new Size(111, 20);
+            Label22.Size = new Size(84, 13);
             Label22.TabIndex = 146;
             Label22.Text = "Parametrização";
             // 
@@ -186,10 +190,10 @@
             // 
             Label20.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Label20.AutoSize = true;
-            Label20.Font = new Font("Segoe UI", 11F);
-            Label20.Location = new Point(199, 84);
+            Label20.Font = new Font("Segoe UI", 8.25F);
+            Label20.Location = new Point(213, 91);
             Label20.Name = "Label20";
-            Label20.Size = new Size(150, 20);
+            Label20.Size = new Size(114, 13);
             Label20.TabIndex = 145;
             Label20.Text = "Data de Deferimento";
             // 
@@ -197,10 +201,10 @@
             // 
             Label18.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Label18.AutoSize = true;
-            Label18.Font = new Font("Segoe UI", 11F);
-            Label18.Location = new Point(214, 23);
+            Label18.Font = new Font("Segoe UI", 8.25F);
+            Label18.Location = new Point(224, 30);
             Label18.Name = "Label18";
-            Label18.Size = new Size(121, 20);
+            Label18.Size = new Size(93, 13);
             Label18.TabIndex = 145;
             Label18.Text = "Data de Registro";
             // 
@@ -208,57 +212,99 @@
             // 
             CBparametrizacaolilpco.FormattingEnabled = true;
             CBparametrizacaolilpco.Items.AddRange(new object[] { "Documental", "Conferência Física", "Exame Físico", "Coleta de Amostra" });
-            CBparametrizacaolilpco.Location = new Point(34, 107);
+            CBparametrizacaolilpco.Location = new Point(30, 107);
             CBparametrizacaolilpco.Name = "CBparametrizacaolilpco";
             CBparametrizacaolilpco.Size = new Size(128, 23);
-            CBparametrizacaolilpco.TabIndex = 101;
+            CBparametrizacaolilpco.TabIndex = 4;
             // 
             // DTPdatadedeferimentolilpco
             // 
             DTPdatadedeferimentolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DTPdatadedeferimentolilpco.Format = DateTimePickerFormat.Short;
-            DTPdatadedeferimentolilpco.Location = new Point(193, 107);
+            DTPdatadedeferimentolilpco.Location = new Point(189, 107);
             DTPdatadedeferimentolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
             DTPdatadedeferimentolilpco.Name = "DTPdatadedeferimentolilpco";
             DTPdatadedeferimentolilpco.Size = new Size(163, 23);
-            DTPdatadedeferimentolilpco.TabIndex = 103;
+            DTPdatadedeferimentolilpco.TabIndex = 6;
             DTPdatadedeferimentolilpco.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
             // 
             // DTPdataderegistrolilpco
             // 
             DTPdataderegistrolilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DTPdataderegistrolilpco.Format = DateTimePickerFormat.Short;
-            DTPdataderegistrolilpco.Location = new Point(193, 46);
+            DTPdataderegistrolilpco.Location = new Point(189, 46);
             DTPdataderegistrolilpco.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
             DTPdataderegistrolilpco.Name = "DTPdataderegistrolilpco";
             DTPdataderegistrolilpco.Size = new Size(163, 23);
-            DTPdataderegistrolilpco.TabIndex = 100;
+            DTPdataderegistrolilpco.TabIndex = 5;
             DTPdataderegistrolilpco.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
             // 
             // TXTlilpco
             // 
             TXTlilpco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTlilpco.Location = new Point(52, 35);
+            TXTlilpco.Location = new Point(30, 46);
             TXTlilpco.Name = "TXTlilpco";
-            TXTlilpco.Size = new Size(120, 23);
-            TXTlilpco.TabIndex = 84;
+            TXTlilpco.Size = new Size(128, 23);
+            TXTlilpco.TabIndex = 3;
             // 
             // Label26
             // 
             Label26.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Label26.AutoSize = true;
-            Label26.Font = new Font("Segoe UI", 12F);
-            Label26.Location = new Point(18, 37);
+            Label26.Font = new Font("Segoe UI", 8.25F);
+            Label26.Location = new Point(85, 30);
             Label26.Name = "Label26";
-            Label26.Size = new Size(28, 21);
+            Label26.Size = new Size(19, 13);
             Label26.TabIndex = 85;
             Label26.Text = "N°";
+            // 
+            // TxtNCM
+            // 
+            TxtNCM.Location = new Point(205, 72);
+            TxtNCM.Name = "TxtNCM";
+            TxtNCM.Size = new Size(190, 23);
+            TxtNCM.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(258, 54);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 15);
+            label1.TabIndex = 376;
+            label1.Text = "Número NCM:";
+            // 
+            // dtpDataRegistroLI
+            // 
+            dtpDataRegistroLI.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dtpDataRegistroLI.Format = DateTimePickerFormat.Short;
+            dtpDataRegistroLI.Location = new Point(12, 72);
+            dtpDataRegistroLI.MinDate = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            dtpDataRegistroLI.Name = "dtpDataRegistroLI";
+            dtpDataRegistroLI.Size = new Size(172, 23);
+            dtpDataRegistroLI.TabIndex = 147;
+            dtpDataRegistroLI.Value = new DateTime(2024, 10, 17, 0, 0, 0, 0);
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(46, 54);
+            label2.Name = "label2";
+            label2.Size = new Size(105, 15);
+            label2.TabIndex = 147;
+            label2.Text = "Data de Registro LI";
             // 
             // frmLi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(407, 314);
+            ClientSize = new Size(407, 358);
+            Controls.Add(label2);
+            Controls.Add(dtpDataRegistroLI);
+            Controls.Add(TxtNCM);
+            Controls.Add(label1);
             Controls.Add(GroupBox3);
             Controls.Add(TxtLi);
             Controls.Add(groupBox1);
@@ -297,5 +343,9 @@
         private DateTimePicker DTPdataderegistrolilpco;
         private TextBox TXTlilpco;
         private Label Label26;
+        private TextBox TxtNCM;
+        private Label label1;
+        private DateTimePicker dtpDataRegistroLI;
+        private Label label2;
     }
 }

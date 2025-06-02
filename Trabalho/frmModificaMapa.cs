@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Trabalho
 {
-    public partial class FrmModificaMapa : Form
+    public partial class FrmModificaMapa : Form, ILiHandler
     {
         public MAPA mapa;
         public string? Modo;
@@ -106,6 +106,9 @@ namespace Trabalho
             if (existente != null)
             {
                 existente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
+                existente.NCM = liAtualizada.NCM;
+                existente.DataRegistroLI = liAtualizada.DataRegistroLI;
+                existente.CheckDataRegistroLI = liAtualizada.CheckDataRegistroLI;
                 existente.LPCO = liAtualizada.LPCO;
                 existente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
                 existente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
@@ -160,24 +163,28 @@ namespace Trabalho
                     Location = new Point(5, 10)
                 };
 
-                var btnVisualizar = new Button();
-
-                if (!Visualização)
+                var somenteVisualizacao = this.Visualização;
+                var btnVisualizar = new Button
                 {
-                    btnVisualizar.Text = "Editar";
-                    btnVisualizar.Click += (s, e) => {
-                        // abre frmLi em modo editável
-                        var frm = new frmLi(
-                            li.Numero, li.OrgaosAnuentes, li.LPCO,
-                            li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: false  // <-- deixa editar
-                        );
-                        frm.Owner = this;
-                        frm.ShowDialog(this);
-                    };
-                }
+                    Text = somenteVisualizacao ? "Visualizar" : "Editar",
+                    Size = new Size(75, 25),
+                    Location = new Point(panel.Width - 80, 7),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right
+                };
+
+                btnVisualizar.Click += (s, e) =>
+                {
+                    var frm = new frmLi(
+                        li.Numero, li.OrgaosAnuentes, li.NCM, li.LPCO,
+                        li.DataRegistroLI, li.CheckDataRegistroLI,
+                        li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
+                        li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
+                        li.ParametrizacaoLPCO,
+                        somenteVisualizacao
+                    );
+                    frm.Owner = this;
+                    frm.ShowDialog(this);
+                };
 
                 panel.Controls.Add(lbl);
                 panel.Controls.Add(btnVisualizar);
@@ -261,9 +268,8 @@ namespace Trabalho
             mapa.Exportador = TXTexportador.Text;
             mapa.Produto = TXTProduto.Text;
             mapa.Origem = TXTorigem.Text;
-            mapa.Navio = TXTNavio.Text;
+            mapa.Veiculo = TXTNavio.Text;
             mapa.Li = listaLis;
-            mapa.NCM = TXTncm.Text;
             mapa.StatusDoProcesso = TXTstatusdoprocesso.Text;
             mapa.Pendencia = TXTpendencia.Text;
             mapa.Amostra = CBamostra.Checked;

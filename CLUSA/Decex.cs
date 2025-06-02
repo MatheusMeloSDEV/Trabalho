@@ -13,7 +13,7 @@ namespace CLUSA
         public string Importador { get; set; } = string.Empty;
         public string SR { get; set; } = string.Empty;
         public string Exportador { get; set; } = string.Empty;
-        public string Navio { get; set; } = string.Empty;
+        public string Veiculo { get; set; } = string.Empty;
         public string Terminal { get; set; } = string.Empty;
         public string Produto { get; set; } = string.Empty;
         public string Origem { get; set; } = string.Empty;
@@ -24,7 +24,6 @@ namespace CLUSA
         public bool CheckDataEmbarque { get; set; } = false;
         public DateTime? InspecaoDecex { get; set; } = (DateTime?)null;
         public bool CheckInspecaoDecex { get; set; } = false;
-        public string NCM { get; set; } = string.Empty;
         public List<LiInfo> Li { get; set; } = new List<LiInfo>();
         public bool Amostra { get; set; } = false;
         public string Pendencia { get; set; } = string.Empty;
@@ -37,7 +36,7 @@ namespace CLUSA
             Importador = processo.Importador;
             SR = processo.SR;
             Exportador = processo.Exportador;
-            Navio = processo.Navio;
+            Veiculo = processo.Veiculo;
             Terminal = processo.PortoDestino;
             Produto = processo.Produto;
             TEmbarque = processo.PossuiEmbarque;

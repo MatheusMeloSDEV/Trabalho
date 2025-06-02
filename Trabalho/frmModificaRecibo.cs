@@ -91,9 +91,9 @@ namespace Trabalho
             txtS_Ref.Text = ReciboAtual.SR;
             txtImportador.Text = ReciboAtual.Importador;
             txtExportador.Text = ReciboAtual.Exportador;
-            txtNavio.Text = ReciboAtual.Navio;
+            txtNavio.Text = ReciboAtual.Veiculo;
             txtMercadoria.Text = ReciboAtual.Mercadoria;
-            txtEmissaoLicenciamento.Text = ReciboAtual.EmissaoLicenciamento.ToString();
+            txtEmissaoLicenciamento.Text = ReciboAtual.EmissaoLicenca.ToString();
             txtExpediente.Text = ReciboAtual.Expediente.ToString();
             txtHonorariosDespachante.Text = ReciboAtual.HonorariosDespachante.ToString();
             txtTotal.Text = ReciboAtual.Total.ToString();
@@ -120,10 +120,10 @@ namespace Trabalho
                 ReciboAtual.Ref_USA = txtN_Ref.Text;
                 ReciboAtual.SR = txtS_Ref.Text;
                 ReciboAtual.Importador = txtImportador.Text;
-                ReciboAtual.Navio = txtNavio.Text;
+                ReciboAtual.Veiculo = txtNavio.Text;
                 ReciboAtual.Mercadoria = txtMercadoria.Text;
                 ReciboAtual.Exportador = txtExportador.Text;
-                ReciboAtual.EmissaoLicenciamento = ParseCurrency(txtEmissaoLicenciamento);
+                ReciboAtual.EmissaoLicenca = ParseCurrency(txtEmissaoLicenciamento);
                 ReciboAtual.Expediente = ParseCurrency(txtExpediente);
                 ReciboAtual.HonorariosDespachante = ParseCurrency(txtHonorariosDespachante);
                 ReciboAtual.Total = ParseCurrency(txtTotal);

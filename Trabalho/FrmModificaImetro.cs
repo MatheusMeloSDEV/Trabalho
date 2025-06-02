@@ -104,6 +104,9 @@ namespace Trabalho
             if (existente != null)
             {
                 existente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
+                existente.NCM = liAtualizada.NCM;
+                existente.DataRegistroLI = liAtualizada.DataRegistroLI;
+                existente.CheckDataRegistroLI = liAtualizada.CheckDataRegistroLI;
                 existente.LPCO = liAtualizada.LPCO;
                 existente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
                 existente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
@@ -158,39 +161,28 @@ namespace Trabalho
                     Location = new Point(5, 10)
                 };
 
-                var btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                btnVisualizar.Click += (s, e) =>
-                    {
-                        var formVis = new frmLi(
-                            li.Numero,
-                            li.OrgaosAnuentes,
-                            li.LPCO,
-                            li.DataRegistroLPCO,
-                            li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO,
-                            li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: true);
-                        // Define owner para permitir remoção e fechamento correto
-                        formVis.Owner = this;
-                        formVis.ShowDialog(this);
-                    };
-                if (!Visualização)
+                var somenteVisualizacao = this.Visualização;
+                var btnVisualizar = new Button
                 {
-                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                    btnVisualizar.Click += (s, e) => {
-                        // abre frmLi em modo editável
-                        var frm = new frmLi(
-                            li.Numero, li.OrgaosAnuentes, li.LPCO,
-                            li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: false  // <-- deixa editar
-                        );
-                        frm.Owner = this;
-                        frm.ShowDialog(this);
-                    };
-                }
+                    Text = somenteVisualizacao ? "Visualizar" : "Editar",
+                    Size = new Size(75, 25),
+                    Location = new Point(panel.Width - 80, 7),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right
+                };
+
+                btnVisualizar.Click += (s, e) =>
+                {
+                    var frm = new frmLi(
+                        li.Numero, li.OrgaosAnuentes, li.NCM, li.LPCO,
+                        li.DataRegistroLI, li.CheckDataRegistroLI,
+                        li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
+                        li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
+                        li.ParametrizacaoLPCO,
+                        somenteVisualizacao
+                    );
+                    frm.Owner = this;
+                    frm.ShowDialog(this);
+                };
 
                 panel.Controls.Add(lbl);
                 panel.Controls.Add(btnVisualizar);
@@ -267,12 +259,11 @@ namespace Trabalho
             _inmetro.Importador = TXTimportador.Text;
             _inmetro.Ref_USA = TXTnr.Text;
             _inmetro.SR = TXTsr.Text;
-            _inmetro.Navio = TXTNavio.Text;
+            _inmetro.Veiculo = TXTNavio.Text;
             _inmetro.Exportador = TXTexportador.Text;
             _inmetro.Produto = TXTProduto.Text;
             _inmetro.Origem = TXTorigem.Text;
             _inmetro.Li = listaLis;
-            _inmetro.NCM = TXTncm.Text;
 
             _inmetro.StatusDoProcesso = TXTstatusdoprocesso.Text;
             _inmetro.Pendencia = TXTpendencia.Text;

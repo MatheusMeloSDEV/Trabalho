@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Trabalho
 {
-    public partial class FrmModificaAnvisa : Form
+    public partial class FrmModificaAnvisa : Form, ILiHandler
     {
         public Anvisa anvisa;
         public string? Modo;
@@ -106,6 +106,7 @@ namespace Trabalho
             if (existente != null)
             {
                 existente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
+                existente.NCM = liAtualizada.NCM;
                 existente.LPCO = liAtualizada.LPCO;
                 existente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
                 existente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
@@ -160,24 +161,28 @@ namespace Trabalho
                     Location = new Point(5, 10)
                 };
 
-                var btnVisualizar = new Button();
-
-                if (!Visualização)
+                var somenteVisualizacao = this.Visualização;
+                var btnVisualizar = new Button
                 {
-                    btnVisualizar.Text = "Editar";
-                    btnVisualizar.Click += (s, e) => {
-                        // abre frmLi em modo editável
-                        var frm = new frmLi(
-                            li.Numero, li.OrgaosAnuentes, li.LPCO,
-                            li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: false  // <-- deixa editar
-                        );
-                        frm.Owner = this;
-                        frm.ShowDialog(this);
-                    };
-                }
+                    Text = somenteVisualizacao ? "Visualizar" : "Editar",
+                    Size = new Size(75, 25),
+                    Location = new Point(panel.Width - 80, 7),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right
+                };
+
+                btnVisualizar.Click += (s, e) =>
+                {
+                    var frm = new frmLi(
+                        li.Numero, li.OrgaosAnuentes, li.NCM, li.LPCO,
+                        li.DataRegistroLI, li.CheckDataRegistroLI,
+                        li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
+                        li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
+                        li.ParametrizacaoLPCO,
+                        somenteVisualizacao
+                    );
+                    frm.Owner = this;
+                    frm.ShowDialog(this);
+                };
 
                 panel.Controls.Add(lbl);
                 panel.Controls.Add(btnVisualizar);
@@ -264,9 +269,8 @@ namespace Trabalho
             anvisa.Exportador = TXTexportador.Text;
             anvisa.Produto = TXTProduto.Text;
             anvisa.Origem = TXTorigem.Text;
-            anvisa.Navio = TXTNavio.Text;
+            anvisa.Veiculo = TXTNavio.Text;
             anvisa.Li = listaLis;
-            anvisa.NCM = TXTncm.Text;
             anvisa.StatusDoProcesso = TXTstatusdoprocesso.Text;
             anvisa.Pendencia = TXTpendencia.Text;
             anvisa.Amostra = CBamostra.Checked;

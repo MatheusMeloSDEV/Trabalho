@@ -246,49 +246,54 @@ namespace Trabalho
             foreach (var p in processos)
             {
                 string refUsa = p.GetValue("Ref_USA", BsonNull.Value)?.ToString() ?? "";
-                if (!DateTime.TryParse(p.GetValue("DataDeAtracacao", BsonNull.Value)?.ToString(), out var dt))
+                if (!DateTime.TryParse(p.GetValue("DataDeAtracacao", BsonNull.Value)?.ToString(), out var dataAtracacao))
                     continue;
 
-                int dias = (dt - DateTime.Today).Days;
+                int dias = (dataAtracacao - DateTime.Today).Days;
 
-                // até 15 dias
-                if (dias <= 15 && dias >= 0)
-                {
-                    var msg15 = $"Processo {refUsa}: Dar entrada no Mapa/Anvisa";
-                    if (!_notificacaoRepo.ExisteNotificacao(refUsa, msg15))
-                    {
-                        novas.Add(new Notificacao
-                        {
-                            RefUsa = refUsa,
-                            Mensagem = msg15,
-                            DataCriacao = DateTime.Now,
-                            Visualizado = false
-                        });
-                    }
-                }
-                // até 5 dias
-                if (dias <= 5 && dias >= 0)
-                {
-                    var msg5 = $"Processo {refUsa}: Redestinar container ao terminal";
-                    if (!_notificacaoRepo.ExisteNotificacao(refUsa, msg5))
-                    {
-                        novas.Add(new Notificacao
-                        {
-                            RefUsa = refUsa,
-                            Mensagem = msg5,
-                            DataCriacao = DateTime.Now,
-                            Visualizado = false
-                        });
-                    }
-                }
+                // Notificações padrão
+                if (dias is >= 0 and <= 15)
+                    TentarAdicionarNotificacao(novas, refUsa, "Dar entrada no Mapa/Anvisa");
+
+                if (dias is >= 0 and <= 5)
+                    TentarAdicionarNotificacao(novas, refUsa, "Redestinar container ao terminal");
+
+                // Notificações de vencimento
+                VerificarVencimento(p, "VencimentoFreeTime", "Free Time", refUsa, novas);
+                VerificarVencimento(p, "VencimentoFMA", "FMA", refUsa, novas);
+                VerificarVencimento(p, "VencimentoLI_LPCO", "LI/LPCO", refUsa, novas);
             }
 
-            // persiste somente as realmente novas
             foreach (var n in novas)
                 _notificacaoRepo.SalvarNotificacao(n);
         }
 
+        private void VerificarVencimento(BsonDocument doc, string campo, string nomeExibicao, string refUsa, List<Notificacao> lista)
+        {
+            if (!doc.Contains(campo) || !DateTime.TryParse(doc[campo]?.ToString(), out var vencimento))
+                return;
 
+            int dias = (vencimento - DateTime.Today).Days;
+            if (dias is >= 0 and <= 5)
+            {
+                string msg = $"Processo {refUsa}: {nomeExibicao} vence em {dias} dia(s)";
+                TentarAdicionarNotificacao(lista, refUsa, msg);
+            }
+        }
+
+        private void TentarAdicionarNotificacao(List<Notificacao> lista, string refUsa, string mensagem)
+        {
+            if (!_notificacaoRepo.ExisteNotificacao(refUsa, mensagem))
+            {
+                lista.Add(new Notificacao
+                {
+                    RefUsa = refUsa,
+                    Mensagem = mensagem,
+                    DataCriacao = DateTime.Now,
+                    Visualizado = false
+                });
+            }
+        }
         private void AtualizarNotificacoes()
         {
             MenuItemNotifications.DropDownItems.Clear();

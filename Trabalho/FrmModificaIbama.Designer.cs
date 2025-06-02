@@ -30,8 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             bsModificaIbama = new BindingSource(components);
-            Label1 = new Label();
-            TXTncm = new TextBox();
             LBLinspecao = new Label();
             LBLdatadeatracacao = new Label();
             LBLdatadeembarque = new Label();
@@ -68,26 +66,6 @@
             // bsModificaIbama
             // 
             bsModificaIbama.DataSource = typeof(CLUSA.Ibama);
-            // 
-            // Label1
-            // 
-            Label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Label1.AutoSize = true;
-            Label1.Font = new Font("Segoe UI", 12F);
-            Label1.Location = new Point(395, 120);
-            Label1.Name = "Label1";
-            Label1.Size = new Size(46, 21);
-            Label1.TabIndex = 379;
-            Label1.Text = "NCM";
-            // 
-            // TXTncm
-            // 
-            TXTncm.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTncm.DataBindings.Add(new Binding("Text", bsModificaIbama, "NCM", true));
-            TXTncm.Location = new Point(447, 118);
-            TXTncm.Name = "TXTncm";
-            TXTncm.Size = new Size(136, 23);
-            TXTncm.TabIndex = 378;
             // 
             // LBLinspecao
             // 
@@ -127,7 +105,7 @@
             Label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Label17.AutoSize = true;
             Label17.Font = new Font("Segoe UI", 12F);
-            Label17.Location = new Point(128, 120);
+            Label17.Location = new Point(242, 120);
             Label17.Name = "Label17";
             Label17.Size = new Size(89, 21);
             Label17.TabIndex = 373;
@@ -137,7 +115,7 @@
             // 
             TXTimportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTimportador.DataBindings.Add(new Binding("Text", bsModificaIbama, "Importador", true));
-            TXTimportador.Location = new Point(223, 118);
+            TXTimportador.Location = new Point(337, 118);
             TXTimportador.Name = "TXTimportador";
             TXTimportador.Size = new Size(126, 23);
             TXTimportador.TabIndex = 372;
@@ -355,7 +333,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(618, 118);
+            label2.Location = new Point(506, 116);
             label2.Name = "label2";
             label2.Size = new Size(51, 21);
             label2.TabIndex = 383;
@@ -365,7 +343,7 @@
             // 
             TXTNavio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TXTNavio.DataBindings.Add(new Binding("Text", bsModificaIbama, "Navio", true));
-            TXTNavio.Location = new Point(675, 118);
+            TXTNavio.Location = new Point(563, 116);
             TXTNavio.Name = "TXTNavio";
             TXTNavio.Size = new Size(136, 23);
             TXTNavio.TabIndex = 382;
@@ -395,8 +373,6 @@
             Controls.Add(groupBox1);
             Controls.Add(label2);
             Controls.Add(TXTNavio);
-            Controls.Add(Label1);
-            Controls.Add(TXTncm);
             Controls.Add(LBLinspecao);
             Controls.Add(LBLdatadeatracacao);
             Controls.Add(LBLdatadeembarque);
@@ -435,8 +411,6 @@
 
         #endregion
         private BindingSource bsModificaIbama;
-        private Label Label1;
-        private TextBox TXTncm;
         private Label LBLinspecao;
         private Label LBLdatadeatracacao;
         private Label LBLdatadeembarque;

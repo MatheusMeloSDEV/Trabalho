@@ -38,7 +38,7 @@ namespace Trabalho
                 FaturaAtual = await FindFaturaAsync();
                 if (FaturaAtual is not null)
                 {
-                    lblInfo.Text += $"\nNavio: {FaturaAtual.Navio}";
+                    lblInfo.Text += $"\nVeículo: {FaturaAtual.Veiculo}";
                     btnEditar.Enabled = true;      // habilita somente com objeto válido
                 }
             };

@@ -20,20 +20,23 @@ namespace Trabalho
             CarregarDateTimePickers(Li);
         }
 
-        public frmLi(string numeroLi,List<string> orgaos, string lpco, DateTime? dataRegistro,bool checkDataRegistro,DateTime? dataDeferimento,bool checkDataDeferimento,string parametrizacao,bool somenteVisualizacao = false)
-            : this()
+        public frmLi(string numeroLi,List<string> orgaos, string ncm, string lpco, DateTime? dataregistroLI, bool checkdataregistroLI,
+                    DateTime? dataRegistro,bool checkDataRegistro,DateTime? dataDeferimento,bool checkDataDeferimento,string parametrizacao,
+                    bool somenteVisualizacao = false)
+                    : this()
         {
             _somenteVisualizacao = somenteVisualizacao;
             _numeroLi = numeroLi;
 
             // Preenche campos básicos
             TxtLi.Text = numeroLi;
+            TxtNCM.Text = ncm;
+            TXTlilpco.Text = lpco;
             cbMapa.Checked = orgaos.Contains("MAPA");
             cbAnvisa.Checked = orgaos.Contains("ANVISA");
             cbDecex.Checked = orgaos.Contains("DECEX");
             cbIbama.Checked = orgaos.Contains("IBAMA");
             cbInmetro.Checked = orgaos.Contains("INMETRO");
-            TXTlilpco.Text = lpco;
 
             // Preenche DateTimePickers
             DTPdataderegistrolilpco.Checked = checkDataRegistro;
@@ -59,6 +62,17 @@ namespace Trabalho
                 DTPdatadedeferimentolilpco.Format = DateTimePickerFormat.Custom;
                 DTPdatadedeferimentolilpco.CustomFormat = " -";
             }
+            dtpDataRegistroLI.Checked = checkdataregistroLI;
+            if (checkdataregistroLI && dataregistroLI.HasValue)
+            {
+                dtpDataRegistroLI.Format = DateTimePickerFormat.Short;
+                dtpDataRegistroLI.Value = dataregistroLI.Value;
+            }
+            else
+            {
+                dtpDataRegistroLI.Format = DateTimePickerFormat.Custom;
+                dtpDataRegistroLI.CustomFormat = " -";
+            }
 
             // Preenche textbox de parametrização
             CBparametrizacaolilpco.Text = parametrizacao;
@@ -67,9 +81,10 @@ namespace Trabalho
             if (_somenteVisualizacao)
             {
                 TxtLi.ReadOnly = true;
+                TxtNCM.ReadOnly = true;
                 TXTlilpco.ReadOnly = true;
                 cbMapa.Enabled = cbAnvisa.Enabled = cbDecex.Enabled = cbIbama.Enabled = cbInmetro.Enabled = false;
-                DTPdataderegistrolilpco.Enabled = DTPdatadedeferimentolilpco.Enabled = false;
+                DTPdataderegistrolilpco.Enabled = DTPdatadedeferimentolilpco.Enabled = dtpDataRegistroLI.Enabled = false;
                 CBparametrizacaolilpco.Enabled = false;
                 btnOK.Visible = false;
                 btnCancelar.Text = "Remover";
@@ -93,7 +108,8 @@ namespace Trabalho
             var dtps = new[]
             {
             DTPdataderegistrolilpco,
-            DTPdatadedeferimentolilpco
+            DTPdatadedeferimentolilpco,
+            dtpDataRegistroLI
             };
 
             foreach (var dtp in dtps)
@@ -151,6 +167,7 @@ namespace Trabalho
             {
                 { DTPdataderegistrolilpco,    (li.DataRegistroLPCO,      li.CheckDataRegistroLPCO) },
                 { DTPdatadedeferimentolilpco, (li.DataDeferimentoLPCO,   li.CheckDataDeferimentoLPCO) },
+                { dtpDataRegistroLI,          (li.DataRegistroLI,        li.CheckDataRegistroLI) }
             };
 
             foreach (var kv in mapeamento)
@@ -193,14 +210,17 @@ namespace Trabalho
             if (cbIbama.Checked) orgaosSelecionados.Add("IBAMA");
             if (cbInmetro.Checked) orgaosSelecionados.Add("INMETRO");
 
+            var ncm = TxtNCM.Text.Trim();
             var lpco = TXTlilpco.Text.Trim(); 
             var dataReg = DTPdataderegistrolilpco.Checked ? DTPdataderegistrolilpco.Value : (DateTime?)null;
             var chkReg = DTPdataderegistrolilpco.Checked;
             var dataDef = DTPdatadedeferimentolilpco.Checked ? DTPdatadedeferimentolilpco.Value : (DateTime?)null;
             var chkDef = DTPdatadedeferimentolilpco.Checked;
+            var dataRegLI = dtpDataRegistroLI.Checked ? dtpDataRegistroLI.Value : (DateTime?)null;
+            var chkRegLI = dtpDataRegistroLI.Checked;
             var param = CBparametrizacaolilpco.Text.Trim();
 
-            var novaLi = new LiInfo(numeroLi, orgaosSelecionados, lpco, dataReg, chkReg, dataDef, chkDef, param);
+            var novaLi = new LiInfo(numeroLi, orgaosSelecionados, ncm, lpco, dataRegLI, chkRegLI, dataReg, chkReg, dataDef, chkDef, param);
 
             if (Owner is ILiHandler handler)
             {

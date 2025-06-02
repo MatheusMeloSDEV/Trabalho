@@ -11,7 +11,8 @@ namespace CLUSA
             Ref_USA = processo.Ref_USA;
             SR = processo.SR;
             Importador = processo.Importador;
-            Navio = processo.Navio;
+            Veiculo = processo.Veiculo;
+            FLO = processo.FLO;
             Mercadoria = processo.Produto;
             Marca = processo.Marca;
             DataAtracacao = processo.DataDeAtracacao;
@@ -27,9 +28,9 @@ namespace CLUSA
         public string SR { get; set; } = string.Empty;
         public string Importador { get; set; } = string.Empty;
         public string Endereco_Importador { get; set; } = string.Empty;
-        public decimal Valorcif { get; set; } = 0;
+        public string FLO { get; set; } = string.Empty;
         public DateTime? DataAtracacao { get; set; } = (DateTime?)null;
-        public string Navio { get; set; } = string.Empty;
+        public string Veiculo { get; set; } = string.Empty;
         public string Marca { get; set; } = string.Empty;
         public float Quantidade { get; set; } = 0;
         public string Mercadoria { get; set; } = string.Empty;
@@ -45,10 +46,7 @@ namespace CLUSA
         public decimal COFINS { get; set; } = 0;
         public decimal MULTA_LI { get; set; } = 0;
         public decimal ICMS { get; set; } = 0;
-        public string AgenciaN { get; set; } = string.Empty;
-        public decimal AgenciaP { get; set; } = 0;
-        public string AgenciaN1 { get; set; } = string.Empty;
-        public decimal AgenciaP1 { get; set; } = 0;
+        public List<Agencia> Agencias { get; set; } = new();
         public string ArmazenagemN { get; set; } = string.Empty;
         public decimal ArmazenagemP { get; set; } = 0;
         public string FreteMaritimoN { get; set; } = string.Empty;

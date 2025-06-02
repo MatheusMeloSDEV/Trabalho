@@ -35,6 +35,7 @@ namespace Trabalho
             }
 
             CarregarLis(processo);
+            PopularMarca();
             bsModificaProcesso.DataSource = processo;
             InicializarDateTimePickersComCheckbox();
             CarregarDateTimePickers(processo);
@@ -181,13 +182,14 @@ namespace Trabalho
             // Liste aqui todos os seus DateTimePickers que devem ter checkbox interno
             var dtps = new[]
             {
-            DTPdataderegistrodi,
-            DTPdatadedesembaracodi,
-            DTPdatadecarregamentodi,
-            DTPdatadeinspecao,
-            DTPdatadeatracacao,
-            DTPdatadeembarque,
-            DTPDataRecOriginais
+                dtpDataMinuta,
+                DTPdataderegistrodi,
+                DTPdatadedesembaracodi,
+                DTPdatadecarregamentodi,
+                DTPdatadeinspecao,
+                DTPdatadeatracacao,
+                DTPdatadeembarque,
+                DTPDataRecOriginais
             };
 
             foreach (var dtp in dtps)
@@ -215,6 +217,9 @@ namespace Trabalho
             if (existente != null)
             {
                 existente.OrgaosAnuentes = liAtualizada.OrgaosAnuentes;
+                existente.NCM = liAtualizada.NCM;
+                existente.DataRegistroLI = liAtualizada.DataRegistroLI;
+                existente.CheckDataRegistroLI = liAtualizada.CheckDataRegistroLI;
                 existente.LPCO = liAtualizada.LPCO;
                 existente.DataRegistroLPCO = liAtualizada.DataRegistroLPCO;
                 existente.CheckDataRegistroLPCO = liAtualizada.CheckDataRegistroLPCO;
@@ -245,7 +250,7 @@ namespace Trabalho
             int panelWidth = (flpLis.ClientSize.Width - SystemInformation.VerticalScrollBarWidth) / 2 - 4;
             int panelHeight = 40;
 
-            foreach (var li in listaLis.Where(li => li.OrgaosAnuentes?.Contains("INMETRO") == true))
+            foreach (var li in listaLis)
             {
                 var panel = new Panel
                 {
@@ -261,39 +266,28 @@ namespace Trabalho
                     Location = new Point(5, 10)
                 };
 
-                var btnVisualizar = new Button { Text = "Visualizar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+                var somenteVisualizacao = this.Visualização;
+                var btnVisualizar = new Button
+                {
+                    Text = somenteVisualizacao ? "Visualizar" : "Editar",
+                    Size = new Size(75, 25),
+                    Location = new Point(panel.Width - 80, 7),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right
+                };
+
                 btnVisualizar.Click += (s, e) =>
                 {
-                    var formVis = new frmLi(
-                        li.Numero,
-                        li.OrgaosAnuentes,
-                        li.LPCO,
-                        li.DataRegistroLPCO,
-                        li.CheckDataRegistroLPCO,
-                        li.DataDeferimentoLPCO,
-                        li.CheckDataDeferimentoLPCO,
+                    var frm = new frmLi(
+                        li.Numero, li.OrgaosAnuentes, li.NCM, li.LPCO, 
+                        li.DataRegistroLI, li.CheckDataRegistroLI,
+                        li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
+                        li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
                         li.ParametrizacaoLPCO,
-                        somenteVisualizacao: true);
-                    // Define owner para permitir remoção e fechamento correto
-                    formVis.Owner = this;
-                    formVis.ShowDialog(this);
+                        somenteVisualizacao
+                    );
+                    frm.Owner = this;
+                    frm.ShowDialog(this);
                 };
-                if (!Visualização)
-                {
-                    btnVisualizar = new Button { Text = "Editar", Size = new Size(75, 25), Location = new Point(panel.Width - 80, 7), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-                    btnVisualizar.Click += (s, e) => {
-                        // abre frmLi em modo editável
-                        var frm = new frmLi(
-                            li.Numero, li.OrgaosAnuentes, li.LPCO,
-                            li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
-                            li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
-                            li.ParametrizacaoLPCO,
-                            somenteVisualizacao: false  // <-- deixa editar
-                        );
-                        frm.Owner = this;
-                        frm.ShowDialog(this);
-                    };
-                }
 
                 panel.Controls.Add(lbl);
                 panel.Controls.Add(btnVisualizar);
@@ -314,7 +308,39 @@ namespace Trabalho
                 AtualizarPainelLi();
             }
         }
+        private void PopularMarca()
+        {
+            string marcaCompleta = processo.Marca;
+            string[] modulosEspacos = new[] { "Sacos", "Caixas", "Pallets" };
 
+            string numMarcaStr = "";
+            string textoMarca = "";
+
+            if (modulosEspacos.Any(m => marcaCompleta.EndsWith(" " + m)))
+            {
+                // Ex: "10 Sacos"
+                int indexEspaco = marcaCompleta.LastIndexOf(' ');
+                if (indexEspaco > 0)
+                {
+                    numMarcaStr = marcaCompleta.Substring(0, indexEspaco);
+                    textoMarca = marcaCompleta.Substring(indexEspaco + 1);
+                }
+            }
+            else if (marcaCompleta.Contains(" x "))
+            {
+                // Ex: "10 x 40 DRY"
+                int indexX = marcaCompleta.IndexOf(" x ");
+                numMarcaStr = marcaCompleta.Substring(0, indexX);
+                textoMarca = marcaCompleta.Substring(indexX + 3);
+            }
+
+            // Converte e atribui
+            if (decimal.TryParse(numMarcaStr, out decimal num))
+                numMarca.Value = Math.Min(numMarca.Maximum, Math.Max(numMarca.Minimum, num)); // garante dentro do intervalo
+
+            cbMarca.Text = textoMarca;
+
+        }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -329,19 +355,23 @@ namespace Trabalho
             processo.TImetro = CBimetro.Checked;
 
             processo.Importador = TXTimportador.Text;
-            processo.Navio = TXTnavio.Text;
+            processo.Veiculo = txtVeiculo.Text;
             processo.Ref_USA = TXTnr.Text;
             processo.SR = TXTsr.Text;
             processo.Exportador = TXTexportador.Text;
             processo.Produto = TXTProduto.Text;
             processo.PortoDestino = TXTportodedestino.Text;
-            processo.Ordem = TXTordem.Text;
+            processo.Origem = txtOrigem.Text;
             processo.FLO = TXTflo.Text;
             processo.FreeTime = int.Parse(NUMfreetime.Text);
-            processo.VencimentoFreeTime = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value.ToShortDateString().ToString(), int.Parse(NUMfreetime.Text));
-            processo.VencimentoFMA = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value.ToShortDateString().ToString(), 85);
-            processo.BL = TXTbl.Text;
-            processo.AgenteDeCarga = TXTagentedecarga.Text;
+            processo.VencimentoFreeTime = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value, int.Parse(NUMfreetime.Text));
+            processo.VencimentoFMA = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value, 85);
+            if(listaLis.Count > 0)
+            {
+                processo.VencimentoLI_LPCO = DataHelper.CalcularVencimento(listaLis[0].DataRegistroLI, 85);
+            }
+            processo.Conhecimento = txtConhecimento.Text;
+            processo.Armador = txtArmador.Text;
             processo.Li = listaLis;
 
             processo.DI = TXTdi.Text;
@@ -357,6 +387,28 @@ namespace Trabalho
             processo.Pendencia = TXTpendencia.Text;
             processo.Amostra = CBamostra.Checked;
             processo.Desovado = CBdesovado.Checked;
+
+            if (DTPdataderegistrodi.Checked)
+            {
+                processo.DataRegistroDI = DTPdataderegistrodi.Value;
+                processo.CheckDataRegistroDI = true;
+            }
+            else
+            {
+                processo.DataRegistroDI = default;
+                processo.CheckDataRegistroDI = false;
+            }
+
+            if (DTPdataderegistrodi.Checked)
+            {
+                processo.DataRegistroDI = DTPdataderegistrodi.Value;
+                processo.CheckDataRegistroDI = true;
+            }
+            else
+            {
+                processo.DataRegistroDI = default;
+                processo.CheckDataRegistroDI = false;
+            }
 
             // Registro DI
             if (DTPdataderegistrodi.Checked)
@@ -442,7 +494,19 @@ namespace Trabalho
                 processo.CheckDataRecebOriginais = false;
             }
 
-            DialogResult confirmResult;
+            switch (cbMarca.Text)
+            {
+                case "Sacos":
+                case "Caixas":
+                case "Pallets":
+                    processo.Marca = $"{numMarca.Value} {cbMarca.Text}";
+                        break;
+
+                default:
+                    processo.Marca = $"{numMarca.Value} x {cbMarca.Text}";
+                    break;
+                }
+                DialogResult confirmResult;
 
             switch (Modo)
             {
