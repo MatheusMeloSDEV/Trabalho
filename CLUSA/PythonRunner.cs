@@ -146,5 +146,109 @@ namespace CLUSA
                 return $"Exceção ao executar o script: {ex.Message}";
             }
         }
+        public static string ExecutarRelatorio(string referencia)
+        {
+            try
+            {
+                string exeFullPath = @"C:\UsaDespachos\Relatorio\dist\relatorio.exe";
+                if (!File.Exists(exeFullPath))
+                    return $"Arquivo executável não encontrado: {exeFullPath}";
+
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = exeFullPath,
+                    Arguments = $"\"{referencia}\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using var process = Process.Start(startInfo);
+                if (process == null)
+                    return "Erro: Não foi possível iniciar o processo.";
+
+                string stdout = process.StandardOutput.ReadToEnd();
+                string stderr = process.StandardError.ReadToEnd();
+
+                if (!process.WaitForExit(70000)) // 70 segundos
+                {
+                    process.Kill();
+                    return "Erro: o processo excedeu o tempo limite e foi encerrado.";
+                }
+
+                if (process.ExitCode != 0)
+                    return $"Erro na execução do script (exit code {process.ExitCode}): {stderr.Trim()}";
+
+                if (!string.IsNullOrWhiteSpace(stderr))
+                    Console.WriteLine($"[stderr]: {stderr.Trim()}");
+
+                var pdfLines = stdout
+                    .Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(l => l.Trim())
+                    .Where(l => l.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                return pdfLines.Count > 0
+                    ? pdfLines.Last()
+                    : $"Caminho de PDF não encontrado na saída:\n{stdout.Trim()}";
+            }
+            catch (Exception ex)
+            {
+                return $"Exceção ao executar o script: {ex.Message}";
+            }
+        }
+        public static string ExecutarCapa(string importador, string referencia)
+        {
+            try
+            {
+                string exeFullPath = @"C:\UsaDespachos\Capa\dist\capa.exe";
+                if (!File.Exists(exeFullPath))
+                    return $"Arquivo executável não encontrado: {exeFullPath}";
+
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = exeFullPath,
+                    Arguments = $"\"{referencia}\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using var process = Process.Start(startInfo);
+                if (process == null)
+                    return "Erro: Não foi possível iniciar o processo.";
+
+                string stdout = process.StandardOutput.ReadToEnd();
+                string stderr = process.StandardError.ReadToEnd();
+
+                if (!process.WaitForExit(70000)) // 70 segundos
+                {
+                    process.Kill();
+                    return "Erro: o processo excedeu o tempo limite e foi encerrado.";
+                }
+
+                if (process.ExitCode != 0)
+                    return $"Erro na execução do script (exit code {process.ExitCode}): {stderr.Trim()}";
+
+                if (!string.IsNullOrWhiteSpace(stderr))
+                    Console.WriteLine($"[stderr]: {stderr.Trim()}");
+
+                var pdfLines = stdout
+                    .Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(l => l.Trim())
+                    .Where(l => l.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                return pdfLines.Count > 0
+                    ? pdfLines.Last()
+                    : $"Caminho de PDF não encontrado na saída:\n{stdout.Trim()}";
+            }
+            catch (Exception ex)
+            {
+                return $"Exceção ao executar o script: {ex.Message}";
+            }
+        }
     }
 }

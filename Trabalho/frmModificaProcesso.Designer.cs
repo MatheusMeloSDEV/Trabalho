@@ -108,6 +108,8 @@
             numMarca = new NumericUpDown();
             txtOrigem = new TextBox();
             label3 = new Label();
+            btnCapa = new Button();
+            btnRelatorio = new Button();
             ((System.ComponentModel.ISupportInitialize)bsModificaProcesso).BeginInit();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -334,9 +336,9 @@
             // 
             button1.Anchor = AnchorStyles.None;
             button1.Cursor = Cursors.Hand;
-            button1.Location = new Point(910, 595);
+            button1.Location = new Point(968, 595);
             button1.Name = "button1";
-            button1.Size = new Size(135, 37);
+            button1.Size = new Size(81, 37);
             button1.TabIndex = 27;
             button1.Text = "Cancelar";
             button1.UseVisualStyleBackColor = true;
@@ -350,7 +352,7 @@
             groupBox1.Controls.Add(CBanvisa);
             groupBox1.Controls.Add(CBibama);
             groupBox1.Controls.Add(CBdecex);
-            groupBox1.Location = new Point(541, 557);
+            groupBox1.Location = new Point(515, 557);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(358, 75);
             groupBox1.TabIndex = 128;
@@ -417,9 +419,9 @@
             // 
             btnAdiciona.Anchor = AnchorStyles.None;
             btnAdiciona.Cursor = Cursors.Hand;
-            btnAdiciona.Location = new Point(910, 558);
+            btnAdiciona.Location = new Point(968, 558);
             btnAdiciona.Name = "btnAdiciona";
-            btnAdiciona.Size = new Size(135, 37);
+            btnAdiciona.Size = new Size(81, 37);
             btnAdiciona.TabIndex = 28;
             btnAdiciona.Text = "Ok";
             btnAdiciona.UseVisualStyleBackColor = true;
@@ -685,7 +687,7 @@
             // 
             TXTstatusdoprocesso.Anchor = AnchorStyles.None;
             TXTstatusdoprocesso.DataBindings.Add(new Binding("Text", bsModificaProcesso, "StatusDoProcesso", true));
-            TXTstatusdoprocesso.Location = new Point(50, 218);
+            TXTstatusdoprocesso.Location = new Point(50, 204);
             TXTstatusdoprocesso.Multiline = true;
             TXTstatusdoprocesso.Name = "TXTstatusdoprocesso";
             TXTstatusdoprocesso.Size = new Size(430, 325);
@@ -695,8 +697,8 @@
             // 
             label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(50, 571);
+            label8.Font = new Font("Segoe UI", 12F, FontStyle.Underline);
+            label8.Location = new Point(40, 532);
             label8.Name = "label8";
             label8.Size = new Size(80, 21);
             label8.TabIndex = 290;
@@ -706,9 +708,10 @@
             // 
             TXTpendencia.Anchor = AnchorStyles.None;
             TXTpendencia.DataBindings.Add(new Binding("Text", bsModificaProcesso, "Pendencia", true));
-            TXTpendencia.Location = new Point(133, 569);
+            TXTpendencia.Location = new Point(50, 556);
+            TXTpendencia.Multiline = true;
             TXTpendencia.Name = "TXTpendencia";
-            TXTpendencia.Size = new Size(347, 23);
+            TXTpendencia.Size = new Size(430, 76);
             TXTpendencia.TabIndex = 26;
             // 
             // label13
@@ -999,11 +1002,37 @@
             label3.TabIndex = 272;
             label3.Text = "Origem";
             // 
+            // btnCapa
+            // 
+            btnCapa.Anchor = AnchorStyles.None;
+            btnCapa.Cursor = Cursors.Hand;
+            btnCapa.Location = new Point(881, 595);
+            btnCapa.Name = "btnCapa";
+            btnCapa.Size = new Size(81, 37);
+            btnCapa.TabIndex = 404;
+            btnCapa.Text = "Capa";
+            btnCapa.UseVisualStyleBackColor = true;
+            btnCapa.Click += btnCapa_Click;
+            // 
+            // btnRelatorio
+            // 
+            btnRelatorio.Anchor = AnchorStyles.None;
+            btnRelatorio.Cursor = Cursors.Hand;
+            btnRelatorio.Location = new Point(881, 558);
+            btnRelatorio.Name = "btnRelatorio";
+            btnRelatorio.Size = new Size(81, 37);
+            btnRelatorio.TabIndex = 405;
+            btnRelatorio.Text = "Relatório";
+            btnRelatorio.UseVisualStyleBackColor = true;
+            btnRelatorio.Click += btnRelatorio_Click;
+            // 
             // FrmModificaProcesso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1409, 647);
+            Controls.Add(btnCapa);
+            Controls.Add(btnRelatorio);
             Controls.Add(numMarca);
             Controls.Add(cbMarca);
             Controls.Add(groupBox3);
@@ -1156,5 +1185,7 @@
         private NumericUpDown numMarca;
         private TextBox txtOrigem;
         private Label label3;
+        private Button btnCapa;
+        private Button btnRelatorio;
     }
 }

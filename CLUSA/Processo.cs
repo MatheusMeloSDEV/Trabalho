@@ -31,6 +31,7 @@ namespace CLUSA
         public string PortoDestino { get; set; } = string.Empty;
         public string FLO { get; set; } = string.Empty;
         public int FreeTime { get; set; } = 0;
+        public string Terminal { get; set;} = string.Empty;
         public string Conhecimento { get; set; } = string.Empty;
         public string Armador { get; set; } = string.Empty;
 

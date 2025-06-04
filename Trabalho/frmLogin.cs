@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using AutoUpdaterDotNET;
 
 namespace Trabalho
 {
@@ -19,6 +20,7 @@ namespace Trabalho
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            AutoUpdater.Start("https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPOSITORIO/main/update.xml");
             _repositorio = new RepositorioUsers();
         }
 

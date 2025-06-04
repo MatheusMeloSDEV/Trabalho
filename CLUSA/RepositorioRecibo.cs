@@ -6,12 +6,12 @@ namespace CLUSA
     public class RepositorioRecibo
     {
         private readonly IMongoCollection<Recibo> _colecao;
-        public RepositorioRecibo(string connectionString = "mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/",
-                                 string databaseName = "Trabalho",
+        public RepositorioRecibo(string? connectionString = null,
+                                 string? databaseName = null,
                                  string collectionName = "Recibo")
         {
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
+            var client = new MongoClient(connectionString ?? ConfigDatabase.MongoConnectionString);
+            var database = client.GetDatabase(databaseName ?? ConfigDatabase.MongoDatabaseName);
             _colecao = database.GetCollection<Recibo>(collectionName);
         }
         public async Task UpdateAsync(Recibo recibo)

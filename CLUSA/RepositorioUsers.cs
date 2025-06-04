@@ -5,12 +5,14 @@ namespace CLUSA
     public class RepositorioUsers
     {
         private readonly IMongoCollection<Users> _Users;
+        private readonly IMongoClient _mongoClient;
+        private readonly IMongoDatabase _mongoDatabase;
 
         public RepositorioUsers()
         {
-            var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
-            var mongoDatabase = mongoClient.GetDatabase("Trabalho");
-            _Users = mongoDatabase.GetCollection<Users>("Users");
+            _mongoClient = new MongoClient(ConfigDatabase.MongoConnectionString);
+            _mongoDatabase = _mongoClient.GetDatabase(ConfigDatabase.MongoDatabaseName);
+            _Users = _mongoDatabase.GetCollection<Users>("Users");
         }
 
         public List<Users> ListaUsers

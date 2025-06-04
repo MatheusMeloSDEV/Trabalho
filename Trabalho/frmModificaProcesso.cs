@@ -1,4 +1,5 @@
 ﻿using CLUSA;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Trabalho
@@ -278,7 +279,7 @@ namespace Trabalho
                 btnVisualizar.Click += (s, e) =>
                 {
                     var frm = new frmLi(
-                        li.Numero, li.OrgaosAnuentes, li.NCM, li.LPCO, 
+                        li.Numero, li.OrgaosAnuentes, li.NCM, li.LPCO,
                         li.DataRegistroLI, li.CheckDataRegistroLI,
                         li.DataRegistroLPCO, li.CheckDataRegistroLPCO,
                         li.DataDeferimentoLPCO, li.CheckDataDeferimentoLPCO,
@@ -366,7 +367,7 @@ namespace Trabalho
             processo.FreeTime = int.Parse(NUMfreetime.Text);
             processo.VencimentoFreeTime = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value, int.Parse(NUMfreetime.Text));
             processo.VencimentoFMA = DataHelper.CalcularVencimento(DTPdatadeatracacao.Value, 85);
-            if(listaLis.Count > 0)
+            if (listaLis.Count > 0)
             {
                 processo.VencimentoLI_LPCO = DataHelper.CalcularVencimento(listaLis[0].DataRegistroLI, 85);
             }
@@ -500,13 +501,13 @@ namespace Trabalho
                 case "Caixas":
                 case "Pallets":
                     processo.Marca = $"{numMarca.Value} {cbMarca.Text}";
-                        break;
+                    break;
 
                 default:
                     processo.Marca = $"{numMarca.Value} x {cbMarca.Text}";
                     break;
-                }
-                DialogResult confirmResult;
+            }
+            DialogResult confirmResult;
 
             switch (Modo)
             {
@@ -545,6 +546,65 @@ namespace Trabalho
                     checkedListBox2.SetItemChecked(i, false);
                 }
             }
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            string referencia = TXTnr.Text;
+
+            // 1) Cria sem using
+            var progressForm = new ProgressForm();
+            progressForm.Show(this);       // exibe modeless, com o próprio Form como owner
+
+            Task.Run(() =>
+            {
+                string pdfPath = "";
+                string mensagemErro = null;
+
+                try
+                {
+                    pdfPath = PythonRunner.ExecutarRelatorio(referencia).Trim();
+                }
+                catch (Exception ex)
+                {
+                    mensagemErro = $"Erro durante exportação: {ex.Message}";
+                }
+
+                Invoke(new Action(() =>
+                {
+                    progressForm.Close();
+                    progressForm.Dispose();
+
+                    if (mensagemErro != null)
+                    {
+                        MessageBox.Show(mensagemErro, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    var resp = MessageBox.Show(
+                        "Exportação concluída. Deseja abrir o PDF?",
+                        "Resultado",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (resp == DialogResult.Yes && File.Exists(pdfPath))
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = pdfPath,
+                            UseShellExecute = true
+                        });
+                    }
+
+                    this.Close();
+                }));
+            });
+        }
+
+        private void btnCapa_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -5,14 +5,17 @@ namespace Trabalho
 {
     public partial class FrmMapa : Form
     {
-        private readonly RepositorioMAPA _repositorio;
+        // Certifique-se de que o tipo "RepositorioOrgaoAnuente<T>" está definido e acessível.
+        private readonly RepositorioOrgaoAnuente<MAPA> _repositorio;
 
         public FrmMapa()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioMAPA();
+            // Use o nome da coleção correspondente
+            _repositorio = new RepositorioOrgaoAnuente<MAPA>("MAPA");
         }
+
         private void FrmMapa_Load(object sender, EventArgs e)
         {
             try
@@ -34,6 +37,7 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao carregar os dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void Conectar()
         {
             try
@@ -41,7 +45,7 @@ namespace Trabalho
                 ConfigurarColunasDataGridView();
 
                 // Recupera os registros do repositório
-                var registros = _repositorio.FindAll();
+                var registros = _repositorio.ListarTodos();
 
                 if (registros.Count > 0)
                 {
@@ -64,6 +68,7 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ConfigurarColunasDataGridView()
         {
             // Limpa colunas anteriores
@@ -154,6 +159,7 @@ namespace Trabalho
                 coluna.MinimumWidth = 100;
             }
         }
+
         private void ImagensBotoes()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -178,11 +184,13 @@ namespace Trabalho
                 botao.Image = CarregarImagemDoRecurso(assembly, caminho);
             }
         }
+
         private static System.Drawing.Image? CarregarImagemDoRecurso(System.Reflection.Assembly assembly, string resourcePath)
         {
             using var stream = assembly.GetManifestResourceStream(resourcePath);
             return stream != null ? System.Drawing.Image.FromStream(stream) : null;
         }
+
         private void ConfigurarInterface()
         {
             if (FrmLogin.Instance.Escuro)
@@ -196,6 +204,7 @@ namespace Trabalho
                 dataGridView1.BackgroundColor = SystemColors.ControlDark;
             }
         }
+
         private void PopularToolStripComboBox()
         {
             var camposIgnorados = new HashSet<string> { "Id", "PossuiEmbarque" };
@@ -214,6 +223,7 @@ namespace Trabalho
                 CmbPesquisar.SelectedIndex = 0;
             }
         }
+
         private void ConfigurarAutoCompletarParaPesquisa()
         {
             try
@@ -248,11 +258,12 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao configurar o autocompletar: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             try
             {
-                BSmapa.DataSource = _repositorio.FindAll();
+                BSmapa.DataSource = _repositorio.ListarTodos();
                 BSmapa.ResetBindings(false);
             }
             catch (Exception ex)
@@ -260,10 +271,12 @@ namespace Trabalho
                 MessageBox.Show($"Erro ao carregar todos os processos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            BSmapa.DataSource = _repositorio.FindAll();
+            BSmapa.DataSource = _repositorio.ListarTodos();
         }
+
         private void BtnPesquisar_Click(object sender, EventArgs e)
         {
             if (CmbPesquisar.SelectedItem is DisplayItem campoSelecionado)
@@ -285,6 +298,7 @@ namespace Trabalho
                 MessageBox.Show("Selecione um campo para pesquisar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
             if (BSmapa.Current is not MAPA mapaAtual)
@@ -300,8 +314,9 @@ namespace Trabalho
             {
                 try
                 {
-                    await _repositorio.UpdateAsync(frm.mapa);
-                    BSmapa.DataSource = await _repositorio.FindAllAsync();
+                    // Não existe UpdateAsync no genérico, então use AtualizarAsync
+                    await _repositorio.AtualizarAsync(mapaAtual.Ref_USA, frm.mapa);
+                    BSmapa.DataSource = await _repositorio.ListarTodosAsync();
                     BSmapa.ResetBindings(false);
                 }
                 catch (Exception ex)
@@ -310,6 +325,7 @@ namespace Trabalho
                 }
             }
         }
+
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (BSmapa.Current is not MAPA mapaSelecionado)
@@ -326,8 +342,9 @@ namespace Trabalho
                 BSmapa.ResetBindings(false);
             }
 
-            BSmapa.DataSource = _repositorio.FindAll();
+            BSmapa.DataSource = _repositorio.ListarTodos();
         }
+
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConfigurarAutoCompletarParaPesquisa();
