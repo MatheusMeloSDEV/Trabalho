@@ -5,13 +5,13 @@ namespace Trabalho
 {
     public partial class FrmDecex : Form
     {
-        private readonly RepositorioDecex _repositorio;
+        private readonly RepositorioOrgaoAnuente<Decex> _repositorio;
 
         public FrmDecex()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioDecex();
+            _repositorio = new RepositorioOrgaoAnuente<Decex>("Decex");
         }
         private void FrmDecex_Load(object sender, EventArgs e)
         {
@@ -40,12 +40,10 @@ namespace Trabalho
             {
                 ConfigurarColunasDataGridView();
 
-                // Recupera os registros do repositório
-                var registros = _repositorio.FindAll();
+                var registros = _repositorio.ListarTodos();
 
                 if (registros.Count > 0)
                 {
-                    // Configura o BindingSource e o DataGridView
                     BsDecex = new BindingSource
                     {
                         DataSource = registros
@@ -60,7 +58,6 @@ namespace Trabalho
             }
             catch (Exception ex)
             {
-                // Captura e exibe erros
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -228,7 +225,12 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    var valores = _repositorio.ObterValoresUnicos(campoSelecionado);
+                    var registros = _repositorio.ListarTodos();
+                    var valores = registros
+                        .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
+                        .Where(v => !string.IsNullOrEmpty(v))
+                        .Distinct()
+                        .ToList();
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
                     autoCompleteCollection.AddRange(valores.ToArray());
@@ -240,7 +242,6 @@ namespace Trabalho
                 {
                     MessageBox.Show("Selecione um campo para configurar o autocompletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
             }
             catch (Exception ex)
             {
@@ -251,7 +252,7 @@ namespace Trabalho
         {
             try
             {
-                BsDecex.DataSource = _repositorio.FindAll();
+                BsDecex.DataSource = _repositorio.ListarTodos();
                 BsDecex.ResetBindings(false);
             }
             catch (Exception ex)
@@ -261,7 +262,7 @@ namespace Trabalho
         }
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            BsDecex.DataSource = _repositorio.FindAll();
+            BsDecex.DataSource = _repositorio.ListarTodos();
         }
         private void BtnPesquisar_Click(object sender, EventArgs e)
         {
@@ -299,8 +300,8 @@ namespace Trabalho
             {
                 try
                 {
-                    await _repositorio.UpdateAsync(frm.decex);
-                    BsDecex.DataSource = await _repositorio.FindAllAsync();
+                    await _repositorio.AtualizarAsync(decexAtual.Ref_USA, frm.decex);
+                    BsDecex.DataSource = await _repositorio.ListarTodosAsync();
                     BsDecex.ResetBindings(false);
                 }
                 catch (Exception ex)
@@ -325,7 +326,7 @@ namespace Trabalho
                 BsDecex.ResetBindings(false);
             }
 
-            BsDecex.DataSource = _repositorio.FindAll();
+            BsDecex.DataSource = _repositorio.ListarTodos();
         }
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {

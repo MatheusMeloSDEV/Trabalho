@@ -5,13 +5,13 @@ namespace Trabalho
 {
     public partial class FrmIbama : Form
     {
-        private readonly RepositorioIbama _repositorio;
+        private readonly RepositorioOrgaoAnuente<Ibama> _repositorio;
 
         public FrmIbama()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioIbama();
+            _repositorio = new RepositorioOrgaoAnuente<Ibama>("Ibama");
         }
 
         private void FrmIbama_Load(object sender, EventArgs e)
@@ -42,12 +42,10 @@ namespace Trabalho
             {
                 ConfigurarColunasDataGridView();
 
-                // Recupera os registros do repositório
-                var registros = _repositorio.FindAll();
+                var registros = _repositorio.ListarTodos();
 
                 if (registros.Count > 0)
                 {
-                    // Configura o BindingSource e o DataGridView
                     BsIbama = new BindingSource
                     {
                         DataSource = registros
@@ -62,10 +60,10 @@ namespace Trabalho
             }
             catch (Exception ex)
             {
-                // Captura e exibe erros
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ImagensBotoes()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -233,7 +231,13 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    var valores = _repositorio.ObterValoresUnicos(campoSelecionado);
+                    // Implementação manual para obter valores únicos
+                    var registros = _repositorio.ListarTodos();
+                    var valores = registros
+                        .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
+                        .Where(v => !string.IsNullOrEmpty(v))
+                        .Distinct()
+                        .ToList();
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
                     autoCompleteCollection.AddRange(valores.ToArray());
@@ -245,7 +249,6 @@ namespace Trabalho
                 {
                     MessageBox.Show("Selecione um campo para configurar o autocompletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
             }
             catch (Exception ex)
             {
@@ -257,7 +260,7 @@ namespace Trabalho
         {
             try
             {
-                BsIbama.DataSource = _repositorio.FindAll();
+                BsIbama.DataSource = _repositorio.ListarTodos();
                 BsIbama.ResetBindings(false);
             }
             catch (Exception ex)
@@ -268,7 +271,7 @@ namespace Trabalho
 
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            BsIbama.DataSource = _repositorio.FindAll();
+            BsIbama.DataSource = _repositorio.ListarTodos();
         }
 
         private void BtnPesquisar_Click(object sender, EventArgs e)
@@ -308,8 +311,8 @@ namespace Trabalho
             {
                 try
                 {
-                    await _repositorio.UpdateAsync(frm.ibama);
-                    BsIbama.DataSource = await _repositorio.FindAllAsync();
+                    await _repositorio.AtualizarAsync(ibamaAtual.Ref_USA, frm.ibama);
+                    BsIbama.DataSource = await _repositorio.ListarTodosAsync();
                     BsIbama.ResetBindings(false);
                 }
                 catch (Exception ex)
@@ -318,6 +321,7 @@ namespace Trabalho
                 }
             }
         }
+
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (BsIbama.Current is not Ibama ibamaSelecionado)
@@ -334,8 +338,9 @@ namespace Trabalho
                 BsIbama.ResetBindings(false);
             }
 
-            BsIbama.DataSource = _repositorio.FindAll();
+            BsIbama.DataSource = _repositorio.ListarTodos();
         }
+
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConfigurarAutoCompletarParaPesquisa();

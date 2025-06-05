@@ -6,14 +6,14 @@ namespace Trabalho
     public partial class FrmMapa : Form
     {
         // Certifique-se de que o tipo "RepositorioOrgaoAnuente<T>" está definido e acessível.
-        private readonly RepositorioOrgaoAnuente<MAPA> _repositorio;
+        private readonly RepositorioOrgaoAnuente<TiposOrgaoAnuente> _repositorio;
 
         public FrmMapa()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             // Use o nome da coleção correspondente
-            _repositorio = new RepositorioOrgaoAnuente<MAPA>("MAPA");
+            _repositorio = new RepositorioOrgaoAnuente<TiposOrgaoAnuente>("MAPA");
         }
 
         private void FrmMapa_Load(object sender, EventArgs e)
@@ -239,7 +239,13 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    var valores = _repositorio.ObterValoresUnicos(campoSelecionado);
+                    // Implementação manual para obter valores únicos
+                    var registros = _repositorio.ListarTodos();
+                    var valores = registros
+                        .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
+                        .Where(v => !string.IsNullOrEmpty(v))
+                        .Distinct()
+                        .ToList();
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
                     autoCompleteCollection.AddRange(valores.ToArray());
@@ -251,7 +257,6 @@ namespace Trabalho
                 {
                     MessageBox.Show("Selecione um campo para configurar o autocompletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
             }
             catch (Exception ex)
             {
@@ -301,7 +306,7 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BSmapa.Current is not MAPA mapaAtual)
+            if (BSmapa.Current is not TiposOrgaoAnuente mapaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -328,7 +333,7 @@ namespace Trabalho
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (BSmapa.Current is not MAPA mapaSelecionado)
+            if (BSmapa.Current is not TiposOrgaoAnuente mapaSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

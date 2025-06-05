@@ -11,7 +11,7 @@ namespace CLUSA
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Ibama> _Ibama;
         private readonly IMongoCollection<Inmetro> _Imetro;
-        private readonly IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<TiposOrgaoAnuente> _MAPA;
 
         public RepositorioDecex()
         {
@@ -22,7 +22,7 @@ namespace CLUSA
             _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
             _Imetro = mongoDatabase.GetCollection<Inmetro>("IMETRO");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
+            _MAPA = mongoDatabase.GetCollection<TiposOrgaoAnuente>("MAPA");
         }
 
         public List<Decex> ListaDecex => _Decex.Find(Builders<Decex>.Filter.Empty).ToList();

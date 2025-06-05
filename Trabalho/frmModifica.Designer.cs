@@ -1,6 +1,6 @@
 ﻿namespace Trabalho
 {
-    partial class FrmModificaMapa
+    partial class FrmModifica
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            BsModificaMAPA = new BindingSource(components);
+            BsModifica = new BindingSource(components);
             TErro = new System.Windows.Forms.Timer(components);
             LBLinspecao = new Label();
             LBLdatadeatracacao = new Label();
@@ -60,14 +60,9 @@
             TXTimportador = new TextBox();
             groupBox1 = new GroupBox();
             flpLis = new FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)BsModificaMAPA).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)BsModifica).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
-            // 
-            // BsModificaMAPA
-            // 
-            BsModificaMAPA.DataMember = "ListaMapa";
-            BsModificaMAPA.DataSource = typeof(CLUSA.RepositorioMAPA);
             // 
             // TErro
             // 
@@ -120,7 +115,6 @@
             // CBamostra
             // 
             CBamostra.AutoSize = true;
-            CBamostra.DataBindings.Add(new Binding("Checked", BsModificaMAPA, "Amostra", true));
             CBamostra.Font = new Font("Segoe UI", 12F);
             CBamostra.Location = new Point(48, 542);
             CBamostra.Name = "CBamostra";
@@ -154,7 +148,6 @@
             // TXTorigem
             // 
             TXTorigem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTorigem.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Origem", true));
             TXTorigem.Location = new Point(722, 61);
             TXTorigem.Name = "TXTorigem";
             TXTorigem.Size = new Size(181, 23);
@@ -218,7 +211,6 @@
             // TXTsr
             // 
             TXTsr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTsr.DataBindings.Add(new Binding("Text", BsModificaMAPA, "SR", true));
             TXTsr.Location = new Point(550, 12);
             TXTsr.Name = "TXTsr";
             TXTsr.Size = new Size(136, 23);
@@ -227,7 +219,6 @@
             // TXTnr
             // 
             TXTnr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTnr.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Ref_USA", true));
             TXTnr.Location = new Point(326, 12);
             TXTnr.Name = "TXTnr";
             TXTnr.Size = new Size(126, 23);
@@ -247,7 +238,6 @@
             // TXTstatusdoprocesso
             // 
             TXTstatusdoprocesso.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTstatusdoprocesso.DataBindings.Add(new Binding("Text", BsModificaMAPA, "StatusDoProcesso", true));
             TXTstatusdoprocesso.Location = new Point(192, 393);
             TXTstatusdoprocesso.Multiline = true;
             TXTstatusdoprocesso.Name = "TXTstatusdoprocesso";
@@ -268,7 +258,7 @@
             // TXTProduto
             // 
             TXTProduto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTProduto.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Produto", true));
+            TXTProduto.DataBindings.Add(new Binding("Text", BsModifica, "Produto", true));
             TXTProduto.Location = new Point(414, 61);
             TXTProduto.Name = "TXTProduto";
             TXTProduto.Size = new Size(178, 23);
@@ -288,7 +278,6 @@
             // TXTpendencia
             // 
             TXTpendencia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTpendencia.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Pendencia", true));
             TXTpendencia.Location = new Point(177, 484);
             TXTpendencia.Name = "TXTpendencia";
             TXTpendencia.Size = new Size(671, 23);
@@ -308,7 +297,6 @@
             // TXTexportador
             // 
             TXTexportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTexportador.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Exportador", true));
             TXTexportador.Location = new Point(132, 61);
             TXTexportador.Name = "TXTexportador";
             TXTexportador.Size = new Size(137, 23);
@@ -328,7 +316,6 @@
             // TXTNavio
             // 
             TXTNavio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTNavio.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Veiculo", true));
             TXTNavio.Location = new Point(572, 112);
             TXTNavio.Name = "TXTNavio";
             TXTNavio.Size = new Size(136, 23);
@@ -348,7 +335,6 @@
             // TXTimportador
             // 
             TXTimportador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            TXTimportador.DataBindings.Add(new Binding("Text", BsModificaMAPA, "Importador", true));
             TXTimportador.Location = new Point(337, 116);
             TXTimportador.Name = "TXTimportador";
             TXTimportador.Size = new Size(126, 23);
@@ -405,18 +391,17 @@
             Controls.Add(Exportador);
             Controls.Add(TXTexportador);
             MaximizeBox = false;
-            Name = "FrmModificaMapa";
+            Name = "FrmModifica";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Mapa";
             Load += FrmModifica_Load;
-            ((System.ComponentModel.ISupportInitialize)BsModificaMAPA).EndInit();
+            ((System.ComponentModel.ISupportInitialize)BsModifica).EndInit();
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private BindingSource BsModificaMAPA;
+        private BindingSource BsModifica;
         private System.Windows.Forms.Timer TErro;
         private Label LBLinspecao;
         private Label LBLdatadeatracacao;

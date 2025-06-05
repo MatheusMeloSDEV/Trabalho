@@ -11,7 +11,7 @@ namespace CLUSA
         private readonly IMongoCollection<Processo> _Processo;
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Anvisa> _Anvisa;
-        private readonly IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<TiposOrgaoAnuente> _MAPA;
 
         public RepositorioIbama()
         {
@@ -22,7 +22,7 @@ namespace CLUSA
             _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
+            _MAPA = mongoDatabase.GetCollection<TiposOrgaoAnuente>("MAPA");
         }
 
         public List<Ibama> ListaIbama => _Ibama.Find(Builders<Ibama>.Filter.Empty).ToList();

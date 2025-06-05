@@ -12,7 +12,7 @@ namespace CLUSA
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Ibama> _Ibama;
         private readonly IMongoCollection<Inmetro> _Inmetro;
-        private readonly IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<TiposOrgaoAnuente> _MAPA;
         private readonly IMongoCollection<Fatura> _Fatura;
         private readonly IMongoCollection<Recibo> _Recibo;
 
@@ -28,7 +28,7 @@ namespace CLUSA
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
             _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
             _Inmetro = mongoDatabase.GetCollection<Inmetro>("INMETRO");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
+            _MAPA = mongoDatabase.GetCollection<TiposOrgaoAnuente>("MAPA");
             _Fatura = mongoDatabase.GetCollection<Fatura>("Fatura");
             _Recibo = mongoDatabase.GetCollection<Recibo>("Recibo");
             _repositorioNotificacao = new(mongoDatabase);
@@ -53,7 +53,7 @@ namespace CLUSA
                 switch (colecao)
                 {
                     case "MAPA":
-                        _MAPA.InsertOne(new MAPA(processo));
+                        _MAPA.InsertOne(new TiposOrgaoAnuente(processo));
                         break;
                     case "Anvisa":
                         _Anvisa.InsertOne(new Anvisa(processo));
@@ -116,7 +116,7 @@ namespace CLUSA
         {
             // MAPA
             if (!processo.TMapa) await RemoverRelacionado(_MAPA, processo.Ref_USA);
-            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new MAPA(processo));
+            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new TiposOrgaoAnuente(processo));
             // Anvisa
             if (!processo.TAnvisa) await RemoverRelacionado(_Anvisa, processo.Ref_USA);
             else await AtualizarRelacionado(_Anvisa, processo.Ref_USA, new Anvisa(processo));

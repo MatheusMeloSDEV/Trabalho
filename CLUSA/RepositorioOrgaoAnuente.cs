@@ -21,23 +21,6 @@ namespace CLUSA
             return _colecao.Find(FilterDefinition<T>.Empty).ToList();
         }
 
-        public void Adicionar(T entidade)
-        {
-            _colecao.InsertOne(entidade);
-        }
-
-        public void Atualizar(string refUsa, T entidade)
-        {
-            var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa)
-            _colecao.ReplaceOne(filter, entidade, new ReplaceOptions { IsUpsert = true });
-        }
-
-        public void Remover(string refUsa)
-        {
-            var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            _colecao.DeleteMany(filter);
-        }
-
         public T? ObterPorRefUsa(string refUsa)
         {
             var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
@@ -50,27 +33,89 @@ namespace CLUSA
             return await _colecao.Find(FilterDefinition<T>.Empty).ToListAsync();
         }
 
-        public async Task AdicionarAsync(T entidade)
-        {
-            await _colecao.InsertOneAsync(entidade);
-        }
-
         public async Task AtualizarAsync(string refUsa, T entidade)
         {
             var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            await _colecao.ReplaceOneAsync(filter, entidade, new ReplaceOptions { IsUpsert = true });
+
+            // Atualiza apenas os campos alterados na coleção principal
+            var atual = await _colecao.Find(filter).FirstOrDefaultAsync();
+            if (atual == null)
+                return;
+
+            var tipo = typeof(T);
+            var updates = new List<UpdateDefinition<T>>();
+            var propriedades = new[]
+            {
+                "Ref_USA", "Importador", "SR", "Exportador", "Veiculo", "Produto", "Origem",
+                "Li", "InspecaoIbama", "CheckInspecaoIbama", "InspecaoMapa", "CheckInspecaoMapa",
+                "DataDeAtracacao", "CheckDataDeAtracacao", "DataEmbarque", "CheckDataEmbarque",
+                "Amostra", "Pendencia", "StatusDoProcesso"
+            };
+
+            foreach (var prop in propriedades)
+            {
+                var info = tipo.GetProperty(prop);
+                if (info != null)
+                {
+                    var valorNovo = info.GetValue(entidade);
+                    var valorAtual = info.GetValue(atual);
+
+                    if ((valorNovo == null && valorAtual != null) ||
+                        (valorNovo != null && !valorNovo.Equals(valorAtual)))
+                    {
+                        updates.Add(Builders<T>.Update.Set(prop, valorNovo));
+                    }
+                }
+            }
+
+            if (updates.Count > 0)
+            {
+                var updateDef = Builders<T>.Update.Combine(updates);
+                await _colecao.UpdateOneAsync(filter, updateDef);
+            }
+
+            // Atualiza as outras coleções relacionadas
+            await AtualizarColecoesRelacionadasAsync(refUsa, entidade);
         }
 
-        public async Task RemoverAsync(string refUsa)
+        private async Task AtualizarColecoesRelacionadasAsync(string refUsa, T entidade)
         {
-            var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            await _colecao.DeleteManyAsync(filter);
-        }
+            var client = new MongoClient(ConfigDatabase.MongoConnectionString);
+            var database = client.GetDatabase(ConfigDatabase.MongoDatabaseName);
 
-        public async Task<T?> ObterPorRefUsaAsync(string refUsa)
-        {
-            var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-            return await _colecao.Find(filter).FirstOrDefaultAsync();
+            var colecoes = new[] { "MAPA", "ANVISA", "DECEX", "IBAMA", "IMETRO", "PROCESSO" };
+
+            foreach (var nomeColecao in colecoes)
+            {
+                var colecao = database.GetCollection<dynamic>(nomeColecao);
+                var filter = Builders<dynamic>.Filter.Eq("Ref_USA", refUsa);
+
+                var updates = new List<UpdateDefinition<dynamic>>();
+                var tipo = entidade.GetType();
+
+                var propriedades = new[]
+                {
+                    "Ref_USA", "Importador", "SR", "Exportador", "Veiculo", "Produto", "Origem",
+                    "Li", "CheckInspecaoMapa", "DataDeAtracacao", "CheckDataDeAtracacao", "DataEmbarque",
+                    "CheckDataEmbarque", "Amostra", "Pendencia", "StatusDoProcesso"
+                };
+
+                foreach (var prop in propriedades)
+                {
+                    var info = tipo.GetProperty(prop);
+                    if (info != null)
+                    {
+                        var valorNovo = info.GetValue(entidade);
+                        updates.Add(Builders<dynamic>.Update.Set(prop, valorNovo));
+                    }
+                }
+
+                if (updates.Count > 0)
+                {
+                    var updateDef = Builders<dynamic>.Update.Combine(updates);
+                    await colecao.UpdateOneAsync(filter, updateDef);
+                }
+            }
         }
     }
 }

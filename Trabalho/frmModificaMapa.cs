@@ -7,7 +7,7 @@ namespace Trabalho
 {
     public partial class FrmModificaMapa : Form, ILiHandler
     {
-        public MAPA mapa;
+        public TiposOrgaoAnuente mapa;
         public string? Modo;
         public bool Visualização;
         private List<LiInfo> listaLis = new List<LiInfo>();
@@ -55,7 +55,7 @@ namespace Trabalho
                 }
             }
         }
-        private void CarregarDateTimePickers(MAPA p)
+        private void CarregarDateTimePickers(TiposOrgaoAnuente p)
         {
             // Mapeamento de cada DTP ao par (data, flag)
             var mapeamento = new Dictionary<DateTimePicker, (DateTime? data, bool has)>()
@@ -129,7 +129,7 @@ namespace Trabalho
                 AtualizarPainelLi();
             }
         }
-        public void CarregarLis(MAPA mapa)
+        public void CarregarLis(TiposOrgaoAnuente mapa)
         {
             if (mapa?.Li != null)
             {
@@ -218,14 +218,14 @@ namespace Trabalho
 
             // 5) Atualiza a propriedade DateTime? (DataX) no seu objeto _anvisa
             var nomePropData = char.ToUpper(campo[0]) + campo.Substring(1);
-            var propData = typeof(MAPA).GetProperty(nomePropData);
+            var propData = typeof(TiposOrgaoAnuente).GetProperty(nomePropData);
             if (propData?.PropertyType == typeof(DateTime?))
             {
                 propData.SetValue(mapa, valor);
             }
 
             // 6) Atualiza o flag CheckDataX (bool)
-            var propCheck = typeof(MAPA).GetProperty("Check" + nomePropData);
+            var propCheck = typeof(TiposOrgaoAnuente).GetProperty("Check" + nomePropData);
             if (propCheck?.PropertyType == typeof(bool))
             {
                 propCheck.SetValue(mapa, picker.Checked);

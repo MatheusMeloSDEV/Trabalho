@@ -5,13 +5,13 @@ namespace Trabalho
 {
     public partial class FrmImetro : Form
     {
-        private readonly RepositorioInmetro _repositorio;
+        private readonly RepositorioOrgaoAnuente<Inmetro> _repositorio;
 
         public FrmImetro()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioInmetro();
+            _repositorio = new RepositorioOrgaoAnuente<Inmetro>("Inmetro");
         }
 
         private void FrmImetro_Load(object sender, EventArgs e)
@@ -42,12 +42,10 @@ namespace Trabalho
             {
                 ConfigurarColunasDataGridView();
 
-                // Recupera os registros do repositório
-                var registros = _repositorio.FindAll();
+                var registros = _repositorio.ListarTodos();
 
                 if (registros.Count > 0)
                 {
-                    // Configura o BindingSource e o DataGridView
                     BsImetro = new BindingSource
                     {
                         DataSource = registros
@@ -62,10 +60,10 @@ namespace Trabalho
             }
             catch (Exception ex)
             {
-                // Captura e exibe erros
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ImagensBotoes()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -233,7 +231,12 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    var valores = _repositorio.ObterValoresUnicos(campoSelecionado);
+                    var registros = _repositorio.ListarTodos();
+                    var valores = registros
+                        .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
+                        .Where(v => !string.IsNullOrEmpty(v))
+                        .Distinct()
+                        .ToList();
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
                     autoCompleteCollection.AddRange(valores.ToArray());
@@ -257,7 +260,7 @@ namespace Trabalho
         {
             try
             {
-                BsImetro.DataSource = _repositorio.FindAll();
+                BsImetro.DataSource = _repositorio.ListarTodos();
                 BsImetro.ResetBindings(false);
             }
             catch (Exception ex)
@@ -268,7 +271,7 @@ namespace Trabalho
 
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            BsImetro.DataSource = _repositorio.FindAll();
+            BsImetro.DataSource = _repositorio.ListarTodos();
         }
 
         private void BtnPesquisar_Click(object sender, EventArgs e)
@@ -308,8 +311,8 @@ namespace Trabalho
             {
                 try
                 {
-                    await _repositorio.UpdateAsync(frm._inmetro);
-                    BsImetro.DataSource = await _repositorio.FindAllAsync();
+                    await _repositorio.AtualizarAsync(inmetroAtual.Ref_USA, frm._inmetro);
+                    BsImetro.DataSource = await _repositorio.ListarTodosAsync();
                     BsImetro.ResetBindings(false);
                 }
                 catch (Exception ex)
@@ -318,6 +321,7 @@ namespace Trabalho
                 }
             }
         }
+
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (BsImetro.Current is not Inmetro inmetroSelecionado)
@@ -334,8 +338,9 @@ namespace Trabalho
                 BsImetro.ResetBindings(false);
             }
 
-            BsImetro.DataSource = _repositorio.FindAll();
+            BsImetro.DataSource = _repositorio.ListarTodos();
         }
+
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConfigurarAutoCompletarParaPesquisa();

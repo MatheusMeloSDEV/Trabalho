@@ -6,13 +6,13 @@ namespace Trabalho
 {
     public partial class FrmAnvisa : Form
     {
-        private readonly RepositorioAnvisa _repositorio;
+        private readonly RepositorioOrgaoAnuente<Anvisa> _repositorio;
 
         public FrmAnvisa()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioAnvisa();
+            _repositorio = new RepositorioOrgaoAnuente<Anvisa>("Anvisa");
         }
 
         private void FrmAnvisa_Load(object sender, EventArgs e)
@@ -43,12 +43,10 @@ namespace Trabalho
             {
                 ConfigurarColunasDataGridView();
 
-                // Recupera os registros do repositório
-                var registros = _repositorio.FindAll();
+                var registros = _repositorio.ListarTodos();
 
                 if (registros.Count > 0)
                 {
-                    // Configura o BindingSource e o DataGridView
                     BsAnvisa = new BindingSource
                     {
                         DataSource = registros
@@ -63,10 +61,10 @@ namespace Trabalho
             }
             catch (Exception ex)
             {
-                // Captura e exibe erros
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ImagensBotoes()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -77,7 +75,6 @@ namespace Trabalho
                 Console.WriteLine(r);
             }
 
-            // Crie um array de tuplas (string caminhoRecurso, Button botao)
             var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
             {
                 ("Trabalho.Imagens.botao-editar.png", BtnEditar),
@@ -91,17 +88,17 @@ namespace Trabalho
                 botao.Image = CarregarImagemDoRecurso(assembly, caminho);
             }
         }
+
         private static System.Drawing.Image? CarregarImagemDoRecurso(System.Reflection.Assembly assembly, string resourcePath)
         {
             using var stream = assembly.GetManifestResourceStream(resourcePath);
             return stream != null ? System.Drawing.Image.FromStream(stream) : null;
         }
+
         private void ConfigurarColunasDataGridView()
         {
-            // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
 
-            // Configuração básica
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -110,9 +107,6 @@ namespace Trabalho
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            // ——————————————————————
-            // 1) Colunas principais (texto)
-            // ——————————————————————
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
@@ -234,7 +228,12 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    var valores = _repositorio.ObterValoresUnicos(campoSelecionado);
+                    var registros = _repositorio.ListarTodos();
+                    var valores = registros
+                        .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
+                        .Where(v => !string.IsNullOrEmpty(v))
+                        .Distinct()
+                        .ToList();
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
                     autoCompleteCollection.AddRange(valores.ToArray());
@@ -246,7 +245,6 @@ namespace Trabalho
                 {
                     MessageBox.Show("Selecione um campo para configurar o autocompletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
             }
             catch (Exception ex)
             {
@@ -258,7 +256,7 @@ namespace Trabalho
         {
             try
             {
-                BsAnvisa.DataSource = _repositorio.FindAll();
+                BsAnvisa.DataSource = _repositorio.ListarTodos();
                 BsAnvisa.ResetBindings(false);
             }
             catch (Exception ex)
@@ -269,7 +267,7 @@ namespace Trabalho
 
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            BsAnvisa.DataSource = _repositorio.FindAll();
+            BsAnvisa.DataSource = _repositorio.ListarTodos();
         }
 
         private void BtnPesquisar_Click(object sender, EventArgs e)
@@ -309,8 +307,8 @@ namespace Trabalho
             {
                 try
                 {
-                    await _repositorio.UpdateAsync(frm.anvisa);
-                    BsAnvisa.DataSource = await _repositorio.FindAllAsync();
+                    await _repositorio.AtualizarAsync(anvisaAtual.Ref_USA, frm.anvisa);
+                    BsAnvisa.DataSource = await _repositorio.ListarTodosAsync();
                     BsAnvisa.ResetBindings(false);
                 }
                 catch (Exception ex)
@@ -319,6 +317,7 @@ namespace Trabalho
                 }
             }
         }
+
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (BsAnvisa.Current is not Anvisa anvisaSelecionado)
@@ -335,8 +334,9 @@ namespace Trabalho
                 BsAnvisa.ResetBindings(false);
             }
 
-            BsAnvisa.DataSource = _repositorio.FindAll();
+            BsAnvisa.DataSource = _repositorio.ListarTodos();
         }
+
         private void CmbPesquisar_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConfigurarAutoCompletarParaPesquisa();

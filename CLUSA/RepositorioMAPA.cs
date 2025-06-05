@@ -11,7 +11,7 @@ namespace CLUSA
         private readonly IMongoCollection<Decex> _Decex;
         private readonly IMongoCollection<Ibama> _Ibama;
         private readonly IMongoCollection<Inmetro> _Imetro;
-        private readonly IMongoCollection<MAPA> _MAPA;
+        private readonly IMongoCollection<TiposOrgaoAnuente> _MAPA;
 
         public RepositorioMAPA()
         {
@@ -23,25 +23,25 @@ namespace CLUSA
             _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
             _Imetro = mongoDatabase.GetCollection<Inmetro>("IMETRO");
             _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
-            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
+            _MAPA = mongoDatabase.GetCollection<TiposOrgaoAnuente>("MAPA");
         }
-        public List<MAPA> ListaMapa => _MAPA.Find(Builders<MAPA>.Filter.Empty).ToList();
+        public List<TiposOrgaoAnuente> ListaMapa => _MAPA.Find(Builders<TiposOrgaoAnuente>.Filter.Empty).ToList();
 
-        public async Task CreateAsync(MAPA mapa)
+        public async Task CreateAsync(TiposOrgaoAnuente mapa)
         {
             await _MAPA.InsertOneAsync(mapa);
         }
 
         public async Task DeleteAsync(ObjectId id)
         {
-            var filter = Builders<MAPA>.Filter.Eq("_id", id);
+            var filter = Builders<TiposOrgaoAnuente>.Filter.Eq("_id", id);
             await _MAPA.DeleteOneAsync(filter);
         }
 
-        public async Task UpdateAsync(MAPA mapa)
+        public async Task UpdateAsync(TiposOrgaoAnuente mapa)
         {
-            var filter = Builders<MAPA>.Filter.Eq("_id", mapa.Id);
-            var update = Builders<MAPA>.Update
+            var filter = Builders<TiposOrgaoAnuente>.Filter.Eq("_id", mapa.Id);
+            var update = Builders<TiposOrgaoAnuente>.Update
                 .Set(a => a.Ref_USA, mapa.Ref_USA)
                 .Set(a => a.Importador, mapa.Importador)
                 .Set(a => a.SR, mapa.SR)
@@ -70,7 +70,7 @@ namespace CLUSA
             await AtualizarColecaoRelacionadoAsync(_Imetro, mapa.Ref_USA, mapa);
         }
 
-        private static async Task AtualizarColecaoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, MAPA mapa) where T : class
+        private static async Task AtualizarColecaoRelacionadoAsync<T>(IMongoCollection<T> colecao, string refUsa, TiposOrgaoAnuente mapa) where T : class
         {
             var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
             var update = Builders<T>.Update
@@ -93,24 +93,24 @@ namespace CLUSA
             await colecao.UpdateOneAsync(filter, update);
         }
 
-        public async Task<List<MAPA>> FindAllAsync()
+        public async Task<List<TiposOrgaoAnuente>> FindAllAsync()
         {
-            return await _MAPA.Find(Builders<MAPA>.Filter.Empty).ToListAsync();
+            return await _MAPA.Find(Builders<TiposOrgaoAnuente>.Filter.Empty).ToListAsync();
         }
 
         public List<string> ObterValoresUnicos(string campo)
         {
-            return _MAPA.Distinct<string>(campo, Builders<MAPA>.Filter.Empty).ToList();
+            return _MAPA.Distinct<string>(campo, Builders<TiposOrgaoAnuente>.Filter.Empty).ToList();
         }
 
-        public List<MAPA> FindAll()
+        public List<TiposOrgaoAnuente> FindAll()
         {
-            return _MAPA.Find(Builders<MAPA>.Filter.Empty).ToList();
+            return _MAPA.Find(Builders<TiposOrgaoAnuente>.Filter.Empty).ToList();
         }
 
-        public List<MAPA> Find(string campo, string pesquisa)
+        public List<TiposOrgaoAnuente> Find(string campo, string pesquisa)
         {
-            var filtro = Builders<MAPA>.Filter.Regex(campo, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
+            var filtro = Builders<TiposOrgaoAnuente>.Filter.Regex(campo, new BsonRegularExpression(new Regex(pesquisa, RegexOptions.IgnoreCase)));
             return _MAPA.Find(filtro).ToList();
         }
     }
