@@ -69,16 +69,6 @@ namespace CLUSA
         public string StatusDoProcesso { get; set; } = string.Empty;
 
         public string Origem { get; set; } = string.Empty;
-        public DateTime? InspecaoMapa { get; set; } = (DateTime?)null;
-        public bool CheckInspecaoMapa { get; set; } = false;
-        public DateTime? InspecaoAnvisa { get; set; } = (DateTime?)null;
-        public bool CheckInspecaoAnvisa { get; set; } = false;
-        public DateTime? InspecaoDecex { get; set; } = (DateTime?)null;
-        public bool CheckInspecaoDecex { get; set; } = false;
-        public DateTime? InspecaoInmetro { get; set; } = (DateTime?)null;
-        public bool CheckInspecaoInmetro { get; set; } = false;
-        public DateTime? InspecaoIbama { get; set; } = (DateTime?)null;
-        public bool CheckInspecaoIbama { get; set; } = false;
 
 
         //Implementar - Calculo Vencimento FreeTime = Data de Atracação + FreeTime

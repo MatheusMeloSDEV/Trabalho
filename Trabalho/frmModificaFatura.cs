@@ -397,6 +397,7 @@ namespace Trabalho
                 txtTipoFinalizacao.Text = "N/FAVOR";
                 txtTipoFinalizacao.BackColor = Color.Lime;
             }
+            btnOK.Enabled = true;
         }
 
         private void frmModificaFatura_Load(object sender, EventArgs e)

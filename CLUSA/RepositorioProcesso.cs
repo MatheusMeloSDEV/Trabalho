@@ -114,19 +114,19 @@ namespace CLUSA
         private async Task GerenciarRelacoes(Processo processo)
         {
             if (!processo.TMapa) await RemoverRelacionado(_MAPA, processo.Ref_USA);
-            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new MAPA());
+            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new MAPA(processo));
 
             if (!processo.TAnvisa) await RemoverRelacionado(_Anvisa, processo.Ref_USA);
-            else await AtualizarRelacionado(_Anvisa, processo.Ref_USA, new ANVISA());
+            else await AtualizarRelacionado(_Anvisa, processo.Ref_USA, new ANVISA(processo));
 
             if (!processo.TDecex) await RemoverRelacionado(_Decex, processo.Ref_USA);
-            else await AtualizarRelacionado(_Decex, processo.Ref_USA, new DECEX());
+            else await AtualizarRelacionado(_Decex, processo.Ref_USA, new DECEX(processo));
 
             if (!processo.TIbama) await RemoverRelacionado(_Ibama, processo.Ref_USA);
-            else await AtualizarRelacionado(_Ibama, processo.Ref_USA, new IBAMA());
+            else await AtualizarRelacionado(_Ibama, processo.Ref_USA, new IBAMA(processo));
 
             if (!processo.TImetro) await RemoverRelacionado(_Inmetro, processo.Ref_USA);
-            else await AtualizarRelacionado(_Inmetro, processo.Ref_USA, new INMETRO());
+            else await AtualizarRelacionado(_Inmetro, processo.Ref_USA, new INMETRO(processo));
         }
 
         private static void ExcluirRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
