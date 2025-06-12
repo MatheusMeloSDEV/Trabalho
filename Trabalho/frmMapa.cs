@@ -5,15 +5,14 @@ namespace Trabalho
 {
     public partial class FrmMapa : Form
     {
-        // Certifique-se de que o tipo "RepositorioOrgaoAnuente<T>" está definido e acessível.
-        private readonly RepositorioOrgaoAnuente<TiposOrgaoAnuente> _repositorio;
+        // Use o tipo correto: MAPA
+        private readonly RepositorioOrgaoAnuente<MAPA> _repositorio;
 
         public FrmMapa()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            // Use o nome da coleção correspondente
-            _repositorio = new RepositorioOrgaoAnuente<TiposOrgaoAnuente>("MAPA");
+            _repositorio = new RepositorioOrgaoAnuente<MAPA>("MAPA");
         }
 
         private void FrmMapa_Load(object sender, EventArgs e)
@@ -44,17 +43,11 @@ namespace Trabalho
             {
                 ConfigurarColunasDataGridView();
 
-                // Recupera os registros do repositório
                 var registros = _repositorio.ListarTodos();
 
                 if (registros.Count > 0)
                 {
-                    // Configura o BindingSource e o DataGridView
-                    BSmapa = new BindingSource
-                    {
-                        DataSource = registros
-                    };
-
+                    BSmapa.DataSource = registros;
                     dataGridView1.DataSource = BSmapa;
                 }
                 else
@@ -64,17 +57,13 @@ namespace Trabalho
             }
             catch (Exception ex)
             {
-                // Captura e exibe erros
                 MessageBox.Show($"Erro ao carregar o DataGridView: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ConfigurarColunasDataGridView()
         {
-            // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
-
-            // Configuração básica
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -83,9 +72,6 @@ namespace Trabalho
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            // ——————————————————————
-            // 1) Colunas principais (texto)
-            // ——————————————————————
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
@@ -163,14 +149,12 @@ namespace Trabalho
         private void ImagensBotoes()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
             var resources = assembly.GetManifestResourceNames();
             foreach (var r in resources)
             {
                 Console.WriteLine(r);
             }
 
-            // Crie um array de tuplas (string caminhoRecurso, Button botao)
             var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
             {
                 ("Trabalho.Imagens.botao-editar.png", BtnEditar),
@@ -228,7 +212,6 @@ namespace Trabalho
         {
             try
             {
-                // Certifique-se de que há um campo selecionado no ComboBox
                 if (CmbPesquisar.SelectedItem == null)
                 {
                     MessageBox.Show("Selecione um campo para configurar o autocompletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -239,16 +222,15 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    // Implementação manual para obter valores únicos
                     var registros = _repositorio.ListarTodos();
                     var valores = registros
                         .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
                         .Where(v => !string.IsNullOrEmpty(v))
                         .Distinct()
-                        .ToList();
+                        .ToArray(); // Corrigido para ToArray()
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
-                    autoCompleteCollection.AddRange(valores.ToArray());
+                    autoCompleteCollection.AddRange(valores!); // Corrigido para garantir string[]
                     TxtPesquisar.AutoCompleteCustomSource = autoCompleteCollection;
                     TxtPesquisar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     TxtPesquisar.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -306,40 +288,36 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BSmapa.Current is not TiposOrgaoAnuente mapaAtual)
+            if (BSmapa.Current is not MAPA mapaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaMapa { mapa = mapaAtual, Visualização = false, Modo = "Editar" };
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
+            var refUsaSelecionado = mapaAtual.Ref_USA;
+            var entidade = _repositorio.ObterPorRefUsa(refUsaSelecionado);
+            if (entidade != null)
             {
-                try
+                using var frm = new FrmModifica<MAPA>("MAPA", entidade);
+                // frm.Visualizacao = false; // Removido, pois não existe na classe genérica
+                if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    // Não existe UpdateAsync no genérico, então use AtualizarAsync
-                    await _repositorio.AtualizarAsync(mapaAtual.Ref_USA, frm.mapa);
                     BSmapa.DataSource = await _repositorio.ListarTodosAsync();
                     BSmapa.ResetBindings(false);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Erro ao atualizar o registro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (BSmapa.Current is not TiposOrgaoAnuente mapaSelecionado)
+            if (BSmapa.Current is not MAPA mapaSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var frm = new FrmModificaMapa { mapa = mapaSelecionado, Visualização = true, Modo = "Visualizar" };
+            using var frm = new FrmModifica<MAPA>("MAPA", mapaSelecionado);
+            // frm.Visualizacao = true; // Removido, pois não existe na classe genérica
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

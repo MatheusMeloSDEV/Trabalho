@@ -5,13 +5,14 @@ namespace Trabalho
 {
     public partial class FrmIbama : Form
     {
-        private readonly RepositorioOrgaoAnuente<Ibama> _repositorio;
+        // Use o tipo correto: IBAMA (conforme CLUSA\TiposOrgaoAnuente.cs)
+        private readonly RepositorioOrgaoAnuente<IBAMA> _repositorio;
 
         public FrmIbama()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioOrgaoAnuente<Ibama>("Ibama");
+            _repositorio = new RepositorioOrgaoAnuente<IBAMA>("IBAMA");
         }
 
         private void FrmIbama_Load(object sender, EventArgs e)
@@ -74,7 +75,6 @@ namespace Trabalho
                 Console.WriteLine(r);
             }
 
-            // Crie um array de tuplas (string caminhoRecurso, Button botao)
             var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
             {
                 ("Trabalho.Imagens.botao-editar.png", BtnEditar),
@@ -95,10 +95,7 @@ namespace Trabalho
         }
         private void ConfigurarColunasDataGridView()
         {
-            // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
-
-            // Configuração básica
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -107,9 +104,6 @@ namespace Trabalho
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            // ——————————————————————
-            // 1) Colunas principais (texto)
-            // ——————————————————————
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
@@ -231,16 +225,15 @@ namespace Trabalho
 
                 if (!string.IsNullOrEmpty(campoSelecionado))
                 {
-                    // Implementação manual para obter valores únicos
                     var registros = _repositorio.ListarTodos();
                     var valores = registros
                         .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
                         .Where(v => !string.IsNullOrEmpty(v))
                         .Distinct()
-                        .ToList();
+                        .ToArray(); // Corrigido para garantir string[]
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
-                    autoCompleteCollection.AddRange(valores.ToArray());
+                    autoCompleteCollection.AddRange(valores!);
                     TxtPesquisar.AutoCompleteCustomSource = autoCompleteCollection;
                     TxtPesquisar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     TxtPesquisar.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -298,20 +291,18 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsIbama.Current is not Ibama ibamaAtual)
+            if (BsIbama.Current is not IBAMA ibamaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaIbama { ibama = ibamaAtual, Visualização = false, Modo = "Editar" };
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
+            using var frm = new FrmModifica<IBAMA>("IBAMA", ibamaAtual);
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    await _repositorio.AtualizarAsync(ibamaAtual.Ref_USA, frm.ibama);
+                    await _repositorio.AtualizarAsync(ibamaAtual.Ref_USA, frm.Entidade);
                     BsIbama.DataSource = await _repositorio.ListarTodosAsync();
                     BsIbama.ResetBindings(false);
                 }
@@ -324,13 +315,13 @@ namespace Trabalho
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (BsIbama.Current is not Ibama ibamaSelecionado)
+            if (BsIbama.Current is not IBAMA ibamaSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var frm = new FrmModificaIbama { ibama = ibamaSelecionado, Visualização = true, Modo = "Visualizar" };
+            using var frm = new FrmModifica<IBAMA>("IBAMA", ibamaSelecionado);
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

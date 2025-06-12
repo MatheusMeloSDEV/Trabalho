@@ -12,683 +12,565 @@ namespace Trabalho
         }
 
         #region Windows Form Designer generated code
+        // Generated code
+        #endregion
 
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
-            LBLMaster = new Label();
-            TXTMaster = new TextBox();
-            LBLContainer = new Label();
-            TXTContainer = new TextBox();
-            LBLSigvig = new Label();
-            CBOSigvig = new ComboBox();
-            LBLSigvigData = new Label();
-            DTPSigvigData = new DateTimePicker();
-            LBLIncoterm = new Label();
-            TXTIncoterm = new TextBox();
-            LBLNumerario = new Label();
-            TXTNumerario = new TextBox();
-            LBLDTA = new Label();
-            TXTDTA = new TextBox();
-            LBLMarinha = new Label();
-            TXTMarinha = new TextBox();
-            LBLCE = new Label();
-            TXTCE = new TextBox();
-            LBLImposto = new Label();
-            CLBImposto = new CheckedListBox();
-            LBLBools = new Label();
-            panelBools = new FlowLayoutPanel();
-            LBLAverbarData = new Label();
-            DTPAverbarData = new DateTimePicker();
-            LBLLiberarBLData = new Label();
-            DTPLiberarBLData = new DateTimePicker();
-            LBLMarinhaMercante_IsencaoData = new Label();
-            DTPMarinhaMercante_IsencaoData = new DateTimePicker();
-            LBLICMS_ExoneracaoData = new Label();
-            DTPICMS_ExoneracaoData = new DateTimePicker();
-            LBLSISCargaLiberadoData = new Label();
-            DTPSISCargaLiberadoData = new DateTimePicker();
-            LBLPagoPor = new Label();
-            TXTPagoPor = new TextBox();
-            LBLENTTransporteData = new Label();
-            DTPENTTransporteData = new DateTimePicker();
-            LBLENTTransporteN = new Label();
-            TXTENTTransporteN = new TextBox();
-            LBLENTAlfandegaData = new Label();
-            DTPENTAlfandegaData = new DateTimePicker();
-            LBLENTAlfandegaDossie = new Label();
-            TXTENTAlfandegaDossie = new TextBox();
-            LBLConferenciaFisicaData = new Label();
-            DTPConferenciaFisicaData = new DateTimePicker();
-            LBLObservacoes = new Label();
-            TXTObservacoes = new TextBox();
+            label1 = new Label();
+            txtMaster = new TextBox();
+            label2 = new Label();
+            TxtIncoterm = new TextBox();
+            label3 = new Label();
+            txtContainer = new TextBox();
+            label4 = new Label();
+            txtMarinha = new TextBox();
+            label5 = new Label();
+            txtCE = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
+            txtDTA = new TextBox();
+            label8 = new Label();
+            cbSigvig = new ComboBox();
+            DTPSigvig = new DateTimePicker();
+            cbIncotern = new CheckBox();
+            ItensAdicionais = new CheckedListBox();
+            DTPAverbar = new DateTimePicker();
+            label9 = new Label();
+            label10 = new Label();
+            DTPLiberarBL = new DateTimePicker();
+            label11 = new Label();
+            DTPIsencaoMarinha = new DateTimePicker();
+            label12 = new Label();
+            DTPSisCarga = new DateTimePicker();
+            label15 = new Label();
+            DTPEntTransporte = new DateTimePicker();
+            label16 = new Label();
+            DTPICMS = new DateTimePicker();
+            label17 = new Label();
+            txtTransporte = new TextBox();
+            txtDOSSIE = new TextBox();
+            label13 = new Label();
+            label14 = new Label();
+            DTPEntAlfandega = new DateTimePicker();
+            Impostos = new CheckedListBox();
+            label19 = new Label();
+            DTPConferenciaFisica = new DateTimePicker();
+            label18 = new Label();
+            txtObservacao = new TextBox();
+            cbNumerario = new ComboBox();
+            btnExportar = new Button();
             btnSalvar = new Button();
             btnCancelar = new Button();
-            tableLayoutPanel1.SuspendLayout();
+            txtPagoPor = new TextBox();
+            label20 = new Label();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.AutoScroll = true;
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
-            tableLayoutPanel1.Controls.Add(LBLMaster, 0, 0);
-            tableLayoutPanel1.Controls.Add(TXTMaster, 1, 0);
-            tableLayoutPanel1.Controls.Add(LBLContainer, 0, 1);
-            tableLayoutPanel1.Controls.Add(TXTContainer, 1, 1);
-            tableLayoutPanel1.Controls.Add(LBLSigvig, 0, 2);
-            tableLayoutPanel1.Controls.Add(CBOSigvig, 1, 2);
-            tableLayoutPanel1.Controls.Add(LBLSigvigData, 0, 3);
-            tableLayoutPanel1.Controls.Add(DTPSigvigData, 1, 3);
-            tableLayoutPanel1.Controls.Add(LBLIncoterm, 0, 4);
-            tableLayoutPanel1.Controls.Add(TXTIncoterm, 1, 4);
-            tableLayoutPanel1.Controls.Add(LBLNumerario, 0, 5);
-            tableLayoutPanel1.Controls.Add(TXTNumerario, 1, 5);
-            tableLayoutPanel1.Controls.Add(LBLDTA, 0, 6);
-            tableLayoutPanel1.Controls.Add(TXTDTA, 1, 6);
-            tableLayoutPanel1.Controls.Add(LBLMarinha, 0, 7);
-            tableLayoutPanel1.Controls.Add(TXTMarinha, 1, 7);
-            tableLayoutPanel1.Controls.Add(LBLCE, 0, 8);
-            tableLayoutPanel1.Controls.Add(TXTCE, 1, 8);
-            tableLayoutPanel1.Controls.Add(LBLImposto, 0, 9);
-            tableLayoutPanel1.Controls.Add(CLBImposto, 1, 9);
-            tableLayoutPanel1.Controls.Add(LBLBools, 0, 10);
-            tableLayoutPanel1.Controls.Add(panelBools, 1, 10);
-            tableLayoutPanel1.Controls.Add(LBLAverbarData, 0, 11);
-            tableLayoutPanel1.Controls.Add(DTPAverbarData, 1, 11);
-            tableLayoutPanel1.Controls.Add(LBLLiberarBLData, 0, 12);
-            tableLayoutPanel1.Controls.Add(DTPLiberarBLData, 1, 12);
-            tableLayoutPanel1.Controls.Add(LBLMarinhaMercante_IsencaoData, 0, 13);
-            tableLayoutPanel1.Controls.Add(DTPMarinhaMercante_IsencaoData, 1, 13);
-            tableLayoutPanel1.Controls.Add(LBLICMS_ExoneracaoData, 0, 14);
-            tableLayoutPanel1.Controls.Add(DTPICMS_ExoneracaoData, 1, 14);
-            tableLayoutPanel1.Controls.Add(LBLSISCargaLiberadoData, 0, 15);
-            tableLayoutPanel1.Controls.Add(DTPSISCargaLiberadoData, 1, 15);
-            tableLayoutPanel1.Controls.Add(LBLPagoPor, 0, 16);
-            tableLayoutPanel1.Controls.Add(TXTPagoPor, 1, 16);
-            tableLayoutPanel1.Controls.Add(LBLENTTransporteData, 0, 17);
-            tableLayoutPanel1.Controls.Add(DTPENTTransporteData, 1, 17);
-            tableLayoutPanel1.Controls.Add(LBLENTTransporteN, 0, 18);
-            tableLayoutPanel1.Controls.Add(TXTENTTransporteN, 1, 18);
-            tableLayoutPanel1.Controls.Add(LBLENTAlfandegaData, 0, 19);
-            tableLayoutPanel1.Controls.Add(DTPENTAlfandegaData, 1, 19);
-            tableLayoutPanel1.Controls.Add(LBLENTAlfandegaDossie, 0, 20);
-            tableLayoutPanel1.Controls.Add(TXTENTAlfandegaDossie, 1, 20);
-            tableLayoutPanel1.Controls.Add(LBLConferenciaFisicaData, 0, 21);
-            tableLayoutPanel1.Controls.Add(DTPConferenciaFisicaData, 1, 21);
-            tableLayoutPanel1.Controls.Add(LBLObservacoes, 0, 22);
-            tableLayoutPanel1.Controls.Add(TXTObservacoes, 1, 22);
-            tableLayoutPanel1.Controls.Add(btnSalvar, 0, 23);
-            tableLayoutPanel1.Controls.Add(btnCancelar, 1, 23);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(12);
-            tableLayoutPanel1.RowCount = 24;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 384F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(650, 900);
-            tableLayoutPanel1.TabIndex = 0;
-            // 
-            // LBLMaster
-            // 
-            LBLMaster.Dock = DockStyle.Fill;
-            LBLMaster.Location = new Point(15, 12);
-            LBLMaster.Name = "LBLMaster";
-            LBLMaster.Size = new Size(207, 32);
-            LBLMaster.TabIndex = 0;
-            LBLMaster.Text = "Master:";
-            LBLMaster.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTMaster
-            // 
-            TXTMaster.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTMaster.Location = new Point(228, 16);
-            TXTMaster.MinimumSize = new Size(200, 0);
-            TXTMaster.Name = "TXTMaster";
-            TXTMaster.Size = new Size(390, 23);
-            TXTMaster.TabIndex = 1;
-            // 
-            // LBLContainer
-            // 
-            LBLContainer.Dock = DockStyle.Fill;
-            LBLContainer.Location = new Point(15, 44);
-            LBLContainer.Name = "LBLContainer";
-            LBLContainer.Size = new Size(207, 32);
-            LBLContainer.TabIndex = 2;
-            LBLContainer.Text = "Container:";
-            LBLContainer.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTContainer
-            // 
-            TXTContainer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTContainer.Location = new Point(228, 48);
-            TXTContainer.MinimumSize = new Size(200, 0);
-            TXTContainer.Name = "TXTContainer";
-            TXTContainer.Size = new Size(390, 23);
-            TXTContainer.TabIndex = 3;
-            // 
-            // LBLSigvig
-            // 
-            LBLSigvig.Dock = DockStyle.Fill;
-            LBLSigvig.Location = new Point(15, 76);
-            LBLSigvig.Name = "LBLSigvig";
-            LBLSigvig.Size = new Size(207, 32);
-            LBLSigvig.TabIndex = 4;
-            LBLSigvig.Text = "Sigvig:";
-            LBLSigvig.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // CBOSigvig
-            // 
-            CBOSigvig.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CBOSigvig.DropDownStyle = ComboBoxStyle.DropDownList;
-            CBOSigvig.Items.AddRange(new object[] { "Selecionado", "Liberado" });
-            CBOSigvig.Location = new Point(228, 80);
-            CBOSigvig.MinimumSize = new Size(200, 0);
-            CBOSigvig.Name = "CBOSigvig";
-            CBOSigvig.Size = new Size(390, 23);
-            CBOSigvig.TabIndex = 5;
-            CBOSigvig.SelectedIndexChanged += CBOSigvig_SelectedIndexChanged;
-            // 
-            // LBLSigvigData
-            // 
-            LBLSigvigData.Dock = DockStyle.Fill;
-            LBLSigvigData.Location = new Point(15, 108);
-            LBLSigvigData.Name = "LBLSigvigData";
-            LBLSigvigData.Size = new Size(207, 32);
-            LBLSigvigData.TabIndex = 6;
-            LBLSigvigData.Text = "Sigvig Data:";
-            LBLSigvigData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPSigvigData
-            // 
-            DTPSigvigData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPSigvigData.Location = new Point(228, 112);
-            DTPSigvigData.Name = "DTPSigvigData";
-            DTPSigvigData.Size = new Size(390, 23);
-            DTPSigvigData.TabIndex = 7;
-            // 
-            // LBLIncoterm
-            // 
-            LBLIncoterm.Dock = DockStyle.Fill;
-            LBLIncoterm.Location = new Point(15, 140);
-            LBLIncoterm.Name = "LBLIncoterm";
-            LBLIncoterm.Size = new Size(207, 32);
-            LBLIncoterm.TabIndex = 8;
-            LBLIncoterm.Text = "Incoterm:";
-            LBLIncoterm.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTIncoterm
-            // 
-            TXTIncoterm.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTIncoterm.Location = new Point(228, 144);
-            TXTIncoterm.MinimumSize = new Size(200, 0);
-            TXTIncoterm.Name = "TXTIncoterm";
-            TXTIncoterm.Size = new Size(390, 23);
-            TXTIncoterm.TabIndex = 9;
-            // 
-            // LBLNumerario
-            // 
-            LBLNumerario.Dock = DockStyle.Fill;
-            LBLNumerario.Location = new Point(15, 172);
-            LBLNumerario.Name = "LBLNumerario";
-            LBLNumerario.Size = new Size(207, 32);
-            LBLNumerario.TabIndex = 10;
-            LBLNumerario.Text = "Numerário:";
-            LBLNumerario.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTNumerario
-            // 
-            TXTNumerario.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTNumerario.Location = new Point(228, 176);
-            TXTNumerario.MinimumSize = new Size(200, 0);
-            TXTNumerario.Name = "TXTNumerario";
-            TXTNumerario.Size = new Size(390, 23);
-            TXTNumerario.TabIndex = 11;
-            // 
-            // LBLDTA
-            // 
-            LBLDTA.Dock = DockStyle.Fill;
-            LBLDTA.Location = new Point(15, 204);
-            LBLDTA.Name = "LBLDTA";
-            LBLDTA.Size = new Size(207, 32);
-            LBLDTA.TabIndex = 12;
-            LBLDTA.Text = "DTA:";
-            LBLDTA.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTDTA
-            // 
-            TXTDTA.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTDTA.Location = new Point(228, 208);
-            TXTDTA.MinimumSize = new Size(200, 0);
-            TXTDTA.Name = "TXTDTA";
-            TXTDTA.Size = new Size(390, 23);
-            TXTDTA.TabIndex = 13;
-            // 
-            // LBLMarinha
-            // 
-            LBLMarinha.Dock = DockStyle.Fill;
-            LBLMarinha.Location = new Point(15, 236);
-            LBLMarinha.Name = "LBLMarinha";
-            LBLMarinha.Size = new Size(207, 32);
-            LBLMarinha.TabIndex = 14;
-            LBLMarinha.Text = "Marinha:";
-            LBLMarinha.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTMarinha
-            // 
-            TXTMarinha.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTMarinha.Location = new Point(228, 240);
-            TXTMarinha.MinimumSize = new Size(200, 0);
-            TXTMarinha.Name = "TXTMarinha";
-            TXTMarinha.Size = new Size(390, 23);
-            TXTMarinha.TabIndex = 15;
-            // 
-            // LBLCE
-            // 
-            LBLCE.Dock = DockStyle.Fill;
-            LBLCE.Location = new Point(15, 268);
-            LBLCE.Name = "LBLCE";
-            LBLCE.Size = new Size(207, 32);
-            LBLCE.TabIndex = 16;
-            LBLCE.Text = "CE:";
-            LBLCE.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTCE
-            // 
-            TXTCE.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTCE.Location = new Point(228, 272);
-            TXTCE.MinimumSize = new Size(200, 0);
-            TXTCE.Name = "TXTCE";
-            TXTCE.Size = new Size(390, 23);
-            TXTCE.TabIndex = 17;
-            // 
-            // LBLImposto
-            // 
-            LBLImposto.Dock = DockStyle.Fill;
-            LBLImposto.Location = new Point(15, 300);
-            LBLImposto.Name = "LBLImposto";
-            LBLImposto.Size = new Size(207, 64);
-            LBLImposto.TabIndex = 18;
-            LBLImposto.Text = "Impostos:";
-            LBLImposto.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // CLBImposto
-            // 
-            CLBImposto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CLBImposto.Items.AddRange(new object[] { "II", "IPI", "PIS", "COFINS", "ICMS", "AFRMM", "SISCOMEX" });
-            CLBImposto.Location = new Point(228, 303);
-            CLBImposto.Name = "CLBImposto";
-            CLBImposto.Size = new Size(390, 58);
-            CLBImposto.TabIndex = 19;
-            // 
-            // LBLBools
-            // 
-            LBLBools.Dock = DockStyle.Fill;
-            LBLBools.Location = new Point(15, 364);
-            LBLBools.Name = "LBLBools";
-            LBLBools.Size = new Size(207, 384);
-            LBLBools.TabIndex = 20;
-            LBLBools.Text = "Situações:";
-            LBLBools.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // panelBools
-            // 
-            panelBools.AutoSize = true;
-            panelBools.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panelBools.Dock = DockStyle.Fill;
-            panelBools.FlowDirection = FlowDirection.TopDown;
-            panelBools.Location = new Point(228, 367);
-            panelBools.Name = "panelBools";
-            panelBools.Padding = new Padding(0, 4, 0, 0);
-            panelBools.Size = new Size(390, 378);
-            panelBools.TabIndex = 21;
-            // 
-            // LBLAverbarData
-            // 
-            LBLAverbarData.Dock = DockStyle.Fill;
-            LBLAverbarData.Location = new Point(15, 748);
-            LBLAverbarData.Name = "LBLAverbarData";
-            LBLAverbarData.Size = new Size(207, 32);
-            LBLAverbarData.TabIndex = 22;
-            LBLAverbarData.Text = "Averbar Data:";
-            LBLAverbarData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPAverbarData
-            // 
-            DTPAverbarData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPAverbarData.Location = new Point(228, 752);
-            DTPAverbarData.Name = "DTPAverbarData";
-            DTPAverbarData.Size = new Size(390, 23);
-            DTPAverbarData.TabIndex = 23;
-            // 
-            // LBLLiberarBLData
-            // 
-            LBLLiberarBLData.Dock = DockStyle.Fill;
-            LBLLiberarBLData.Location = new Point(15, 780);
-            LBLLiberarBLData.Name = "LBLLiberarBLData";
-            LBLLiberarBLData.Size = new Size(207, 32);
-            LBLLiberarBLData.TabIndex = 24;
-            LBLLiberarBLData.Text = "Liberar BL Data:";
-            LBLLiberarBLData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPLiberarBLData
-            // 
-            DTPLiberarBLData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPLiberarBLData.Location = new Point(228, 784);
-            DTPLiberarBLData.Name = "DTPLiberarBLData";
-            DTPLiberarBLData.Size = new Size(390, 23);
-            DTPLiberarBLData.TabIndex = 25;
-            // 
-            // LBLMarinhaMercante_IsencaoData
-            // 
-            LBLMarinhaMercante_IsencaoData.Dock = DockStyle.Fill;
-            LBLMarinhaMercante_IsencaoData.Location = new Point(15, 812);
-            LBLMarinhaMercante_IsencaoData.Name = "LBLMarinhaMercante_IsencaoData";
-            LBLMarinhaMercante_IsencaoData.Size = new Size(207, 32);
-            LBLMarinhaMercante_IsencaoData.TabIndex = 26;
-            LBLMarinhaMercante_IsencaoData.Text = "Marinha Mercante Isenção Data:";
-            LBLMarinhaMercante_IsencaoData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPMarinhaMercante_IsencaoData
-            // 
-            DTPMarinhaMercante_IsencaoData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPMarinhaMercante_IsencaoData.Location = new Point(228, 816);
-            DTPMarinhaMercante_IsencaoData.Name = "DTPMarinhaMercante_IsencaoData";
-            DTPMarinhaMercante_IsencaoData.Size = new Size(390, 23);
-            DTPMarinhaMercante_IsencaoData.TabIndex = 27;
-            // 
-            // LBLICMS_ExoneracaoData
-            // 
-            LBLICMS_ExoneracaoData.Dock = DockStyle.Fill;
-            LBLICMS_ExoneracaoData.Location = new Point(15, 844);
-            LBLICMS_ExoneracaoData.Name = "LBLICMS_ExoneracaoData";
-            LBLICMS_ExoneracaoData.Size = new Size(207, 32);
-            LBLICMS_ExoneracaoData.TabIndex = 28;
-            LBLICMS_ExoneracaoData.Text = "ICMS Exoneração Data:";
-            LBLICMS_ExoneracaoData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPICMS_ExoneracaoData
-            // 
-            DTPICMS_ExoneracaoData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPICMS_ExoneracaoData.Location = new Point(228, 848);
-            DTPICMS_ExoneracaoData.Name = "DTPICMS_ExoneracaoData";
-            DTPICMS_ExoneracaoData.Size = new Size(390, 23);
-            DTPICMS_ExoneracaoData.TabIndex = 29;
-            // 
-            // LBLSISCargaLiberadoData
-            // 
-            LBLSISCargaLiberadoData.Dock = DockStyle.Fill;
-            LBLSISCargaLiberadoData.Location = new Point(15, 876);
-            LBLSISCargaLiberadoData.Name = "LBLSISCargaLiberadoData";
-            LBLSISCargaLiberadoData.Size = new Size(207, 32);
-            LBLSISCargaLiberadoData.TabIndex = 30;
-            LBLSISCargaLiberadoData.Text = "SISCarga Liberado Data:";
-            LBLSISCargaLiberadoData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPSISCargaLiberadoData
-            // 
-            DTPSISCargaLiberadoData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPSISCargaLiberadoData.Location = new Point(228, 880);
-            DTPSISCargaLiberadoData.Name = "DTPSISCargaLiberadoData";
-            DTPSISCargaLiberadoData.Size = new Size(390, 23);
-            DTPSISCargaLiberadoData.TabIndex = 31;
-            // 
-            // LBLPagoPor
-            // 
-            LBLPagoPor.Dock = DockStyle.Fill;
-            LBLPagoPor.Location = new Point(15, 908);
-            LBLPagoPor.Name = "LBLPagoPor";
-            LBLPagoPor.Size = new Size(207, 32);
-            LBLPagoPor.TabIndex = 32;
-            LBLPagoPor.Text = "Pago Por:";
-            LBLPagoPor.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTPagoPor
-            // 
-            TXTPagoPor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTPagoPor.Location = new Point(228, 912);
-            TXTPagoPor.MinimumSize = new Size(200, 0);
-            TXTPagoPor.Name = "TXTPagoPor";
-            TXTPagoPor.Size = new Size(390, 23);
-            TXTPagoPor.TabIndex = 33;
-            // 
-            // LBLENTTransporteData
-            // 
-            LBLENTTransporteData.Dock = DockStyle.Fill;
-            LBLENTTransporteData.Location = new Point(15, 940);
-            LBLENTTransporteData.Name = "LBLENTTransporteData";
-            LBLENTTransporteData.Size = new Size(207, 32);
-            LBLENTTransporteData.TabIndex = 34;
-            LBLENTTransporteData.Text = "ENT Transporte Data:";
-            LBLENTTransporteData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPENTTransporteData
-            // 
-            DTPENTTransporteData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPENTTransporteData.Location = new Point(228, 944);
-            DTPENTTransporteData.Name = "DTPENTTransporteData";
-            DTPENTTransporteData.Size = new Size(390, 23);
-            DTPENTTransporteData.TabIndex = 35;
-            // 
-            // LBLENTTransporteN
-            // 
-            LBLENTTransporteN.Dock = DockStyle.Fill;
-            LBLENTTransporteN.Location = new Point(15, 972);
-            LBLENTTransporteN.Name = "LBLENTTransporteN";
-            LBLENTTransporteN.Size = new Size(207, 32);
-            LBLENTTransporteN.TabIndex = 36;
-            LBLENTTransporteN.Text = "ENT Transporte Nº:";
-            LBLENTTransporteN.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTENTTransporteN
-            // 
-            TXTENTTransporteN.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTENTTransporteN.Location = new Point(228, 976);
-            TXTENTTransporteN.MinimumSize = new Size(200, 0);
-            TXTENTTransporteN.Name = "TXTENTTransporteN";
-            TXTENTTransporteN.Size = new Size(390, 23);
-            TXTENTTransporteN.TabIndex = 37;
-            // 
-            // LBLENTAlfandegaData
-            // 
-            LBLENTAlfandegaData.Dock = DockStyle.Fill;
-            LBLENTAlfandegaData.Location = new Point(15, 1004);
-            LBLENTAlfandegaData.Name = "LBLENTAlfandegaData";
-            LBLENTAlfandegaData.Size = new Size(207, 32);
-            LBLENTAlfandegaData.TabIndex = 38;
-            LBLENTAlfandegaData.Text = "ENT Alfândega Data:";
-            LBLENTAlfandegaData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPENTAlfandegaData
-            // 
-            DTPENTAlfandegaData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPENTAlfandegaData.Location = new Point(228, 1008);
-            DTPENTAlfandegaData.Name = "DTPENTAlfandegaData";
-            DTPENTAlfandegaData.Size = new Size(390, 23);
-            DTPENTAlfandegaData.TabIndex = 39;
-            // 
-            // LBLENTAlfandegaDossie
-            // 
-            LBLENTAlfandegaDossie.Dock = DockStyle.Fill;
-            LBLENTAlfandegaDossie.Location = new Point(15, 1036);
-            LBLENTAlfandegaDossie.Name = "LBLENTAlfandegaDossie";
-            LBLENTAlfandegaDossie.Size = new Size(207, 32);
-            LBLENTAlfandegaDossie.TabIndex = 40;
-            LBLENTAlfandegaDossie.Text = "ENT Alfândega Dossiê:";
-            LBLENTAlfandegaDossie.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTENTAlfandegaDossie
-            // 
-            TXTENTAlfandegaDossie.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTENTAlfandegaDossie.Location = new Point(228, 1040);
-            TXTENTAlfandegaDossie.MinimumSize = new Size(200, 0);
-            TXTENTAlfandegaDossie.Name = "TXTENTAlfandegaDossie";
-            TXTENTAlfandegaDossie.Size = new Size(390, 23);
-            TXTENTAlfandegaDossie.TabIndex = 41;
-            // 
-            // LBLConferenciaFisicaData
-            // 
-            LBLConferenciaFisicaData.Dock = DockStyle.Fill;
-            LBLConferenciaFisicaData.Location = new Point(15, 1068);
-            LBLConferenciaFisicaData.Name = "LBLConferenciaFisicaData";
-            LBLConferenciaFisicaData.Size = new Size(207, 64);
-            LBLConferenciaFisicaData.TabIndex = 42;
-            LBLConferenciaFisicaData.Text = "Conferência Física Data:";
-            LBLConferenciaFisicaData.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // DTPConferenciaFisicaData
-            // 
-            DTPConferenciaFisicaData.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            DTPConferenciaFisicaData.Location = new Point(228, 1088);
-            DTPConferenciaFisicaData.Name = "DTPConferenciaFisicaData";
-            DTPConferenciaFisicaData.Size = new Size(390, 23);
-            DTPConferenciaFisicaData.TabIndex = 43;
-            // 
-            // LBLObservacoes
-            // 
-            LBLObservacoes.Dock = DockStyle.Fill;
-            LBLObservacoes.Location = new Point(15, 1132);
-            LBLObservacoes.Name = "LBLObservacoes";
-            LBLObservacoes.Size = new Size(207, 40);
-            LBLObservacoes.TabIndex = 44;
-            LBLObservacoes.Text = "Observações:";
-            LBLObservacoes.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // TXTObservacoes
-            // 
-            TXTObservacoes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TXTObservacoes.Location = new Point(228, 1135);
-            TXTObservacoes.MinimumSize = new Size(200, 60);
-            TXTObservacoes.Multiline = true;
-            TXTObservacoes.Name = "TXTObservacoes";
-            TXTObservacoes.Size = new Size(390, 60);
-            TXTObservacoes.TabIndex = 45;
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(46, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Master:";
+            // 
+            // txtMaster
+            // 
+            txtMaster.Location = new Point(64, 6);
+            txtMaster.Name = "txtMaster";
+            txtMaster.Size = new Size(392, 23);
+            txtMaster.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 96);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 15);
+            label2.TabIndex = 2;
+            label2.Text = "Numerário";
+            // 
+            // TxtIncoterm
+            // 
+            TxtIncoterm.Location = new Point(72, 64);
+            TxtIncoterm.Name = "TxtIncoterm";
+            TxtIncoterm.Size = new Size(221, 23);
+            TxtIncoterm.TabIndex = 5;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 67);
+            label3.Name = "label3";
+            label3.Size = new Size(54, 15);
+            label3.TabIndex = 4;
+            label3.Text = "Incotern:";
+            // 
+            // txtContainer
+            // 
+            txtContainer.Location = new Point(80, 35);
+            txtContainer.Name = "txtContainer";
+            txtContainer.Size = new Size(376, 23);
+            txtContainer.TabIndex = 7;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 38);
+            label4.Name = "label4";
+            label4.Size = new Size(62, 15);
+            label4.TabIndex = 6;
+            label4.Text = "Container:";
+            // 
+            // txtMarinha
+            // 
+            txtMarinha.Location = new Point(72, 151);
+            txtMarinha.Name = "txtMarinha";
+            txtMarinha.Size = new Size(165, 23);
+            txtMarinha.TabIndex = 15;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 154);
+            label5.Name = "label5";
+            label5.Size = new Size(54, 15);
+            label5.TabIndex = 14;
+            label5.Text = "Marinha:";
+            // 
+            // txtCE
+            // 
+            txtCE.Location = new Point(272, 151);
+            txtCE.Name = "txtCE";
+            txtCE.Size = new Size(184, 23);
+            txtCE.TabIndex = 13;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(242, 154);
+            label6.Name = "label6";
+            label6.Size = new Size(24, 15);
+            label6.TabIndex = 12;
+            label6.Text = "CE:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(12, 183);
+            label7.Name = "label7";
+            label7.Size = new Size(42, 15);
+            label7.TabIndex = 10;
+            label7.Text = "Sigvig:";
+            // 
+            // txtDTA
+            // 
+            txtDTA.Location = new Point(49, 122);
+            txtDTA.Name = "txtDTA";
+            txtDTA.Size = new Size(188, 23);
+            txtDTA.TabIndex = 9;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(12, 125);
+            label8.Name = "label8";
+            label8.Size = new Size(31, 15);
+            label8.TabIndex = 8;
+            label8.Text = "DTA:";
+            // 
+            // cbSigvig
+            // 
+            cbSigvig.FormattingEnabled = true;
+            cbSigvig.Items.AddRange(new object[] { "Selecionado", "Liberado" });
+            cbSigvig.Location = new Point(60, 180);
+            cbSigvig.Name = "cbSigvig";
+            cbSigvig.Size = new Size(217, 23);
+            cbSigvig.TabIndex = 16;
+            // 
+            // DTPSigvig
+            // 
+            DTPSigvig.Format = DateTimePickerFormat.Short;
+            DTPSigvig.Location = new Point(283, 180);
+            DTPSigvig.Name = "DTPSigvig";
+            DTPSigvig.Size = new Size(173, 23);
+            DTPSigvig.TabIndex = 17;
+            // 
+            // cbIncotern
+            // 
+            cbIncotern.AutoSize = true;
+            cbIncotern.Location = new Point(306, 66);
+            cbIncotern.Name = "cbIncotern";
+            cbIncotern.Size = new Size(150, 19);
+            cbIncotern.TabIndex = 18;
+            cbIncotern.Text = "Documentos de acordo";
+            cbIncotern.UseVisualStyleBackColor = true;
+            // 
+            // ItensAdicionais
+            // 
+            ItensAdicionais.FormattingEnabled = true;
+            ItensAdicionais.Items.AddRange(new object[] { "Tela do Canal", "Lançado", "Consulta SEFAZ", "DAT & LI Deferida", "DANFE", "Armazenagem", "Faturado" });
+            ItensAdicionais.Location = new Point(12, 406);
+            ItensAdicionais.MultiColumn = true;
+            ItensAdicionais.Name = "ItensAdicionais";
+            ItensAdicionais.Size = new Size(444, 58);
+            ItensAdicionais.TabIndex = 19;
+            // 
+            // DTPAverbar
+            // 
+            DTPAverbar.Format = DateTimePickerFormat.Short;
+            DTPAverbar.Location = new Point(69, 259);
+            DTPAverbar.Name = "DTPAverbar";
+            DTPAverbar.Size = new Size(151, 23);
+            DTPAverbar.TabIndex = 20;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(12, 263);
+            label9.Name = "label9";
+            label9.Size = new Size(51, 15);
+            label9.TabIndex = 21;
+            label9.Text = "Averbar:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(226, 263);
+            label10.Name = "label10";
+            label10.Size = new Size(67, 15);
+            label10.TabIndex = 23;
+            label10.Text = "Liberar B/L:";
+            // 
+            // DTPLiberarBL
+            // 
+            DTPLiberarBL.Format = DateTimePickerFormat.Short;
+            DTPLiberarBL.Location = new Point(299, 259);
+            DTPLiberarBL.Name = "DTPLiberarBL";
+            DTPLiberarBL.Size = new Size(157, 23);
+            DTPLiberarBL.TabIndex = 22;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(12, 292);
+            label11.Name = "label11";
+            label11.Size = new Size(95, 15);
+            label11.TabIndex = 25;
+            label11.Text = "M.M ou Isenção:";
+            // 
+            // DTPIsencaoMarinha
+            // 
+            DTPIsencaoMarinha.Format = DateTimePickerFormat.Short;
+            DTPIsencaoMarinha.Location = new Point(113, 288);
+            DTPIsencaoMarinha.Name = "DTPIsencaoMarinha";
+            DTPIsencaoMarinha.Size = new Size(107, 23);
+            DTPIsencaoMarinha.TabIndex = 24;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(226, 292);
+            label12.Name = "label12";
+            label12.Size = new Size(56, 15);
+            label12.TabIndex = 27;
+            label12.Text = "SISCarga:";
+            // 
+            // DTPSisCarga
+            // 
+            DTPSisCarga.Format = DateTimePickerFormat.Short;
+            DTPSisCarga.Location = new Point(288, 288);
+            DTPSisCarga.Name = "DTPSisCarga";
+            DTPSisCarga.Size = new Size(168, 23);
+            DTPSisCarga.TabIndex = 26;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(12, 381);
+            label15.Name = "label15";
+            label15.Size = new Size(112, 15);
+            label15.TabIndex = 31;
+            label15.Text = "Ent Para Transporte:";
+            // 
+            // DTPEntTransporte
+            // 
+            DTPEntTransporte.Format = DateTimePickerFormat.Short;
+            DTPEntTransporte.Location = new Point(130, 377);
+            DTPEntTransporte.Name = "DTPEntTransporte";
+            DTPEntTransporte.Size = new Size(107, 23);
+            DTPEntTransporte.TabIndex = 30;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(12, 321);
+            label16.Name = "label16";
+            label16.Size = new Size(38, 15);
+            label16.TabIndex = 29;
+            label16.Text = "ICMS:";
+            // 
+            // DTPICMS
+            // 
+            DTPICMS.Format = DateTimePickerFormat.Short;
+            DTPICMS.Location = new Point(56, 317);
+            DTPICMS.Name = "DTPICMS";
+            DTPICMS.Size = new Size(164, 23);
+            DTPICMS.TabIndex = 28;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(247, 380);
+            label17.Name = "label17";
+            label17.Size = new Size(66, 15);
+            label17.TabIndex = 36;
+            label17.Text = "Transporte:";
+            // 
+            // txtTransporte
+            // 
+            txtTransporte.Location = new Point(319, 377);
+            txtTransporte.Name = "txtTransporte";
+            txtTransporte.Size = new Size(137, 23);
+            txtTransporte.TabIndex = 37;
+            // 
+            // txtDOSSIE
+            // 
+            txtDOSSIE.Location = new Point(280, 346);
+            txtDOSSIE.Name = "txtDOSSIE";
+            txtDOSSIE.Size = new Size(176, 23);
+            txtDOSSIE.TabIndex = 41;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(226, 350);
+            label13.Name = "label13";
+            label13.Size = new Size(48, 15);
+            label13.TabIndex = 40;
+            label13.Text = "DOSSIÊ:";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(12, 350);
+            label14.Name = "label14";
+            label14.Size = new Size(84, 15);
+            label14.TabIndex = 39;
+            label14.Text = "Ent Alfândega:";
+            // 
+            // DTPEntAlfandega
+            // 
+            DTPEntAlfandega.Format = DateTimePickerFormat.Short;
+            DTPEntAlfandega.Location = new Point(102, 346);
+            DTPEntAlfandega.Name = "DTPEntAlfandega";
+            DTPEntAlfandega.Size = new Size(118, 23);
+            DTPEntAlfandega.TabIndex = 38;
+            // 
+            // Impostos
+            // 
+            Impostos.FormattingEnabled = true;
+            Impostos.Items.AddRange(new object[] { "I.I,", "I.P.I.", "PIS/PASEP", "COFINS", "ICMS" });
+            Impostos.Location = new Point(12, 211);
+            Impostos.MultiColumn = true;
+            Impostos.Name = "Impostos";
+            Impostos.Size = new Size(444, 40);
+            Impostos.TabIndex = 42;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(226, 321);
+            label19.Name = "label19";
+            label19.Size = new Size(106, 15);
+            label19.TabIndex = 44;
+            label19.Text = "Conferência Física:";
+            // 
+            // DTPConferenciaFisica
+            // 
+            DTPConferenciaFisica.Format = DateTimePickerFormat.Short;
+            DTPConferenciaFisica.Location = new Point(338, 317);
+            DTPConferenciaFisica.Name = "DTPConferenciaFisica";
+            DTPConferenciaFisica.Size = new Size(118, 23);
+            DTPConferenciaFisica.TabIndex = 43;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 9F, FontStyle.Underline);
+            label18.Location = new Point(462, 9);
+            label18.Name = "label18";
+            label18.Size = new Size(72, 15);
+            label18.TabIndex = 45;
+            label18.Text = "Observação:";
+            // 
+            // txtObservacao
+            // 
+            txtObservacao.Location = new Point(462, 27);
+            txtObservacao.Multiline = true;
+            txtObservacao.Name = "txtObservacao";
+            txtObservacao.Size = new Size(254, 345);
+            txtObservacao.TabIndex = 46;
+            // 
+            // cbNumerario
+            // 
+            cbNumerario.FormattingEnabled = true;
+            cbNumerario.Items.AddRange(new object[] { "Prestação Serviço", "Agência", "Tributos", "Completo", "Complementar" });
+            cbNumerario.Location = new Point(82, 93);
+            cbNumerario.Name = "cbNumerario";
+            cbNumerario.Size = new Size(374, 23);
+            cbNumerario.TabIndex = 47;
+            // 
+            // btnExportar
+            // 
+            btnExportar.Location = new Point(462, 378);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(254, 23);
+            btnExportar.TabIndex = 48;
+            btnExportar.Text = "Exportar";
+            btnExportar.UseVisualStyleBackColor = true;
+            btnExportar.Click += btnExportar_Click;
             // 
             // btnSalvar
             // 
-            btnSalvar.Anchor = AnchorStyles.Right;
-            btnSalvar.Location = new Point(122, 1175);
+            btnSalvar.Location = new Point(462, 407);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(100, 14);
-            btnSalvar.TabIndex = 46;
+            btnSalvar.Size = new Size(254, 23);
+            btnSalvar.TabIndex = 49;
             btnSalvar.Text = "Salvar";
-            btnSalvar.Click += BtnSalvar_Click;
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click_1;
             // 
             // btnCancelar
             // 
-            btnCancelar.Anchor = AnchorStyles.Left;
-            btnCancelar.Location = new Point(228, 1175);
+            btnCancelar.Location = new Point(462, 436);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(100, 14);
-            btnCancelar.TabIndex = 47;
+            btnCancelar.Size = new Size(254, 23);
+            btnCancelar.TabIndex = 50;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.Click += BtnCancelar_Click;
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click_1;
+            // 
+            // txtPagoPor
+            // 
+            txtPagoPor.Location = new Point(306, 122);
+            txtPagoPor.Name = "txtPagoPor";
+            txtPagoPor.Size = new Size(150, 23);
+            txtPagoPor.TabIndex = 52;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(246, 125);
+            label20.Name = "label20";
+            label20.Size = new Size(58, 15);
+            label20.TabIndex = 51;
+            label20.Text = "Pago Por:";
             // 
             // FrmModificaCapa
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(650, 900);
-            Controls.Add(tableLayoutPanel1);
+            ClientSize = new Size(728, 471);
+            Controls.Add(txtPagoPor);
+            Controls.Add(label20);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnExportar);
+            Controls.Add(cbNumerario);
+            Controls.Add(txtObservacao);
+            Controls.Add(label18);
+            Controls.Add(label19);
+            Controls.Add(DTPConferenciaFisica);
+            Controls.Add(Impostos);
+            Controls.Add(txtDOSSIE);
+            Controls.Add(label13);
+            Controls.Add(label14);
+            Controls.Add(DTPEntAlfandega);
+            Controls.Add(txtTransporte);
+            Controls.Add(label17);
+            Controls.Add(label15);
+            Controls.Add(DTPEntTransporte);
+            Controls.Add(label16);
+            Controls.Add(DTPICMS);
+            Controls.Add(label12);
+            Controls.Add(DTPSisCarga);
+            Controls.Add(label11);
+            Controls.Add(DTPIsencaoMarinha);
+            Controls.Add(label10);
+            Controls.Add(DTPLiberarBL);
+            Controls.Add(label9);
+            Controls.Add(DTPAverbar);
+            Controls.Add(ItensAdicionais);
+            Controls.Add(cbIncotern);
+            Controls.Add(DTPSigvig);
+            Controls.Add(cbSigvig);
+            Controls.Add(txtMarinha);
+            Controls.Add(label5);
+            Controls.Add(txtCE);
+            Controls.Add(label6);
+            Controls.Add(label7);
+            Controls.Add(txtDTA);
+            Controls.Add(label8);
+            Controls.Add(txtContainer);
+            Controls.Add(label4);
+            Controls.Add(TxtIncoterm);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(txtMaster);
+            Controls.Add(label1);
             Name = "FrmModificaCapa";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Modificar Capa";
             Load += FrmModificaCapa_Load;
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
-
-        #endregion
-
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label LBLMaster;
-        private System.Windows.Forms.TextBox TXTMaster;
-        private System.Windows.Forms.Label LBLContainer;
-        private System.Windows.Forms.TextBox TXTContainer;
-        private System.Windows.Forms.Label LBLSigvig;
-        private System.Windows.Forms.ComboBox CBOSigvig;
-        private System.Windows.Forms.Label LBLSigvigData;
-        private System.Windows.Forms.DateTimePicker DTPSigvigData;
-        private System.Windows.Forms.Label LBLIncoterm;
-        private System.Windows.Forms.TextBox TXTIncoterm;
-        private System.Windows.Forms.Label LBLNumerario;
-        private System.Windows.Forms.TextBox TXTNumerario;
-        private System.Windows.Forms.Label LBLDTA;
-        private System.Windows.Forms.TextBox TXTDTA;
-        private System.Windows.Forms.Label LBLMarinha;
-        private System.Windows.Forms.TextBox TXTMarinha;
-        private System.Windows.Forms.Label LBLCE;
-        private System.Windows.Forms.TextBox TXTCE;
-        private System.Windows.Forms.Label LBLImposto;
-        private System.Windows.Forms.CheckedListBox CLBImposto;
-        private System.Windows.Forms.Label LBLBools;
-        private System.Windows.Forms.CheckBox CBTelaDoCanal;
-        private System.Windows.Forms.CheckBox CBAverbar;
-        private System.Windows.Forms.CheckBox CBLiberarBL;
-        private System.Windows.Forms.CheckBox CBMarinhaMercante_Isencao;
-        private System.Windows.Forms.CheckBox CBICMS_Exoneracao;
-        private System.Windows.Forms.CheckBox CBLancado;
-        private System.Windows.Forms.CheckBox CBConsultaSEFAZ;
-        private System.Windows.Forms.CheckBox CBDAT_IIDeferida;
-        private System.Windows.Forms.CheckBox CBSISCargaLiberado;
-        private System.Windows.Forms.CheckBox CBDANFE;
-        private System.Windows.Forms.CheckBox CBArmazenagem;
-        private System.Windows.Forms.CheckBox CBFaturado;
-        private System.Windows.Forms.CheckBox CBPago;
-        private System.Windows.Forms.CheckBox CBENTTransporte;
-        private System.Windows.Forms.CheckBox CBENTAlfandega;
-        private System.Windows.Forms.CheckBox CBConferenciaFisica;
-        private System.Windows.Forms.Label LBLAverbarData;
-        private System.Windows.Forms.DateTimePicker DTPAverbarData;
-        private System.Windows.Forms.Label LBLLiberarBLData;
-        private System.Windows.Forms.DateTimePicker DTPLiberarBLData;
-        private System.Windows.Forms.Label LBLMarinhaMercante_IsencaoData;
-        private System.Windows.Forms.DateTimePicker DTPMarinhaMercante_IsencaoData;
-        private System.Windows.Forms.Label LBLICMS_ExoneracaoData;
-        private System.Windows.Forms.DateTimePicker DTPICMS_ExoneracaoData;
-        private System.Windows.Forms.Label LBLSISCargaLiberadoData;
-        private System.Windows.Forms.DateTimePicker DTPSISCargaLiberadoData;
-        private System.Windows.Forms.Label LBLPagoPor;
-        private System.Windows.Forms.TextBox TXTPagoPor;
-        private System.Windows.Forms.Label LBLENTTransporteData;
-        private System.Windows.Forms.DateTimePicker DTPENTTransporteData;
-        private System.Windows.Forms.Label LBLENTTransporteN;
-        private System.Windows.Forms.TextBox TXTENTTransporteN;
-        private System.Windows.Forms.Label LBLENTAlfandegaData;
-        private System.Windows.Forms.DateTimePicker DTPENTAlfandegaData;
-        private System.Windows.Forms.Label LBLENTAlfandegaDossie;
-        private System.Windows.Forms.TextBox TXTENTAlfandegaDossie;
-        private System.Windows.Forms.Label LBLConferenciaFisicaData;
-        private System.Windows.Forms.DateTimePicker DTPConferenciaFisicaData;
-        private System.Windows.Forms.Label LBLObservacoes;
-        private System.Windows.Forms.TextBox TXTObservacoes;
-        private System.Windows.Forms.Button btnSalvar;
-        private System.Windows.Forms.Button btnCancelar;
-        private FlowLayoutPanel panelBools;
+        private Label label1;
+        private TextBox txtMaster;
+        private Label label2;
+        private TextBox TxtIncoterm;
+        private Label label3;
+        private TextBox txtContainer;
+        private Label label4;
+        private TextBox txtMarinha;
+        private Label label5;
+        private TextBox txtCE;
+        private Label label6;
+        private Label label7;
+        private TextBox txtDTA;
+        private Label label8;
+        private ComboBox cbSigvig;
+        private DateTimePicker DTPSigvig;
+        private CheckBox cbIncotern;
+        private CheckedListBox ItensAdicionais;
+        private DateTimePicker DTPAverbar;
+        private Label label9;
+        private Label label10;
+        private DateTimePicker DTPLiberarBL;
+        private Label label11;
+        private DateTimePicker DTPIsencaoMarinha;
+        private Label label12;
+        private DateTimePicker DTPSisCarga;
+        private Label label15;
+        private DateTimePicker DTPEntTransporte;
+        private Label label16;
+        private DateTimePicker DTPICMS;
+        private Label label17;
+        private TextBox txtTransporte;
+        private TextBox txtDOSSIE;
+        private Label label13;
+        private Label label14;
+        private DateTimePicker DTPEntAlfandega;
+        private CheckedListBox Impostos;
+        private Label label19;
+        private DateTimePicker DTPConferenciaFisica;
+        private Label label18;
+        private TextBox txtObservacao;
+        private ComboBox cbNumerario;
+        private Button btnExportar;
+        private Button btnSalvar;
+        private Button btnCancelar;
+        private TextBox txtPagoPor;
+        private Label label20;
     }
 }

@@ -26,6 +26,8 @@ namespace Trabalho
 
             if (Modo == "Adicionar")
             {
+                btnCapa.Enabled = false;
+                btnRelatorio.Enabled = false;
                 DTPdataderegistrodi.Value = System.DateTime.Today;
                 DTPdatadedesembaracodi.Value = System.DateTime.Today;
                 DTPdatadecarregamentodi.Value = System.DateTime.Today;
@@ -34,6 +36,11 @@ namespace Trabalho
                 DTPdatadeembarque.Value = System.DateTime.Today;
                 DTPDataRecOriginais.Value = System.DateTime.Today;
             }
+            else if (Modo == "Visualizar")
+            {
+                Visualização = true;
+            }
+            btnRelatorio.MouseClick += btnRelatorio_MouseClick;
 
             CarregarLis(processo);
             PopularMarca();
@@ -303,9 +310,9 @@ namespace Trabalho
         }
         public void CarregarLis(Processo processo)
         {
-            if (processo?.Li != null)
+            if (processo?.LI != null)
             {
-                listaLis = processo.Li.ToList();
+                listaLis = processo.LI.ToList();
                 AtualizarPainelLi();
             }
         }
@@ -373,7 +380,7 @@ namespace Trabalho
             }
             processo.Conhecimento = txtConhecimento.Text;
             processo.Armador = txtArmador.Text;
-            processo.Li = listaLis;
+            processo.LI = listaLis;
 
             processo.DI = TXTdi.Text;
             processo.ParametrizacaoDI = CBparametrizacaodi.Text;
@@ -602,9 +609,44 @@ namespace Trabalho
             });
         }
 
+        private void btnRelatorio_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // Caminho da pasta do relatório
+                string pasta = @"C:\UsaDespachos\Docs\Relatorio"; // Substitua pelo caminho real
+
+                if (!string.IsNullOrEmpty(pasta) && System.IO.Directory.Exists(pasta))
+                {
+                    Process.Start("explorer.exe", pasta);
+                }
+                else
+                {
+                    MessageBox.Show("Pasta do relatório não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void btnCapa_Click(object sender, EventArgs e)
         {
+            var frm = new FrmModificaCapa();
+            if (processo.Capa != null && processo.Capa.Count > 0)
+                frm.capa = processo.Capa[0];
+            frm.Modo = this.Modo;
+            frm.ref_usa = processo.Ref_USA;
+            frm.Visualizacao = (this.Modo == "Visualizar");
 
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
+                if (processo.Capa == null)
+                    processo.Capa = new List<Capa>();
+
+                if (processo.Capa.Count > 0)
+                    processo.Capa[0] = frm.capa;
+                else
+                    processo.Capa.Add(frm.capa);
+            }
         }
+
     }
 }

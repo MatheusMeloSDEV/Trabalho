@@ -27,6 +27,12 @@ namespace CLUSA
             return _colecao.Find(filter).FirstOrDefault();
         }
 
+        public async Task<T?> ObterPorIdAsync(string id)
+        {
+            var filtro = Builders<T>.Filter.Eq("Ref_USA", id);
+            return await _colecao.Find(filtro).FirstOrDefaultAsync();
+        }
+
         // Assíncronos
         public async Task<List<T>> ListarTodosAsync()
         {
@@ -87,16 +93,17 @@ namespace CLUSA
 
             foreach (var nomeColecao in colecoes)
             {
-                var colecao = database.GetCollection<dynamic>(nomeColecao);
-                var filter = Builders<dynamic>.Filter.Eq("Ref_USA", refUsa);
+                // Use o mesmo tipo T para todas as coleções relacionadas
+                var colecao = database.GetCollection<T>(nomeColecao);
+                var filter = Builders<T>.Filter.Eq("Ref_USA", refUsa);
 
-                var updates = new List<UpdateDefinition<dynamic>>();
+                var updates = new List<UpdateDefinition<T>>();
                 var tipo = entidade.GetType();
 
                 var propriedades = new[]
                 {
                     "Ref_USA", "Importador", "SR", "Exportador", "Veiculo", "Produto", "Origem",
-                    "Li", "CheckInspecaoMapa", "DataDeAtracacao", "CheckDataDeAtracacao", "DataEmbarque",
+                    "LI", "CheckInspecaoMapa", "DataDeAtracacao", "CheckDataDeAtracacao", "DataEmbarque",
                     "CheckDataEmbarque", "Amostra", "Pendencia", "StatusDoProcesso"
                 };
 
@@ -106,13 +113,13 @@ namespace CLUSA
                     if (info != null)
                     {
                         var valorNovo = info.GetValue(entidade);
-                        updates.Add(Builders<dynamic>.Update.Set(prop, valorNovo));
+                        updates.Add(Builders<T>.Update.Set(prop, valorNovo));
                     }
                 }
 
                 if (updates.Count > 0)
                 {
-                    var updateDef = Builders<dynamic>.Update.Combine(updates);
+                    var updateDef = Builders<T>.Update.Combine(updates);
                     await colecao.UpdateOneAsync(filter, updateDef);
                 }
             }

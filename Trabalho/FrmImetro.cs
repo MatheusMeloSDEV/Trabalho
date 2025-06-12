@@ -5,13 +5,14 @@ namespace Trabalho
 {
     public partial class FrmImetro : Form
     {
-        private readonly RepositorioOrgaoAnuente<Inmetro> _repositorio;
+        // Use o tipo correto: INMETRO (conforme CLUSA\TiposOrgaoAnuente.cs)
+        private readonly RepositorioOrgaoAnuente<INMETRO> _repositorio;
 
         public FrmImetro()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioOrgaoAnuente<Inmetro>("Inmetro");
+            _repositorio = new RepositorioOrgaoAnuente<INMETRO>("INMETRO");
         }
 
         private void FrmImetro_Load(object sender, EventArgs e)
@@ -74,7 +75,6 @@ namespace Trabalho
                 Console.WriteLine(r);
             }
 
-            // Crie um array de tuplas (string caminhoRecurso, Button botao)
             var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
             {
                 ("Trabalho.Imagens.botao-editar.png", BtnEditar),
@@ -95,10 +95,7 @@ namespace Trabalho
         }
         private void ConfigurarColunasDataGridView()
         {
-            // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
-
-            // Configuração básica
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -107,9 +104,6 @@ namespace Trabalho
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            // ——————————————————————
-            // 1) Colunas principais (texto)
-            // ——————————————————————
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
@@ -236,10 +230,10 @@ namespace Trabalho
                         .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
                         .Where(v => !string.IsNullOrEmpty(v))
                         .Distinct()
-                        .ToList();
+                        .ToArray();
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
-                    autoCompleteCollection.AddRange(valores.ToArray());
+                    autoCompleteCollection.AddRange(valores!);
                     TxtPesquisar.AutoCompleteCustomSource = autoCompleteCollection;
                     TxtPesquisar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     TxtPesquisar.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -298,20 +292,19 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsImetro.Current is not Inmetro inmetroAtual)
+            if (BsImetro.Current is not INMETRO inmetroAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaInmetro(inmetroAtual) { Visualização = false, Modo = "Editar" };
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
+            using var frm = new FrmModifica<INMETRO>("INMETRO", inmetroAtual);
+            // Se quiser modo visualização, adicione uma propriedade Visualizacao no FrmModifica e passe aqui
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    await _repositorio.AtualizarAsync(inmetroAtual.Ref_USA, frm._inmetro);
+                    await _repositorio.AtualizarAsync(inmetroAtual.Ref_USA, frm.Entidade);
                     BsImetro.DataSource = await _repositorio.ListarTodosAsync();
                     BsImetro.ResetBindings(false);
                 }
@@ -324,13 +317,14 @@ namespace Trabalho
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (BsImetro.Current is not Inmetro inmetroSelecionado)
+            if (BsImetro.Current is not INMETRO inmetroSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var frm = new FrmModificaInmetro(inmetroSelecionado) { Visualização = true, Modo = "Visualizar" };
+            using var frm = new FrmModifica<INMETRO>("INMETRO", inmetroSelecionado);
+            // Se quiser modo visualização, adicione uma propriedade Visualizacao no FrmModifica e passe aqui
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

@@ -5,13 +5,14 @@ namespace Trabalho
 {
     public partial class FrmDecex : Form
     {
-        private readonly RepositorioOrgaoAnuente<Decex> _repositorio;
+        // Use o tipo correto: DECEX (conforme CLUSA\TiposOrgaoAnuente.cs)
+        private readonly RepositorioOrgaoAnuente<DECEX> _repositorio;
 
         public FrmDecex()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioOrgaoAnuente<Decex>("Decex");
+            _repositorio = new RepositorioOrgaoAnuente<DECEX>("DECEX");
         }
         private void FrmDecex_Load(object sender, EventArgs e)
         {
@@ -71,7 +72,6 @@ namespace Trabalho
                 Console.WriteLine(r);
             }
 
-            // Crie um array de tuplas (string caminhoRecurso, Button botao)
             var recursos = new (string CaminhoRecurso, ToolStripButton Botao)[]
             {
                 ("Trabalho.Imagens.botao-editar.png", BtnEditar),
@@ -92,10 +92,7 @@ namespace Trabalho
         }
         private void ConfigurarColunasDataGridView()
         {
-            // Limpa colunas anteriores
             dataGridView1.Columns.Clear();
-
-            // Configuração básica
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -104,9 +101,6 @@ namespace Trabalho
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            // ——————————————————————
-            // 1) Colunas principais (texto)
-            // ——————————————————————
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
@@ -230,10 +224,10 @@ namespace Trabalho
                         .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
                         .Where(v => !string.IsNullOrEmpty(v))
                         .Distinct()
-                        .ToList();
+                        .ToArray(); // Corrigido para garantir string[]
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
-                    autoCompleteCollection.AddRange(valores.ToArray());
+                    autoCompleteCollection.AddRange(valores!);
                     TxtPesquisar.AutoCompleteCustomSource = autoCompleteCollection;
                     TxtPesquisar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     TxtPesquisar.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -287,20 +281,18 @@ namespace Trabalho
         }
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsDecex.Current is not Decex decexAtual)
+            if (BsDecex.Current is not DECEX decexAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaDecex { decex = decexAtual, Visualização = false, Modo = "Editar" };
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
+            using var frm = new FrmModifica<DECEX>("DECEX", decexAtual);
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    await _repositorio.AtualizarAsync(decexAtual.Ref_USA, frm.decex);
+                    await _repositorio.AtualizarAsync(decexAtual.Ref_USA, frm.Entidade);
                     BsDecex.DataSource = await _repositorio.ListarTodosAsync();
                     BsDecex.ResetBindings(false);
                 }
@@ -312,13 +304,13 @@ namespace Trabalho
         }
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (BsDecex.Current is not Decex decexSelecionado)
+            if (BsDecex.Current is not DECEX decexSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var frm = new FrmModificaDecex { decex = decexSelecionado, Visualização = true, Modo = "Visualizar" };
+            using var frm = new FrmModifica<DECEX>("DECEX", decexSelecionado);
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

@@ -6,13 +6,14 @@ namespace Trabalho
 {
     public partial class FrmAnvisa : Form
     {
-        private readonly RepositorioOrgaoAnuente<Anvisa> _repositorio;
+        // Use o tipo correto: ANVISA (conforme CLUSA\TiposOrgaoAnuente.cs)
+        private readonly RepositorioOrgaoAnuente<ANVISA> _repositorio;
 
         public FrmAnvisa()
         {
             InitializeComponent();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _repositorio = new RepositorioOrgaoAnuente<Anvisa>("Anvisa");
+            _repositorio = new RepositorioOrgaoAnuente<ANVISA>("ANVISA");
         }
 
         private void FrmAnvisa_Load(object sender, EventArgs e)
@@ -233,10 +234,10 @@ namespace Trabalho
                         .Select(r => r.GetType().GetProperty(campoSelecionado)?.GetValue(r, null)?.ToString())
                         .Where(v => !string.IsNullOrEmpty(v))
                         .Distinct()
-                        .ToList();
+                        .ToArray(); // Corrigido para garantir string[]
 
                     var autoCompleteCollection = new AutoCompleteStringCollection();
-                    autoCompleteCollection.AddRange(valores.ToArray());
+                    autoCompleteCollection.AddRange(valores!);
                     TxtPesquisar.AutoCompleteCustomSource = autoCompleteCollection;
                     TxtPesquisar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     TxtPesquisar.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -294,20 +295,18 @@ namespace Trabalho
 
         private async void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (BsAnvisa.Current is not Anvisa anvisaAtual)
+            if (BsAnvisa.Current is not ANVISA anvisaAtual)
             {
                 MessageBox.Show("Nenhum registro selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var frm = new FrmModificaAnvisa { anvisa = anvisaAtual, Visualização = false, Modo = "Editar" };
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
+            using var frm = new FrmModifica<ANVISA>("ANVISA", anvisaAtual);
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    await _repositorio.AtualizarAsync(anvisaAtual.Ref_USA, frm.anvisa);
+                    await _repositorio.AtualizarAsync(anvisaAtual.Ref_USA, frm.Entidade);
                     BsAnvisa.DataSource = await _repositorio.ListarTodosAsync();
                     BsAnvisa.ResetBindings(false);
                 }
@@ -320,13 +319,13 @@ namespace Trabalho
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (BsAnvisa.Current is not Anvisa anvisaSelecionado)
+            if (BsAnvisa.Current is not ANVISA anvisaSelecionado)
             {
                 MessageBox.Show("Nenhum processo selecionado para edição.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var frm = new FrmModificaAnvisa { anvisa = anvisaSelecionado, Visualização = true, Modo = "Visualizar" };
+            using var frm = new FrmModifica<ANVISA>("ANVISA", anvisaSelecionado);
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)

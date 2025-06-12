@@ -9,6 +9,7 @@
     <StartupObject>Trabalho.Program</StartupObject>
     <PackageIcon>logo-removebg-preview (1).png</PackageIcon>
     <ApplicationIcon>logo-removebg-preview (1).ico</ApplicationIcon>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

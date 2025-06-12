@@ -122,14 +122,13 @@ namespace Trabalho
         }
         private void DateTimePicker_OnValueChanged(object? sender, EventArgs e)
         {
-            // 1) Garante que sender é um DateTimePicker não-nulo
             if (sender is not DateTimePicker picker)
                 return;
 
-            // 2) Extrai o sufixo do nome para construir o nome da propriedade
-            var campo = picker.Name!.Substring(3);  // confia que Name não é null
+            // Extrai o sufixo do nome para construir o nome da propriedade
+            var campo = picker.Name!.Substring(3);
 
-            // 3) Ajusta o formato de acordo com o Checked
+            // Ajusta o formato de acordo com o Checked
             if (picker.Checked)
             {
                 picker.Format = DateTimePickerFormat.Short;
@@ -140,24 +139,25 @@ namespace Trabalho
                 picker.CustomFormat = "' -'";
             }
 
-            // 4) Prepara o valor nullable
-            DateTime? valor = picker.Checked
-                ? picker.Value
-                : (DateTime?)null;
+            DateTime? valor = picker.Checked ? picker.Value : (DateTime?)null;
 
-            // 5) Atualiza a propriedade DateTime? (DataX) no seu objeto _anvisa
-            var nomePropData = char.ToUpper(campo[0]) + campo.Substring(1);
-            var propData = typeof(Decex).GetProperty(nomePropData);
-            if (propData?.PropertyType == typeof(DateTime?))
+            // Atualiza a propriedade DateTime? (DataX) no objeto LiInfo
+            var nomePropData = campo switch
             {
-                propData.SetValue(Li, valor);
-            }
+                "dataderegistrolilpco" => "DataRegistroLPCO",
+                "datadedeferimentolilpco" => "DataDeferimentoLPCO",
+                "DataRegistroLI" => "DataRegistroLI",
+                _ => null
+            };
+            if (nomePropData != null)
+            {
+                var propData = typeof(LiInfo).GetProperty(nomePropData);
+                if (propData?.PropertyType == typeof(DateTime?))
+                    propData.SetValue(Li, valor);
 
-            // 6) Atualiza o flag CheckDataX (bool)
-            var propCheck = typeof(Decex).GetProperty("Check" + nomePropData);
-            if (propCheck?.PropertyType == typeof(bool))
-            {
-                propCheck.SetValue(Li, picker.Checked);
+                var propCheck = typeof(LiInfo).GetProperty("Check" + nomePropData);
+                if (propCheck?.PropertyType == typeof(bool))
+                    propCheck.SetValue(Li, picker.Checked);
             }
         }
         private void CarregarDateTimePickers(LiInfo li)

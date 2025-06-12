@@ -1,51 +1,72 @@
 ﻿using CLUSA;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Trabalho
 {
-    public partial class FrmModifica : Form
+    public class FrmModifica<T> : Form where T : OrgaoAnuente, new()
     {
-        public FrmModifica()
+        private readonly RepositorioOrgaoAnuente<T> _repositorio;
+        private readonly string _nomeColecao;
+        public T Entidade { get; set; }
+        private UCOrgaoAnuente uc; // nosso UserControl
+
+        public FrmModifica(string nomeColecao, T? entidade = null)
         {
-            InitializeComponent();  
-            var repositorio = new RepositorioOrgaoAnuente<TiposOrgaoAnuente>("MAPA");
+            _nomeColecao = nomeColecao;
+            _repositorio = new RepositorioOrgaoAnuente<T>(_nomeColecao);
+            Entidade = entidade ?? new T();
+
+            uc = new UCOrgaoAnuente
+            {
+                Dock = DockStyle.Fill,
+                Visualizacao = false
+            };
+            this.Controls.Clear();
+            this.Controls.Add(uc);
+
+            this.Width = 960;   // ajuste conforme necessário
+            this.Height = 630;   // ajuste conforme necessário
+
+            // Associa o evento Load ao método de carregamento
+            this.Load += FrmModifica_Load;
+
+            uc.OnConfirmar += Uc_OnConfirmar;
+            uc.OnCancelar += Uc_OnCancelar;
         }
 
-        private void FrmModifica_Load(object sender, EventArgs e)
+        private async void FrmModifica_Load(object sender, EventArgs e)
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            // Crie uma instância do repositório para a entidade desejada (exemplo: MAPA)
-            var repositorio = new RepositorioOrgaoAnuente<TiposOrgaoAnuente>("MAPA");
-            var lista = repositorio.ListarTodos();
-            BsModifica.DataSource = lista;
+            // Carrega dados no UserControl
+            var entidadeDoRepo = await _repositorio.ObterPorIdAsync(Entidade.Ref_USA);
+            if (entidadeDoRepo != null)
+                Entidade = entidadeDoRepo;
 
+            uc.CarregarCamposBase(Entidade);
+            uc.CarregarLisBase(Entidade);
         }
 
-        private void BtnCancelar_Click(object sender, EventArgs e)
+        // Quando o usuário clicar em “Salvar” no UserControl:
+        private async void Uc_OnConfirmar(object sender, EventArgs e)
         {
+            // Extrai valores do UserControl para a entidade
+            uc.ExtrairParaEntidade(Entidade);
+
+            // Salva no repositório
+            await _repositorio.AtualizarAsync(Entidade.Ref_USA, Entidade);
+
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void BtnEditar_Click(object sender, EventArgs e)
+        // Quando o usuário clicar em “Cancelar” no UserControl:
+        private void Uc_OnCancelar(object sender, EventArgs e)
         {
-            // Implemente aqui a lógica de salvar/editar os dados do formulário
-            // Exemplo: validar campos, atualizar entidade, definir DialogResult
-            DialogResult = DialogResult.OK;
-        }
-
-        private void TErro_Tick(object sender, EventArgs e)
-        {
-            // Lógica para exibir ou ocultar mensagens de erro temporárias, se necessário
-            // Exemplo: LblErro.Visible = false;
+            this.Close();
         }
     }
 }

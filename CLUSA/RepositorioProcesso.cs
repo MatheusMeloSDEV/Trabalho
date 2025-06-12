@@ -2,33 +2,34 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CLUSA
 {
     public class RepositorioProcesso
     {
         private readonly IMongoCollection<Processo> _Processo;
-        private readonly IMongoCollection<Anvisa> _Anvisa;
-        private readonly IMongoCollection<Decex> _Decex;
-        private readonly IMongoCollection<Ibama> _Ibama;
-        private readonly IMongoCollection<Inmetro> _Inmetro;
-        private readonly IMongoCollection<TiposOrgaoAnuente> _MAPA;
+        private readonly IMongoCollection<ANVISA> _Anvisa;
+        private readonly IMongoCollection<DECEX> _Decex;
+        private readonly IMongoCollection<IBAMA> _Ibama;
+        private readonly IMongoCollection<INMETRO> _Inmetro;
+        private readonly IMongoCollection<MAPA> _MAPA;
         private readonly IMongoCollection<Fatura> _Fatura;
         private readonly IMongoCollection<Recibo> _Recibo;
 
         private readonly RepositorioNotificacao _repositorioNotificacao;
-
 
         public RepositorioProcesso()
         {
             var mongoClient = new MongoClient("mongodb+srv://dev:dev@cluster0.cn10nzt.mongodb.net/");
             var mongoDatabase = mongoClient.GetDatabase("Trabalho");
             _Processo = mongoDatabase.GetCollection<Processo>("PROCESSO");
-            _Anvisa = mongoDatabase.GetCollection<Anvisa>("ANVISA");
-            _Decex = mongoDatabase.GetCollection<Decex>("DECEX");
-            _Ibama = mongoDatabase.GetCollection<Ibama>("IBAMA");
-            _Inmetro = mongoDatabase.GetCollection<Inmetro>("INMETRO");
-            _MAPA = mongoDatabase.GetCollection<TiposOrgaoAnuente>("MAPA");
+            _Anvisa = mongoDatabase.GetCollection<ANVISA>("ANVISA");
+            _Decex = mongoDatabase.GetCollection<DECEX>("DECEX");
+            _Ibama = mongoDatabase.GetCollection<IBAMA>("IBAMA");
+            _Inmetro = mongoDatabase.GetCollection<INMETRO>("INMETRO");
+            _MAPA = mongoDatabase.GetCollection<MAPA>("MAPA");
             _Fatura = mongoDatabase.GetCollection<Fatura>("Fatura");
             _Recibo = mongoDatabase.GetCollection<Recibo>("Recibo");
             _repositorioNotificacao = new(mongoDatabase);
@@ -53,19 +54,19 @@ namespace CLUSA
                 switch (colecao)
                 {
                     case "MAPA":
-                        _MAPA.InsertOne(new TiposOrgaoAnuente(processo));
+                        _MAPA.InsertOne(new MAPA()); // Adapte o construtor se necessário
                         break;
                     case "Anvisa":
-                        _Anvisa.InsertOne(new Anvisa(processo));
+                        _Anvisa.InsertOne(new ANVISA());
                         break;
                     case "Decex":
-                        _Decex.InsertOne(new Decex(processo));
+                        _Decex.InsertOne(new DECEX());
                         break;
                     case "IBAMA":
-                        _Ibama.InsertOne(new Ibama(processo));
+                        _Ibama.InsertOne(new IBAMA());
                         break;
                     case "IMETRO":
-                        _Inmetro.InsertOne(new Inmetro(processo));
+                        _Inmetro.InsertOne(new INMETRO());
                         break;
                     default:
                         _Processo.InsertOne(processo);
@@ -82,11 +83,9 @@ namespace CLUSA
         {
             await Task.Run(() =>
             {
-                // Excluir o processo principal
                 var filterP = Builders<Processo>.Filter.Eq(p => p.Id, processo.Id);
                 _Processo.DeleteOne(filterP);
 
-                // Excluir documentos relacionados nas coleções específicas
                 ExcluirRelacionado(_MAPA, processo.Ref_USA);
                 ExcluirRelacionado(_Anvisa, processo.Ref_USA);
                 ExcluirRelacionado(_Decex, processo.Ref_USA);
@@ -114,24 +113,22 @@ namespace CLUSA
 
         private async Task GerenciarRelacoes(Processo processo)
         {
-            // MAPA
             if (!processo.TMapa) await RemoverRelacionado(_MAPA, processo.Ref_USA);
-            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new TiposOrgaoAnuente(processo));
-            // Anvisa
+            else await AtualizarRelacionado(_MAPA, processo.Ref_USA, new MAPA());
+
             if (!processo.TAnvisa) await RemoverRelacionado(_Anvisa, processo.Ref_USA);
-            else await AtualizarRelacionado(_Anvisa, processo.Ref_USA, new Anvisa(processo));
-            // Decex
+            else await AtualizarRelacionado(_Anvisa, processo.Ref_USA, new ANVISA());
+
             if (!processo.TDecex) await RemoverRelacionado(_Decex, processo.Ref_USA);
-            else await AtualizarRelacionado(_Decex, processo.Ref_USA, new Decex(processo));
-            // Ibama
+            else await AtualizarRelacionado(_Decex, processo.Ref_USA, new DECEX());
+
             if (!processo.TIbama) await RemoverRelacionado(_Ibama, processo.Ref_USA);
-            else await AtualizarRelacionado(_Ibama, processo.Ref_USA, new Ibama(processo));
-            // Imetro
+            else await AtualizarRelacionado(_Ibama, processo.Ref_USA, new IBAMA());
+
             if (!processo.TImetro) await RemoverRelacionado(_Inmetro, processo.Ref_USA);
-            else await AtualizarRelacionado(_Inmetro, processo.Ref_USA, new Inmetro(processo));
+            else await AtualizarRelacionado(_Inmetro, processo.Ref_USA, new INMETRO());
         }
 
-        // Helpers genéricos
         private static void ExcluirRelacionado<T>(IMongoCollection<T> colecao, string refUsa) where T : class
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
@@ -155,12 +152,9 @@ namespace CLUSA
             where T : class, new()
         {
             var filtro = Builders<T>.Filter.Eq("Ref_USA", refUsa);
-
-            // 1) Busca o existente (para pegar o Id)
             var existente = await colecao.Find(filtro).FirstOrDefaultAsync();
             if (existente != null)
             {
-                // 2) Descobre qual prop. tem [BsonId] (ou se chama "Id")
                 var idProp = typeof(T)
                     .GetProperties()
                     .FirstOrDefault(p =>
@@ -170,36 +164,25 @@ namespace CLUSA
 
                 if (idProp != null)
                 {
-                    // copia o valor do Id do existente para o documento novo
                     var existingId = idProp.GetValue(existente);
                     idProp.SetValue(documento, existingId);
                 }
 
-                // 3) Agora o ReplaceOne não vai tentar trocar o id
                 await colecao.ReplaceOneAsync(filtro, documento);
             }
             else
             {
-                // Se não existe, insere normalmente (o driver vai gerar um novo Id)
                 await colecao.InsertOneAsync(documento);
             }
         }
 
         private static UpdateDefinition<T> CriarAtualizacaoSemId<T>(T documento)
         {
-            // 1) Converte o objeto em BsonDocument
             var bson = documento.ToBsonDocument();
-
-            // 2) Remove o _id imutável
             bson.Remove("_id");
-
-            // 3) Remove Id (se você tiver propriedade C# “Id” mapeada para _id)
             bson.Remove("Id");
-
-            // 4) Remove Inspecao (não deve ser atualizado)
             bson.Remove("Inspecao");
 
-            // 5) Monte o $set com tudo que sobrou (ignorando valores nulos)
             var setDoc = new BsonDocument();
             foreach (var elem in bson)
             {
@@ -207,7 +190,6 @@ namespace CLUSA
                     setDoc.Add(elem.Name, elem.Value);
             }
 
-            // 6) Retorna o UpdateDefinition com um único $set
             return new BsonDocumentUpdateDefinition<T>(
                 new BsonDocument("$set", setDoc)
             );
@@ -249,9 +231,7 @@ namespace CLUSA
         {
             try
             {
-                // Busca todos os documentos da coleção 'Processo' de forma assíncrona
                 var processos = await _Processo.Find(FilterDefinition<Processo>.Empty).ToListAsync();
-
                 Console.WriteLine($"Total de processos encontrados: {processos.Count}");
                 return processos;
             }
@@ -285,5 +265,4 @@ namespace CLUSA
             }
         }
     }
-
 }

@@ -198,7 +198,7 @@ namespace CLUSA
                 return $"Exceção ao executar o script: {ex.Message}";
             }
         }
-        public static string ExecutarCapa(string importador, string referencia)
+        public static string ExecutarCapa(string referencia)
         {
             try
             {

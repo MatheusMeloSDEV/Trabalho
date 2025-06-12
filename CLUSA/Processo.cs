@@ -36,7 +36,8 @@ namespace CLUSA
         public string Armador { get; set; } = string.Empty;
 
         //public string LI_LPCO { get; set; } = string.Empty;
-        public List<LiInfo> Li { get; set; } = new List<LiInfo>();
+        public List<LiInfo> LI { get; set; } = new List<LiInfo>();
+        public List<Capa> Capa { get; set; } = new List<Capa>();
 
         public string DI { get; set; } = string.Empty;
         public DateTime? DataRegistroDI { get; set; } = (DateTime?)null;
